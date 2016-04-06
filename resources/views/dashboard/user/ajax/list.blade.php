@@ -86,6 +86,8 @@
                         <td>
                             <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">Edit</a-->
                             @if($value->id != \Session::get('session_id'))
+                             <div class="btn-group-vertical">
+
                                 <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" title="{{ $alts["possess"] }}"
                                    onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
 
@@ -96,6 +98,7 @@
 
                                 <a class="btn btn-secondary-outline btn-sm" id="delete{{$value->id}}" title="{{ $alts["delete"] }}"
                                    onclick="deleteuser('{{$value->id}}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
+                            </div>
                             @endif
                         </td>
 

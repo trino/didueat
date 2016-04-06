@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
 
-<meta name="_token" content="<?php echo e(csrf_token()); ?>"/>
+<meta name="_token" class="csrftoken" content="<?php echo e(csrf_token()); ?>"/>
 <script type="text/javascript">
     window.showEntries = 10;
     window.page = 1;

@@ -2,7 +2,7 @@
 
 
 <?php if(\Session::has('message')): ?>
-<?php echo message_show("Message!", \Session::get('message')); ?>
+    <?php echo message_show("Message!", \Session::get('message')); ?>
 
 <?php endif; ?>
 
@@ -10,14 +10,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="editModelLabel">Newsletter</h4>
             </div>
             <?php echo Form::open(array('url' => 'subscribers/send', 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')); ?>
 
-            <div id="ajaxloader"></div>
+            <!--<div id="ajaxloader"></div>-->
             <div class="modal-body" id="contents">
                 <?= newrow(false, "Subject:"); ?>
                     <INPUT TYPE="TEXT" NAME="subject" CLASS="form-control" REQUIRED>
@@ -28,7 +28,7 @@
                 </DIV></DIV>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" TITLE="Close">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" TITLE="Close" TITLE="Close">Close</button>
                 <button type="submit" class="btn btn-primary">Send</button>
             </div>
             <?php echo Form::close(); ?>
@@ -43,13 +43,12 @@
         <div class="row">
             <div class="col-lg-9">
                 <h4 class="card-title">Subscribers
-                    <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">
+                    <!--button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">
                         Send Message
-                    </button>
+                    </button-->
                 </h4>
-
             </div>
-                <?php echo $__env->make('common.table_controls', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            <?php echo $__env->make('common.table_controls', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
     </div>
 
@@ -91,7 +90,7 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td><span class="text-muted">No Records</span></td>
+                        <td colspan="2"><span class="text-muted">No Records</span></td>
                     </tr>
                 <?php endif; ?>
             </tbody>

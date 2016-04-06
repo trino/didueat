@@ -3,11 +3,11 @@ $('.add_item').live('click', function () {
     var id = $(this).attr('id').replace('add_item', '');
     if (id == 0) {
         $('.addnew').show();
-        $('.addnew').load(base_url + 'restaurant/menu_form/0', function () {
+        $('.addnew').load(base_url + 'restaurant/menu_form/0/'+$('.rest_id').val(), function () {
             ajaxuploadbtn('newbrowse0_1');
         });
     } else {
-        $('#parent' + id).load(base_url + 'restaurant/menu_form/' + id, function () {
+        $('#parent' + id).load(base_url + 'restaurant/menu_form/' + id+'/'+$('.rest_id').val(), function () {
             ajaxuploadbtn('newbrowse' + id + '_1');
         });
     }

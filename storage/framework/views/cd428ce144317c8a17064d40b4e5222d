@@ -58,7 +58,16 @@
                 $close = $Restaurant[$Day . "_close" . $key];
                 if($open && $close && $open != $close){
                     $Date =  strtotime ($open, time() + ($day * 86400));
-                    $MoreTime = "Opens in " . timediff($Date);
+                    //$MoreTime = "Opens in " . timediff($Date);
+                    $MoreTime = "Opens ";
+                    if($day == 0){
+                        $MoreTime  .= "today";
+                    } else if ($day == 1){
+                        $MoreTime  .= "tomorrow";
+                    } else {
+                        $MoreTime  .= "in " . $day . " days";
+                    }
+                    $MoreTime  .= " at " . converttime($open);
                     break;
                 }
             }
@@ -137,7 +146,7 @@
 </div>
 
 <?php
-if(isset($is_menu)){
+if(isset($is_menu) &&false){
     $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
     if($menuitems){
         echo '<div class="list-group-item"><table class="table table-responsive m-b-0"><THEAD><TR><TH>Item</TH><TH>Cost</TH></TR></THEAD>';

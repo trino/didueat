@@ -51,6 +51,7 @@
                             <td>{{ $value->name }}</td>
                             <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value->id, true, 'update-rating', false) !!}</td>
                             <td>
+                            <div class="btn-group-vertical">                            
                                 @if(!$value->is_complete)
                                     <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="{{ $alts["incomplete"] }}">Incomplete</A><HR CLASS="slimhr">
                                     <?php
@@ -114,10 +115,12 @@
                                     @endif
                                     <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="{{ $alts["disabled"] }}">Disabled</A>
                                 @endif
+                                </div>                                
                             </td>
 
 
                             <td>
+                            <div class="btn-group-vertical">
                                 <a href="{{ url('restaurants/' . $value->slug . '/menu/') }}" class="btn btn-info btn-sm" title="{{ $alts["menu"] }}">Menu</a>
                                 @if(read("type_user") == "super")
                                     <a href="{{ url('orders/list/restaurant/' . $value->id) }}" class="btn btn-info btn-sm" title="{{ $alts["orders"] }}">Orders</a>
@@ -125,7 +128,9 @@
                                     <!--a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
                                     <a class="btn btn-secondary-outline btn-sm" id="delete{{ $value->id }}" title="{{ $alts["delete"] }}" onclick="deleterestaurant('{{ $value->id }}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
                                 @endif
+                                </div>
                             </td>
+                            
                         </tr>
                     @endforeach
                 @else

@@ -52,26 +52,25 @@ class AdministratorController extends Controller {
                 if (isset($post['userPhotoTemp']) && $post['userPhotoTemp'] != '') {
                     $im = explode('.', $post['photo']);
                     $ext = strtolower(end($im));
-                    $newName="profile.".$ext;
+                    $newName="profile." . $ext;
     
-                    $destinationPath = public_path('assets/images/users/'.$post['user_idDir']);
+                    $destinationPath = public_path('assets/images/users/' . $post['user_idDir']);
                     
-                    $imgVs=getimagesize($destinationPath."/".$post['photo']);
+                    //$imgVs=getimagesize($destinationPath . "/" . $post['photo']);
 
                     if (!file_exists($destinationPath)) {
                         mkdir('assets/images/users/' . $post['user_idDir'], 0777, true);
-                    }
-                    else{
+                    } else{
                         // rename existing images with timestamp, if they exist,
                         $oldImgExpl=explode(".",$ob->photo);
                         foreach(array("/icon-", "/small-", "/big-") as $file){ 
-                            if(file_exists($destinationPath.$file.$ob->photo)){
-                                rename($destinationPath.$file.$ob->photo, $destinationPath.$file.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                            if(file_exists($destinationPath . $file . $ob->photo)){
+                                rename($destinationPath . $file . $ob->photo, $destinationPath . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                             }
                         }
                         
                        if(file_exists($destinationPath.$file.$ob->photo)){ // for original file with no prefix
-                           rename($destinationPath."/".$ob->photo, $destinationPath."/".$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                           rename($destinationPath . "/" . $ob->photo, $destinationPath . "/" . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                        }
                     }
 

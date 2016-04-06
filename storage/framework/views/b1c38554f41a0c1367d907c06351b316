@@ -1,5 +1,11 @@
 <?php
     printfile("views/dashboard/user/ajax/list.blade.php");
+    $restaurants = enum_all("restaurants");
+    $alts = array(
+            "possess" => "Log in as this user",
+            "delete" => "Delete this user",
+            "plus" => "If checked, this user can upload menus"
+    );
 ?>
 
 <?php if(\Session::has('message')): ?>
@@ -22,93 +28,151 @@
     </div>
 
     <div class="card-block p-a-0">
-        <table class="table table-responsive  m-b-0 ">
+        <table class="table table-responsive m-b-0 ">
             <?php if($recCount > 0): ?>
+                <thead>
+                    <tr>  <th></th>
+                        <th>
+                            <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i class="fa fa-caret-down"></i></a>
+                            ID
+                            <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i class="fa fa-caret-up"></i></a>
+                        </th>
+                        <th >
+                            <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
+                            Name
+                            <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
+                        </th>                        <TH>Type</TH>
 
-            <thead class="">
-                <tr>
-                    <th>
-                        <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i class="fa fa-caret-down"></i></a>
-                        ID
-                        <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
-                    <th >
-                        <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
-                        Name
-                        <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
-                    <th >
-                        <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
-                        Restaurant
-                        <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
-                    <!--th >
-                        <a class="sortOrder" data-meta="email" data-order="ASC" data-title="Email" title="Sort [Email] ASC"><i class="fa fa-caret-down"></i></a>
-                        Email
-                        <a class="sortOrder" data-meta="email" data-order="DESC" data-title="Email" title="Sort [Email] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th-->
-                    <!--th>
-                        <a class="sortOrder" data-meta="profile_type" data-order="ASC" data-title="Type" title="Sort [Type] ASC"><i class="fa fa-caret-down"></i></a>
-                        Type
-                        <a class="sortOrder" data-meta="profile_type" data-order="DESC" data-title="Type" title="Sort [Type] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th-->
-                    <th>
-                        Phone Number
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
+                        <th >
+                            <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
+                            Restaurant
+                            <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                        <th>
+                            Email
+                        </th>
+
+                    </tr>
+                </thead>
             <?php endif; ?>
             <tbody>
-                <?php if($recCount > 0): ?>
+            <?php if($recCount > 0): ?>
+
+
                 <?php foreach($Query as $key => $value): ?>
+
                     <?php
-
                         $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
-
-                    foreach($Addresses as $Address){
+                        foreach($Addresses as $Address){
                             $value->phone = phonenumber($Address->phone);
                             if($value->phone){
                                 break;
                             }
                         }
-
+                        $restaurant="";
+                        $restaurant_slug="";
+                        $usertype = "User";
+                        if($value->restaurant_id>0){
+                            $usertype = "Restaurant";
+                            $restaurant = $value->restname;
+                            $restaurant_slug = $value->restslug;
+                        }
+                        if($value->profile_type == 1){$usertype = "Admin";}
                     ?>
-                <tr>
-                    <td><?php echo e($value->id); ?></td>
-                    <td><?php echo e($value->name); ?></td>
-                    <!--td><?php echo e($value->email); ?></td-->
-                    <td><? if($value->restaurant_id>0){echo 'yes';} ?></td>
-                    <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
-                    <td><?php echo e($value->phone); ?></td>
-                    <td>
-                        <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="<?php echo e($value->id); ?>" data-target="#editModel">
-                            Edit
-                        </a-->
-                        <?php if($value->id != \Session::get('session_id')): ?>
 
-                            <a href="<?php echo e(url('users/action/user_possess/'.$value->id)); ?>" class="btn btn-warning btn-sm"
-                               onclick="return confirm('Are you sure you want to possess <?php echo e(addslashes("'" . $value->name . "'")); ?> ?');">Possess</a>
+                    <tr id="user<?php echo e($value->id); ?>">
+                        <td>
+                            <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="<?php echo e($value->id); ?>" data-target="#editModel">Edit</a-->
+                            <?php if($value->id != \Session::get('session_id')): ?>
+                             <div class="btn-group-vertical">
 
-                            <a href="<?php echo e(url('users/action/user_fire/'.$value->id)); ?>" class="btn btn-secondary-outline btn-sm"
-                               onclick="return confirm('Are you sure you want to fire  <?php echo e(addslashes("'" . $value->name . "'")); ?> ?');">X</a>
-                        <?php endif; ?>
-                    </td>
-                </tr>
+                                <a href="<?php echo e(url('users/action/user_possess/'.$value->id)); ?>" class="btn btn-secondary-outline btn-sm" title="<?php echo e($alts["possess"]); ?>"
+                                   onclick="return confirm('Are you sure you want to possess <?php echo e(addslashes("'" . $value->name . "'")); ?> ?');">Possess</a>
+
+                                <!--a href="<?php echo e(url('users/action/user_fire/'.$value->id)); ?>" class="btn btn-secondary-outline btn-sm"
+                                   onclick="return confirm('Are you sure you want to fire  <?php echo e(addslashes("'" . $value->name . "'")); ?> ?');">X</a-->
+
+                                <a href="<?php echo e(url('user/uploads/'.$value->id)); ?>" class="btn btn-secondary-outline btn-sm">Uploads</a>
+
+                                <a class="btn btn-secondary-outline btn-sm" id="delete<?php echo e($value->id); ?>" title="<?php echo e($alts["delete"]); ?>"
+                                   onclick="deleteuser('<?php echo e($value->id); ?>', '<?php echo e(addslashes("'" . $value->name . "'")); ?>');">X</a>
+                            </div>
+                            <?php endif; ?>
+                        </td>
+
+                        <td><?php echo e($value->id); ?></TD>                        <td><?php echo e($value->name); ?></td>
+
+                        <TD nowrap>
+                            <?php if(false): ?>
+                                <span class="fa fa-spinner fa-spin" id="spinner<?php echo e($value->id); ?>" style="color:blue; display: none;"></span>
+                                <LABEL class="c-input c-checkbox" title="<?php echo e($alts["plus"]); ?>" id="userplus<?php echo e($value->id); ?>">
+                                    <input type="checkbox" userid="<?php echo e($value->id); ?>" onclick="promoteuser(event);" <?php echo e(iif($value->profile_type == 3, 'checked')); ?> />
+                                    <span class="c-indicator"></span>
+                                </LABEL>
+                            <?php endif; ?>
+                            <?php echo e($usertype); ?>
+
+                        </td>
+                        <!--td><?php echo e($value->email); ?></td-->
+                        <td><A HREF="<?php echo e(url("restaurants/" . $restaurant_slug . "/menu")); ?>"><?php echo e($restaurant); ?></A></td>
+                        <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
+                        <td nowrap><?php echo e(phonenumber($value->phone, true)); ?></td>
+                        <td><?php echo e($value->email); ?></td>
+
+                    </tr>
                 <?php endforeach; ?>
-                <?php else: ?>
+            <?php else: ?>
                 <tr>
                     <td><span class="text-muted">No Records</span></td>
                 </tr>
-                <?php endif; ?>
+            <?php endif; ?>
             </tbody>
         </table>
     </div>
     <?php if(Session::get('session_type_user') == "super"  && $recCount > 10): ?>
+        <div class="card-footer clearfix">
+            <?php echo $Pagination; ?>
 
-    <div class="card-footer clearfix">
-        <?php echo $Pagination; ?>
-
-    </div>
-        <?php endif; ?>
+        </div>
+    <?php endif; ?>
 </div>
+<SCRIPT>
+    var Users = "<?php echo e($recCount); ?>";
+    function deleteuser(ID, Name){
+        if(confirm('Are you sure you want to fire "' + Name + '"?')) {
+            $("#delete" + ID).html('<i class="fa fa-spinner fa-spin"></i>');
+            $.post("<?php echo e(url('users/action/user_fire')); ?>/" + ID, {_token: "<?php echo e(csrf_token()); ?>"}, function (result) {
+                Users=Users-1;
+                if(Users) {
+                    $("#user" + ID).fadeOut();
+                } else {
+                    $("#loadPageData").html(result);
+                }
+            });
+        }
+    }
+
+    function promoteuser(event){
+        var me = $(event.target);
+        var id = me.attr("userid");
+        var checked = me.is(":checked");
+        $("#userplus" + id).hide();
+        $("#spinner" + id).show();
+
+        $.post("<?php echo e(url('ajax')); ?>", {
+            type: "promoteuser",
+            id: id,
+            checked: checked,
+            _token: "<?php echo e(csrf_token()); ?>"
+        }, function (result) {
+            if(result){
+                alert(result);
+            }
+            $("#userplus" + id).show();
+            $("#spinner" + id).hide();
+        });
+    }
+</SCRIPT>
