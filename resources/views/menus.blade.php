@@ -336,9 +336,10 @@
                                            title="{{ $alts["deleteMenu"] }}"
                                            onclick="deleteMenuItem(<?php echo $value->cat_id.', '.$value->id.', '.$value->display_order;?>);return false"><i class="fa fa-times"></i></a>
                                     </div>
-                                @elseif(read("profiletype") == 3)
-                                    <button class="btn btn-sm btn-primary-outline pull-right" DISABLED>
-                                        <strong>Can Not Edit</strong>
+                                @elseif(read("id") == $value->uploaded_by)
+                                    <button id="add_item{{ $value->id }}" type="button" title="{{ $alts["edititem"] }}"
+                                            class="btn btn-sm btn-primary-outline additem pull-right" data-toggle="modal"
+                                            data-target="#addMenuModel"><strong>Edit</strong>
                                     </button>
                                 @endif
 
