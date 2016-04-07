@@ -554,16 +554,14 @@ else{//is not yours, needs to be active
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" style="width:50px !important;">' +
+                        '<SELECT class="btn btn-secondary" ID="itemsel' + ids + '" onchange="changeitem(' + "'" + ids + "'" + ')">' + makeselect(0,10, pre_cnt) + '</SELECT>' +
 
+                        '<SPAN style="display:none;"><a id="inc' + ids + '" class="clearfix increase btn btn-sm  btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-plus"></i></a>' +
 
-                        '<a id="inc' + ids + '" class="clearfix increase btn btn-sm  btn-secondary-outline  " href="javascript:void(0);"><i class="fa fa-plus"></i></a>' +
+                        '<div class="clearfix"><span class="count" style="padding-left:15px;">' + pre_cnt + '</span><input type="hidden" id="qty' + ids + '" class="count" name="qtys[]" value="' + pre_cnt + '">' +
+                        '</div><br><a id="dec' + ids + '" class="clearfix decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-minus"></i></a></SPAN>' +
 
-                        '<div class="clearfix "><span class="count" style="padding-left:15px;">' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" </div>' +
-
-                        '<br><a id="dec' + ids + '" class="clearfix decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-minus"></i></a>' +
-
-                        '<input class="amount" type="hidden" value="' + price.toFixed(2) + '"/>' +
-                        '</td>' +
+                        '<input class="amount" type="hidden" value="' + price.toFixed(2) + '"/></td>' +
                         '<td class="innerst" width="60%">' + app_title + '</td>' +
                         '<td class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
