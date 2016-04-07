@@ -440,9 +440,23 @@
             if($ob){
                 $repair = array();
                 if(!$ob->slug){$repair["slug"] = $restaurant["slug"];}
-
-                if($repair){update_database("restaurants", "id", $ob->id, array("logo" => $repair));}
-            }
+                if(!$ob->uploaded_by){$repair["uploaded_by"] = read("id");}
+                foreach(getweekdays() as $weekday){
+                    if(getfield($ob, $weekday . "_open") == "12:00:00" && getfield($ob, $weekday . "_close") == "12:00:00"){
+                        $repair[$weekday . "_open"] = "10:00:00";
+                        $repair[$weekday . "_open_del"] = "10:00:00";
+                        $repair[$weekday . "_close"] = "20:00:00";
+                        $repair[$weekday . "_close_del"] = "20:00:00";
+                    }
+                }
+                if($repair){
+                    $repair["is_complete"] = 1;
+                    $repair["is_delivery"] = 1;
+                    $repair["is_pickup"] = 1;
+                    update_database("restaurants", "id", $ob->id, $repair);
+                    $catid = new_anything("category", array("title" => "Main", "display_order" => 1, "res_id" => $ob->id));
+                    new_anything("menus", array("cat_name" => "Main", "cat_id" => $catid, "is_active" => 1, "display_order" => 1, "price" => 1, "description" => "Added during mass upload", "restaurant_id" => $ob->id, "menu_item" => "Test Item", "uploaded_by" => read("id")));
+                }
             } else {
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate($restaurant,false);
@@ -459,7 +473,6 @@
             }
 
             var_dump($restaurant);
-            //break;
         }
     }
 

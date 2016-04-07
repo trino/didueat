@@ -54,7 +54,7 @@
             makelink(array('restaurant/info' => "Settings",
                     'orders/list/restaurant' => 'Orders (' . $Pending_orders . iif($Pending_orders, '<i class="fa fa-exclamation-triangle" style="color: red;"></i>') . ')',
                     'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "Your Menu",
-                    'notification/addresses' => "Notification met4hods"
+                    'notification/addresses' => "Notification methods"
             ), "My Restaurant");
         } /*else {//if(read("profiletype") == 3){
             makelink(array(

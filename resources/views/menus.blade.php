@@ -225,27 +225,22 @@
                                         {{ $value->menu_item }}
 
                                         &ndash;
-                                            @if($main_price>0)
-                                                ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
-                                            @else
-                                                ${{number_format($min_p,2)}}+
-                                            @endif
-                                            @if($dis)
-                                                <strike class="text-muted btn btn-sm btn-link" style="float: right">${{number_format($value->price,2)}}</strike>
-                                            @endif
-                                            @if($dis)
-                                                <strike class="text-muted btn btn-sm btn-link" style="float: right">${{number_format($value->price,2)}}</strike>
-                                            @endif
-
-
+                                        @if($main_price>0)
+                                            ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
+                                        @else
+                                            ${{number_format($min_p,2)}}+
+                                        @endif
+                                        @if($dis)
+                                            <strike class="text-muted btn btn-sm btn-link" style="float: right">${{number_format($value->price,2)}}</strike>
+                                        @endif
+                                        @if($dis)
+                                            <strike class="text-muted btn btn-sm btn-link" style="float: right">${{number_format($value->price,2)}}</strike>
+                                        @endif
 
                                     </a>
                                    </div>
 
-                                    <div class="" style="">
-
-
-                                    </div>
+                                   <div class="" style=""></div>
                                 </h4>
 
 
@@ -304,7 +299,7 @@
                             </div><!-- End div 4 -->
 
 
-                            <div class="col-md-12"><!-- start div 5 -->
+                            <div class="col-md-12"><!-- start div 5 0000-00-00 00:00:00 -->
                                 @if(read('restaurant_id') == $restaurant->id || $canedit)
                                     <div class="btn-group pull-left" role="group" style="vertical-align: middle">
                                         <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
@@ -312,6 +307,13 @@
                                             <input {{ iif($value->is_active, "CHECKED") }} id="check{{ $value->id }}" onclick="enableitem({{ $value->id }});" type="checkbox" class="is_active">Enable Item
                                             <span class="c-indicator"></span>
                                         </label>
+
+                                        @if($value->uploaded_by)
+                                            Uploaded by: <A HREF="{{ url("user/uploads/" . $value->uploaded_by) }}">{{ select_field("profiles", "id", $value->uploaded_by, "name" ) }}</A>
+                                            @if($value->uploaded_on != "0000-00-00 00:00:00")
+                                                on {{ date("M j 'y", strtotime($value->uploaded_on)) }}
+                                            @endif
+                                        @endif
                                     </div>
                                     <div class="btn-group pull-right" role="group">
                                         <a id="up_parent_{{ $value->id.'_'.$value->cat_id }}" title="{{ $alts["up_parent"] }}"
