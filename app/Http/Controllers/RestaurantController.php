@@ -254,14 +254,20 @@ class RestaurantController extends Controller {
 
                 $ob->populate($update,$addlogo);
                 $isnowopen = $ob->save();
-                if($id==0)
+                if($id==0 || $id == "")
                 {
                     $id = $ob->id;
                 }
                 if(!$post['id']){
                     $post['id'] = $ob->id;
                 }
+                
+// add first category
 
+								       if($ob->id){
+  															// now add first category
+		  													$this->saveCat($ob->id, "Entre", 1); // default category is Entre
+               }
                 // first delete all existing cuisines for this restaurant in cuisines table, then add new ones
                 $restCuisine_ids = \App\Http\Models\Cuisines::where('restID', $post['id'])->get();
                 foreach ($restCuisine_ids as $c) {
@@ -959,14 +965,21 @@ $newCatID=false;
     }
 
     //save a category change
-    public function saveCat() {
-        $arr['title'] = $_POST['title'];
-        $arr['res_id'] = $_POST['res_id'];
+    // this is currently only used for adding a default category on a new restaurant, but it should eventually be used for all category additions
+    public function saveCat($newRestID = '', $newCatTitle = '', $catDispOrder = 1) {
+        if($newRestID != ''){
+		        $arr['title'] = $newCatTitle;
+		        $arr['res_id'] = $newRestID;
+          $arr['display_order'] = $catDispOrder;
+        }
+        else{
+		        $arr['title'] = $_POST['title'];
+		        $arr['res_id'] = $_POST['res_id'];
+        }
+        
         $ob2 = new \App\Http\Models\Category();
         $ob2->populate($arr);
         $ob2->save();
-        echo $ob2->id;
-        die();
     }
 
     //I don't know what this does
