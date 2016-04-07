@@ -89,3 +89,6 @@ app/Http/Controllers/HomeController_backupMarch31.php
 app/Http/Controllers/RestaurantController_backupMarch27.php
 app/Http/Controllers/RestaurantController_backupMarch31.php
 public/assets/global/scripts/menu_manager_backupMarch31.js
+resources/views/popups/menu_form.blade_tempRenameApr6.php
+resources/views/popups/menu_form.blade_Apr6.php
+resources/views/menus.blade_tempRenameApr6.php
