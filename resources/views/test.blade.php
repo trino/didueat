@@ -452,11 +452,7 @@
                 $repair = array();
                 if(!$ob->slug){$repair["slug"] = $restaurant["slug"];}
                 $repair = array_merge($times, $repair);
-                if($repair){
-                    update_database("restaurants", "id", $ob->id, $repair);
-                    $catid = new_anything("category", array("title" => "Main", "display_order" => 1, "res_id" => $ob->id));
-                    new_anything("menus", array("cat_name" => "Main", "cat_id" => $catid, "is_active" => 1, "display_order" => 1, "price" => 1, "description" => "Added during mass upload", "restaurant_id" => $ob->id, "menu_item" => "Test Item", "uploaded_by" => read("id"), "uploaded_on" => $now));
-                }
+                if($repair){update_database("restaurants", "id", $ob->id, $repair);}
             } else {
                 $restaurant = array_merge($times, $restaurant);
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
@@ -479,6 +475,11 @@
                 echo "<BR>Made account: " . new_anything("profiles", array("profile_type" => 2, "name" => $ob->name . " owner", "email" => $ob->email, "password" => "18GgKcb2FFBHM", "restaurant_id" => $ob->id, "created_at" => $now, "phone" => $ob->phone));
             }
 
+            $catid = select_field("category", "res_id", $ob->id);
+            if(!$catid){
+                $catid = new_anything("category", array("title" => "Main", "display_order" => 1, "res_id" => $ob->id));
+                new_anything("menus", array("cat_name" => "Main", "cat_id" => $catid, "is_active" => 1, "display_order" => 1, "price" => 1, "description" => "Added during mass upload", "restaurant_id" => $ob->id, "menu_item" => "Test Item", "uploaded_by" => read("id"), "uploaded_on" => $now));
+            }
             var_dump($restaurant);
         }
     }
