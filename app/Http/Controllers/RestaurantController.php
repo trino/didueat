@@ -842,7 +842,7 @@ $newCatID=false;
 
 			        \App\Http\Models\Menus::where('cat_id', $_POST['catID'])->where('parent', 0)->where('display_order', '>', $_POST['thisMenuDisplayOrder'])->take($menuOrderLimit)->decrement('display_order', 1);
                       
-           if(!isset($_POST['id'])){
+           if(!isset($_POST['id'])){  // done with AJAX now
 					        \Session::flash('message', 'Item deleted successfully');
 					        \Session::flash('message-type', 'alert-success');
 					        \Session::flash('message-short', '');

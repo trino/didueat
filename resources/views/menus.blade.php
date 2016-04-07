@@ -16,7 +16,7 @@
         $menuTSv="?i=".$menuTS;
         Session::forget('session_menuTS');
     }
-    
+
     $prevCat="";
     $catNameStr=[];
     $parentCnt=[];
@@ -131,23 +131,23 @@
      <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/".$value->cat_id."/up");?>"> -->
                             <i class="fa fa-arrow-up"></i>
                         </a>
-                        
+
                       <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" id="down{{ $thisCatCnt }}" style="visibility:{{ $thisDownCatSort }} !important" href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
        <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/".$value->cat_id."/down");?>"> -->
                             <i class="fa fa-arrow-down"></i>
                         </a>
                     </div>
-                </div> 
+                </div>
 
 <div class="col-md-6" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input name="saveOrderChng" type="button" value="Save All Category Order Changes" onclick="saveCatOrderChngs({{ $thisCatCnt }})" /><span id="saveCatOrderMsg{{ $thisCatCnt }}"></span></div>
 
 <div class="col-md-6 pull-right" id="saveMenus{{ $value->cat_id }}" style="display:none;color:#f00"><input name="saveOrderChng" type="button" value="Save Category Sorting" onclick="saveMenuOrder({{ $value->cat_id }},false,false)" /><span id="saveMenuOrderMsg{{ $value->cat_id }}"></span></div>
-                
+
             </div>
 
         </div>
     </div><!-- end of category heading -->
-    
+
 <?php
     $thisCatCnt++;
 }
@@ -155,7 +155,7 @@
 
 
 //load images, duplicate code
-                    
+
                     $has_iconImage = false;
 
                     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
@@ -180,7 +180,7 @@
                         <div class="row">
 
                             <div class="col-md-12"><!-- start div 4 -->
-                            
+
                                 <?php
                                     $main_price = $value->price;
                                     $dis = '';
@@ -203,9 +203,9 @@
 
                                     }
                                 ?>
-                                
+
                                 <h4 class="card-title">
-                                
+
                                 <div class="" style="width: 100%;float:left;">
 
                                     <a href="#" id="{{ $value->id }}"
@@ -302,8 +302,8 @@
 
 
                             </div><!-- End div 4 -->
-                            
-                            
+
+
                             <div class="col-md-12"><!-- start div 5 -->
                                 @if(read('restaurant_id') == $restaurant->id || $canedit)
                                     <div class="btn-group pull-left" role="group" style="vertical-align: middle">
@@ -318,18 +318,18 @@
                                            class="btn btn-sm btn-primary-outline sorting_parent"
                                            href="javascript:void(0);" onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'up', {{ $catMenuCnt }});return false" style="visibility:{{ $thisUpMenuVisib }} !important">
                                            <i class="fa fa-arrow-up"></i></a>
-                                    
+
                                         <a id="down_parent_{{ $value->id.'_'.$value->cat_id }}" title="{{ $alts["down_parent"] }}"
                                            class="btn btn-sm btn-primary-outline sorting_parent"
                                            href="javascript:void(0);" onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }});return false" style="visibility:{{ $thisDownMenuVisib }} !important">
                                             <i class="fa fa-arrow-down"></i></a>
-                                    
+
                                         <button id="add_item{{ $value->id }}" type="button" title="{{ $alts["edititem"] }}"
                                                 class="btn btn-sm btn-primary-outline additem" data-toggle="modal"
                                                 data-target="#addMenuModel"><strong>Edit</strong>
                                         </button>
 
-                                        <a href="#" 
+                                        <a href="#"
                                            class="btn btn-sm btn-primary-outline"
                                            title="{{ $alts["deleteMenu"] }}"
                                            onclick="deleteMenuItem(<?php echo $value->cat_id.', '.$value->id.', '.$value->display_order;?>);return false"><i class="fa fa-times"></i></a>
@@ -406,9 +406,9 @@ for(var i=0;i<catNameA.length;i++){
   }
   catPosns[i]=i;
   catNameLnks+=spaces+"<a HREF='#"+catNameA[i]+"'>"+catNameA[i]+"</a>";
-  
+
   // menuSortChngs same indexing as catNameA (use for loop to get catid index, then use index on catNameA), prompt user to save if exiting pg
-  menuSortChngs[catOrigPosns[i]]=false; 
+  menuSortChngs[catOrigPosns[i]]=false;
 }
 document.getElementById('categoryLinks').innerHTML="<b><u>View Menu Categories</u>:</b> &nbsp; &nbsp; "+catNameLnks;
 

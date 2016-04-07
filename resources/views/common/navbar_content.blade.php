@@ -54,8 +54,7 @@
             makelink(array('restaurant/info' => "Settings",
                     'orders/list/restaurant' => 'Orders (' . $Pending_orders . iif($Pending_orders, '<i class="fa fa-exclamation-triangle" style="color: red;"></i>') . ')',
                     'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "Your Menu",
-                    'notification/addresses' => "Notification methods"
-                    //,'credit-cards/list/restaurant' => "Credit Card"
+                    'notification/addresses' => "Notification met4hods"
             ), "My Restaurant");
         } /*else {//if(read("profiletype") == 3){
             makelink(array(
@@ -67,6 +66,7 @@
         if (!\Session::get('session_restaurant_id') || Session::get('session_type_user') == "super") {
             $data["orders/list/user"] = "Orders";
             $data["user/addresses"] = "Address";
+            $data["credit-cards/list/restaurant"] = "Credit Card";
             $data["user/uploads"] = "Uploads";
         }
         $data["auth/logout"] = "Log out";
