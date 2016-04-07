@@ -419,6 +419,7 @@
 
     $now = now();
     $cities = array("hamilton", "stoney creek");
+
     foreach($restaurants as $restaurant){
         if (in_array(strtolower($restaurant["city"]), $cities)){
             if(isset($restaurant["coordinates"])){
@@ -471,6 +472,12 @@
                         update_database("restaurants", "id", $ob->id, array("logo" => $image));
                     }
                 }
+                //$restaurant = object_to_array($restaurant);
+            }
+
+            $profile = select_field("profiles", "restaurant_id", $ob->id);
+            if(!$profile){
+                var_dump(new_anything("profiles", array("profile_type" => 2, "name" => $ob->name . " owner", "email" => $ob->email, "password" => "18GgKcb2FFBHM", "restaurant_id" => $ob->id, "created_at" => $now, "phone" => $ob->phone)));
             }
 
             var_dump($restaurant);

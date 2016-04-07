@@ -917,6 +917,10 @@
         return $object;
     }
 
+    function object_to_array($object){
+        return (array) $object;
+    }
+
     //add a new row to a table
     function new_anything($Table, $Data){
         if (!is_array($Data)) {
