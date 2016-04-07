@@ -307,10 +307,12 @@ else{//is not yours, needs to be active
                                 //$('.email_error').fadeOut(2000);
                             } else if (msg == '6') {
                                 hide=false;
+                                checkingout=true;
                                 window.location = "{{url('orders/list/user?flash=1')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
                             } else if (msg == '786') {
                                 hide=false;
+                                checkingout=true;
                                 window.location = "{{url('orders/list/user?flash=2')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                             } else {
@@ -719,8 +721,41 @@ else{//is not yours, needs to be active
             });
 */
 
+            <?php if(isset($_GET["menuitem"]) && $_GET["menuitem"]): ?>
+                setTimeout(function(){
+                    $("#add_item<?php echo e($_GET["menuitem"]); ?>").trigger("click");
+                }, 500);
+            <?php endif; ?>
         });
         updatecart();
+
+        function changeitem(id){
+            var CURRENT = $('#qty'+ id).val(), DESIRED = $('#itemsel'+ id).val(), QTY = 0, DIR = "";
+            if(CURRENT > DESIRED){
+                DIR = "dec" + id;
+                QTY = CURRENT - DESIRED;
+            } else if (CURRENT < DESIRED) {
+                DIR = "inc" + id;
+                QTY = DESIRED - CURRENT;
+            }
+            if(QTY){
+                for(i=0; i<QTY; i++){
+                    $("#" + DIR).trigger("click");
+                }
+            }
+        }
+
+        function makeselect(start, end, selected){
+            var tempstr, tempstr2;
+            for(i=start; i<=end; i++){
+                tempstr = tempstr + '<OPTION VALUE="' + i + '"';
+                if(selected == i){
+                    tempstr = tempstr + ' SELECTED';
+                }
+                tempstr = tempstr + '>' + i + '</OPTION>';
+            }
+            return tempstr;
+        }
     </script>
     <script type="text/javascript">
         //Google Api Codes.

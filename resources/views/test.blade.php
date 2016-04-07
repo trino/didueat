@@ -433,20 +433,31 @@
             $restaurant["formatted_address"] = implode(", ", array($restaurant["address"], $restaurant["city"], $restaurant["province"], $restaurant["postal_code"], "Canada"));
             $restaurant["uploaded_by"] = read("id");
             $restaurant["email"] = "roy+" . $restaurant["id"] . "@trinoweb.com";
+            $restaurant["slug"] = app('App\Http\Controllers\RestaurantController')->createslug( $restaurant["name"] );
             unset($restaurant["id"]);
 
-            $ob = \App\Http\Models\Restaurants::findOrNew(0);
-            $ob->populate($restaurant,false);
-            $ob->save();
+            $ob = select_field("restaurants", "email", $restaurant["email"]);
+            if($ob){
+                $repair = array();
+                if(!$ob->slug){$repair["slug"] = $restaurant["slug"];}
 
-            if(isset($restaurant["image"])){
-                $image = downloadfile($restaurant["image"], public_path("/assets/images/restaurants/" . $ob->id . "/image." .  pathinfo($restaurant["image"], PATHINFO_EXTENSION)));
-                if($image !== false){
-                    $restaurant["id"] = $ob->id;
-                    $restaurant["photo"] = $image;
-                    update_database("restaurants", "id", $ob->id, array("logo" => $image));
+                if($repair){update_database("restaurants", "id", $ob->id, array("logo" => $repair));}
+            }
+            } else {
+                $ob = \App\Http\Models\Restaurants::findOrNew(0);
+                $ob->populate($restaurant,false);
+                $ob->save();
+
+                if(isset($restaurant["image"])){
+                    $image = downloadfile($restaurant["image"], public_path("/assets/images/restaurants/" . $ob->id . "/image." .  pathinfo($restaurant["image"], PATHINFO_EXTENSION)));
+                    if($image !== false){
+                        $restaurant["id"] = $ob->id;
+                        $restaurant["photo"] = $image;
+                        update_database("restaurants", "id", $ob->id, array("logo" => $image));
+                    }
                 }
             }
+
             var_dump($restaurant);
             //break;
         }

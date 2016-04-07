@@ -2,11 +2,9 @@
 @section('content')
 
     <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
-
     <script src="{{ asset('assets/global/scripts/custom-datatable/blockUI.js') }}" type="text/javascript"></script>
     <!--script src="{{ asset('assets/global/scripts/custom-datatable/toastr.min.js') }}"></script-->
-    <script src="{{ asset('assets/global/scripts/custom-datatable/custom-plugin-datatable.js') }}"
-            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/scripts/custom-datatable/custom-plugin-datatable.js') }}" type="text/javascript"></script>
     <STYLE>
         .thumbnail {
             max-width: 128px;
@@ -20,21 +18,21 @@
 
             <div class="col-lg-9">
                 <?php
-                printfile("views/dashboard/user/uploads.blade.php<BR>");
-                $ProfileName = select_field("profiles", "id", $userid)->name;
-                //    $Restaurants = enum_anything("restaurants", "uploaded_by", $userid);
-                $ProfilePics = array();
-                $dir = public_path("assets/images/users/" . $userid);
-                if (is_dir($dir)) {
-                    $ProfilePics = scandir($dir);
-                }
-                unset($ProfilePics[0]);//. (root)
-                unset($ProfilePics[1]);//.. (up a dir)
-                $MenuItems = enum_anything("menus", "uploaded_by", $userid);
-                $alts = array(
-                        "deletepic" => "Delete this picture",
-                        "deleteitem" => "Delete this menu item"
-                );
+                    printfile("views/dashboard/user/uploads.blade.php<BR>");
+                    $ProfileName = select_field("profiles", "id", $userid)->name;
+                    //    $Restaurants = enum_anything("restaurants", "uploaded_by", $userid);
+                    $ProfilePics = array();
+                    $dir = public_path("assets/images/users/" . $userid);
+                    if (is_dir($dir)) {
+                        $ProfilePics = scandir($dir);
+                    }
+                    unset($ProfilePics[0]);//. (root)
+                    unset($ProfilePics[1]);//.. (up a dir)
+                    $MenuItems = enum_anything("menus", "uploaded_by", $userid);
+                    $alts = array(
+                            "deletepic" => "Delete this picture",
+                            "deleteitem" => "Delete this menu item"
+                    );
                 ?>
 
 
@@ -74,30 +72,35 @@
                                 </TR>
                                 </THEAD>
                                 <?php
-                                $Restaurants = enum_all("restaurants");
-                                foreach ($MenuItems as $MenuItem) {
+                                    $Restaurants = enum_all("restaurants");
+                                    foreach ($MenuItems as $MenuItem) {
 
-                                    try {
-                                        //SELECT * FROM reservations WHERE 3 IN (menu_ids)
-                                        //$count = first("SELECT COUNT(" . $MenuItem->id . " IN (menu_ids)) as count FROM reservations")["count"];
-                                        $count = iterator_count(select_query("SELECT * FROM reservations WHERE FIND_IN_SET(" . $MenuItem->id . ", menu_ids) > 0"));
+                                        //try {
+                                            //SELECT * FROM reservations WHERE 3 IN (menu_ids)
+                                            //$count = first("SELECT COUNT(" . $MenuItem->id . " IN (menu_ids)) as count FROM reservations")["count"];
+                                            $count = iterator_count(select_query("SELECT * FROM reservations WHERE FIND_IN_SET(" . $MenuItem->id . ", menu_ids) > 0"));
 
-                                        $Restaurant = getIterator($Restaurants, "id", $MenuItem->restaurant_id);
+                                            $Restaurant = getIterator($Restaurants, "id", $MenuItem->restaurant_id);
 
-                                        echo '<TR ID="deleteitem' . $MenuItem->id . '"><TD>' . $MenuItem->id . '</TD>';
-                                        echo '<TD>' . $Restaurant->name . '</TD>';
-                                        echo '<TD><A HREF="' . url('restaurants/' . $Restaurant->slug . '/menu?menuitem=') . $MenuItem->id . '">' . $MenuItem->menu_item . '</A></TD>';
-                                        echo '<TD>' . $MenuItem->cat_name . '</TD>';
-                                        echo '<TD>' . asmoney($MenuItem->price, true) . '</TD>';
-                                        echo '<TD>' . $count . '</TD>';
-                                        echo '<TD><a style="float:right;" ID="deleteitembtn' . $MenuItem->menu_item . '" class="btn btn-danger-outline btn-sm" title="' . $alts["deleteitem"] . '" onclick="deleteitem(' . $MenuItem->id . ", '" . addslashes($MenuItem->menu_item) . "', '" . $Restaurant->slug . "'" . ');">X</a></TD></TR>';
+                                            echo '<TR ID="deleteitem' . $MenuItem->id . '"><TD>' . $MenuItem->id . '</TD>';
+                                            if($Restaurant){
+                                                echo '<TD>' . $Restaurant->name . '</TD>';
+                                                echo '<TD><A HREF="' . url('restaurants/' . $Restaurant->slug . '/menu?menuitem=') . $MenuItem->id . '">' . $MenuItem->menu_item . '</A></TD>';
+                                            } else {
+                                                echo '<TD>Missing Data</TD>';
+                                                echo '<TD>' . $MenuItem->menu_item . '</TD>';
+                                            }
+                                            echo '<TD>' . $MenuItem->cat_name . '</TD>';
+                                            echo '<TD>' . asmoney($MenuItem->price, true) . '</TD>';
+                                            echo '<TD>' . $count . '</TD>';
+                                            if($Restaurant){
+                                                echo '<TD><a style="float:right;" ID="deleteitembtn' . $MenuItem->menu_item . '" class="btn btn-danger-outline btn-sm" title="' . $alts["deleteitem"] . '" onclick="deleteitem(' . $MenuItem->id . ", '" . addslashes($MenuItem->menu_item) . "', '" . $Restaurant->slug . "'" . ');">X</a></TD></TR>';
+                                            }
+                                        /*} catch (Exception $e) {
+                                            echo $e->getMessage();
+                                        }*/
 
-                                    } catch (Exception $e) {
-
-                                        echo $e->getMessage();
                                     }
-
-                                }
                                 ?>
                             </Table>
                         @else

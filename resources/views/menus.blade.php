@@ -17,112 +17,102 @@
         Session::forget('session_menuTS');
     }
     
-$prevCat="";
-$catNameStr=[];
-$parentCnt=[];
-$thisCatCnt=0;
-$itemPosnForJS=[];
-// $catCnt set in restaurants-menus.blade
-
+    $prevCat="";
+    $catNameStr=[];
+    $parentCnt=[];
+    $thisCatCnt=0;
+    $itemPosnForJS=[];
+    // $catCnt set in restaurants-menus.blade
 ?>
 
 <script>
-var catPosn=[];
-var itemPosn=[];
-var restSlug="{{ $restaurant->slug }}";
+    var catPosn=[];
+    var itemPosn=[];
+    var restSlug="{{ $restaurant->slug }}";
 </script>
 
 @if(!isset($_GET['page']))
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
 @endif
 
-
-
-
 <?php
- $menus_listA=[];
- $menus_sortA=[];
- $cats_listA=[];
- $cats_listA2=[];
- $thisCnt=0;
+    $menus_listA=[];
+    $menus_sortA=[];
+    $cats_listA=[];
+    $cats_listA2=[];
+    $thisCnt=0;
 
- foreach($menus_list as $value){
-   $catsListCnt=0;
-   foreach ($cats as $row) {
-			   if($row == $value->cat_id){
-			     $menus_listA[$thisCnt]=$value;
-        $cats_listA[$row]=$catsOrder[$catsListCnt];
-        $menus_sortA[$row][$thisCnt]=$value->display_order;
-        $thisCnt++;
-        break;
-			   }
-        $catsListCnt++;
-   }
- }
- 
-asort($cats_listA);
+    foreach($menus_list as $value){
+        $catsListCnt=0;
+        foreach ($cats as $row) {
+            if($row == $value->cat_id){
+                $menus_listA[$thisCnt]=$value;
+                $cats_listA[$row]=$catsOrder[$catsListCnt];
+                $menus_sortA[$row][$thisCnt]=$value->display_order;
+                $thisCnt++;
+                break;
+           }
+           $catsListCnt++;
+        }
+    }
 
-foreach ($cats_listA as $key => $row) {
-  asort($menus_sortA[$key]);
-  foreach ($menus_sortA[$key] as $key2 => $row2) {
-     $cats_listA2[$key2]=$row;
-  }
-}
+    asort($cats_listA);
+
+    foreach ($cats_listA as $key => $row) {
+        asort($menus_sortA[$key]);
+        foreach ($menus_sortA[$key] as $key2 => $row2) {
+            $cats_listA2[$key2]=$row;
+        }
+    }
 
 
-$valueA=[];
-$catIDNum=[];
-$cnt2=0;
-while(list($key,$thisOrder) = each($cats_listA2)){
- $valueA[$cnt2]=$menus_listA[$key]; // this contains full menus list for resto
- $catIDNum[$cnt2]=$menus_listA[$key]->cat_id;
- $cnt2++;
-}
+    $valueA=[];
+    $catIDNum=[];
+    $cnt2=0;
+    while(list($key,$thisOrder) = each($cats_listA2)){
+        $valueA[$cnt2]=$menus_listA[$key]; // this contains full menus list for resto
+        $catIDNum[$cnt2]=$menus_listA[$key]->cat_id;
+        $cnt2++;
+    }
 
 ?>
 
-
 @while(list($index,$value) = each($valueA))
 
-
 <?php
+    $noUpCatSort=false;
+    $thisUpMenuVisib="visible";
+    $thisDownMenuVisib="visible";
+    $parentCnt[$thisCatCnt]=$value->id; // for js sorting with ajax, not implemented yet
+    $itemPosnForJS[$value->cat_id][$value->id]=$value->display_order;
+    $catPosn[]=$thisCatCnt;
+    if($prevCat == ""){
+        $noUpCatSort=true;
+    }
 
-$noUpCatSort=false;
-$thisUpMenuVisib="visible";
-$thisDownMenuVisib="visible";
-$parentCnt[$thisCatCnt]=$value->id; // for js sorting with ajax, not implemented yet
-$itemPosnForJS[$value->cat_id][$value->id]=$value->display_order; 
-$catPosn[]=$thisCatCnt;
-if($prevCat == ""){
- $noUpCatSort=true;
-}
+    if($index < ($thisCnt-1)){ // means it's not the last item
+       $nextIndx=($index+1);
+       if($value->cat_id != $catIDNum[$nextIndx]){
+          $thisDownMenuVisib="hidden";
+       }
+    } else{
+        $thisDownMenuVisib="hidden"; // last item in array
+    }
 
-if($index < ($thisCnt-1)){ // means it's not the last item
-   $nextIndx=($index+1);
-   if($value->cat_id != $catIDNum[$nextIndx]){
-      $thisDownMenuVisib="hidden";
-   }
-}
-else{
-  $thisDownMenuVisib="hidden"; // last item in array
-}
+    //echo "\$prevCat: ".$prevCat."  --  \$index: ".$index."  --  \$nextIndx: ".$nextIndx."  -- totalItems-1: ".($thisCnt-1)."  --  cat_id: ".$value->cat_id."  --   next CatID: ".$catIDNum[$nextIndx]."  --  ".$value->menu_item."  --  ".$value->display_order;
 
-//echo "\$prevCat: ".$prevCat."  --  \$index: ".$index."  --  \$nextIndx: ".$nextIndx."  -- totalItems-1: ".($thisCnt-1)."  --  cat_id: ".$value->cat_id."  --   next CatID: ".$catIDNum[$nextIndx]."  --  ".$value->menu_item."  --  ".$value->display_order;
+    if($value->cat_id != $prevCat){ // means it's a new category
+        $thisUpMenuVisib="hidden";
+        $catMenuCnt=0; // reset count for this category
+        if($prevCat){
+          echo '</div><!-- end of previous category --><hr width="100%" align="center" style="border-top:solid #000 2px" />';
+        }
+        $prevCat=$value->cat_id; // also used as current cat_id until next loop
 
-if($value->cat_id != $prevCat){ // means it's a new category
-  $thisUpMenuVisib="hidden";
-  $catMenuCnt=0; // reset count for this category
-  if($prevCat!=""){ // means it's not the first category
-    echo '</div><!-- end of previous category --><hr width="100%" align="center" style="border-top:solid #000 2px" />';
-  }
-  $prevCat=$value->cat_id; // also used as current cat_id until next loop
-  
-  $catNameStr[$prevCat] = $value->cat_name;
-  
-  
-  ($noUpCatSort)? $thisUpCatSort="hidden" : $thisUpCatSort="visible";
-  ($thisCatCnt >= ($catCnt-1))? $thisDownCatSort="hidden" : $thisDownCatSort="visible";
-  
+        $catNameStr[$prevCat] = $value->cat_name;
+        ($noUpCatSort)? $thisUpCatSort="hidden" : $thisUpCatSort="visible";
+        ($thisCatCnt >= ($catCnt-1))? $thisDownCatSort="hidden" : $thisDownCatSort="visible";
+
 ?>
 
   <DIV class="list-group m-y-1" id="c{{ $thisCatCnt }}" style="border: solid navy 4px"><!-- start of this category -->
@@ -159,7 +149,7 @@ if($value->cat_id != $prevCat){ // means it's a new category
     </div><!-- end of category heading -->
     
 <?php
-  $thisCatCnt++;
+    $thisCatCnt++;
 }
 
 
@@ -231,7 +221,7 @@ if($value->cat_id != $prevCat){ // means it's a new category
                                         @else
                                                     <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
                                         @endif
-
+                                        @if(debugmode()) ({{ $value->id }}) @endif
                                         {{ $value->menu_item }}
 
                                         &ndash;
