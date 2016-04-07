@@ -26,7 +26,7 @@
         "add_item" => "Add Item"
     );
 
-    if(read("profiletype") == 3 || $is_my_restro){ 
+    if(read("profiletype") || $is_my_restro){
     ?>
         <div class="card  m-b-0" style="border-radius:0 !important;">
             <div class="card-block ">

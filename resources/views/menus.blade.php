@@ -16,7 +16,7 @@
         $menuTSv="?i=".$menuTS;
         Session::forget('session_menuTS');
     }
-    
+
 $prevCat="";
 $catNameStr=[];
 $parentCnt=[];
@@ -59,7 +59,7 @@ var restSlug="{{ $restaurant->slug }}";
         $catsListCnt++;
    }
  }
- 
+
 asort($cats_listA);
 
 foreach ($cats_listA as $key => $row) {
@@ -91,13 +91,15 @@ $noUpCatSort=false;
 $thisUpMenuVisib="visible";
 $thisDownMenuVisib="visible";
 $parentCnt[$thisCatCnt]=$value->id; // for js sorting with ajax, not implemented yet
-$itemPosnForJS[$value->cat_id][$value->id]=$value->display_order; 
+$itemPosnForJS[$value->cat_id][$value->id]=$value->display_order;
 $catPosn[]=$thisCatCnt;
 if($prevCat == ""){
  $noUpCatSort=true;
 }
 
-if($index < ($thisCnt-1)){ // means it's not the last item
+if($index < ($thisCnt-1)){
+
+    // means its not the last item
    $nextIndx=($index+1);
    if($value->cat_id != $catIDNum[$nextIndx]){
       $thisDownMenuVisib="hidden";
@@ -116,16 +118,16 @@ if($value->cat_id != $prevCat){ // means it's a new category
     echo '</div><!-- end of previous category --><hr width="100%" align="center" style="border-top:solid #000 2px" />';
   }
   $prevCat=$value->cat_id; // also used as current cat_id until next loop
-  
+
   $catNameStr[$prevCat] = $value->cat_name;
-  
-  
+
+
   ($noUpCatSort)? $thisUpCatSort="hidden" : $thisUpCatSort="visible";
   ($thisCatCnt >= ($catCnt-1))? $thisDownCatSort="hidden" : $thisDownCatSort="visible";
-  
+
 ?>
 
-  <DIV class="list-group m-y-1" id="c{{ $thisCatCnt }}" style="border: solid navy 4px"><!-- start of this category -->
+  <DIV class="list-group m-y-1" id="c{{ $thisCatCnt }}" style=""><!-- start of this category -->
     <div class="list-group-item parents"><!-- start of category heading -->
         <div class="">
             <div class="row">
@@ -141,23 +143,23 @@ if($value->cat_id != $prevCat){ // means it's a new category
      <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/".$value->cat_id."/up");?>"> -->
                             <i class="fa fa-arrow-up"></i>
                         </a>
-                        
+
                       <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" id="down{{ $thisCatCnt }}" style="visibility:{{ $thisDownCatSort }} !important" href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
        <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/".$value->cat_id."/down");?>"> -->
                             <i class="fa fa-arrow-down"></i>
                         </a>
                     </div>
-                </div> 
+                </div>
 
 <div class="col-md-6" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input name="saveOrderChng" type="button" value="Save All Category Order Changes" onclick="saveCatOrderChngs({{ $thisCatCnt }})" /><span id="saveCatOrderMsg{{ $thisCatCnt }}"></span></div>
 
 <div class="col-md-6 pull-right" id="saveMenus{{ $value->cat_id }}" style="display:none;color:#f00"><input name="saveOrderChng" type="button" value="Save Category Sorting" onclick="saveMenuOrder({{ $value->cat_id }},false,false)" /><span id="saveMenuOrderMsg{{ $value->cat_id }}"></span></div>
-                
+
             </div>
 
         </div>
     </div><!-- end of category heading -->
-    
+
 <?php
   $thisCatCnt++;
 }
@@ -165,7 +167,7 @@ if($value->cat_id != $prevCat){ // means it's a new category
 
 
 //load images, duplicate code
-                    
+
                     $has_iconImage = false;
 
                     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
@@ -190,7 +192,7 @@ if($value->cat_id != $prevCat){ // means it's a new category
                         <div class="row">
 
                             <div class="col-md-12"><!-- start div 4 -->
-                            
+
                                 <?php
                                     $main_price = $value->price;
                                     $dis = '';
@@ -213,9 +215,9 @@ if($value->cat_id != $prevCat){ // means it's a new category
 
                                     }
                                 ?>
-                                
+
                                 <h4 class="card-title">
-                                
+
                                 <div class="" style="width: 100%;float:left;">
 
                                     <a href="#" id="{{ $value->id }}"
@@ -261,25 +263,28 @@ if($value->cat_id != $prevCat){ // means it's a new category
 
 
 
-                                <div class="clearfix">
-                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
+                                <!--div class="clearfix">
                                     <p class="card-text m-a-0">
                                         {{$dis}}
                                     </p>
-                                </div>
+                                </div-->
 
 
-                                <p class="card-text m-a-0  text-muted">
-                                    <?php
-                                        if (strlen($value->description) > 65) {
-                                            echo substr($value->description, 0, 65) . '...';
+                                <p class="card-text m-a-0">
+                                                              <div class="pull-left   text-muted">
+
+                                <?php
+                                        if (strlen($value->description) > 50) {
+                                            echo substr($value->description, 0, 50) . '...' .'&nbsp;';
                                         } else {
-                                            echo substr($value->description, 0, 65);
+                                            echo  substr($value->description, 0, 50).'&nbsp;';
                                         }
                                     ?>
-
+                            </div>
                                 </p>
-
+                                <div class="pull-right">
+                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
+                                </div>
                                 <!--
                                 <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
                                 @if($value->uploaded_on)
@@ -312,8 +317,8 @@ if($value->cat_id != $prevCat){ // means it's a new category
 
 
                             </div><!-- End div 4 -->
-                            
-                            
+
+
                             <div class="col-md-12"><!-- start div 5 -->
                                 @if(read('restaurant_id') == $restaurant->id || $canedit)
                                     <div class="btn-group pull-left" role="group" style="vertical-align: middle">
@@ -328,18 +333,18 @@ if($value->cat_id != $prevCat){ // means it's a new category
                                            class="btn btn-sm btn-primary-outline sorting_parent"
                                            href="javascript:void(0);" onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'up', {{ $catMenuCnt }});return false" style="visibility:{{ $thisUpMenuVisib }} !important">
                                            <i class="fa fa-arrow-up"></i></a>
-                                    
+
                                         <a id="down_parent_{{ $value->id.'_'.$value->cat_id }}" title="{{ $alts["down_parent"] }}"
                                            class="btn btn-sm btn-primary-outline sorting_parent"
                                            href="javascript:void(0);" onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }});return false" style="visibility:{{ $thisDownMenuVisib }} !important">
                                             <i class="fa fa-arrow-down"></i></a>
-                                    
+
                                         <button id="add_item{{ $value->id }}" type="button" title="{{ $alts["edititem"] }}"
                                                 class="btn btn-sm btn-primary-outline additem" data-toggle="modal"
                                                 data-target="#addMenuModel"><strong>Edit</strong>
                                         </button>
 
-                                        <a href="#" 
+                                        <a href="#"
                                            class="btn btn-sm btn-primary-outline"
                                            title="{{ $alts["deleteMenu"] }}"
                                            onclick="deleteMenuItem(<?php echo $value->cat_id.', '.$value->id.', '.$value->display_order;?>);return false"><i class="fa fa-times"></i></a>
@@ -416,9 +421,9 @@ for(var i=0;i<catNameA.length;i++){
   }
   catPosns[i]=i;
   catNameLnks+=spaces+"<a HREF='#"+catNameA[i]+"'>"+catNameA[i]+"</a>";
-  
+
   // menuSortChngs same indexing as catNameA (use for loop to get catid index, then use index on catNameA), prompt user to save if exiting pg
-  menuSortChngs[catOrigPosns[i]]=false; 
+  menuSortChngs[catOrigPosns[i]]=false;
 }
 document.getElementById('categoryLinks').innerHTML="<b><u>View Menu Categories</u>:</b> &nbsp; &nbsp; "+catNameLnks;
 
