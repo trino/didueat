@@ -417,6 +417,7 @@
     array("name" => "Harvey's", "address" => "3065 Mavis Rd", "city" => "Mississauga", "province" => "ON", "postal_code" => "L5C 1T7", "id" => "100447769", "phone" => "905-896-0704", "coordinates" => "43.56759,-79.635194")
 );
 
+    $now = now();
     $cities = array("hamilton", "stoney creek");
     foreach($restaurants as $restaurant){
         if (in_array(strtolower($restaurant["city"]), $cities)){
@@ -455,7 +456,7 @@
                     $repair["is_pickup"] = 1;
                     update_database("restaurants", "id", $ob->id, $repair);
                     $catid = new_anything("category", array("title" => "Main", "display_order" => 1, "res_id" => $ob->id));
-                    new_anything("menus", array("cat_name" => "Main", "cat_id" => $catid, "is_active" => 1, "display_order" => 1, "price" => 1, "description" => "Added during mass upload", "restaurant_id" => $ob->id, "menu_item" => "Test Item", "uploaded_by" => read("id")));
+                    new_anything("menus", array("cat_name" => "Main", "cat_id" => $catid, "is_active" => 1, "display_order" => 1, "price" => 1, "description" => "Added during mass upload", "restaurant_id" => $ob->id, "menu_item" => "Test Item", "uploaded_by" => read("id"), "uploaded_on" => $now));
                 }
             } else {
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
