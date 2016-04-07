@@ -418,7 +418,18 @@
 );
 
     $now = now();
-    $cities = array("hamilton", "stoney creek");
+    $cities = array("hamilton", "stoney creek", "burlington");
+    $times = array();
+    foreach(getweekdays() as $weekday){
+        $times[$weekday . "_open"] = "10:00:00";
+        $times[$weekday . "_open_del"] = "10:00:00";
+        $times[$weekday . "_close"] = "20:00:00";
+        $times[$weekday . "_close_del"] = "20:00:00";
+    }
+    $times["is_complete"] = 1;
+    $times["is_delivery"] = 1;
+    $times["is_pickup"] = 1;
+    $times["uploaded_by"] = read("id");
 
     foreach($restaurants as $restaurant){
         if (in_array(strtolower($restaurant["city"]), $cities)){
@@ -431,9 +442,7 @@
             if(isset($restaurant["phone"])){
                 $restaurant["phone"] = str_replace("-", "", $restaurant["phone"]);
             }
-
             $restaurant["formatted_address"] = implode(", ", array($restaurant["address"], $restaurant["city"], $restaurant["province"], $restaurant["postal_code"], "Canada"));
-            $restaurant["uploaded_by"] = read("id");
             $restaurant["email"] = "roy+" . $restaurant["id"] . "@trinoweb.com";
             $restaurant["slug"] = app('App\Http\Controllers\RestaurantController')->createslug( $restaurant["name"] );
             unset($restaurant["id"]);
@@ -442,24 +451,14 @@
             if($ob){
                 $repair = array();
                 if(!$ob->slug){$repair["slug"] = $restaurant["slug"];}
-                if(!$ob->uploaded_by){$repair["uploaded_by"] = read("id");}
-                foreach(getweekdays() as $weekday){
-                    if(getfield($ob, $weekday . "_open") == "12:00:00" && getfield($ob, $weekday . "_close") == "12:00:00"){
-                        $repair[$weekday . "_open"] = "10:00:00";
-                        $repair[$weekday . "_open_del"] = "10:00:00";
-                        $repair[$weekday . "_close"] = "20:00:00";
-                        $repair[$weekday . "_close_del"] = "20:00:00";
-                    }
-                }
+                $repair = array_merge($times, $repair);
                 if($repair){
-                    $repair["is_complete"] = 1;
-                    $repair["is_delivery"] = 1;
-                    $repair["is_pickup"] = 1;
                     update_database("restaurants", "id", $ob->id, $repair);
                     $catid = new_anything("category", array("title" => "Main", "display_order" => 1, "res_id" => $ob->id));
                     new_anything("menus", array("cat_name" => "Main", "cat_id" => $catid, "is_active" => 1, "display_order" => 1, "price" => 1, "description" => "Added during mass upload", "restaurant_id" => $ob->id, "menu_item" => "Test Item", "uploaded_by" => read("id"), "uploaded_on" => $now));
                 }
             } else {
+                $restaurant = array_merge($times, $restaurant);
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate($restaurant,false);
                 $ob->save();
@@ -477,7 +476,7 @@
 
             $profile = select_field("profiles", "restaurant_id", $ob->id);
             if(!$profile){
-                var_dump(new_anything("profiles", array("profile_type" => 2, "name" => $ob->name . " owner", "email" => $ob->email, "password" => "18GgKcb2FFBHM", "restaurant_id" => $ob->id, "created_at" => $now, "phone" => $ob->phone)));
+                echo "<BR>Made account: " . new_anything("profiles", array("profile_type" => 2, "name" => $ob->name . " owner", "email" => $ob->email, "password" => "18GgKcb2FFBHM", "restaurant_id" => $ob->id, "created_at" => $now, "phone" => $ob->phone));
             }
 
             var_dump($restaurant);
