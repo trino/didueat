@@ -4,6 +4,9 @@
     <?php
         printfile("views/emails/registration_welcome.blade.php");
         $requireEmailVerify=false;
+        $alts = array(
+            "verify" => "Verify your email address is valid"
+        );
     ?>
         <table align="left" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
             <tr>
@@ -20,13 +23,15 @@
                         <tr>
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
                                 <h2>Dear <?php echo e($name); ?>,</h2>
-                                Thank you for registering with <?php echo e(DIDUEAT); ?>. We invite you to enjoy the convenience of ordering your food online -- with your computer, tablet or cellphone.
+                                Thank you for registering with <?php echo e(DIDUEAT); ?>.
                                 <?php if(isset($restaurant_id) && $restaurant_id): ?>
                                    <br/><br/>As a restaurant, there are a few quick tasks you need to complete before you are completely ready to sell your food with <?php echo e(DIDUEAT); ?>:<br/><br/>
                                    &bull; Pickup and/or delivery options (ie, minimum orders and delivery charge)<br/>
                                    &bull; Hours of operation<br/>
                                    &bull; At least one menu item must be added and enabled<br/>
                                    &bull; You may also wish to upload your restaurant's logo, although this is optional
+                                <?php else: ?>
+                                 We invite you to enjoy the convenience of ordering your food online -- with your computer, tablet or cellphone.
                                 <?php endif; ?>                                
                                 <br/><br/>As a reminder, your login credentials have been included below:
                                 <br /><br />  
@@ -39,7 +44,7 @@
                                 <?php if(!$is_email_varified && $requireEmailVerify): ?>
                                     Please click on the verification link below to activate your account.
                                     <br /><br />
-                                    <a href="<?php echo e(url('auth/verify_email')); ?>/<?php echo base64_encode($email) ?>" style="padding: 6px 12px; background-color: #31a3c9; border-color: #3C5C7B; color: #FFFFFF; text-decoration: none;" target="_blank">Activate Now</a>
+                                    <a href="<?php echo e(url('auth/verify_email')); ?>/<?php echo base64_encode($email) ?>" style="padding: 6px 12px; background-color: #31a3c9; border-color: #3C5C7B; color: #FFFFFF; text-decoration: none;" target="_blank" title="<?php echo e($alts["verify"]); ?>">Activate Now</a>
                                     <br /><br />
                                     Please note that your account will not be activated until you verify your email address.
                                     <br /><br />                        
