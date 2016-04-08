@@ -1,4 +1,40 @@
 <?php
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exit;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     $restaurants = array(
     array("image" => "http://ssvs.yp.ca/o37/63776031001/201512/117/63776031001_4655774956001_4655756858001-th.jpg", "name" => "Wild Orchid", "address" => "286 James St N", "city" => "Hamilton", "province" => "ON", "postal_code" => "L8R 2L3", "description" => "Voted Best Portuguese Cuisine! Seafood. Steak. Pasta. Catering Avail. Come Try our Patio.", "website" => "http://www.wildorchidrestaurant.ca", "id" => "1717362", "phone" => "289-768-2707", "coordinates" => "43.263605,-79.866023"),
     array("image" => "http://cdn.ci1.yp.ca/t/1566/67/15666710aa_t.gif", "name" => "The Village Restaurant open", "address" => "35 King St E", "city" => "Stoney Creek", "province" => "ON", "postal_code" => "L8G 1J9", "description" => "Discover Our Little Corner in the Creek", "website" => "http://www.villagerestaurant.ca", "id" => "1671061", "phone" => "905-662-1811", "coordinates" => "43.2165842,-79.7563263"),
