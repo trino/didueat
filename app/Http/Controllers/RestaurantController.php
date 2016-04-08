@@ -576,8 +576,9 @@ $newCatID=false;
         }
         else{ // category from the dropdown, delimited with ~~
 		          $catidnameExp = explode("~~",$arr['cat_id']);
+                  if(count($catidnameExp)>1){
 		          $arr['cat_id'] = $catidnameExp[0];
-		          $arr['cat_name'] = $catidnameExp[1];
+		          $arr['cat_name'] = $catidnameExp[1];}
         }
 
 
