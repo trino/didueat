@@ -1,9 +1,0 @@
-<?php $__env->startSection('content'); ?>
-    <div class="container">
-    <?php printfile("views/home/terms.blade.php"); ?>
-        <h4><?php echo e(DIDUEAT); ?> Terms of Use</h4><br>
-    <?php echo $__env->make('popups.terms', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-    </div>
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
