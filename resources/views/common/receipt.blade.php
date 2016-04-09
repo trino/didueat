@@ -157,14 +157,14 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df2">
+                        <!--tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df2">
                             <td><strong>Minimum</strong></td>
                             <td>
                                 <div class="pull-right ">
                                     <span class="df">${{ number_format($restaurant->minimum,2) }}</span>
                                 </div>
                             </td>
-                        </tr>
+                        </tr-->
 
 
                         <tr>

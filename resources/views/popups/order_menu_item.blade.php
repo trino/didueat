@@ -91,7 +91,7 @@
 
                                 @foreach ($submenus as $sub)
 
-                                    <tr class="zxcx">
+                                    <tr>
                                         <td width="100%" id="td_{{ $sub->id }}" class="valign-top">
 
                                             <input type="hidden" value="{{ $sub->exact_upto_qty }}" id="extra_no_{{ $sub->id }}">
@@ -99,7 +99,7 @@
                                             <input type="hidden" value="{{ $sub->sing_mul }}" id="multiple_{{ $sub->id }}">
                                             <input type="hidden" value="{{ $sub->exact_upto }}" id="upto_{{ $sub->id }}">
 
-                                            <div class="infolist">
+                                            <div class="infolist m-t-1" >
                                                 <div style="display: none;">
                                                     <input type="checkbox"
                                                            value="{{ '<br/>'.$sub->menu_item }}"
@@ -118,14 +118,14 @@
                                                                    }
                                                                    if ($sub->req_opt == '0') {
                                                                        if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                                           echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                                                                           echo "Select " . $upto . $sub->exact_upto_qty . " items ";
                                                                        }
-                                                                       echo "Optional";
+                                                                       echo "optional";
                                                                    } elseif ($sub->req_opt == '1') {
                                                                        if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                                           echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                                                                           echo "Select " . $upto . $sub->exact_upto_qty . " items ";
                                                                        }
-                                                                       echo "Required";
+                                                                       echo "required";
                                                                    }
                                                                ?>
                                                            </span>
@@ -133,7 +133,7 @@
                                                 <div class="clearfix"></div>
                                                 <span class="error_{{ $sub->id }} errormsg"></span>
 
-                                                <div class="list clearfix row">
+                                                <div class="list clearfix row  m-t-1">
                                                     <?php
                                                         $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get();
                                                         $a = 0;
@@ -148,7 +148,7 @@
                                                             }
                                                         ?>
 
-                                                        <div class="col-xs-12 col-sm-6 form-group">
+                                                        <div class="col-xs-12 col-sm-6 form-group" style="margin-bottom: 0 !important">
                                                             <div id="buttons_{{ $mm->id }}" class="buttons" href="javascript:void(0);">
 
 
@@ -167,7 +167,7 @@
                                                                             <span class="c-indicator"></span>
                                                                         @endif
 
-                                                                        <span class="list-inline-item ver">{{ $mm->menu_item }} <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?> </span>
+                                                                        <span class="list-inline-item ver">{{ $mm->menu_item }} <?php if ($mm->price) echo "+$" . number_format(str_replace('$', '', $mm->price), 2); ?> </span>
                                                                     </LABEL>
                                                                 </div>
 
@@ -217,7 +217,7 @@
             <div class="card-footer">
                 <div class="">
                     <div class=" pull-left">
-                        <button type="button" class="btn btn-link btn-sm hidden-md-up" title="Close" data-dismiss="modal">
+                        <button type="button" class="btn btn-link btn-sm hidden-md-up p-x-0" title="Close" data-dismiss="modal">
                             Close
                         </button>
                         <!--button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
@@ -227,19 +227,20 @@
                     <div class="pull-right" style="margin-left:.5rem;">
                         <a id="profilemenu{{ $value->id }}" title="{{ $alts["add"] }}"
                            class="btn  btn-primary add_menu_profile add_end"
-                           href="javascript:void(0);">Add</a>
+                           href="javascript:void(0);">ADD</a>
                     </div>
                     <div class="pull-right">Qty
                         <?php
                             $usedropdown = true;
                         ?>
-                        <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());" class="btn btn-secondary" @if(!$usedropdown) style="display:none;" @endif >
+                        <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());" class="btn btn-secondary p-x-0" @if(!$usedropdown) style="display:none;" @endif >
                             <?php
                                 for($i = 1; $i <= 10; $i++){
                                     echo '<OPTION';
                                     if($i == 1){echo ' SELECTED';}
                                     echo '>' . $i . '</OPTION>';
                                 }
+                            ?>
                             ?>
                         </SELECT>
                         @if($usedropdown) <SPAN STYLE="display: none;"> @endif

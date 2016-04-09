@@ -18,14 +18,14 @@ $alts = array(
             <li class="nav-item hidden-sm-down ">
                 <a class="" href="{{ url('/') }}" title="{{ $alts["home"] }}">
                     <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="{{ DIDUEAT }}"
-                         style="height: 41px;margin-top:5px;"/>
+                         style="height: 40px;margin-top:5px;"/>
                 </a>
             </li>
 
             <li class="nav-item m-l-0">
                 <a class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}" title="{{ $alts["home"] }}">
                     <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}"
-                         style="height: 33px;"/>
+                         style="height: 31px;"/>
                 </a>
             </li>
 

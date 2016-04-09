@@ -96,7 +96,7 @@
                     $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
                 ?>
                 @foreach($submenus as $sub)
-                  <tr class="zxcx">
+                  <tr>
                     <td width="100%" id="td_{{ $sub->id }}" class="valign-top">
                       <input type="hidden" value="{{ $sub->exact_upto_qty }}" id="extra_no_{{ $sub->id }}">
                       <input type="hidden" value="{{ $sub->req_opt }}" id="required_{{ $sub->id }}">

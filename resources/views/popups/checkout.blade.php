@@ -116,20 +116,23 @@
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
-
-        <div class="col-xs-12">
+<div class="form-group">
+        <div class="col-xs-3">
             <label class="radio-inline c-input c-radio">
                 <input type="radio" name="payment_type" checked="checked" onclick="$('.CC').hide();" value="cash"/>
                 <span class="c-indicator"></span>
-                Cash on Arrival
+                Cash
             </label>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-9">
             <label class="radio-inline c-input c-radio">
                 <input type="radio" name="payment_type" onclick="$('.CC').show();" value="cc"/>
                 <span class="c-indicator"></span>
-                Pay by Debit/Credit Card            </label>
+                Debit/Credit Card            </label>
         </div>
+    <div class="clearfix"></div>
+
+</div>
         <div class="CC" style="display: none;">
             @include('home.stripe',['loaded_from'=>'reservation'])
         </div>
@@ -140,7 +143,7 @@
         Please review your order before proceeding!
     </div-->
 
-    <div class="col-xs-12 p-t-1">
+    <div class="col-xs-12">
             <!--a href="javascript:history.go(0)" class="btn  btn-secondary clearitems">Cancel</a-->
             <button type="submit" class="btn btn-primary btn-block " onclick="return addresscheck();" id="chkOut" title="{{ $alts["checkout"] }}">Place Order</button>
             <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>

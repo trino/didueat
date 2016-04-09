@@ -2,7 +2,9 @@
     font-size: 1rem !important;
 
 }
+*{
 
+}
 .navbar {
     padding: 0rem;
 }
@@ -56,7 +58,6 @@ hr {
 
 .double-input .form-control {
     width: 50%;
-    border-right-width: 0px;
 }
 .double-input .form-control:focus {
     border-right-width: 1px;

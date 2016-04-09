@@ -96,12 +96,12 @@
                     <div class="text-xs-center" onclick="submitform(event, 0);">
 
                         <!--h5 class="m-t-1 display-5 banner-text-shadow" loc="{{ $loc }}"-->
-                        <h5 class="m-t-1 display-5 banner-text-shadow">
+                        <!--h5 class="m-t-1 display-5 banner-text-shadow">
                             or show me <a style="cursor:pointer;text-decoration: underline; color:white"
                                           class="search-city" onclick="submitform(event, 0);return false;"
                                           city="{{ $City }}" province="{{ $Province }}" title="{{ $alts["city"] }}"
                                           country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
-                        </h5>
+                        </h5-->
 
                         <div class="clearfix"></div>
                     </div>

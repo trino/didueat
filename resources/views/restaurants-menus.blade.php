@@ -48,7 +48,7 @@
     <? } ?>
 
 
-        <div class="card  m-b-0" style="border-radius:0 !important;">
+        <!--div class="card  m-b-0" style="border-radius:0 !important;">
             <div class="card-block ">
                 <div class="container" style="margin-top: 0 !important;padding:0 !important;">
                     <div id="categoryLinks" style="padding-left:15px"></div>
@@ -56,7 +56,7 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-        </div>
+        </div-->
 
 
     <div class="container" >
@@ -553,8 +553,8 @@ else{//is not yours, needs to be active
                  */
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
-                $('#list' + ids).html('<td class="receipt_image" style="width:50px !important;">' +
-                        '<SELECT class="btn btn-secondary" ID="itemsel' + ids + '" onchange="changeitem(' + "'" + ids + "'" + ')">' + makeselect(0,10, pre_cnt) + '</SELECT>' +
+                $('#list' + ids).html('<td class="receipt_image" valign="top" style="width:50px !important;">' +
+                        '<SELECT  style="border:0 !important;padding:0rem !important;font-size: 1rem !important;"   class="btn btn-secondary btn-sm" ID="itemsel' + ids + '" onchange="changeitem(' + "'" + ids + "'" + ')">' + makeselect(0,10, pre_cnt) + '</SELECT>' +
 
                         '<SPAN style="display:none;"><a id="inc' + ids + '" class="clearfix increase btn btn-sm  btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-plus"></i></a>' +
 
@@ -563,7 +563,7 @@ else{//is not yours, needs to be active
 
                         '<input class="amount" type="hidden" value="' + price.toFixed(2) + '"/></td>' +
                         '<td class="innerst" width="60%">' + app_title + '</td>' +
-                        '<td class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
+                        '<td valign="top"  class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
                         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
                         '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +
