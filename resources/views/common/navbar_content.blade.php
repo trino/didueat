@@ -1,3 +1,7 @@
+<style>
+    .page-sidebar .list-group-item{padding-top: .25rem !important;padding-bottom: .25rem !important;}
+</style>
+
 <div class="page-sidebar" aria-expanded="true">
     <ul class="page-sidebar-menu page-sidebar-menu-hover-submenu" style="margin-bottom:0px !important">
         <?php
@@ -9,13 +13,6 @@
                     $FontAwesome = '<i class="fa fa-cutlery" style="color:#0275d8 !important;margin-right:.3em;"></i> ';
                     if($Name == "My Profile"){
                         $FontAwesome = '<i class="fa fa-user" style="color:#0275d8 !important;margin-right:.3em;"></i> ';
-/*
-                        $filename = 'assets/images/users/' . read("id") . "/icon-" . read('photo');
-                        if (Session::has('session_photo') && file_exists(public_path($filename))) {
-                            $FontAwesome = false;
-                            echo '<IMG SRC="' . asset($filename) . '" STYLE="height: 16px;width:16px;"> ';
-                        }
-*/
                     }
                     echo $FontAwesome . $Name . '</h4></div><div class="card-block p-a-0"><div class="list-group-flush">';
                     $Name = str_replace(" ", "_", strtolower($Name)) . "_menu";
@@ -31,7 +28,7 @@
                     if (Request::path() == $URL) {
                         echo ' active';
                     }
-                    if($URL=="notification/addresses"){$Name="Notification Methods";}
+                    if($URL=="notification/addresses"){$Name="Notifications";}
                     echo '"><i class="fa fa-angle-right pull-right" style="margin-top: .3em;"></i> ' . $Name . '</a></LI>';
                 }
             }
@@ -51,10 +48,10 @@
         if (trim(\Session::get('session_restaurant_id'))) {
             $Pending_orders = select_field_where("reservations", array("restaurant_id" => \Session::get('session_restaurant_id'), "status" => "pending"), "COUNT()");
             if(!$Pending_orders){$Pending_orders=0;}
-            makelink(array('restaurant/info' => "Settings",
+            makelink(array(
                     'orders/list/restaurant' => 'Orders (' . $Pending_orders . iif($Pending_orders, '<i class="fa fa-exclamation-triangle" style="color: red;"></i>') . ')',
-                    'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "Your Menu",
-                    'notification/addresses' => "Notification methods"
+                    'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "My Menu",
+                    'notification/addresses' => "Notification methods",'restaurant/info' => "Settings",
             ), "My Restaurant");
         } /*else {//if(read("profiletype") == 3){
             makelink(array(

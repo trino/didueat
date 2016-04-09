@@ -81,8 +81,8 @@ $itemPosnForJS = [];
 
             <?php
             $noUpCatSort = false;
-            $thisUpMenuVisib = "visible";
-            $thisDownMenuVisib = "visible";
+            $thisUpMenuVisib = "show";
+            $thisDownMenuVisib = "show";
             $parentCnt[$thisCatCnt] = $value->id; // for js sorting with ajax, not implemented yet
             $itemPosnForJS[$value->cat_id][$value->id] = $value->display_order;
             $catPosn[] = $thisCatCnt;
@@ -93,16 +93,16 @@ $itemPosnForJS = [];
             if ($index < ($thisCnt - 1)) { // means it's not the last item
                 $nextIndx = ($index + 1);
                 if ($value->cat_id != $catIDNum[$nextIndx]) {
-                    $thisDownMenuVisib = "hidden";
+                    $thisDownMenuVisib = "none";
                 }
             } else {
-                $thisDownMenuVisib = "hidden"; // last item in array
+                $thisDownMenuVisib = "none"; // last item in array
             }
 
             //echo "\$prevCat: ".$prevCat."  --  \$index: ".$index."  --  \$nextIndx: ".$nextIndx."  -- totalItems-1: ".($thisCnt-1)."  --  cat_id: ".$value->cat_id."  --   next CatID: ".$catIDNum[$nextIndx]."  --  ".$value->menu_item."  --  ".$value->display_order;
 
             if($value->cat_id != $prevCat){ // means it's a new category
-            $thisUpMenuVisib = "hidden";
+            $thisUpMenuVisib = "none";
             $catMenuCnt = 0; // reset count for this category
             if ($prevCat) {
                 echo '</div><!-- end of previous category -->';
@@ -125,7 +125,6 @@ $itemPosnForJS = [];
 
 
                             <div class="col-md-4">
-                                @if(isset($canedit))
                                 <div class="btn-group pull-right" aria-label="Basic example" role="group">
                                     <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary"
                                        id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
@@ -141,7 +140,7 @@ $itemPosnForJS = [];
                                         <i class="fa fa-arrow-down"></i>
                                     </a>
                                 </div>
-                                    @endif
+
                             </div>
 
                             <div class="col-md-6" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
@@ -334,38 +333,38 @@ $itemPosnForJS = [];
                                             @endif
                                         @endif
                                     </div>
-                                    <div class="btn-group pull-right" role="group">
+                                    <div class="pull-right" role="group">
                                         <a id="up_parent_{{ $value->id.'_'.$value->cat_id }}"
                                            title="{{ $alts["up_parent"] }}"
-                                           class="btn btn-sm btn-primary-outline sorting_parent"
+                                           class="btn btn-sm btn-link sorting_parent"
                                            href="javascript:void(0);"
                                            onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'up', {{ $catMenuCnt }});return false"
-                                           style="visibility:{{ $thisUpMenuVisib }} !important">
+                                           style="display:{{ $thisUpMenuVisib }} !important">
                                             <i class="fa fa-arrow-up"></i></a>
 
                                         <a id="down_parent_{{ $value->id.'_'.$value->cat_id }}"
                                            title="{{ $alts["down_parent"] }}"
-                                           class="btn btn-sm btn-primary-outline sorting_parent"
+                                           class="btn btn-sm btn-link sorting_parent"
                                            href="javascript:void(0);"
                                            onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }});return false"
-                                           style="visibility:{{ $thisDownMenuVisib }} !important">
+                                           style="display:{{ $thisDownMenuVisib }} !important">
                                             <i class="fa fa-arrow-down"></i></a>
 
                                         <button id="add_item{{ $value->id }}" type="button"
                                                 title="{{ $alts["edititem"] }}"
-                                                class="btn btn-sm btn-primary-outline additem" data-toggle="modal"
+                                                class="btn btn-sm btn-link additem" data-toggle="modal"
                                                 data-target="#addMenuModel"><strong>Edit</strong>
                                         </button>
 
                                         <a href="#"
-                                           class="btn btn-sm btn-primary-outline"
+                                           class="btn btn-sm btn-link"
                                            title="{{ $alts["deleteMenu"] }}"
                                            onclick="deleteMenuItem(<?php echo $value->cat_id . ', ' . $value->id . ', ' . $value->display_order;?>);return false"><i
                                                     class="fa fa-times"></i></a>
                                     </div>
                                 @elseif(read("id") == $value->uploaded_by)
                                     <button id="add_item{{ $value->id }}" type="button" title="{{ $alts["edititem"] }}"
-                                            class="btn btn-sm btn-primary-outline additem pull-right"
+                                            class="btn btn-sm btn-link additem pull-right"
                                             data-toggle="modal"
                                             data-target="#addMenuModel"><strong>Edit</strong>
                                     </button>

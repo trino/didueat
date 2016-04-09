@@ -554,7 +554,7 @@ else{//is not yours, needs to be active
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" valign="top" style="width:50px !important;">' +
-                        '<SELECT  style="border:0 !important;padding:0rem !important;font-size: 1rem !important;"   class="btn btn-secondary btn-sm" ID="itemsel' + ids + '" onchange="changeitem(' + "'" + ids + "'" + ')">' + makeselect(0,10, pre_cnt) + '</SELECT>' +
+                        '<SELECT  style="border:0 !important;padding:0rem !important;"   class="btn btn-secondary" ID="itemsel' + ids + '" onchange="changeitem(' + "'" + ids + "'" + ')">' + makeselect(0,10, pre_cnt) + '</SELECT>' +
 
                         '<SPAN style="display:none;"><a id="inc' + ids + '" class="clearfix increase btn btn-sm  btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-plus"></i></a>' +
 
