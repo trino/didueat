@@ -1,6 +1,5 @@
 .btn-lg, .btn-group-lg > .btn {
     font-size: 1rem !important;
-
 }
 *{
 
@@ -265,27 +264,27 @@ hr {
     }
 
     h1 {
-        font-size: 1.35rem !important;
+        font-size: 1.25rem !important;
     }
 
     h2 {
-        font-size: 1.3rem !important;
-    }
-
-    h3 {
-        font-size: 1.3rem !important;
-    }
-
-    h4 {
-        font-size: 1.3rem !important;
-    }
-
-    h5 {
         font-size: 1.2rem !important;
     }
 
-    h6 {
+    h3 {
+        font-size: 1.15rem !important;
+    }
+
+    h4 {
         font-size: 1.1rem !important;
+    }
+
+    h5 {
+        font-size: 1.05rem !important;
+    }
+
+    h6 {
+        font-size: 1rem !important;
     }
 
     .container {
@@ -366,7 +365,6 @@ a.anchor {
 .close {
     font-size: 2rem !important;
     font-weight: normal;
-    opacity: 1 !important;
 }
 
 .container-fluid {
@@ -533,7 +531,6 @@ body {
     font-family: 'Roboto', sans-serif;
 
     background-color: #F4F7F8;
-    line-height: 1.6 !important;
 }
 
 .navbar, .row, .container {

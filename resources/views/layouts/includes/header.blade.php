@@ -81,14 +81,14 @@ echo asset('assets/images/icon-didueatdefault.png');
                 @else
 
                     <div class="btn-group">
-                        <button style="border-radius:0;padding-left:6px !important;;padding-right:6px !important;"
+                        <button style="border-radius:0;padding-left:9px !important;;padding-right:9px !important;"
                                 class="btn btn-lg btn-success  reserve_login "
                                 data-toggle="modal"
                                 title="{{ $alts["login"] }}"
                                 data-target="#loginModal"
                                 onclick="$('#login-ajax-form').attr('data-route', 'reservation');">Login
                         </button>
-                        <button style="padding-left:6px !important;;padding-right:6px !important;border-radius:0;"
+                        <button style="padding-left:9px !important;;padding-right:9px !important;border-radius:0;"
                                 class="btn btn-lg btn-success " data-toggle="modal"
                                 data-target="#signupModal" title="{{ $alts["signup"] }}">Signup
                         </button>
@@ -99,7 +99,7 @@ echo asset('assets/images/icon-didueatdefault.png');
 
             <li class="nav-item m-l-0">
                 <A ID="cart-header"
-                   style="padding-left:6px !important;;padding-right:6px !important;display:none;border-radius: 0;"
+                   style="padding-left:9px !important;;padding-right:9px !important;display:none;border-radius: 0;"
                    CLASS="anchor btn bg-warning  btn-lg"
                    onclick="return scrolltocheckout();" title="{{ $alts["cart-header"] }}">
                     <span class="fa fa-spinner fa-spin cart-header-gif"></SPAN>

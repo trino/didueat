@@ -49,7 +49,7 @@
                 <div class="card">
                     <div class="card-header ">
                         <div class="row">
-                            <div class="col-lg-9">
+                            <div class="col-lg-12">
                                 <h4 class="card-title">
                                     Menu Items Uploaded by {{ $ProfileName }}
                                 </h4>
