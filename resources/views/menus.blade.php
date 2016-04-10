@@ -113,27 +113,36 @@ $itemPosnForJS = [];
             ($noUpCatSort) ? $thisUpCatSort = "none" : $thisUpCatSort = "show";
             ($thisCatCnt >= ($catCnt - 1)) ? $thisDownCatSort = "none" : $thisDownCatSort = "show";
 
+
+                if(!read('id')){
+
+                    $thisUpCatSort  ='none';
+                    $thisDownCatSort ='none';
+                    $thisDownMenuVisib ='none';
+                            $thisUpMenuVisib ='none';
+                }
             ?>
 
             <DIV class="list-group m-y-1" id="c{{ $thisCatCnt }}" style=""><!-- start of this category -->
                 <div class="list-group-item parents" style="background: #f5f5f5;"><!-- start of category heading -->
                     <div class="">
                         <div class="row">
-                            <div class="col-xs-8"><a name="<?= $value->cat_name;?>"></a>
+                            <div class="col-xs-8">
+                                <a href="#" name="<?php echo $value->cat_name; ?>"></a>
                                 <h4 class="card-title"><?= $value->cat_name;?></h4>
                             </div>
 
 
                             <div class="col-xs-4">
-                                <div class="pull-right" aria-label="Basic example" role="group">
-                                    <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary"
+                                <div class="pull-right" aria-label="Basic example">
+                                    <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
                                        id="up{{ $thisCatCnt }}" style="display:{{ $thisUpCatSort }} !important"
                                        href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
                                         <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
                                         <i class="fa fa-arrow-up"></i>
                                     </a>
 
-                                    <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary"
+                                    <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-link"
                                        id="down{{ $thisCatCnt }}" style="display:{{ $thisDownCatSort }} !important"
                                        href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
                                         <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/down");?>"> -->
@@ -233,24 +242,24 @@ $itemPosnForJS = [];
                                                      alt="{{ $value->menu_item }}"/>
                                                 @else
                                                         <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
-                                            @endif
+                                                @endif
 
-                                            {{ $value->menu_item }}
+                                                {{ $value->menu_item }}
 
-                                            &ndash;
-                                            @if($main_price>0)
-                                                ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
-                                            @else
-                                                ${{number_format($min_p,2)}}+
-                                            @endif
-                                            @if($dis)
-                                                <strike class="text-muted btn btn-sm btn-link"
-                                                        style="float: right">${{number_format($value->price,2)}}</strike>
-                                            @endif
-                                            @if($dis)
-                                                <strike class="text-muted btn btn-sm btn-link"
-                                                        style="float: right">${{number_format($value->price,2)}}</strike>
-                                            @endif
+                                                &ndash;
+                                                @if($main_price>0)
+                                                    ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
+                                                @else
+                                                    ${{number_format($min_p,2)}}+
+                                                @endif
+                                                @if($dis)
+                                                    <strike class="text-muted btn btn-sm btn-link"
+                                                            style="float: right">${{number_format($value->price,2)}}</strike>
+                                                @endif
+                                                @if($dis)
+                                                    <strike class="text-muted btn btn-sm btn-link"
+                                                            style="float: right">${{number_format($value->price,2)}}</strike>
+                                                @endif
 
                                         </a>
                                     </div>
@@ -281,20 +290,20 @@ $itemPosnForJS = [];
                                 <? if(false){?>
 
                                 <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
-                                @if($value->uploaded_on)
+                                    @if($value->uploaded_on)
                                         Submitted: {{$value->uploaded_on}}
-                                @endif
+                                    @endif
 
-                                <?php
-                                if ($value->uploaded_by) {
-                                    $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
-                                    echo "by: " . $uploaded_by->name . "";
-                                }
-                                ?>
-                                        </p>
+                                    <?php
+                                    if ($value->uploaded_by) {
+                                        $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+                                        echo "by: " . $uploaded_by->name . "";
+                                    }
+                                    ?>
+                                </p>
 
 
-<?}?>
+                                <?}?>
                                 @if(false) <!-- no tags yet -->
                                 @if(isset($restaurant->tags) && $restaurant->tags != "")
                                     <?php
@@ -315,10 +324,14 @@ $itemPosnForJS = [];
 
 
                             <div class="col-md-12"><!-- start div 5 0000-00-00 00:00:00 -->
+
+
                                 @if(read('restaurant_id') == $restaurant->id || $canedit)
+
                                     <div class="btn-group pull-left" role="group" style="vertical-align: middle">
                                         <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}"
                                               style="color:blue; display: none;"></span>
+
                                         <label class="c-input c-checkbox p-r-1" id="enable{{ $value->id }}">
                                             <input {{ iif($value->is_active, "CHECKED") }} id="check{{ $value->id }}"
                                                    onclick="enableitem({{ $value->id }});" type="checkbox"
@@ -333,42 +346,47 @@ $itemPosnForJS = [];
                                                 on {{ date("M j 'y", strtotime($value->uploaded_on)) }}
                                             @endif
                                         @endif
+
                                     </div>
-                                    <div class="pull-right" role="group">
-                                        <a id="up_parent_{{ $value->id.'_'.$value->cat_id }}"
-                                           title="{{ $alts["up_parent"] }}"
-                                           class="btn btn-sm btn-link sorting_parent"
-                                           href="javascript:void(0);"
-                                           onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'up', {{ $catMenuCnt }});return false"
-                                           style="display:{{ $thisUpMenuVisib }} !important">
-                                            <i class="fa fa-arrow-up"></i></a>
+                                @endif
 
-                                        <a id="down_parent_{{ $value->id.'_'.$value->cat_id }}"
-                                           title="{{ $alts["down_parent"] }}"
-                                           class="btn btn-sm btn-link sorting_parent"
-                                           href="javascript:void(0);"
-                                           onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }});return false"
-                                           style="display:{{ $thisDownMenuVisib }} !important">
-                                            <i class="fa fa-arrow-down"></i></a>
 
-                                        <button id="add_item{{ $value->id }}" type="button"
-                                                title="{{ $alts["edititem"] }}"
-                                                class="btn btn-sm btn-link additem" data-toggle="modal"
-                                                data-target="#addMenuModel"><strong>Edit</strong>
-                                        </button>
 
-                                        <a href="#"
-                                           class="btn btn-sm btn-link"
-                                           title="{{ $alts["deleteMenu"] }}"
-                                           onclick="deleteMenuItem(<?php echo $value->cat_id . ', ' . $value->id . ', ' . $value->display_order;?>);return false"><i
-                                                    class="fa fa-times"></i></a>
-                                    </div>
-                                @elseif(read("id") == $value->uploaded_by)
-                                    <button id="add_item{{ $value->id }}" type="button" title="{{ $alts["edititem"] }}"
-                                            class="btn btn-sm btn-link additem pull-right"
-                                            data-toggle="modal"
-                                            data-target="#addMenuModel"><strong>Edit</strong>
-                                    </button>
+                                @if($canedit)
+
+                                    <a href="#"
+                                       class="btn btn-sm btn-link pull-right"
+                                       title="{{ $alts["deleteMenu"] }}"
+                                       onclick="deleteMenuItem(<?php echo $value->cat_id . ', ' . $value->id . ', ' . $value->display_order;?>);return false"><i
+                                                class="fa fa-times"></i></a>
+
+                                    <a id="add_item{{ $value->id }}" type="button" title="{{ $alts["edititem"] }}"
+                                       class="btn btn-sm btn-link additem pull-right"
+                                       data-toggle="modal"
+                                       data-target="#addMenuModel"><strong>Edit</strong>
+                                    </a>
+
+                                @endif
+
+
+                                @if(read("id"))
+                                    <a id="up_parent_{{ $value->id.'_'.$value->cat_id }}"
+                                       title="{{ $alts["up_parent"] }}"
+                                       class="btn btn-sm btn-link pull-right sorting_parent"
+                                       href="javascript:void(0);"
+                                       onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'up', {{ $catMenuCnt }});return false"
+                                       style="display:{{ $thisUpMenuVisib }} !important">
+                                        <i class="fa fa-arrow-up"></i></a>
+
+                                    <a id="down_parent_{{ $value->id.'_'.$value->cat_id }}"
+                                       title="{{ $alts["down_parent"] }}"
+                                       class="btn btn-sm btn-link pull-right sorting_parent"
+                                       href="javascript:void(0);"
+                                       onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }});return false"
+                                       style="display:{{ $thisDownMenuVisib }} !important">
+                                        <i class="fa fa-arrow-down"></i></a>
+
+
                                 @endif
 
 
@@ -439,7 +457,7 @@ $itemPosnForJS = [];
         catPosns[i] = i;
         catNameLnks += spaces + "<a HREF='#" + catNameA[i] + "'>" + catNameA[i] + "</a>";
 
-        // menuSortChngs same indexing as catNameA (use for loop to get catid index, then use index on catNameA), prompt user to save if exiting pg
+// menuSortChngs same indexing as catNameA (use for loop to get catid index, then use index on catNameA), prompt user to save if exiting pg
         menuSortChngs[catOrigPosns[i]] = false;
     }
 

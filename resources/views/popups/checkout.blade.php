@@ -117,14 +117,14 @@
         </div>
         <div class="clearfix"></div>
 <div class="form-group">
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             <label class="radio-inline c-input c-radio">
                 <input type="radio" name="payment_type" checked="checked" onclick="$('.CC').hide();" value="cash"/>
                 <span class="c-indicator"></span>
                 Cash
             </label>
         </div>
-        <div class="col-xs-9">
+        <div class="col-xs-8">
             <label class="radio-inline c-input c-radio">
                 <input type="radio" name="payment_type" onclick="$('.CC').show();" value="cc"/>
                 <span class="c-indicator"></span>
