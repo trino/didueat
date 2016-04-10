@@ -29,27 +29,10 @@
 
 
 
+?>
 
-    if(read("profiletype")){
-    ?>
-        <div class="card  m-b-0" style="border-radius:0 !important;">
-            <div class="card-block ">
-                <div class="container" style="margin-top: 0 !important;padding:0 !important;">
 
-                    <div class="col-md-4 col-md-offset-4 ">
-                        <a href="#" id="add_item0" type="button"
-                           class="btn btn-success btn-lg additem  btn-block"
-                           data-toggle="modal"
-                           title="{{ $alts["add_item"] }}"
-                           data-target="#addMenuModel">
-                            Add Menu Item
-                        </a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-    <? } ?>
+
 
 
         <!--div class="card  m-b-0" style="border-radius:0 !important;">
@@ -68,6 +51,11 @@
         <div class="row">
 
             <div class="col-lg-8 col-md-7 col-sm-12 ">
+
+
+
+
+
                 @if(!$is_my_restro)
                     @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true))
                 @endif
@@ -108,6 +96,31 @@ else{//is not yours, needs to be active
 @include('menus',$menus_list)
 @endif
 
+
+
+                            @if(read("profiletype"))
+
+                                <div class="card  m-b-0" style="border-radius:0 !important;">
+                                    <div class="card-block ">
+                                        <div class="container" style="margin-top: 0 !important;padding:0 !important;">
+
+                                            <div class="col-md-4 col-md-offset-4 ">
+                                                <a href="#" id="add_item0" type="button"
+                                                   class="btn btn-success btn-lg additem  btn-block"
+                                                   data-toggle="modal"
+                                                   title="{{ $alts["add_item"] }}"
+                                                   data-target="#addMenuModel">
+                                                    Upload Menu Item
+                                                </a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+
+                                        
+
                         
                         <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
@@ -116,8 +129,16 @@ else{//is not yours, needs to be active
                 @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))
             </div>
 
-    @if(!read('restaurant_id') || read('restaurant_id') == $restaurant->id)
-        <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
+
+
+
+
+
+
+                    @if(!read('restaurant_id') || read('restaurant_id') == $restaurant->id)
+                    @endif
+
+                    <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -140,7 +161,7 @@ else{//is not yours, needs to be active
         </div>
             </div>
   
-    @endif
+
 
     @include('popups.more_detail')
 

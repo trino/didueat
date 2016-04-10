@@ -77,7 +77,7 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-warning main-bg-image">
+    <div class="jumbotron jumbotron-fluid  bg-success main-bg-image">
         <div class="container" style="margin-top: 0 !important;">
             <div class="row text-md-center " style="padding:0 1.25rem !important;">
                 <div class="col-md-offset-2 text-xs-center col-md-8 " style="">

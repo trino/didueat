@@ -145,9 +145,9 @@ $alts = array(
                 <div class="smallT">{{ $MoreTime }}</div>
             @endif
             {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}
-
+@if($Restaurant["cuisine"])
             <span class="list-inline-item"> {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
-
+@endif
             <div class="clearfix"></div>
         </div>
 

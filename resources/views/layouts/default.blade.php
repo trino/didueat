@@ -148,7 +148,7 @@
 <body>
 <div class="overlay_loader">
     <div class="overlay">
-        <img src="{{ asset('assets/images/ajax-loading.gif') }}" alt="Loading..."/>
+        <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
     </div>
 </div>
 
