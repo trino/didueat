@@ -94,7 +94,7 @@ foreach ($category as $cat) {
  $catCnt++;
 }
 
-if(read('restaurant_id') == $restaurant->id || read("profiletype") != 2) {//is yours, doesn't need to be active
+if(read('restaurant_id') == $restaurant->id || read("profiletype") != 2) {//is yours, doesnt need to be active
    $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->orderBy('cat_id', 'ASC')->orderBy('display_order', 'ASC')->get();
 }
 else{//is not yours, needs to be active
