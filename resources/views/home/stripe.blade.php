@@ -11,7 +11,36 @@ $CreditCards = false;
 if ($CanSaveCard) {
     $CreditCards = select_field_where("credit_cards", array("user_id" => read("id"), "user_type" => "user"), false);
 }
-
+if(read('id'))
+{
+    $cc = \App\Http\Models\CreditCard::where('user_id',read('id'))->get();
+    if($cc->count()>0)
+    {
+        echo '<div class="col-xs-12 form-group ">';
+        foreach($cc as $c)
+        {
+            $CardNumber = (\Crypt::decrypt($c->card_number));
+            $Month = \Crypt::decrypt($c->expiry_month);
+            $Year = \Crypt::decrypt($c->expiry_year);
+            $cvc = \Crypt::decrypt($c->ccv);
+            echo '<input type="hidden" id="CC'.$c->id.'" value="'.$CardNumber.'_'.$Month.'_'.$Year.'_'.$cvc.'" />';
+        }
+        echo "<select class='changeCC form-control'>";
+        echo "<option value='0'>Choose Credit Card</option>";
+        foreach($cc as $c)
+        {
+            $CardNumber = obfuscate(\Crypt::decrypt($c->card_number));
+            $Month = \Crypt::decrypt($c->expiry_month);
+            $Year = \Crypt::decrypt($c->expiry_year);
+            $cvc = \Crypt::decrypt($c->ccv);
+            if ($Year > date("y") || ($Year == date("y") && $Month >= date("n"))) {
+                echo '<option value="' . $c->id . '">' . $CardNumber . '('.$c->first_name.' '.substr($c->last_name,0,1).'.)</option>';
+                
+            }
+        }
+        echo "</select> </div>";
+    }
+}
 if(!isset($loaded_from)){ ?>
 {!! Form::open(array('id'=>'payment-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}<br/>
 <?php } ?>
@@ -41,7 +70,7 @@ if(!isset($loaded_from)){ ?>
 
                 <input aria-required="true" autocomplete="off" placeholder="CVC" name="cardcvc" class="form-control"
                        type="text" size="4" data-stripe="cvc" required aria-describedby="cvc-addon"
-                       style="border-left:0 !important;width:25%;"/>
+                       style="border-left:0 !important;width:25%;" id="cvc"/>
 
             </div>
         </div>
@@ -55,7 +84,7 @@ if(!isset($loaded_from)){ ?>
 
                 <span class="input-group-addon">Expires</span>
 
-                <SELECT aria-required="true" name="cardmonth" class="form-control" data-stripe="exp-month">
+                <SELECT aria-required="true" name="cardmonth" class="form-control" data-stripe="exp-month" id="exp-month">
                     <?php
                     $Months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
                     foreach ($Months as $Number => $Month) {
@@ -69,7 +98,7 @@ if(!isset($loaded_from)){ ?>
                 </SELECT>
 
                 <SELECT aria-required="true" name="cardyear" class="form-control" data-stripe="exp-year"
-                        style="border-left:0 !important;">
+                        style="border-left:0 !important;" id="exp-year">
                     <?php
                     $current_year = date("Y");//2 digits
                     for ($now = $current_year; $now < $current_year + 10; $now++) {
@@ -145,7 +174,18 @@ if(!isset($loaded_from)){ ?>
     </SCRIPT>
     <?php }?>
 </div>
-<SCRIPT>
+<script>
+    $(function(){
+        $('.changeCC').live('change',function(){
+            var cc_id = $(this).val();
+            var cc = $('#CC'+cc_id).val().split('_');
+            $('#cardnumber').val(cc[0]);
+            $('#exp-month').val(cc[1]);
+            $('#exp-year').val(cc[2]);
+            $('#cvc').val(cc[3]);
+            
+        })
+    })
     function changecard() {
         if ($("#cardid").val()) {
             $(".editcard").hide();
@@ -153,4 +193,4 @@ if(!isset($loaded_from)){ ?>
             $(".editcard").show();
         }
     }
-</SCRIPT>
+</script>

@@ -63,7 +63,7 @@
         if (!\Session::get('session_restaurant_id') || Session::get('session_type_user') == "super") {
             $data["orders/list/user"] = "Orders";
             $data["user/addresses"] = "Address";
-            $data["credit-cards/list/restaurant"] = "Credit Card";
+            $data["credit-cards/list/user"] = "Credit Card";
             $data["user/uploads"] = "Uploads";
         }
         $data["auth/logout"] = "Log out";
