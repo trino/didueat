@@ -86,17 +86,17 @@
                         <td>
                             <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">Edit</a-->
                             @if($value->id != \Session::get('session_id'))
-                             <div class="btn-group-vertical">
+                             <div class="">
 
-                                <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" title="{{ $alts["possess"] }}"
+                                <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="" title="{{ $alts["possess"] }}"
                                    onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
 
-                                <!--a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
+                                <!--a href="{{ url('users/action/user_fire/'.$value->id) }}" class=""
                                    onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
 
-                                <a href="{{ url('user/uploads/'.$value->id) }}" class="btn btn-secondary-outline btn-sm">Uploads</a>
+                                <a href="{{ url('user/uploads/'.$value->id) }}" class="">Uploads</a>
 
-                                <a class="btn btn-secondary-outline btn-sm" id="delete{{$value->id}}" title="{{ $alts["delete"] }}"
+                                <a class="" id="delete{{$value->id}}" title="{{ $alts["delete"] }}"
                                    onclick="deleteuser('{{$value->id}}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
                             </div>
                             @endif

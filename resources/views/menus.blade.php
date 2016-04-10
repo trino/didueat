@@ -110,8 +110,8 @@ $itemPosnForJS = [];
             $prevCat = $value->cat_id; // also used as current cat_id until next loop
 
             $catNameStr[$prevCat] = $value->cat_name;
-            ($noUpCatSort) ? $thisUpCatSort = "hidden" : $thisUpCatSort = "visible";
-            ($thisCatCnt >= ($catCnt - 1)) ? $thisDownCatSort = "hidden" : $thisDownCatSort = "visible";
+            ($noUpCatSort) ? $thisUpCatSort = "none" : $thisUpCatSort = "show";
+            ($thisCatCnt >= ($catCnt - 1)) ? $thisDownCatSort = "none" : $thisDownCatSort = "show";
 
             ?>
 
@@ -125,16 +125,16 @@ $itemPosnForJS = [];
 
 
                             <div class="col-xs-4">
-                                <div class="btn-group pull-right" aria-label="Basic example" role="group">
+                                <div class="pull-right" aria-label="Basic example" role="group">
                                     <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary"
-                                       id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
+                                       id="up{{ $thisCatCnt }}" style="display:{{ $thisUpCatSort }} !important"
                                        href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
                                         <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
                                         <i class="fa fa-arrow-up"></i>
                                     </a>
 
                                     <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary"
-                                       id="down{{ $thisCatCnt }}" style="visibility:{{ $thisDownCatSort }} !important"
+                                       id="down{{ $thisCatCnt }}" style="display:{{ $thisDownCatSort }} !important"
                                        href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
                                         <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/down");?>"> -->
                                         <i class="fa fa-arrow-down"></i>
