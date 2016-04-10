@@ -119,7 +119,7 @@ else{//is not yours, needs to be active
                                 </div>
                                 @endif
 
-                                        
+
 
                         
                         <!--input type="file" accept="image/*;capture=camera"-->

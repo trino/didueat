@@ -110,7 +110,7 @@ $alts = array(
     </div>
 
     <div class="col-md-9 p-a-0">
-        <h4 style="margin-bottom: .25rem !important;">
+        <h4 style="margin-bottom: .1rem !important;">
 
 
             @if(isset($order))
@@ -140,7 +140,7 @@ $alts = array(
         </h4>
 
 
-        <div>
+
             @if(!$is_open)
                 <div class="smallT">{{ $MoreTime }}</div>
             @endif
@@ -149,10 +149,10 @@ $alts = array(
             <span class="list-inline-item"> {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
 @endif
             <div class="clearfix"></div>
-        </div>
 
 
-        <div>{{ $Restaurant['address'] }}, {{ $Restaurant['city'] }}</div>
+    <span class="list-inline-item"> {{ $Restaurant['phone'] }} </span> <span class="list-inline-item">{{ $Restaurant['address'] }}, {{ $Restaurant['city'] }} </span>
+        <div class="clearfix"></div>
 
         @if($Restaurant["is_delivery"])
             @if(!$Restaurant["is_pickup"])

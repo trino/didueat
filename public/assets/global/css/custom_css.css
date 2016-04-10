@@ -7,7 +7,7 @@
 .navbar {
     padding: 0rem;
 }
-h1,h2,h3,h4,h5,h6 {
+h1 {
 
     font-family: 'Roboto Slab', serif !important;
 }
@@ -276,7 +276,7 @@ hr {
     }
 
     h4 {
-        font-size: 1.1rem !important;
+        font-size: 1.25rem !important;
     }
 
     h5 {
@@ -529,7 +529,7 @@ td {
 body {
     font-family: 'Roboto', sans-serif;
 
-    background-color: #f2f2f2;
+    background-color: #fafafa;
 }
 
 .navbar, .row, .container {
