@@ -30,7 +30,7 @@
 
 
 
-    if(read("profiletype") && $is_my_restro){
+    if(read("profiletype")){
     ?>
         <div class="card  m-b-0" style="border-radius:0 !important;">
             <div class="card-block ">
@@ -68,7 +68,7 @@
         <div class="row">
 
             <div class="col-lg-8 col-md-7 col-sm-12 ">
-                @if(!$is_my_restro || debugmode())
+                @if(!$is_my_restro)
                     @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true))
                 @endif
 

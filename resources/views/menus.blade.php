@@ -234,7 +234,7 @@ $itemPosnForJS = [];
                                                 @else
                                                         <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
                                             @endif
-                                            @if(debugmode()) ({{ $value->id }}) @endif
+
                                             {{ $value->menu_item }}
 
                                             &ndash;
@@ -278,7 +278,8 @@ $itemPosnForJS = [];
 
                                 </p>
 
-                                <!--
+                                <? if(false){?>
+
                                 <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
                                 @if($value->uploaded_on)
                                         Submitted: {{$value->uploaded_on}}
@@ -291,9 +292,9 @@ $itemPosnForJS = [];
                                 }
                                 ?>
                                         </p>
-                                -->
 
 
+<?}?>
                                 @if(false) <!-- no tags yet -->
                                 @if(isset($restaurant->tags) && $restaurant->tags != "")
                                     <?php
