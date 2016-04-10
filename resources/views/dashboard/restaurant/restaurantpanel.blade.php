@@ -110,7 +110,7 @@ $alts = array(
     </div>
 
     <div class="col-md-9 p-a-0">
-        <h4 style="margin-bottom: 0 !important;">
+        <h4 style="margin-bottom: .25rem !important;">
 
 
             @if(isset($order))
