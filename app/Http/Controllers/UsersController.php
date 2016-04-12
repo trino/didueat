@@ -459,4 +459,38 @@ class UsersController extends Controller {
         if(!$UserID){$UserID = read("id");}
         return view('dashboard.user.uploads', array("userid" => $UserID));
     }
+
+    function uploadsajax($UserID = false){
+        if(!$UserID){$UserID = read("id");}
+
+        $per_page = \Input::get('showEntries', 20);
+        if(!is_numeric($per_page)){$per_page = 20;}
+        $page = \Input::get('page');
+        $cur_page = $page;
+        $page -= 1;
+        $start = $page * $per_page;
+
+        $data = array(
+            'page' => $page,
+            'cur_page' => $cur_page,
+            'per_page' => $per_page,
+            'start' => $start,
+            'meta' => (\Input::get('meta')) ? \Input::get('meta') : 'id',
+            'order' => (\Input::get('order')) ? \Input::get('order') : 'ASC',
+            'searchResults' => \Input::get('searchResults')
+        );
+
+        $recCount = select_field_where("menus", array("uploaded_by" => $UserID, "parent" => 0), "COUNT()");
+        $Query = select_field_where("menus", array("uploaded_by" => $UserID, "parent" => 0), false, "", "ASC", "", $per_page, $cur_page);
+        $no_of_paginations = ceil($recCount / $per_page);
+
+        $data["userid"] = $UserID;
+        $data['Query'] = $Query;
+        $data['recCount'] = $recCount;
+        $data['Pagination'] = getPagination($recCount, $no_of_paginations, $cur_page, TRUE, TRUE, TRUE, TRUE);
+        $data["_GET"] = $_GET;
+
+        \Session::flash('message', \Input::get('message'));
+        return view('dashboard.user.ajax.uploads', $data);
+    }
 }

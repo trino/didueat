@@ -153,7 +153,8 @@ Route::get('restaurant/list',                                       'RestaurantC
 Route::post('restaurant/list/ajax',                                 'RestaurantController@listingAjax');
 
 Route::get('user/uploads',                                          'UsersController@uploads');
-Route::get('user/uploads/{UserID}',                             'UsersController@uploads');
+Route::get('user/uploads/{UserID}',                                 'UsersController@uploads');
+Route::post('user/uploads/ajax/{UserID}',                           'UsersController@uploadsajax');
 
 Route::get('restaurant/menu_form/{id}',                             'RestaurantController@menu_form');
 Route::get('restaurant/menu_form/{id}/{rid}',                       'RestaurantController@menu_form');

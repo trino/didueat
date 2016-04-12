@@ -735,7 +735,7 @@
                 a string returns that specific column
         $OrderBy/$Dir/$GroupBy = order by column/direction (ASC/DESC)/group by column
     */
-    function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = ""){
+    function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "", $Limit = 0, $Start = 0){
         $query = DB::table($table);
         if ($getcol) {
             if ($getcol !== true) {
@@ -758,6 +758,10 @@
         }
         if ($GroupBy) {
             $query = $query->groupBy($GroupBy);
+        }
+        if($Limit){
+            $query->take($Limit);
+            $query->skip($Start);
         }
         if ($getcol === true) {
             return $query;
