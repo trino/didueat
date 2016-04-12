@@ -352,7 +352,7 @@ $itemPosnForJS = [];
 
 
 
-                                @if($canedit)
+                                @if($canedit || $value->uploaded_by ==read("id"))
 
                                     <a href="#"
                                        class="btn btn-sm btn-link pull-right"
@@ -369,7 +369,8 @@ $itemPosnForJS = [];
                                 @endif
 
 
-                                @if(read("id"))
+                                @if($canedit)
+
                                     <a id="up_parent_{{ $value->id.'_'.$value->cat_id }}"
                                        title="{{ $alts["up_parent"] }}"
                                        class="btn btn-sm btn-link pull-right sorting_parent"

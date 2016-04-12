@@ -179,14 +179,14 @@ $alts = array(
 </div>
 
 <?php
-if (isset($is_menu) && false) {
+if (isset($is_menu)) {
     $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
     if ($menuitems) {
-        echo '<div class="list-group-item"><table class="table table-responsive m-b-0"><THEAD><TR><TH>Item</TH><TH>Cost</TH></TR></THEAD>';
+        echo '<div class="list-group-item"><table style="min-width: 100% !important;" class="table m-b-0"><THEAD><TR><TH style="border-top:0;">Item</TH><TH style="border-top:0;">Cost</TH></TR></THEAD>';
         foreach ($menuitems as $menuitem) {
             //'restaurant_id', 'menu_item', 'description', 'price', 'rating', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order', 'cat_id', 'has_discount', 'discount_per', 'days_discount', 'is_active', 'uploaded_by', 'cat_name', 'uploaded_on'
             $filename = asset("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg");
-            echo '<TR><TD><IMG SRC="' . $filename . '">' . $menuitem->menu_item . '</TD>';
+            echo '<TR><TD><IMG style="width: 64px; height: 64px;" SRC="' . $filename . '">' . $menuitem->menu_item . '</TD>';
 
             echo '<TD style="vertical-align: middle;">' . asmoney($menuitem->price) . '</TD></TR>';
         }
