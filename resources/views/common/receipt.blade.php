@@ -75,7 +75,7 @@
     <div class="card">
 
         <div class="card-header">
-            <h4 class="card-title">Receipt</h4>
+            <h4 class="card-title">Your Order</h4>
         </div>
 
         <div class="card-block">
@@ -84,7 +84,7 @@
 
                 @include('common.items')
 
-                <div class="totals form-group p-t-1" style=" width:100%;">
+                <div class="totals form-group" style=" width:100%;">
                     <table style="<?php if(!isset($em)){?>width:100%;<?php }else{?>width:100%;padding:22px 0<?php }?>">
                         <tbody>
                         @if(!isset($order))
@@ -157,14 +157,14 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df2">
+                        <!--tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df2">
                             <td><strong>Minimum</strong></td>
                             <td>
                                 <div class="pull-right ">
                                     <span class="df">${{ number_format($restaurant->minimum,2) }}</span>
                                 </div>
                             </td>
-                        </tr>
+                        </tr-->
 
 
                         <tr>
@@ -185,7 +185,7 @@
                         @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
                             <a href="javascript:void(0)" class="btn btn-primary  btn-block" onclick="checkout();" TITLE="{{ $title }}">{{ $checkout }}</a>
                         @elseif($business_day && !$restaurant->open)
-                            <a class="btn btn-primary btn-block" title="{{ $alts["call"] }}" href="tel:{{ $restaurant->phone }}">Call: {{ phonenumber($restaurant->phone, true) }}</a>
+                            <a class="btn btn-primary-outline btn-block" title="{{ $alts["call"] }}" href="tel:{{ $restaurant->phone }}">Call: {{ phonenumber($restaurant->phone, true) }}</a>
                         @else
                             <a class="btn btn-danger-outline disabled  btn-block" href="#"title="{{ $alts["closed"] }}">Currently Closed</a>
                         @endif

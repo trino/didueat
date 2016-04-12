@@ -28,7 +28,7 @@
                     Restaurants {{ $note }}
 
                     @if(debugmode() && !$note)
-                        <A HREF="?fixmenus" STYLE="float:right;" class="btn btn-info btn-sm" title="{{ $alts["fixmenus"] }}">Fix menus</A>
+                        <A HREF="?fixmenus" STYLE="float:right;" class="" title="{{ $alts["fixmenus"] }}">Fix menus</A>
                     @endif
                 </h4>
             </div>
@@ -39,13 +39,27 @@
     <div class="card-block p-a-0">
         <table class="table table-responsive m-b-0">
             <?php
-                TH(array("id" => "ID", 'logo' => array("sort" => false), "name", "rating", "status", "" => array("sort" => false)));
+                TH(array( "" => array("sort" => false),"id" => "ID", 'logo' => array("sort" => false), "name", "rating", "status"));
             ?>
             <tbody>
                 @if($recCount > 0)
                     @foreach($Query as $key => $value)
                         <?php $logo = defaultlogo($value, true); ?>
                         <tr id="restaurant{{ $value->id }}">
+
+                            <td>
+                                <div class="">
+                                    <a href="{{ url('restaurants/' . $value->slug . '/menu/') }}" class="" title="{{ $alts["menu"] }}">Menu</a><br>
+                                    @if(read("type_user") == "super")
+                                        <a href="{{ url('orders/list/restaurant/' . $value->id) }}" class="" title="{{ $alts["orders"] }}">Orders</a><br>
+                                        <a href="{{ url('restaurant/info/'.$value->id) }}" class="" title="{{ $alts["edit"] }}">Edit</a><br>
+                                        <!--a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
+                                        <a class="" id="delete{{ $value->id }}" title="{{ $alts["delete"] }}" onclick="deleterestaurant('{{ $value->id }}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
+                                    @endif
+                                </div>
+                            </td>
+                            
+                            
                             <td>{{ $value->id }}</td>
                             <td><img src="{{ $logo }}" width="90" alt="{{ $alts["logo"] }}"/></td>
                             <td>{{ $value->name }}</td>
@@ -119,17 +133,7 @@
                             </td>
 
 
-                            <td>
-                            <div class="btn-group-vertical">
-                                <a href="{{ url('restaurants/' . $value->slug . '/menu/') }}" class="btn btn-info btn-sm" title="{{ $alts["menu"] }}">Menu</a>
-                                @if(read("type_user") == "super")
-                                    <a href="{{ url('orders/list/restaurant/' . $value->id) }}" class="btn btn-info btn-sm" title="{{ $alts["orders"] }}">Orders</a>
-                                    <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm" title="{{ $alts["edit"] }}">Edit</a>
-                                    <!--a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
-                                    <a class="btn btn-secondary-outline btn-sm" id="delete{{ $value->id }}" title="{{ $alts["delete"] }}" onclick="deleterestaurant('{{ $value->id }}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
-                                @endif
-                                </div>
-                            </td>
+                    
                             
                         </tr>
                     @endforeach

@@ -1,7 +1,7 @@
 <div class="col-md-12">
 
 
-    <label class="c-input c-checkbox p-r-1">
+    <label style="visibility: hidden" class="c-input c-checkbox p-r-1">
 
         <input <?php if(!isset($model) || (isset($model->is_active) && $model->is_active == 1)){?>checked="checked"
                <?php }?> type="checkbox" class="is_active"/>Enable Item

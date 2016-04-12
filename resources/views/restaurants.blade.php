@@ -77,10 +77,9 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-warning main-bg-image">
+    <div class="jumbotron jumbotron-fluid  bg-success main-bg-image">
         <div class="container" style="margin-top: 0 !important;">
             <div class="row text-md-center " style="padding:0 1.25rem !important;">
-                <div class="container hidden-md-down"></div>
                 <div class="col-md-offset-2 text-xs-center col-md-8 " style="">
                     <h1 class="banner-text-shadow"><span style="font-size: 119%">Pickup & Delivery from </span><span style="font-size: 124%"> Hamilton Restaurants</span></h1>
                     <div class="clearfix"></div>
@@ -96,12 +95,12 @@
                     <div class="text-xs-center" onclick="submitform(event, 0);">
 
                         <!--h5 class="m-t-1 display-5 banner-text-shadow" loc="{{ $loc }}"-->
-                        <h5 class="m-t-1 display-5 banner-text-shadow">
+                        <!--h5 class="m-t-1 display-5 banner-text-shadow">
                             or show me <a style="cursor:pointer;text-decoration: underline; color:white"
                                           class="search-city" onclick="submitform(event, 0);return false;"
                                           city="{{ $City }}" province="{{ $Province }}" title="{{ $alts["city"] }}"
                                           country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
-                        </h5>
+                        </h5-->
 
                         <div class="clearfix"></div>
                     </div>
@@ -126,8 +125,6 @@
             <div class="" id="results_show" style="display: none;">
                 <div class="col-lg-8 m-b-2">
                     <?php popup(true, "message:nostores", false, false, ''); ?>
-
-
                     @include('ajax.search_restaurants')
                 </div>
                 <div class="col-lg-4" ID="filter-results">

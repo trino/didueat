@@ -1810,12 +1810,12 @@
             }
         }
         if ($Success == "card"){
-            echo '<div class="card"><div class="card-block">' . $Message . '</div></div>';
+            echo '<div class="bg-success text-xs-center list-group-item m-b-1" style="border: 0 !important;">' . $Message . '</div>';
         } else {
             if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
             echo '<div class="alert alert-' . $Success . '" role="alert"';
             if($ID){ echo ' ID="' . $ID  . '"';}
-            if($Margin){ echo ' style="margin-bottom: ' . $Margin . 'px !important;"';}
+            if($Margin){ echo ' style=" ' . $Margin . 'px !important;"';}
             echo '><div class="container text-md-center" style="margin-top:0 !important;line-height: 2rem !important; ">';
             echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
             if($Title) {echo '<STRONG>' . $Title . '</STRONG>&nbsp;';}

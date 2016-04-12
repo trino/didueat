@@ -1,12 +1,13 @@
 .btn-lg, .btn-group-lg > .btn {
     font-size: 1rem !important;
+}
+*{
 
 }
-
 .navbar {
     padding: 0rem;
 }
-h1,h2,h3,h4,h5,h6 {
+h1 {
 
     font-family: 'Roboto Slab', serif !important;
 }
@@ -56,7 +57,6 @@ hr {
 
 .double-input .form-control {
     width: 50%;
-    border-right-width: 0px;
 }
 .double-input .form-control:focus {
     border-right-width: 1px;
@@ -264,27 +264,27 @@ hr {
     }
 
     h1 {
-        font-size: 1.35rem !important;
+        font-size: 1.25rem !important;
     }
 
     h2 {
-        font-size: 1.3rem !important;
-    }
-
-    h3 {
-        font-size: 1.3rem !important;
-    }
-
-    h4 {
-        font-size: 1.3rem !important;
-    }
-
-    h5 {
         font-size: 1.2rem !important;
     }
 
+    h3 {
+        font-size: 1.15rem !important;
+    }
+
+    h4 {
+        font-size: 1.25rem !important;
+    }
+
+    h5 {
+        font-size: 1.05rem !important;
+    }
+
     h6 {
-        font-size: 1.1rem !important;
+        font-size: 1rem !important;
     }
 
     .container {
@@ -365,7 +365,6 @@ a.anchor {
 .close {
     font-size: 2rem !important;
     font-weight: normal;
-    opacity: 1 !important;
 }
 
 .container-fluid {
@@ -474,8 +473,7 @@ td {
 }
 
 .overlay_loader {
-    background: rgba(255, 255, 255, 0.9) none repeat scroll 0 0;
-
+    background: rgba(255, 255, 255, 0) none repeat scroll 0 0;
     height: 100%;
     left: 0;
     position: fixed;
@@ -531,8 +529,7 @@ td {
 body {
     font-family: 'Roboto', sans-serif;
 
-    background-color: #F4F7F8;
-    line-height: 1.6 !important;
+    background-color: #fafafa;
 }
 
 .navbar, .row, .container {

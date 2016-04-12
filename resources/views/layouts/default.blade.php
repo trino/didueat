@@ -34,7 +34,7 @@
 
     <meta charset="utf-8">
     <!--meta content="width=device-width, initial-scale=1.0" name="viewport"-->
-
+        <meta name="theme-color" content="#5cb85c" />
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <meta name="viewport" content="width=device-width, user-scalable=no">
 
@@ -148,12 +148,12 @@
 <body>
 <div class="overlay_loader">
     <div class="overlay">
-        <img src="{{ asset('assets/images/ajax-loading.gif') }}" alt="Loading..."/>
+        <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
     </div>
 </div>
 
 <div class="">
-    <div class="container-fluid" style="margin-bottom: 46px;">
+    <div class="container-fluid" style="margin-bottom: 44px;">
         @include('layouts.includes.header')
     </div>
     <div class="clearfix"></div>

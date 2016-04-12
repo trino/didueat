@@ -554,12 +554,17 @@ class RestaurantController extends Controller {
                 //$arr[$Key] = 1;
             }
         }
+        if(isset($arr['restaurant_id']))
+        $rest_id = $arr['restaurant_id'];
+        else
+        $rest_id = \Session::get('session_restaurant_id');
+        
 
 $newCatID=false;
         
         if (!($arr['cat_id']) && (isset($arr['cat_name']) && $arr['cat_name'])) { // new entered category typed
             $arrs['title'] = $arr['cat_name'];
-            $arrs['res_id'] = \Session::get('session_restaurant_id');
+            $arrs['res_id'] = $rest_id;
             if(isset($_POST['highestCatOrder'])){
                $arrs['display_order'] = ($_POST['highestCatOrder'] + 1);
             }
@@ -571,8 +576,9 @@ $newCatID=false;
         }
         else{ // category from the dropdown, delimited with ~~
 		          $catidnameExp = explode("~~",$arr['cat_id']);
+                  if(count($catidnameExp)>1){
 		          $arr['cat_id'] = $catidnameExp[0];
-		          $arr['cat_name'] = $catidnameExp[1];
+		          $arr['cat_name'] = $catidnameExp[1];}
         }
 
 

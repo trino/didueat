@@ -26,29 +26,16 @@
         "add_item" => "Add Item"
     );
 
-    if(read("profiletype") || $is_my_restro){
-    ?>
-        <div class="card  m-b-0" style="border-radius:0 !important;">
-            <div class="card-block ">
-                <div class="container" style="margin-top: 0 !important;padding:0 !important;">
-
-                    <div class="col-md-4 col-md-offset-4 ">
-                        <a href="#" id="add_item0" type="button"
-                           class="btn btn-success btn-lg additem  btn-block"
-                           data-toggle="modal"
-                           title="{{ $alts["add_item"] }}"
-                           data-target="#addMenuModel">
-                            Add Menu Item
-                        </a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-    <? } ?>
 
 
-        <div class="card  m-b-0" style="border-radius:0 !important;">
+
+?>
+
+
+
+
+
+        <!--div class="card  m-b-0" style="border-radius:0 !important;">
             <div class="card-block ">
                 <div class="container" style="margin-top: 0 !important;padding:0 !important;">
                     <div id="categoryLinks" style="padding-left:15px"></div>
@@ -56,7 +43,7 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-        </div>
+        </div-->
 
 
     <div class="container" >
@@ -64,7 +51,12 @@
         <div class="row">
 
             <div class="col-lg-8 col-md-7 col-sm-12 ">
-                @if(!$is_my_restro || debugmode())
+
+
+
+
+
+                @if(!$is_my_restro)
                     @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true))
                 @endif
 
@@ -90,7 +82,7 @@ foreach ($category as $cat) {
  $catCnt++;
 }
 
-if(read('restaurant_id') == $restaurant->id || read("profiletype") != 2) {//is yours, doesn't need to be active
+if(read('restaurant_id') == $restaurant->id || read("profiletype") != 2) {//is yours, doesnt need to be active
    $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->orderBy('cat_id', 'ASC')->orderBy('display_order', 'ASC')->get();
 }
 else{//is not yours, needs to be active
@@ -104,6 +96,34 @@ else{//is not yours, needs to be active
 @include('menus',$menus_list)
 @endif
 
+
+
+                            @if(read("profiletype"))
+
+                                <div class="card  m-b-0" style="border-radius:0 !important;">
+                                    <div class="card-block text-xs-center ">
+                                        <div class="container" style="margin-top: 0 !important;padding:0 !important;">
+<h4>
+    Restaurant Incomplete?
+</h4>
+                                            <p>Upload menu items to recieve a percentage of every sale!</p>
+                                            <div class="col-md-4 col-md-offset-4 ">
+                                                <a href="#" id="add_item0" type="button"
+                                                   class="btn btn-success btn-lg additem  btn-block"
+                                                   data-toggle="modal"
+                                                   title="{{ $alts["add_item"] }}"
+                                                   data-target="#addMenuModel">
+                                                    Upload Menu Item
+                                                </a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+
+
+
                         
                         <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
@@ -112,8 +132,16 @@ else{//is not yours, needs to be active
                 @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))
             </div>
 
-    @if(!read('restaurant_id') || read('restaurant_id') == $restaurant->id)
-        <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
+
+
+
+
+
+
+                    @if(!read('restaurant_id') || read('restaurant_id') == $restaurant->id)
+                    @endif
+
+                    <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -136,7 +164,7 @@ else{//is not yours, needs to be active
         </div>
             </div>
   
-    @endif
+
 
     @include('popups.more_detail')
 
@@ -553,8 +581,8 @@ else{//is not yours, needs to be active
                  */
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
-                $('#list' + ids).html('<td class="receipt_image" style="width:50px !important;">' +
-                        '<SELECT class="btn btn-secondary" ID="itemsel' + ids + '" onchange="changeitem(' + "'" + ids + "'" + ')">' + makeselect(0,10, pre_cnt) + '</SELECT>' +
+                $('#list' + ids).html('<td class="receipt_image" valign="top" style="width:50px !important;">' +
+                        '<SELECT  style="border:0 !important;padding:0rem !important;"   class="btn btn-secondary" ID="itemsel' + ids + '" onchange="changeitem(' + "'" + ids + "'" + ')">' + makeselect(0,10, pre_cnt) + '</SELECT>' +
 
                         '<SPAN style="display:none;"><a id="inc' + ids + '" class="clearfix increase btn btn-sm  btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-plus"></i></a>' +
 
@@ -563,7 +591,7 @@ else{//is not yours, needs to be active
 
                         '<input class="amount" type="hidden" value="' + price.toFixed(2) + '"/></td>' +
                         '<td class="innerst" width="60%">' + app_title + '</td>' +
-                        '<td class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
+                        '<td valign="top"  class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
                         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
                         '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +

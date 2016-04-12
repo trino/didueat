@@ -13,19 +13,26 @@
     <div class=" ignore row">
         <div class="">
             <input type="hidden" class="rest_id" value="<?php if(isset($rest_id)){echo $rest_id;};?>" />
-            <div class="col-md-6 "  style="">
-                <div><strong>Category:</strong></div>
-                <div>
-                    <select class="cat_id form-control" >
-                        <option value="">Category</option>
+            <div class=""  style="">
+                <div class="col-sm-6">
+
+                    <select class="cat_id form-control form-group" >
+                        <option value="">Select Category</option>
                         @foreach($category as $cat)
-                        <?php $cats_order[]=$cat->display_order;?>
+                            <?php $cats_order[]=$cat->display_order;?>
                             <option value="{{ $cat->id }}~~{{ $cat->title }}" <?php if(isset($model) && $model->cat_id==$cat->id){?>selected="selected"<?php }?>>{{ $cat->title }}</option>
                         @endforeach
                     </select>
-                </div> OR 
-                <input class="form-control cat_name" value="" /> 
-                <?php $highestCatOrder=max($cats_order);?>
+</div>
+                <div class="col-sm-6">
+
+
+                    <input class="form-control cat_name form-group" value="" placeholder="Or Create New Category"/>
+
+
+
+                </div>                <?php $highestCatOrder=max($cats_order);?>
+
             </div>
 
             <div class=" ignore col-md-12" style="margin-bottom:3px; ">
