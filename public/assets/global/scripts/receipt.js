@@ -45,6 +45,9 @@ function clearCartItems() {
         $('.tax').val(0);
         $('.tax').text('$0.00');
         if($('#pickup1').hasClass('deliverychecked')) {
+            $('.subtotal').val(minimum);
+            $('.subtotal').text('$' + minimum);
+
             $('.grandtotal').val(0);
             $('.grandtotal').text('$0.00');
         } else {
@@ -75,6 +78,8 @@ function checkout() {
     var minimum_delivery = $('#minimum_delivery').val();
     
     var noitems = $('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00';
+    var subtotal =  Number($('#subtotal1').val());
+
     if($('#pickup1').is(':checked')) {// if($('#pickup1').hasClass('deliverychecked')) {
         //donothing
     } else {
@@ -83,10 +88,14 @@ function checkout() {
                 alert('Please make a menu selection before checking out!');
                 return false;
             }
-        }
-        else if(Number($('#subtotal1').val())< Number(minimum_delivery)) {
-            alert('Minimum delivery fee not met!');
-            return false;
+        } else if(subtotal < Number(minimum_delivery)) {
+            if (confirm('Minimum delivery fee not met! If you accept the additional charges, your subtotal would be $' + minimum_delivery)) {
+                $('.subtotal').val(minimum_delivery);
+                $('.subtotal').text(minimum_delivery);
+                delivery('show');
+            } else {
+                return false;
+            }
         }
     }
     if (noitems && !debugmode) {
