@@ -435,6 +435,12 @@ function updatecart(){
     }, 1000);
 }
 
+function onlogin(){
+    setTimeout(function() {
+        updatecart();
+    }, 1500);
+}
+
 var checkingout = false;
 window.onbeforeunload = function (e) {
     if (total_items && !checkingout) {

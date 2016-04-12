@@ -112,17 +112,13 @@ $alts = array(
             </li>
 
             <li class="nav-item m-l-0">
-
-
-
-            <A ID="cart-header" style="display:none;border-radius: 0;" CLASS="anchor btn bg-warning  btn-lg"
-               onclick="return scrolltocheckout();" title="{{ $alts["cart-header"] }}">
-                <span class="fa fa-spinner fa-spin cart-header-gif"></SPAN>
-                <SPAN class="cart-header-items cart-header-show"></SPAN>
-                <SPAN class="cart-header-total cart-header-show"></SPAN>
-                <!--i class="fa fa-shopping-cart cart-header-show"></i-->
-            </A>
-
+                <A ID="cart-header" style="display:none; border-radius: 0;" CLASS="anchor btn bg-warning btn-lg" title="{{ now() }}"
+                   onclick="return scrolltocheckout();" title="{{ $alts["cart-header"] }}">
+                    <span class="fa fa-spinner fa-spin cart-header-gif"></SPAN>
+                    <SPAN class="cart-header-items cart-header-show"></SPAN>
+                    <SPAN class="cart-header-total cart-header-show"></SPAN>
+                    <!--i class="fa fa-shopping-cart cart-header-show"></i-->
+                </A>
             </li>
         </ul>
 
