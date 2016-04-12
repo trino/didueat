@@ -60,11 +60,14 @@
         }*/
 
         $data = array('user/info' => "Settings");
-        if (!\Session::get('session_restaurant_id') || Session::get('session_type_user') == "super") {
+        $profiletype = Session::get('session_profiletype');
+        if (!\Session::get('session_restaurant_id') || $profiletype == 1) {
             $data["orders/list/user"] = "Orders";
             $data["user/addresses"] = "Address";
             $data["credit-cards/list/user"] = "Credit Card";
-            $data["user/uploads"] = "Uploads";
+            if ($profiletype  == 1 || $profiletype  == 3){
+                $data["user/uploads"] = "Uploads";
+            }
         }
         $data["auth/logout"] = "Log out";
         if (read("oldid")){

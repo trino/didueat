@@ -1,5 +1,5 @@
 <?php
-    printfile("views/dashboard/user/uploads.blade.php<BR>");
+    printfile("views/dashboard/user/ajax/uploads.blade.php<BR>");
     $ProfileName = select_field("profiles", "id", $userid)->name;
     //    $Restaurants = enum_anything("restaurants", "uploaded_by", $userid);
     /*$ProfilePics = array();
@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h4 class="card-title">
-                        {{ $recCount }} Menu Items Uploaded by {{ $ProfileName }}
+                        Menu Items Uploaded by {{ $ProfileName }}
                     </h4>
                 </div>
             </div>

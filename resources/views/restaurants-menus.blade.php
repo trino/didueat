@@ -5,45 +5,40 @@
     @include("popups.rating")
 
     <?php
-    $checkout_modal = false;
+        $checkout_modal = false;
 
-    if (read("restaurant_id") && read("restaurant_id") != $restaurant->id) {
-        popup(false, "You can not place orders as a restaurant owner", "Oops");
-    }
-
-
-    $is_my_restro = false;
-    if (Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id) {
-        $is_my_restro = true;
-    }
-
-    $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-    if (!$business_day) {
-        //popup(false, $restaurant->name . " is currently closed", "Oops");
-    }
-
-    $alts = array(
-        "add_item" => "Add Item"
-    );
+        if (read("restaurant_id") && read("restaurant_id") != $restaurant->id) {
+            popup(false, "You can not place orders as a restaurant owner", "Oops");
+        }
 
 
+        $is_my_restro = false;
+        if (Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id) {
+            $is_my_restro = true;
+        }
 
+        $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+        if (!$business_day) {
+            //popup(false, $restaurant->name . " is currently closed", "Oops");
+        }
 
-?>
+        $alts = array(
+            "add_item" => "Add Item"
+        );
 
+        $allowedtoupload = $is_my_restro;
+        if (read("profiletype") == 1 || read("profiletype") == 3) {$allowedtoupload = true;}
+    ?>
 
+<!--div class="card  m-b-0" style="border-radius:0 !important;">
+    <div class="card-block ">
+        <div class="container" style="margin-top: 0 !important;padding:0 !important;">
+            <div id="categoryLinks" style="padding-left:15px"></div>
 
-
-
-        <!--div class="card  m-b-0" style="border-radius:0 !important;">
-            <div class="card-block ">
-                <div class="container" style="margin-top: 0 !important;padding:0 !important;">
-                    <div id="categoryLinks" style="padding-left:15px"></div>
-
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div-->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div-->
 
 
     <div class="container" >
@@ -51,10 +46,6 @@
         <div class="row">
 
             <div class="col-lg-8 col-md-7 col-sm-12 ">
-
-
-
-
 
                 @if(!$is_my_restro)
                     @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true))
@@ -64,7 +55,9 @@
                     <div class="overlay overlay_reservation">
                         <div class="loadmoreajaxloader"></div>
                     </div>
-                    <div id="saveOrderChngBtn" style="display:none"><input name="saveOrderChng" type="button" value="Save All Category Order Changes" onclick="saveCatOrderChngs()" /><span id="saveCatOrderMsg"></span></div>
+                    <div id="saveOrderChngBtn" style="display:none">
+                        <input name="saveOrderChng" type="button" value="Save All Category Order Changes" onclick="saveCatOrderChngs()" /><span id="saveCatOrderMsg"></span>
+                    </div>
 
                     <div class="clearfix"></div>
                     <div class=" menu_div">
@@ -72,40 +65,34 @@
                             <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
                         @endif
 
-<?php
-$cats=[];
-$catsOrder=[];
-$catCnt=0;
-foreach ($category as $cat) {
- $cats[$catCnt]=$cat->id;
- $catsOrder[$catCnt]=$cat->display_order;
- $catCnt++;
-}
+                        <?php
+                            $cats=[];
+                            $catsOrder=[];
+                            $catCnt=0;
+                            foreach ($category as $cat) {
+                                $cats[$catCnt]=$cat->id;
+                                $catsOrder[$catCnt]=$cat->display_order;
+                                $catCnt++;
+                            }
 
-if(read('restaurant_id') == $restaurant->id || read("profiletype") != 2) {//is yours, doesnt need to be active
-   $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->orderBy('cat_id', 'ASC')->orderBy('display_order', 'ASC')->get();
-}
-else{//is not yours, needs to be active
-   $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->where('is_active', 1)->orderBy('display_order', 'ASC')->get();
-}
+                            if(read('restaurant_id') == $restaurant->id || read("profiletype") != 2) {//is yours, doesnt need to be active
+                               $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->orderBy('cat_id', 'ASC')->orderBy('display_order', 'ASC')->get();
+                            } else{//is not yours, needs to be active
+                               $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->where('is_active', 1)->orderBy('display_order', 'ASC')->get();
+                            }
 
+                        ?>
 
-?>
+                        @if(count($menus_list))
+                            @include('menus',$menus_list)
+                        @endif
 
-@if(count($menus_list))
-@include('menus',$menus_list)
-@endif
-
-
-
-                            @if(read("profiletype"))
+                        @if($allowedtoupload)
 
                                 <div class="card  m-b-0" style="border-radius:0 !important;">
                                     <div class="card-block text-xs-center ">
                                         <div class="container" style="margin-top: 0 !important;padding:0 !important;">
-<h4>
-    Restaurant Incomplete?
-</h4>
+                                            <h4>Restaurant Incomplete?</h4>
                                             <p>Upload menu items to recieve a percentage of every sale!</p>
                                             <div class="col-md-4 col-md-offset-4 ">
                                                 <a href="#" id="add_item0" type="button"
@@ -120,50 +107,44 @@ else{//is not yours, needs to be active
                                         </div>
                                     </div>
                                 </div>
-                                @endif
+                        @endif
 
-
-
-                        
                         <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
                 </div>
-            <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
-                @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))
-            </div>
 
+                <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
+                    @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))
+                </div>
 
+                @if(!read('restaurant_id') || read('restaurant_id') == $restaurant->id)
+                @endif
 
-
-
-
-
-                    @if(!read('restaurant_id') || read('restaurant_id') == $restaurant->id)
-                    @endif
-
-                    <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="addMenuModelLabel">Add Menu Item</h4>
-                    </div>
-                    <div class="modal-body" id="menumanager2"></div>
-                    <div class="modal-footer">
-                        <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+                <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="addMenuModelLabel">Add Menu Item</h4>
+                            </div>
+                            <div class="modal-body" id="menumanager2"></div>
+                            <div class="modal-footer">
+                                <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
             </div>
-        </div>
+          </div>
+      </div>
     </div>
-  </div>
-  </div>
-    </div>
-        </div>
-            </div>
-  
+</div>
+</div>
+
 
 
     @include('popups.more_detail')

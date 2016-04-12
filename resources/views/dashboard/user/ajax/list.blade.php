@@ -105,7 +105,7 @@
                         <td>{{ $value->id }}</TD>                        <td>{{ $value->name }}</td>
 
                         <TD nowrap>
-                            @if(false)
+                            @if(!$value->restaurant_id && $value->profile_type != 1)
                                 <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
                                 <LABEL class="c-input c-checkbox" title="{{ $alts["plus"] }}" id="userplus{{ $value->id }}">
                                     <input type="checkbox" userid="{{ $value->id }}" onclick="promoteuser(event);" {{ iif($value->profile_type == 3, 'checked') }} />
