@@ -60,6 +60,7 @@
             </span>
         </div>
         </FORM>
+        Or view all restaurants from <A onclick="setaddress('Hamilton, ON, Canada');">Hamilton</A>
     </div>
 
     <script>
