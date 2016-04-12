@@ -5,6 +5,8 @@
         $alts = array(
             "print" => "Print preview"
         );
+        if(!isset($_GET['from'])){$_GET['from'] = now("Y-m-d", time() - 3600*24*7);}
+        if(!isset($_GET['to'])){$_GET['to'] = now("Y-m-d");}
     ?>
 
     <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
