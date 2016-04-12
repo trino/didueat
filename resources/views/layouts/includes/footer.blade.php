@@ -372,7 +372,8 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                                     //enable ratings
                                     $(".static-rating").attr('class', 'rating');
                                     $(".rating input[type=radio]").attr("class", "update-rating");
-
+                                    $(".parents").find(".rating").removeClass("rating").addClass("static-rating");
+                                    
                                     $('.hidden_elements').hide();
                                     $('#fullname, #ordered_email, #ordered_contact').attr('readonly', 'readonly')
                                     //$('.reservation_signin').hide();
@@ -390,6 +391,7 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                                     if(needsrating){
                                         $('#ratingModal').modal('show');
                                     }
+
                                     $('#ordered_email').rules('remove');
                                     validateform("profiles", {reservation_address: "required"});//phone, mobile, password, email'
                                     if (typeof onlogin === "function") {
