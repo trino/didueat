@@ -158,7 +158,7 @@ class Restaurants extends BaseModel {
      * @param $start 
      * @return response
      */
-    public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false) {
+    public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false, &$count = 0) {
         $order = " ORDER BY openedRest desc, distance";
         $limit = " LIMIT $start, $per_page";
         $where = "WHERE is_complete = '1'";// AND status = '1'";
@@ -229,6 +229,7 @@ class Restaurants extends BaseModel {
             $SQL = "SELECT *, 0 AS distance, $asopenedRest FROM restaurants " . $where;
         }
 
+        if(!$ReturnSQL) {$count = iterator_count(select_query($SQL));}//get count
         //assemble the final query, with a comment showing which date was used
         $SQL .= $order . $limit . " -- Using date: " . $data['date'];
         

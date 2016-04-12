@@ -116,12 +116,13 @@ class HomeController extends Controller {
         parse_str($post['data'], $data);
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
+                $total = 0;
                 $data['data'] = $post;
-                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, false);//search for restaurants matching the data in the post["data"]
+                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, false, $total);//search for restaurants matching the data in the post["data"]
                 $data['sql'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, true);//SQL, does not do db call
-                $data['count'] = count($data['query']);//count the previous results
+                $data['count'] = $total;//count($data['query']);//count the previous results
                 $data['start'] = $start+10;
-                $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));//count remaining results
+                $data['hasMorePage'] = $total - $data['start']; //count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));//count remaining results
                 $data['loadmore'] = (isset($post['loadmore']))?$post['loadmore']:0;
                 $data['ajaxcall'] = (isset($post['ajaxcall']))?$post['ajaxcall']:0;
                 $SQL = "";
