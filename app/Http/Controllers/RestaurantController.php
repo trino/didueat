@@ -554,11 +554,11 @@ class RestaurantController extends Controller {
                 //$arr[$Key] = 1;
             }
         }
-        if(isset($arr['restaurant_id']))
-        $rest_id = $arr['restaurant_id'];
-        else
-        $rest_id = \Session::get('session_restaurant_id');
-        
+        if(isset($arr['restaurant_id'])) {
+            $rest_id = $arr['restaurant_id'];
+        }else {
+            $rest_id = \Session::get('session_restaurant_id');
+        }
 
 $newCatID=false;
         
@@ -573,8 +573,7 @@ $newCatID=false;
             $ob2->save();
             $arr['cat_id'] = $ob2->id;
             $newCatID=true;
-        }
-        else{ // category from the dropdown, delimited with ~~
+        } else{ // category from the dropdown, delimited with ~~
 		          $catidnameExp = explode("~~",$arr['cat_id']);
                   if(count($catidnameExp)>1){
 		          $arr['cat_id'] = $catidnameExp[0];
@@ -603,8 +602,7 @@ $newCatID=false;
             
             if($newCatID){
                 $arr['display_order']=1;
-            }
-            else{
+            } else{
 			            $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('cat_id', $arr['cat_id'])->where('parent', 0)->orderBy('display_order', 'desc')->get();
 
 			            if (count($orders_mod) > 0) {//if resto cat has more than 0 menus, get the 1st one (which will be the highest #)
@@ -627,7 +625,6 @@ $newCatID=false;
 
     //handles image uploading for menu items
     public function handleimageupload($id, $existingImg = ""){
-    
 	       echo $id;
 	       $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
 	    
@@ -651,8 +648,7 @@ $newCatID=false;
 							            $ext = strtolower(end($uploadedImgExpl));
                 
 				               $destinationPath = public_path('assets/images/products'); //a temp path for file upload
-                }
-                else{
+                } else{
                 // means just using pre-upload resize
                    $ext="jpg"; // uploading from phone requires jpg for all
                 }
@@ -680,7 +676,6 @@ $newCatID=false;
                     }
 
              if(!isset($_COOKIE['pvrbck'])){
-
                 $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// for copying & saving original file
              }
 
@@ -695,7 +690,7 @@ $newCatID=false;
 													}
 
              if($success || $thisresult){
-	               $imgVs=getimagesize($filename);
+                 $imgVs=getimagesize($filename);
                 $bigDimensions="600x".$imgVs[1]/$imgVs[0]*600;
 
 
@@ -723,7 +718,7 @@ $newCatID=false;
     //unknown
     public function orderCat2($cid, $sort) {
         if(isset(\Session::get('_previous')['url'])){
-		          $thisSlugA=explode("/",\Session::get('_previous')['url'],-1); // this is much faster than db call
+            $thisSlugA=explode("/",\Session::get('_previous')['url'],-1); // this is much faster than db call
             $thisSlug=end($thisSlugA);
         } else{
             $thisSlug = select_field("restaurants", "id", \Session::get('session_restaurant_id'), "slug"); // don't do db call for slug unless needed
@@ -734,11 +729,8 @@ $newCatID=false;
         $cats = \App\Http\Models\Category::where('res_id', \Session::get('session_restaurant_id'))->orderBy('display_order', 'ASC')->get();
         $arr = array();
         $key="";
-        foreach($cats as $k=>$c)
-        {
-
-            if($cid==$c->id)
-            {
+        foreach($cats as $k=>$c) {
+            if($cid==$c->id) {
                 $key = $k;
             }
             $arr[] = $c->id;
@@ -746,25 +738,21 @@ $newCatID=false;
         }
         //die();
         if($key != ""){
-			        if($sort=='up' && $key!=0)
-			        {
-			            
-			            $nkey = $key-1;
-			            $temp = $arr[$nkey];
-			            $arr[$nkey] = $cid;
-			            $arr[$key] = $temp; 
-			        }
-			        elseif($sort=='down' && $key!=count($arr))
-			        {
-			            $nkey = $key+1;
-			            $temp = $arr[$nkey];
-			            $arr[$nkey] = $cid;
-			            $arr[$key] = $temp;
-			        }
+            if($sort=='up' && $key!=0) {
+
+                $nkey = $key-1;
+                $temp = $arr[$nkey];
+                $arr[$nkey] = $cid;
+                $arr[$key] = $temp;
+            } elseif($sort=='down' && $key!=count($arr)) {
+                $nkey = $key+1;
+                $temp = $arr[$nkey];
+                $arr[$nkey] = $cid;
+                $arr[$key] = $temp;
+            }
         }
         
-        foreach($arr as $k=>$a)
-        {
+        foreach($arr as $k=>$a) {
             \App\Http\Models\Category::where('id', $a)->update(array('display_order' => ($k + 1)));
         }
         return \Redirect::to('/restaurants/' . $thisSlug . '/menu');
@@ -828,44 +816,40 @@ $newCatID=false;
             //  $catID = '', $thisMenuDisplayOrder = '', $catMenuCnt = ''
 
         if(isset($_POST['catID'])){
+            \App\Http\Models\Menus::where('id', $id)->delete();
+            $child = \App\Http\Models\Menus::where('parent', $id)->get();
+            foreach ($child as $c) {
+                \App\Http\Models\Menus::where('parent', $c->id)->delete(); // should use wherein
+                \App\Http\Models\Menus::where('id', $c->id)->delete();
+            }
+            \App\Http\Models\Menus::where('parent', $id)->delete();
+            $dir = public_path('assets/images/restaurants/' . $res_id . "/menus/" . $id);
+            $this->deleteDir($dir);
 
-			        \App\Http\Models\Menus::where('id', $id)->delete();
-			        $child = \App\Http\Models\Menus::where('parent', $id)->get();
-			        foreach ($child as $c) {
-			            \App\Http\Models\Menus::where('parent', $c->id)->delete(); // should use wherein
-			            \App\Http\Models\Menus::where('id', $c->id)->delete();
-			        }
-			        \App\Http\Models\Menus::where('parent', $id)->delete();
-			        $dir = public_path('assets/images/restaurants/' . $res_id . "/menus/" . $id);
-			        $this->deleteDir($dir);
+            $wasopen = select_field("restaurants", "id", $res_id, "is_complete");
+            if($wasopen && !\App\Http\Models\Restaurants::restaurant_opens($res_id)){  // should do this without an extra db call, with post var
+                edit_database("restaurants", "id", $res_id, array("is_complete" => false));
+            }
 
-			        $wasopen = select_field("restaurants", "id", $res_id, "is_complete");
-			        if($wasopen && !\App\Http\Models\Restaurants::restaurant_opens($res_id)){  // should do this without an extra db call, with post var
-			            edit_database("restaurants", "id", $res_id, array("is_complete" => false));
-			        }
+            $menuOrderLimit="";
+            if($_POST['catMenuCnt'] != ""){
+              $menuOrderLimit=($_POST['catMenuCnt']-$_POST['thisMenuDisplayOrder']);
+            }
 			        
-			        $menuOrderLimit="";
-			        if($_POST['catMenuCnt'] != ""){
-			          $menuOrderLimit=($_POST['catMenuCnt']-$_POST['thisMenuDisplayOrder']);
-			        }
-
-			        
-			// update menus set display_order=(display_order-1) where cat_id=7 AND display_order>$thisDisplayOrder $menuOrderLimit
-
-			        \App\Http\Models\Menus::where('cat_id', $_POST['catID'])->where('parent', 0)->where('display_order', '>', $_POST['thisMenuDisplayOrder'])->take($menuOrderLimit)->decrement('display_order', 1);
+    	   // update menus set display_order=(display_order-1) where cat_id=7 AND display_order>$thisDisplayOrder $menuOrderLimit
+           \App\Http\Models\Menus::where('cat_id', $_POST['catID'])->where('parent', 0)->where('display_order', '>', $_POST['thisMenuDisplayOrder'])->take($menuOrderLimit)->decrement('display_order', 1);
                       
            if(!isset($_POST['id'])){  // done with AJAX now
-					        \Session::flash('message', 'Item deleted successfully');
-					        \Session::flash('message-type', 'alert-success');
-					        \Session::flash('message-short', '');
-					        if (!$slug) {
-					            return $this->success('Item has been deleted successfully!', 'restaurant/menus-manager');
-					        }else {
-					            return $this->success('Item has been deleted successfully!', 'restaurants/' . $slug . '/menu');
-					        }
-           }
-           else{
-             die();
+                \Session::flash('message', 'Item deleted successfully');
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', '');
+                if (!$slug) {
+                    return $this->success('Item has been deleted successfully!', 'restaurant/menus-manager');
+                }else {
+                    return $this->success('Item has been deleted successfully!', 'restaurants/' . $slug . '/menu');
+                }
+           } else{
+                die();
            }
         }
     }
@@ -944,30 +928,27 @@ $newCatID=false;
     
     public function menuOrderSort(){ // save order within one category
         if(isset($_POST['newMenuOrder'])){
-		        $newMenuOrderExpl=explode(",",$_POST['newMenuOrder']);
-		        foreach ($newMenuOrderExpl as $updatePair) {
-              $updatePairExpl=explode(":",$updatePair);
-              \App\Http\Models\Menus::where('id', $updatePairExpl[0])->update(array('display_order' => $updatePairExpl[1]));
-          }
-        }
-        else{
-          return false;
+            $newMenuOrderExpl=explode(",",$_POST['newMenuOrder']);
+            foreach ($newMenuOrderExpl as $updatePair) {
+                $updatePairExpl=explode(":",$updatePair);
+                \App\Http\Models\Menus::where('id', $updatePairExpl[0])->update(array('display_order' => $updatePairExpl[1]));
+            }
+        } else{
+            return false;
         }
     ////
     }
     
     public function menuCatSort(){
         if(isset($_POST['newCatOrder'])){
-		        $newCatOrderExpl=explode(",",$_POST['newCatOrder']);
-		        foreach ($newCatOrderExpl as $updatePair) {
-              $updatePairExpl=explode(":",$updatePair);
-		            \App\Http\Models\Category::where('id', $updatePairExpl[0])->update(array('display_order' => ($updatePairExpl[1] + 1)));
-          }
+            $newCatOrderExpl=explode(",",$_POST['newCatOrder']);
+            foreach ($newCatOrderExpl as $updatePair) {
+                $updatePairExpl=explode(":",$updatePair);
+                \App\Http\Models\Category::where('id', $updatePairExpl[0])->update(array('display_order' => ($updatePairExpl[1] + 1)));
+            }
+        } else{
+            return false;
         }
-        else{
-          return false;
-        }
-    ////
     }
 
     //save a category change
@@ -976,9 +957,8 @@ $newCatID=false;
         if($newRestID != ''){
 		        $arr['title'] = $newCatTitle;
 		        $arr['res_id'] = $newRestID;
-          $arr['display_order'] = $catDispOrder;
-        }
-        else{
+                $arr['display_order'] = $catDispOrder;
+        } else {
 		        $arr['title'] = $_POST['title'];
 		        $arr['res_id'] = $_POST['res_id'];
         }
@@ -1035,87 +1015,83 @@ $newCatID=false;
         return $this->success("Menu image deleted", "restaurants/" . $thisSlug . "/menu");
     }
     
-    public function import_csv($id,$file)
-    {
-        
+    public function import_csv($id,$file) {
         $name = explode('.',$file['name']);
         $ext = end($name);
         $new = date('Y_m_d_h_i_s').'_'.rand(1,1000).'.'.$ext;
         $path = 'assets/csv';
         if(strtolower($ext)=='csv'){
-        move_uploaded_file($file['tmp_name'], public_path($path) . '/' . $new);
-        $file = fopen(public_path($path) . '/' . $new,"r");
-        $i=0;
-        while($row = fgetcsv($file))
-        {
-            $arr['restaurant_id'] = $id;
-            $arr['uploaded_by'] = \Session::get('session_id');
-            $arr['uploaded_on'] = date('Y-m-d H:i:s');
-            $arr['is_active'] = 1;
-            $i++;
-            if($i==1)
-            continue;
-            $temp_id = $id.'_'.$row[0];
-            $arr['temp_id'] = $temp_id;
-            $cat = $row[1];
-            if($cat){
-            $model = \App\Http\Models\Category::where('title','like',$cat)->get();
-            if(isset($model[0]))
-            {
-                $mod = $model[0];
-                $arr['cat_id'] = $mod->id;
-            }
-            else
-            {
-                $ob2 = \App\Http\Models\Category::findOrNew(0);
-                $cats = \App\Http\Models\Category::where('res_id',$id)->orderBy('display_order', 'DESC')->get();
-                if(isset($cats[0]))
-                $cc['display_order']=$cats[0]->display_order+1;
-                else
-                $cc['display_order']=1;
-                $cc['title'] = $cat;
-                $cc['res_id'] = $id;
-                $ob2->populate($cc,true);
-                $ob2->save();
-                $arr['cat_id'] = $ob2->id;
-            }
-            }
-            else{
-                $arr['cat_id'] = 0;
-            }
-            
-            $arr['menu_item'] = $row[2];
-            $arr['description'] = $row[3];
-            $arr['price'] = str_replace('$','',$row[4]);
-            $arr['has_addon'] = $row[5];
-            $parent_id = $row[6];
-            if($parent_id){
-            $model2 = \App\Http\Models\Menus::where('temp_id',$id.'_'.$parent_id)->get();
-            if(isset($model2[0])){
-                $mod2 = $model2[0];
-            $arr['parent'] = $mod2->id;
-            }
-            }
-            $arr['req_opt'] = $row[7];
-            $arr['sing_mul']= $row[8];
-            $arr['exact_upto'] = $row[9]; 
-            $arr['exact_upto_qty'] = $row[10];
-            $arr['has_discount'] = $row[11];
-            
-            $arr['discount_per'] = $row[12];
-            $arr['days_discount'] = $row[13];
-            $ob = \App\Http\Models\Menus::findOrNew(0);
+            move_uploaded_file($file['tmp_name'], public_path($path) . '/' . $new);
+            $file = fopen(public_path($path) . '/' . $new,"r");
+            $i=0;
+            while($row = fgetcsv($file)) {
+                $arr['restaurant_id'] = $id;
+                $arr['uploaded_by'] = \Session::get('session_id');
+                $arr['uploaded_on'] = date('Y-m-d H:i:s');
+                $arr['is_active'] = 1;
+                $i++;
+                if($i==1) {
+                    continue;
+                }
+                $temp_id = $id.'_'.$row[0];
+                $arr['temp_id'] = $temp_id;
+                $cat = $row[1];
+                if($cat){
+                    $model = \App\Http\Models\Category::where('title','like',$cat)->get();
+                    if(isset($model[0])) {
+                        $mod = $model[0];
+                        $arr['cat_id'] = $mod->id;
+                    } else {
+                        $ob2 = \App\Http\Models\Category::findOrNew(0);
+                        $cats = \App\Http\Models\Category::where('res_id',$id)->orderBy('display_order', 'DESC')->get();
+                        $cc['display_order'] = 1;
+                        if(isset($cats[0])) {
+                            $cc['display_order'] = $cats[0]->display_order + 1;
+                        }
+                        $cc['title'] = $cat;
+                        $cc['res_id'] = $id;
+                        $ob2->populate($cc,true);
+                        $ob2->save();
+                        $arr['cat_id'] = $ob2->id;
+                    }
+                } else{
+                    $arr['cat_id'] = 0;
+                }
+
+                $arr['menu_item'] = $row[2];
+                $arr['description'] = $row[3];
+                $arr['price'] = str_replace('$','',$row[4]);
+                $arr['has_addon'] = $row[5];
+                $parent_id = $row[6];
+                if($parent_id){
+                    $model2 = \App\Http\Models\Menus::where('temp_id',$id.'_'.$parent_id)->get();
+                    if(isset($model2[0])){
+                        $mod2 = $model2[0];
+                        $arr['parent'] = $mod2->id;
+                    }
+                }
+                $arr['req_opt'] = $row[7];
+                $arr['sing_mul']= $row[8];
+                $arr['exact_upto'] = $row[9];
+                $arr['exact_upto_qty'] = $row[10];
+                $arr['has_discount'] = $row[11];
+
+                $arr['discount_per'] = $row[12];
+                $arr['days_discount'] = $row[13];
+                $ob = \App\Http\Models\Menus::findOrNew(0);
                 $ob->populate($arr,true);
                 $ob->save();
                 unset($arr);
                 unset($model);
                 unset($model2);
-                
-                
+            }
+            fclose($file);
+            \App\Http\Models\Menus::where('temp_id','<>','')->update(['temp_id'=>'']);
         }
-        fclose($file);
-        
-         \App\Http\Models\Menus::where('temp_id','<>','')->update(['temp_id'=>'']);
-        }
+    }
+
+    function cities(){
+        $data["cities"] = \DB::table('restaurants')->where("is_complete", 1)->groupBy('city')->orderBy('province', 'ASC')->orderBy('city', 'ASC')->get();
+        return view('dashboard.restaurant.ajax.cities', $data);
     }
 }

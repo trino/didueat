@@ -38,6 +38,9 @@
             <input type="text" name="formatted_address" id="formatted_address2"
                    class="form-control formatted_address btn-responsive" placeholder="Enter your address"
                    onchange="change_address_event();"
+                   @if(isset($_GET["search"]))
+                           value="{{ $_GET["search"] }}"
+                   @endif
                    onpaste="this.onchange();">
             <script>
                     (window.navigator.userAgent.indexOf("MSIE")!=-1 || !!navigator.userAgent.match(/Trident.*rv\:11\./))? document.getElementById('formatted_address2').style.height='53px' :'';
@@ -60,7 +63,7 @@
             </span>
         </div>
         </FORM>
-        Or view all restaurants from <A onclick="setaddress('Hamilton, ON, Canada');">Hamilton</A>
+        Or view all restaurants from <A onclick="setaddress('Hamilton, ON, Canada');">Hamilton</A> or <A onclick="cities();">a list of cities</A>
     </div>
 
     <script>
@@ -83,6 +86,8 @@
             setTimeout(function () {
                 $(".pac-container.pac-logo").hide();
             }, 100);
+
+            $('#formatted_address2').trigger('blur');
         }
 
         function change_address_event() {
@@ -95,6 +100,19 @@
                     $('#search-form-submit').trigger('click');
                 }
             }, 100);
+        }
+
+        function cities(){
+            $('#restuarant_bar').html('');
+            $('#parentLoadingbar').show();
+            $('#start_up_message').hide();
+            $('#icons_show').hide();
+            $('#results_show').show();
+            $.post("{{ url('/restaurant/cities') }}", {token: token}, function (result) {
+                var quantity = 0;
+                $('#parentLoadingbar').hide();
+                $('#restuarant_bar').html(result);
+            });
         }
     </script>
 

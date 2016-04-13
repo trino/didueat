@@ -1,5 +1,5 @@
 <?php
-    printfile($SQL . "<BR>views/dashboard/restaurant/ajax/noresults.blade.php");
+    printfile($SQL . "<BR>views/dashboard/restaurant/ajax/noresults.blade.php<BR>");
     $is_subscribed = false;
     if(read("email")){
         $is_subscribed = select_field("newsletter", "email", read("email"));

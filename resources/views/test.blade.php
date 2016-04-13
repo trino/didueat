@@ -1,24 +1,20 @@
 <?php
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$provinces = array(
+        "ON" => "Ontario",
+        "QC" => "Quebec",
+        "NS" => "Nova Scotia",
+        "NB" => "New Brunswick",
+        "MB" => "Manitoba",
+        "BC" => "British Columbia",
+        "PE" => "Prince Edward Island",
+        "SK" => "Saskatchewan",
+        "AB" => "Alberta",
+        "NL" => "Newfoundland and Labrador",
+        "NT" => "Northwest Territories",
+        "YT" => "Yukon",
+        "NU" => "Nunavut"
+);
 
 $restaurants = array(    array("name" => "Cora Breakfast & Lunch open", "address" => "73 Wilson St W", "city" => "Ancaster", "province" => "Ontario", "postal_code" => "L9G 1N1", "id" => "4338284", "phone" => "905-648-2672", "coordinates" => "43.216125,-79.989865"),
         array("name" => "Kim Shan Chinese Buffet", "address" => "53 Wilson St W", "city" => "Ancaster", "province" => "Ontario", "postal_code" => "L9G 1N1", "website" => "http://www.kimshan.com", "id" => "7266263", "phone" => "905-304-0755", "coordinates" => "43.2164408,-79.989409"),

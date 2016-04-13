@@ -192,6 +192,8 @@ Route::get('restaurant/loadChild/{id}/{flag}',                      'RestaurantC
 Route::get('restaurant/saveCat',                                    'RestaurantController@saveCat');
 Route::post('restaurant/saveCat',                                   'RestaurantController@saveCat');
 
+Route::post('restaurant/cities',                                    'RestaurantController@cities');
+
 Route::post('reviews/users/get',                                    'UserReviewsController@ajaxGetReviewUsersList');
 
 Route::post('user/ajax_register',                                   'UsersController@ajax_register');
