@@ -279,11 +279,10 @@ $restaurants = array(    array("name" => "Cora Breakfast & Lunch open", "address
         array("name" => "Turtle Jack's", "address" => "255 Dundas Street E", "city" => "Waterdown", "province" => "Ontario", "postal_code" => "L0R 2H6", "id" => "3334418", "phone" => "905-690-1787", "coordinates" => "43.332196,-79.897735"),
 );
 
-
-
     $now = now();
-    $cities = array("hamilton");
-    $times = array();
+    $getimages = false;//set to true to download images for the restaurant, done during second refresh though
+    $cities = true;//array("hamilton", "burlington");//use an array of lower-cased cities to filter, or true to get them all
+    $times = array();//default values to merge into the restaurant
     foreach(getweekdays() as $weekday){
         $times[$weekday . "_open"] = "10:00:00";
         $times[$weekday . "_open_del"] = "10:00:00";
@@ -302,7 +301,11 @@ $restaurants = array(    array("name" => "Cora Breakfast & Lunch open", "address
     $times["uploaded_by"] = read("id");
 
     foreach($restaurants as $restaurant){
-        if (in_array(strtolower($restaurant["city"]), $cities)){
+        $getit = true;
+        if(is_array($cities)){
+            $getit = in_array(strtolower($restaurant["city"]), $cities);
+        }
+        if ($getit){
             if(isset($restaurant["coordinates"])){
                 $coordinates = explode(",", $restaurant["coordinates"]);
                 $restaurant["latitude"] = $coordinates[0];
@@ -328,8 +331,8 @@ $restaurants = array(    array("name" => "Cora Breakfast & Lunch open", "address
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate($restaurant,false);
                 $ob->save();
-/*
-                if(isset($restaurant["image"])){
+
+                if(isset($restaurant["image"]) && $getimages){
                     $image = downloadfile($restaurant["image"], public_path("/assets/images/restaurants/" . $ob->id . "/image." .  pathinfo($restaurant["image"], PATHINFO_EXTENSION)));
                     if($image !== false){
                         $restaurant["id"] = $ob->id;
@@ -337,8 +340,7 @@ $restaurants = array(    array("name" => "Cora Breakfast & Lunch open", "address
                         update_database("restaurants", "id", $ob->id, array("logo" => $image));
                     }
                 }
-*/
-                //$restaurant = object_to_array($restaurant);
+                $restaurant = object_to_array($restaurant);
             }
 
             $profile = select_field("profiles", "restaurant_id", $ob->id);
