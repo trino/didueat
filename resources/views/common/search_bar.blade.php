@@ -63,7 +63,7 @@
             </span>
         </div>
         </FORM>
-        Or view all restaurants from <A onclick="setaddress('Hamilton, ON, Canada');">Hamilton</A> or <A onclick="cities();">a list of cities</A>
+        Or view all restaurants from <A class="stroke-black-1px" onclick="setaddress('Hamilton, ON, Canada');">Hamilton</A> or <A class="stroke-black-1px" onclick="cities();">a list of cities</A>
     </div>
 
     <script>
