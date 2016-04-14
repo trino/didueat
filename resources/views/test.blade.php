@@ -1,283 +1,19 @@
 <?php
-
-$provinces = array(
-        "ON" => "Ontario",
-        "QC" => "Quebec",
-        "NS" => "Nova Scotia",
-        "NB" => "New Brunswick",
-        "MB" => "Manitoba",
-        "BC" => "British Columbia",
-        "PE" => "Prince Edward Island",
-        "SK" => "Saskatchewan",
-        "AB" => "Alberta",
-        "NL" => "Newfoundland and Labrador",
-        "NT" => "Northwest Territories",
-        "YT" => "Yukon",
-        "NU" => "Nunavut"
-);
-
-$restaurants = array(    array("name" => "Cora Breakfast & Lunch open", "address" => "73 Wilson St W", "city" => "Ancaster", "province" => "Ontario", "postal_code" => "L9G 1N1", "id" => "4338284", "phone" => "905-648-2672", "coordinates" => "43.216125,-79.989865"),
-        array("name" => "Kim Shan Chinese Buffet", "address" => "53 Wilson St W", "city" => "Ancaster", "province" => "Ontario", "postal_code" => "L9G 1N1", "website" => "http://www.kimshan.com", "id" => "7266263", "phone" => "905-304-0755", "coordinates" => "43.2164408,-79.989409"),
-        array("name" => "Lone Star Texas Grill", "address" => "14 Martindale Cres", "city" => "Ancaster", "province" => "Ontario", "postal_code" => "L9K 1J9", "id" => "6552930", "phone" => "905-648-7147", "coordinates" => "43.228541,-79.938089"),
-        array("name" => "SupperWorks", "address" => "21C Panabaker Dr", "city" => "Ancaster", "province" => "Ontario", "postal_code" => "L9G 0A4", "website" => "https://www.supperworks.com/index.php", "id" => "100340024", "phone" => "905-296-3236", "coordinates" => "43.2002179,-79.9956691"),
-        array("name" => "Wendy's Old Fashioned Hamburgers", "address" => "469 Hamilton Dr", "city" => "Ancaster", "province" => "Ontario", "postal_code" => "L9G 2A9", "website" => "http://www.facebook.com/WendysCanada", "id" => "6998561", "phone" => "905-689-9995", "coordinates" => "43.2011008,-80.0028257"),
-        array("image" => "http://cdn.ci2.yp.ca/l/1616/93/16169395aa_l.gif", "name" => "Gigi's Pizza House", "address" => "5041 King St", "city" => "Beamsville", "province" => "Ontario", "postal_code" => "L0R 1B8", "website" => "http://www.gigispizzahouse.ca", "id" => "7978121", "phone" => "905-563-5769", "coordinates" => "43.1664196,-79.4785115"),
-        array("name" => "Canton Chinese Food Take-Out", "address" => "170 Brantwood Park Rd", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3P 1N7", "website" => "http://www.facebook.com/pages/Canton-Chinese-Food-Take-Out/127620960611166", "id" => "2159235", "phone" => "519-759-0099", "coordinates" => "43.183883,-80.239993"),
-        array("name" => "Cora's Breakfast & Lunch", "address" => "195 Henry St", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3S 5C9", "id" => "100392537", "phone" => "519-759-2672", "coordinates" => "43.154811,-80.241367"),
-        array("name" => "Gus & Guidos", "address" => "265 King George Rd", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 7Z9", "website" => "http://www.gusandguidos.ca", "id" => "7779055", "phone" => "519-757-0088", "coordinates" => "43.175381,-80.279449"),
-        array("image" => "http://cdn.ci1.yp.ca/l/1615/07/16150772aa_l.gif", "name" => "Wingmaster", "address" => "70 Erie Ave", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3S 2E8", "website" => "http://www.wingmaster.ca/", "id" => "4254404", "phone" => "519-750-1440", "coordinates" => "43.1324456,-80.2597869"),
-        array("image" => "http://cdn.ci4.yp.ca/l/1616/88/16168815aa_l.gif", "name" => "Fetticino's Pizza", "address" => "213 Market St", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3T 3A7", "id" => "101031063", "phone" => "519-304-8008", "coordinates" => "43.1456837,-80.2644141"),
-        array("image" => "http://cdn.ci5.yp.ca/l/1583/96/15839654aa_l.gif", "name" => "Cafe Andreou", "address" => "104 West", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3T 3E7", "website" => "http://www.facebook.com/CafeAndreou", "id" => "266751", "phone" => "519-752-9111", "coordinates" => "43.142842,-80.267408"),
-        array("image" => "http://cdn.media.yp.ca/276583/1346254188329_t.jpg", "name" => "Shoeless Joe's", "address" => "300 King George Rd", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 5M1", "id" => "7766392", "phone" => "519-304-5472", "coordinates" => "43.180427,-80.280205"),
-        array("image" => "http://cdn.media.yp.ca/7939236/1305816893762_t.jpg", "name" => "Pizza-Roma", "address" => "84 Charing Cross St", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 2H6", "website" => "http://pizza-roma.ca/", "id" => "2467850", "phone" => "519-752-9900", "coordinates" => "43.160076,-80.267066"),
-        array("image" => "http://cdn.media.yp.ca/8345734/8adf39edfc53dc318868dd720da4a588_t.jpg", "name" => "Big Jim's Southern Bbq", "address" => "3-986 Highway 54", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3W 2G9", "website" => "http://www.bigjimssouthernbbq.com", "id" => "8130514", "phone" => "519-756-4343", "coordinates" => "43.105569,-80.100391"),
-        array("name" => "J D Delight", "address" => "225 Fairview Dr", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 7E3", "id" => "100706902", "phone" => "519-304-8000", "coordinates" => "43.17021,-80.261903"),
-        array("name" => "Joey's Restaurants", "address" => "15-410 Fairview Dr", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 6V7", "website" => "http://joeys.ca", "id" => "6399858", "phone" => "519-750-0333", "coordinates" => "43.17204,-80.250266"),
-        array("name" => "Junior's", "address" => "4-170 Brantwood Park Rd", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3P 1N7", "id" => "101065794", "phone" => "519-304-6266", "coordinates" => "43.183883,-80.239993"),
-        array("name" => "Kings Buffet", "address" => "175 Lynden Rd", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 8A7", "id" => "3581063", "phone" => "519-753-0600", "coordinates" => "43.1748291,-80.2331111"),
-        array("name" => "Luciani's Pizza", "address" => "241 Dunsdon St", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 7C3", "website" => "http://lucianispizza.com/", "id" => "980955", "phone" => "226-400-4062", "coordinates" => "43.182322,-80.257369"),
-        array("name" => "Mr Chips Fish Diner", "address" => "129 Colborne St W", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3T 1K9", "website" => "http://mrchipsfishdiner.ca", "id" => "1851093", "phone" => "519-751-1141", "coordinates" => "43.132868,-80.27573"),
-        array("name" => "Nanking Resturant", "address" => "5-71 Charing Cross St", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 2H4", "id" => "2426343", "phone" => "519-756-0810", "coordinates" => "43.160514,-80.268077"),
-        array("name" => "New York Fries", "address" => "11 Sinclair Blvd", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3S 7X6", "website" => "https://www.facebook.com/NewYorkFries", "id" => "1126798", "phone" => "519-751-1947", "coordinates" => "43.170915,-80.215799"),
-        array("name" => "Oriental Restaurant", "address" => "162 Market St", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3T 3A5", "id" => "1173612", "phone" => "519-756-6061", "coordinates" => "43.144117,-80.264229"),
-        array("name" => "Palace Submarine", "address" => "308 Colborne St", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3S 3M9", "website" => "http://www.members.brantforddirect.info", "id" => "1188095", "phone" => "519-759-0761", "coordinates" => "43.1388906,-80.2579018"),
-        array("name" => "Papa John's Pizza", "address" => "A3-185 King George Rd", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 7R9", "id" => "7777449", "phone" => "519-750-9999", "coordinates" => "43.173089,-80.277923"),
-        array("name" => "Pita Pit", "address" => "3-218G Henry St", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3S 6V1", "id" => "8192123", "phone" => "519-751-7482", "coordinates" => "43.1550322,-80.2394773"),
-        array("name" => "Pita Plus", "address" => "28 Market St", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3T 2Z4", "id" => "7065787", "phone" => "519-304-1027", "coordinates" => "43.1392457,-80.2636467"),
-        array("name" => "Shanghai Restaurant In Brantford", "address" => "907 Colborne St E", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3S 3T3", "id" => "5226443", "phone" => "519-753-1767", "coordinates" => "43.144322,-80.217379"),
-        array("name" => "Stromboli's Brick Oven Pizza", "address" => "117 King George Rd", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 5K7", "website" => "http://strombolibrickovenpizza.com/", "id" => "6638976", "phone" => "519-756-1400", "coordinates" => "43.1691308,-80.2764017"),
-        array("name" => "West Garden", "address" => "560 West St", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 6M7", "id" => "8229380", "phone" => "519-753-3990", "coordinates" => "43.167611,-80.249324"),
-        array("name" => "Wild Wing", "address" => "A4-248 Lynden Rd", "city" => "Brantford", "province" => "Ontario", "postal_code" => "N3R 8A3", "website" => "http://www.facebook.com/WildWingRestaurants", "id" => "7534667", "phone" => "519-754-9464", "coordinates" => "43.175795,-80.22725"),
-        array("name" => "Blossom City", "address" => "403 Brant St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 2E9", "id" => "204355", "phone" => "905-634-4611", "coordinates" => "43.325753,-79.797949"),
-        array("name" => "Booster Juice", "address" => "104-3600 Dundas St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7M 4B8", "id" => "7097640", "phone" => "905-332-6100", "coordinates" => "43.3896372,-79.8266107"),
-        array("name" => "Burrito Masters Ltd", "address" => "2-480 Brant St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 2G4", "website" => "http://www.facebook.com/pages/Burrito-Masters/256946091090066", "id" => "7910882", "phone" => "289-245-1010", "coordinates" => "43.327077,-79.800123"),
-        array("name" => "Burritoz Fresh Mexican Grill", "address" => "1035 Brant St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 4X6", "website" => "http://www.facebook.com/pages/Burritoz-Fresh-Mexican-Grill/378214119005805", "id" => "100839321", "phone" => "905-333-6464", "coordinates" => "43.33893,-79.818349"),
-        array("name" => "Chopsticks Asian Food", "address" => "2146 Mountain Grove Ave", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7P 2J3", "website" => "http://www.chopsticksburlington.ca/", "id" => "2179950", "phone" => "905-681-0883", "coordinates" => "43.3670426,-79.8265405"),
-        array("name" => "Cora Breakfast & Lunch open", "address" => "3455 Fairview St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7N 2R4", "id" => "6202697", "phone" => "905-333-0100", "coordinates" => "43.357381,-79.782142"),
-        array("name" => "Corned Beef Hut", "address" => "476 Brant St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 2G4", "website" => "http://www.cornedbeefhut.com", "id" => "100807518", "phone" => "905-966-5955", "coordinates" => "43.327063,-79.799857"),
-        array("name" => "Filipino Lutong Bahay", "address" => "McLeod Rd", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7M 0K6", "id" => "8130549", "phone" => "647-523-3676", "coordinates" => "43.405438,-79.815627"),
-        array("name" => "Four Leafs Services Inc", "address" => "3500 Fairview St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7N 2R5", "id" => "100623663", "phone" => "289-288-0389", "coordinates" => "43.358413,-79.780989"),
-        array("name" => "Gino's Pizza", "address" => "5111 New St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7L 1V2", "id" => "3608623", "phone" => "1-866-310-4466", "coordinates" => "43.368214,-79.752611"),
-        array("name" => "Ho Choi", "address" => "439A Brock Ave", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7S 1M8", "id" => "777730", "phone" => "905-637-6864", "coordinates" => "43.32074,-79.801946"),
-        array("name" => "Hot Wok", "address" => "461 Guelph Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 3L8", "id" => "7739309", "phone" => "905-633-7788", "coordinates" => "43.338803,-79.785905"),
-        array("image" => "http://cdn.ci1.yp.ca/l/1549/19/15491916aa_l.gif", "name" => "China Wok", "address" => "4033 New St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7L 1S8", "id" => "358571", "phone" => "905-333-3434", "coordinates" => "43.354177,-79.76803"),
-        array("image" => "http://cdn.ci2.yp.ca/l/1575/87/15758752aa_l.gif", "name" => "Nonna's Cucina Ristorante", "address" => "127 Plains Rd W", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7T 1G1", "website" => "http://www.nonnasristorante.com", "id" => "6547382", "phone" => "905-632-7677", "coordinates" => "43.303527,-79.857632"),
-        array("image" => "http://cdn.ci3.yp.ca/l/1569/88/15698883aa_l.gif", "name" => "Boston Fish & Chips", "address" => "2501 Guelph Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7M 2A3", "website" => "http://bostonfishandchips.webs.com", "id" => "218585", "phone" => "905-332-6203", "coordinates" => "43.375579,-79.836731"),
-        array("image" => "http://cdn.ci4.yp.ca/l/1568/26/15682667aa_l.gif", "name" => "Windmill Restaurant", "address" => "2238 Mountainside Dr", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7P 1B5", "id" => "2620744", "phone" => "905-336-3954", "coordinates" => "43.349278,-79.81683"),
-        array("image" => "http://cdn.ci4.yp.ca/l/1576/79/15767932aa_l.gif", "name" => "Pita Pit open", "address" => "1250 Brant St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7P 1X8", "website" => "http://www.pitapit.com", "id" => "8151512", "phone" => "905-315-7482", "coordinates" => "43.345092,-79.826919"),
-        array("image" => "http://cdn.ci4.yp.ca/l/1587/78/15877847aa_l.gif", "name" => "Burlington Charcoal Pit Restaurant", "address" => "2031 Lakeshore Rd", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 1A2", "id" => "6218244", "phone" => "905-637-0821", "coordinates" => "43.324908,-79.794933"),
-        array("image" => "http://cdn.ci5.yp.ca/l/1582/94/15829407aa_l.gif", "name" => "Rayhoon Persian Eatery", "address" => "420 Pearl St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 2N1", "website" => "http://rayhooneatery.com", "id" => "7231431", "phone" => "905-637-2500", "coordinates" => "43.326807,-79.794972"),
-        array("image" => "http://cdn.media.yp.ca/331887/1368457895189_t.jpg", "name" => "Pad Thai 2 Go", "address" => "3-5010 Pinedale Ave", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7L 0G3", "id" => "8057332", "phone" => "289-635-8424", "coordinates" => "43.369561,-79.7557069"),
-        array("image" => "http://cdn.media.yp.ca/6392744/pcc_photos_99c422f120f0b5784369d4b05d494a249e113f8e_0_90757400_1397084526_t.jpg", "name" => "Asano Sushi", "address" => "2020 Appleby Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7L 6M6", "website" => "http://www.sushiasano.com/", "id" => "6401161", "phone" => "905-319-1800", "coordinates" => "43.394961,-79.792151"),
-        array("name" => "Jasmine Rice", "address" => "777 Guelph Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 3N2", "id" => "7838104", "phone" => "905-333-6666", "coordinates" => "43.346567,-79.796347"),
-        array("name" => "Koya Japan", "address" => "777 Guelph Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 3N2", "id" => "906979", "phone" => "905-631-5174", "coordinates" => "43.346567,-79.796347"),
-        array("name" => "Le Chinois Restaurant Plus", "address" => "1250 Brant St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7P 1X8", "website" => "http://www.facebook.com/pages/Le-Chinois/182867458406329", "id" => "939614", "phone" => "905-331-0033", "coordinates" => "43.345092,-79.826919"),
-        array("name" => "Mandarin Restaurant", "address" => "1881 Fairview Street", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7S 2K4", "id" => "7538136", "phone" => "905-632-6000", "coordinates" => "43.334785,-79.813929"),
-        array("name" => "Mucho Burrito", "address" => "1950 Appleby Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7L 0B7", "id" => "6946820", "phone" => "905-336-0555", "coordinates" => "43.392754,-79.788882"),
-        array("name" => "New York Fries", "address" => "777 Guelph Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 3N2", "website" => "https://www.facebook.com/NewYorkFries", "id" => "1126842", "phone" => "905-632-8033", "coordinates" => "43.346567,-79.796347"),
-        array("name" => "Sammy's Donair", "address" => "453 Guelph Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 3L8", "id" => "1394463", "phone" => "905-632-2737", "coordinates" => "43.338696,-79.785756"),
-        array("name" => "Sana Grill", "address" => "575 Plains Rd E", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7T 2E6", "website" => "http://www.zara.com", "id" => "7235022", "phone" => "905-639-2020", "coordinates" => "43.321006,-79.833734"),
-        array("name" => "Select Sandwich Burlington open", "address" => "5515 N Service Rd", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7L 5H7", "website" => "http://www.selectsandwich.com", "id" => "7002253", "phone" => "905-340-9962", "coordinates" => "43.396216,-79.762535"),
-        array("name" => "Teriyaki Experience", "address" => "4000 Mainway", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7M 4B9", "id" => "4234113", "phone" => "905-335-2266", "coordinates" => "43.372224,-79.795324"),
-        array("name" => "The Spices Indian Take Out", "address" => "814 Brant St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 2J5", "id" => "3593014", "phone" => "905-631-8888", "coordinates" => "43.334288,-79.810372"),
-        array("name" => "Turtle Jack's", "address" => "1900 Appleby Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7L 0B7", "id" => "7931511", "phone" => "289-288-0390", "coordinates" => "43.392073,-79.788568"),
-        array("name" => "Turtle Jack's", "address" => "900 Maple Ave", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7S 2J8", "id" => "6914106", "phone" => "289-288-0484", "coordinates" => "43.326166,-79.818607"),
-        array("name" => "Viet Taste", "address" => "7-4033 New St", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7L 1S8", "id" => "100512565", "phone" => "289-337-1116", "coordinates" => "43.354177,-79.76803"),
-        array("name" => "Walkers Line Restaurant Inc open", "address" => "3051 Walker's Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7M 0E1", "website" => "http://pitapit.ca/", "id" => "100489306", "phone" => "905-331-5777", "coordinates" => "43.3930005,-79.8249923"),
-        array("name" => "Wendy's Restaurant", "address" => "145 Plains Rd E", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7T 2C4", "website" => "http://www.facebook.com/WendysCanada", "id" => "6946462", "phone" => "905-639-7090", "coordinates" => "43.310239,-79.848122"),
-        array("name" => "Wings Up", "address" => "730 Guelph Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 3N5", "website" => "http://www.wingsup.com", "id" => "1724957", "phone" => "905-637-0001", "coordinates" => "43.345113,-79.795193"),
-        array("name" => "Wok Express", "address" => "777 Guelph Line", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7R 3N2", "id" => "4350871", "phone" => "905-631-7179", "coordinates" => "43.346567,-79.796347"),
-        array("name" => "Yummy Wok Chinese & Thai Cuisine", "address" => "6-2025 Upper Middle Rd", "city" => "Burlington", "province" => "Ontario", "postal_code" => "L7P 4K1", "id" => "7755777", "phone" => "905-336-7263", "coordinates" => "43.357846,-79.843311"),
-        array("name" => "A & W Restaurant", "address" => "351 Argyle St S", "city" => "Caledonia", "province" => "Ontario", "postal_code" => "N3W 1K7", "id" => "100634956", "phone" => "289-284-1035", "coordinates" => "43.0630475,-79.9604464"),
-        array("name" => "Grand Chow Mein House & Tavern", "address" => "22 Argyle N", "city" => "Caledonia", "province" => "Ontario", "postal_code" => "N0A 1A0", "id" => "714266", "phone" => "905-765-4464", "coordinates" => "43.073491,-79.951729"),
-        array("name" => "The Riverbend Restaurant open", "address" => "4 Brant County Road 22", "city" => "Caledonia", "province" => "Ontario", "postal_code" => "N3W 2G9", "website" => "http://www.facebook.com/pages/The-Riverbend-Restaurant/121277387627#!/pages/The-Riverbend-", "id" => "5978473", "phone" => "905-765-6636", "coordinates" => "43.155718,-80.050299"),
-        array("image" => "http://cdn.ci1.yp.ca/l/1524/61/15246180ab_l.gif", "name" => "Twice The Deal Pizza", "address" => "250 Dundas St S", "city" => "Cambridge", "province" => "Ontario", "postal_code" => "N1R 8A8", "website" => "http://www.twicethedealpizza.com", "id" => "7816334", "phone" => "519-740-5050", "coordinates" => "43.354712,-80.288778"),
-        array("image" => "http://cdn.ci3.yp.ca/l/1525/34/15253452ac_l.gif", "name" => "Stoyles Fish & Chips", "address" => "184 Main St", "city" => "Cambridge", "province" => "Ontario", "postal_code" => "N1R 1W7", "website" => "http://stoyleswholesale.com", "id" => "1513813", "phone" => "519-623-3561", "coordinates" => "43.357011,-80.307752"),
-        array("image" => "http://cdn.ci5.yp.ca/l/1587/31/15873107aa_l.gif", "name" => "Ice House Restaurant open", "address" => "19 Main St S", "city" => "Campbellville", "province" => "Ontario", "postal_code" => "L0P 1B0", "id" => "100525020", "phone" => "905-854-2453", "coordinates" => "43.487671,-79.982451"),
-        array("image" => "http://cdn.ci1.yp.ca/l/1619/15/16191525aa_l.gif", "name" => "Real Burger Company Inc", "address" => "94 Dundas St E", "city" => "Dundas", "province" => "Ontario", "postal_code" => "L9H 7K6", "website" => "http://www.realburgerco.com", "id" => "100342658", "phone" => "905-689-3111", "coordinates" => "43.2647514,-79.9447632"),
-        array("image" => "http://cdn.ci5.yp.ca/l/1570/71/15707195aa_l.gif", "name" => "Frosty's Fish & Chips", "address" => "142 King St W", "city" => "Dundas", "province" => "Ontario", "postal_code" => "L9H 1V2", "website" => "http://www.frostysfishandchips.ca", "id" => "656769", "phone" => "905-627-1734", "coordinates" => "43.266762,-79.959784"),
-        array("image" => "http://cdn.ci5.yp.ca/l/1619/44/16194427aa_l.gif", "name" => "Collins Brewhouse", "address" => "33 King St W", "city" => "Dundas", "province" => "Ontario", "postal_code" => "L9H 1T5", "id" => "406374", "phone" => "905-628-9995", "coordinates" => "43.2661497,-79.9543194"),
-        array("image" => "http://cdn.media.yp.ca/6437242/pcc_photos_ec516f6fb9265d7d027129fdde34948f95d2e783_0_50920000_1400865850_t.jpg", "name" => "Earth Shake open", "address" => "103 King St W", "city" => "Dundas", "province" => "Ontario", "postal_code" => "L9H 1V1", "website" => "http://www.earth-shake.ca", "id" => "8181508", "phone" => "289-238-8899", "coordinates" => "43.2662841,-79.9553385"),
-        array("image" => "http://cdn.media.yp.ca/8637834/pcc_0_62544900_1450720983_t.JPG", "name" => "The V Spot Inc", "address" => "12 Millers Lane", "city" => "Dundas", "province" => "Ontario", "postal_code" => "L9H 2S9", "id" => "100955835", "phone" => "905-628-4545", "coordinates" => "43.265687,-79.955951"),
-        array("name" => "Spuds & Stuff", "address" => "15 Governors Rd", "city" => "Dundas", "province" => "Ontario", "postal_code" => "L9H 6L9", "id" => "3822277", "phone" => "905-628-5722", "coordinates" => "43.262911,-79.954075"),
-        array("name" => "The Valley Charcoal", "address" => "44 King St W", "city" => "Dundas", "province" => "Ontario", "postal_code" => "L9H 1T7", "id" => "1652498", "phone" => "905-628-0020", "coordinates" => "43.2661536,-79.9544725"),
-        array("name" => "The West Deyrouth", "address" => "5 Foundry St", "city" => "Dundas", "province" => "Ontario", "postal_code" => "L9H 2V6", "id" => "6844698", "phone" => "905-627-8742", "coordinates" => "43.2665224,-79.9579608"),
-        array("name" => "Country Chip Wagon", "address" => "8232 Hwy 3 W", "city" => "Dunnville", "province" => "Ontario", "postal_code" => "N1A 2W4", "website" => "http://countrychipwagon.ca", "id" => "6594549", "phone" => "905-701-0770", "coordinates" => "42.91234,-79.645802"),
-        array("name" => "Hyatt Restaurant", "address" => "620 Main St W", "city" => "Dunnville", "province" => "Ontario", "postal_code" => "N1A 1W7", "website" => "http://www.hyattrestaurant.ca/menu.php?cat_id=20", "id" => "800516", "phone" => "289-433-0279", "coordinates" => "42.9061011,-79.6316348"),
-        array("name" => "Fenwick Subs & Home Baking", "address" => "787 Canboro Rd", "city" => "Fenwick", "province" => "Ontario", "postal_code" => "L0S 1C0", "id" => "617136", "phone" => "905-892-1289", "coordinates" => "43.025038,-79.36042"),
-        array("name" => "Famous Wok", "address" => "13850 Steeles Ave", "city" => "Georgetown", "province" => "Ontario", "postal_code" => "L7G 0J1", "id" => "100608137", "phone" => "905-876-2692", "coordinates" => "43.578833,-79.8298131"),
-        array("name" => "Sbarro", "address" => "13850 Steeles Ave", "city" => "Georgetown", "province" => "Ontario", "postal_code" => "L7G 0J1", "website" => "http://www.sbarro.com", "id" => "100726613", "phone" => "289-851-9995", "coordinates" => "43.578833,-79.8298131"),
-        array("name" => "Gold City Chinese Take Out", "address" => "2237 Rymal E", "city" => "Glanbrook", "province" => "Ontario", "postal_code" => "L8G 3X4", "id" => "4073258", "phone" => "905-578-5715", "coordinates" => "43.217435,-79.746721"),
-        array("name" => "De La Terre Kitchen open", "address" => "270 Main St E", "city" => "Grimsby", "province" => "Ontario", "postal_code" => "L3M 1P8", "website" => "https://www.facebook.com/DeLaTerreKitchen/", "id" => "100203255", "phone" => "289-235-8952", "coordinates" => "43.184946,-79.526035"),
-        array("image" => "http://cdn.ci1.yp.ca/l/1582/38/15823837aa_l.gif", "name" => "Souvlaki Hut Grimsby", "address" => "C-44 Livingston Ave", "city" => "Grimsby", "province" => "Ontario", "postal_code" => "L3M 1L1", "website" => "http://www.souvlakihut.com", "id" => "7849329", "phone" => "905-945-3777", "coordinates" => "43.196366,-79.569706"),
-        array("name" => "The Mountain St. Market", "address" => "3 Mountain St", "city" => "Grimsby", "province" => "Ontario", "postal_code" => "L3M 3J5", "id" => "100898490", "phone" => "905-309-8887", "coordinates" => "43.193694,-79.562578"),
-        array("name" => "Town & Country Fish & Chips Restaurant", "address" => "33 Elm St", "city" => "Grimsby", "province" => "Ontario", "postal_code" => "L3M 3G5", "id" => "1602327", "phone" => "905-945-9797", "coordinates" => "43.192557,-79.560637"),
-        array("name" => "Burger King", "address" => "3-2 King St W", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8P 1A1", "website" => "http://www.burgerking.ca", "id" => "6612589", "phone" => "905-521-2974", "coordinates" => "43.2567152,-79.8690816"),
-        array("name" => "Burrito Bandidos", "address" => "1028 King St W", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8S 1L5", "website" => "http://burritobandidos.com", "id" => "100450351", "phone" => "905-972-9999", "coordinates" => "43.26166,-79.906381"),
-        array("name" => "Cora Breakfast & Lunch open", "address" => "10-1400 Upper James St", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L9B 1K3", "website" => "http://chezcora.com", "id" => "8005842", "phone" => "905-574-7077", "coordinates" => "43.209659,-79.889893"),
-        array("name" => "East Place Chinese Restaurant", "address" => "48 Centennial Pky N", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8E 1H6", "website" => "http://eastplace.ca", "id" => "7878316", "phone" => "905-560-2127", "coordinates" => "43.229609,-79.763535"),
-        array("name" => "First Choice Pizza", "address" => "2596 King St E", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8K 1Y2", "id" => "2798195", "phone" => "905-560-9111", "coordinates" => "43.2246782,-79.7863449"),
-        array("name" => "Fox and Fiddle", "address" => "107-999 Upper Wentworth St", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L9A 4X5", "website" => "http://foxandfiddle.com", "id" => "7854714", "phone" => "905-385-8555", "coordinates" => "43.217081,-79.8645041"),
-        array("name" => "Golden Brown", "address" => "28 Barton St E", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8L 2V5", "description" => "KOREAN TAKE-OUT & DELIVERY RESTAURANT", "id" => "101131673", "phone" => "905-529-3811", "coordinates" => "43.2638,-79.864784"),
-        array("name" => "Gorgis Takeout Restaurant", "address" => "1122 Upper Sherman Ave", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8W 3W1", "id" => "2295205", "phone" => "905-388-9716", "coordinates" => "43.212054,-79.856095"),
-        array("name" => "Great Tastes Only and Willy Dog GTO", "address" => "4-17 Paradise Rd S", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8S 1S1", "id" => "101033228", "phone" => "289-389-1486", "coordinates" => "43.262037,-79.898938"),
-        array("name" => "Hilltop Express", "address" => "1400 Upper James St", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L9B 1K3", "description" => "The BEST Greek food Take Out in Hamilton. Family owned business. Catering options available. Call or drop by today you won't be disappointed!", "id" => "100835238", "phone" => "289-520-0607", "coordinates" => "43.209659,-79.889893"),
-        array("name" => "Hilltop Express", "address" => "1400 Upper James St", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L9B 1K3", "id" => "100825413", "phone" => "289-520-0607", "coordinates" => "43.209659,-79.889893"),
-        array("image" => "http://cdn.ci1.yp.ca/l/1621/26/16212644aa_l.gif", "name" => "Catering by Luigi", "address" => "2-125 Lancing Dr", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8W 2Z9", "website" => "http://www.cateringbyluigi.com", "id" => "2165307", "phone" => "905-318-1913", "coordinates" => "43.1917212,-79.8407749"),
-        array("image" => "http://cdn.ci1.yp.ca/t/1549/47/15494729aa_t.gif", "name" => "South Sea Restaurant", "address" => "282 Ottawa St N", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8H 3Z9", "description" => "Authentic Chinese and Pan Asian Cuisine celebrating 30 years under the same management.", "website" => "http://www.southsea.ca", "id" => "1477544", "phone" => "905-545-0352", "coordinates" => "43.250118,-79.816682"),
-        array("image" => "http://cdn.ci1.yp.ca/t/1604/73/16047350aa_t.gif", "name" => "The Little Grasshopper open", "address" => "37 Barton St E", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8L 2V7", "description" => "GRAND OPENING!", "id" => "100829379", "phone" => "905-393-7641", "coordinates" => "43.263655,-79.864197"),
-        array("image" => "http://cdn.ci1.yp.ca/t/1616/88/16168831aa_t.gif", "name" => "Open Sesame Mediterranean Grill open", "address" => "205 Quigley Rd", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8K 5M8", "description" => "At Open Sesame Grill, we believe that delicious dishes with good flavor and the right style of presentation can ensure the best memories of your life.", "website" => "http://www.opensesamegrill.ca", "id" => "100418516", "phone" => "905-661-0000", "coordinates" => "43.2163284,-79.7845096"),
-        array("image" => "http://cdn.ci1.yp.ca/t/1619/21/16192123aa_t.gif", "name" => "On A Bun Italian Sandwiches", "address" => "197 Locke St S", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8P 4B5", "description" => "HAMILTON'S NEWEST ITALIAN SANDWICH SHOP!", "website" => "http://www.onabun.ca", "id" => "100787091", "phone" => "289-769-0021", "coordinates" => "43.255012,-79.885817"),
-        array("image" => "http://cdn.ci2.yp.ca/l/1616/07/16160778aa_l.gif", "name" => "Iron Chef Chinese Restaurant Inc", "address" => "1116 Upper Sherman Ave", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8W 3W1", "website" => "http://ironchefchineserestaurant.ca/", "id" => "2334708", "phone" => "905-389-2288", "coordinates" => "43.21226,-79.856008"),
-        array("image" => "http://cdn.ci2.yp.ca/l/1621/25/16212598aa_l.gif", "name" => "Giuseppe's Italian Cuisine & Pizza", "address" => "762 King St E", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8M 1A6", "website" => "http://www.giuseppesitaliancuisine.com", "id" => "6473828", "phone" => "905-525-3334", "coordinates" => "43.251564,-79.844664"),
-        array("image" => "http://cdn.ci2.yp.ca/t/1515/46/15154644aa_t.gif", "name" => "Mandarin Restaurant", "address" => "1508 Upper James Street", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L9B 1K3", "description" => "Award-Winning All-You-Can-Eat Chinese & Canadian Buffet with over 20 locations across Ontario.", "website" => "http://www.mandarinrestaurant.com", "id" => "2391930", "phone" => "905-383-6000", "coordinates" => "43.205969,-79.891665"),
-        array("image" => "http://cdn.ci2.yp.ca/t/1617/02/16170229aa_t.gif", "name" => "Vida La Pita", "address" => "217 King St W", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8P 1A7", "description" => "MEDITERRANEAN CUISINE HALAL FOOD", "website" => "http://www.vidalapita.com", "id" => "6434154", "phone" => "905-529-4335", "coordinates" => "43.258588,-79.875918"),
-        array("image" => "http://cdn.ci3.yp.ca/t/1549/22/15492203aa_t.gif", "name" => "Joy Inn Restaurant & Tavern", "address" => "74 Ottawa St N", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8H 3Z1", "description" => "From soups to seafood, Joy Inn has a vast selection of dishes. We have combination platters, as well as special family dinner options. We offer a full menu of all Chinese and Szechuan foods", "website" => "http://www.joyinnrestaurant.ca", "id" => "866826", "phone" => "905-549-5523", "coordinates" => "43.244645,-79.818883"),
-        array("image" => "http://cdn.ci3.yp.ca/t/1549/82/15498215aa_t.gif", "name" => "Tally Ho Restaurants", "address" => "1536 Main St W", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8S 1E4", "description" => "Fast Food Service, Specializing in Hot Roast Beef Sandwiches, Eat in or Take Out.", "id" => "1550476", "phone" => "905-529-6043", "coordinates" => "43.257606,-79.924186"),
-        array("image" => "http://cdn.ci4.yp.ca/l/1542/06/15420666aa_l.gif", "name" => "Amy's Wok", "address" => "160 Centennial Pky N", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8E 1H9", "website" => "http://www.amyswok.com", "id" => "2089066", "phone" => "289-769-0025", "coordinates" => "43.2350397,-79.7611948"),
-        array("image" => "http://cdn.ci4.yp.ca/l/1591/63/15916301aa_l.gif", "name" => "Great Wall Restaurant", "address" => "190 Kenilworth Ave N", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8H 4S2", "website" => "http://sandytan6.wix.com/greatwallrestaurant", "id" => "2298865", "phone" => "289-919-0519", "coordinates" => "43.246103,-79.807505"),
-        array("image" => "http://cdn.ci4.yp.ca/t/1619/08/16190872aa_t.gif", "name" => "Yummy Yummy Asian Cuisine", "address" => "255 Highway No 5 E", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L0R 2H6", "description" => "Sushi, Thai & Chinese. Open Lunch & Dinner. All you can eat dine in. Take Out + Delivery. Sushi Trays 42pcs to 96pcs. Open 7 days a week. Come check us out your taste buds will love it!", "id" => "100883121", "phone" => "905-689-8866", "coordinates" => "43.334691,-79.905685"),
-        array("image" => "http://cdn.ci5.yp.ca/l/1543/31/15433130aa_l.gif", "name" => "Mark's Chinese Food Take-Out & Delivery", "address" => "468 King St W", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8P 1B7", "website" => "http://www.chinesefoodhamilton.ca", "id" => "1017849", "phone" => "905-527-7621", "coordinates" => "43.2605299,-79.8823843"),
-        array("image" => "http://cdn.ci5.yp.ca/l/1615/03/16150362aa_l.gif", "name" => "Culture Cuisine", "address" => "355 Main St E", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8N 1J4", "website" => "http://www.culturecuisine.ca/", "id" => "100992365", "phone" => "905-529-8265", "coordinates" => "43.251721,-79.855559"),
-        array("image" => "http://cdn.ci5.yp.ca/t/1546/93/15469378ab_t.gif", "name" => "China Palace Restaurant", "address" => "30 Rymal Rd E", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L9B 1T7", "description" => "Authentic Chinese food with an extensive menu. Choose from rice, chicken, seafood, pork, beef and vegetarian dishes. Excellent quality with only the freshest ingredients being used", "website" => "http://chinapalacerestaurant.ca/", "id" => "7607564", "phone" => "905-385-5324", "coordinates" => "43.202154,-79.891677"),
-        array("image" => "http://cdn.ci5.yp.ca/t/1549/71/15497150aa_t.gif", "name" => "Maple Leaf Pancake House", "address" => "1520 Main St W", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8S 1E3", "description" => "Breakfast served all day, excellent selection, Daily Lunch & Dinner Specials, Soup, Salad, & Dessert servied with our Specials.", "id" => "1011030", "phone" => "905-522-4995", "coordinates" => "43.257632,-79.923503"),
-        array("image" => "http://cdn.media.yp.ca/8298104/ContentInjectionCoupler-1877496-1_t.jpg", "name" => "Saigon Soul Food Inc open", "address" => "152 James St S", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8P 3A2", "website" => "http://www.saigonsoulfood.com", "id" => "1384239", "phone" => "905-529-8181", "coordinates" => "43.252173,-79.871061"),
-        array("image" => "http://ssvs.yp.ca/o37/63776031001/201311/2690/63776031001_2831824474001_th-52824e7ce4b0e591c1a81f01-1083021587001.jpg", "name" => "Kings Buffet", "address" => "200 Centennial Pky N", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8E 4A1", "description" => "Buffet tables laden with freshly prepared delicacies tempt every taste bud, offering everythingfrom savoury soups and crisp salad selections totantalizing main courses and decadent desserts.", "website" => "http://www.kingsbuffet.com", "id" => "5831089", "phone" => "905-664-8898", "coordinates" => "43.235269,-79.758628"),
-        array("image" => "http://ssvs.yp.ca/o37/63776031001/201507/3211/63776031001_4347961129001_4347959721001-th.jpg", "name" => "Capri Family Restaurant", "address" => "25 John St N", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8R 1H1", "description" => "AUTHENTIC ITALIAN CUISINE WITH OLD WORLD HOSPITALITY. Catering On or Offsite, Private Meeting Rooms from 30 to 120. www.capriristorante.ca", "website" => "http://www.capriristorante.ca", "id" => "3562997", "phone" => "289-769-0045", "coordinates" => "43.25659,-79.866228"),
-        array("image" => "http://ssvs.yp.ca/o37/63776031001/201512/117/63776031001_4655774956001_4655756858001-th.jpg", "name" => "Wild Orchid", "address" => "286 James St N", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8R 2L3", "website" => "http://www.wildorchidrestaurant.ca", "id" => "1717362", "phone" => "289-768-2707"),
-        array("name" => "Kim Hoa Chinese B B Q", "address" => "127 MacNab St N", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8R 2M2", "id" => "892925", "phone" => "905-527-4383", "coordinates" => "43.261236,-79.868796"),
-        array("name" => "Lee's Take Out & Delivery Service", "address" => "1825 Main St W", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8S 1H6", "website" => "http://www.leestakeout.com", "id" => "945298", "phone" => "905-528-0095", "coordinates" => "43.2527442,-79.9391493"),
-        array("name" => "Pita Pit", "address" => "8-700 Queenston Rd", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8G 1A3", "website" => "http://www.pitapit.ca", "id" => "5181568", "phone" => "905-560-4777", "coordinates" => "43.229521,-79.771402"),
-        array("name" => "Pizza Pizza", "address" => "833 Upper James Street", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L9C 3A3", "website" => "http://www.pizzapizza.ca", "id" => "7725252", "phone" => "905-527-1111", "coordinates" => "43.227873,-79.882062"),
-        array("name" => "Porcelain Hotpot & Lounge", "address" => "1122 Main St W", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8S 1C1", "id" => "101229213", "phone" => "289-396-6993", "coordinates" => "43.258062,-79.911011"),
-        array("name" => "Queen's Pizza & Wings", "address" => "838 King St E", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8M 1B4", "website" => "http://www.queenspizza.ca", "id" => "1290367", "phone" => "905-545-0101", "coordinates" => "43.251366,-79.841241"),
-        array("name" => "Sao Miguel Churrasqueira BBQ House", "address" => "28 Barton St E", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8L 2V5", "website" => "https://www.facebook.com/pages/Sao-Miguel-Churrasqueira-BBQ-House/134145369937597", "id" => "1398156", "phone" => "905-524-1491", "coordinates" => "43.2638,-79.864784"),
-        array("name" => "Shanghai Chinese Food", "address" => "856 Lawrence Rd", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8K 2A2", "id" => "2532080", "phone" => "905-547-9250", "coordinates" => "43.229179,-79.80372"),
-        array("name" => "Sunset Grill", "address" => "1299 Barton St E", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8H 2V4", "website" => "http://sunsetgrill.ca", "id" => "7853678", "phone" => "905-544-2400", "coordinates" => "43.250324,-79.806255"),
-        array("name" => "Taste of Poland", "address" => "1145 King St E", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8M 1E7", "website" => "https://www.facebook.com/TasteOfPoland", "id" => "7457725", "phone" => "905-297-9375", "coordinates" => "43.248214,-79.828938"),
-        array("name" => "Teriyaki Experience", "address" => "999 Upper Wentworth St", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L9A 4X5", "website" => "http://www.teriyakiexperience.com", "id" => "2388421", "phone" => "905-575-1942", "coordinates" => "43.217081,-79.8645041"),
-        array("name" => "Thai Express", "address" => "75 Centennial Pkwy N", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8E 2P2", "website" => "http://thaiexpress.ca", "id" => "8101854", "phone" => "905-560-8788", "coordinates" => "43.230559,-79.763271"),
-        array("name" => "Thai Express", "address" => "999 Upper Wentworth St", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L9A 4X5", "website" => "http://thaiexpress.ca", "id" => "7855442", "phone" => "905-575-1513", "coordinates" => "43.217081,-79.8645041"),
-        array("name" => "Topper's Pizza", "address" => "1400 Upper James St", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L9B 1K3", "website" => "http://toppers.ca", "id" => "2582890", "phone" => "905-387-7171", "coordinates" => "43.209659,-79.889893"),
-        array("name" => "Upteous Soup And Salad Bar", "address" => "270-2 King St W", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L8P 1A1", "id" => "4515968", "phone" => "905-522-4201", "coordinates" => "43.2567152,-79.8690816"),
-        array("name" => "Wok Express", "address" => "667 Upper James St", "city" => "Hamilton", "province" => "Ontario", "postal_code" => "L9C 5R8", "id" => "6371452", "phone" => "905-318-3636", "coordinates" => "43.2365445,-79.8781471"),
-        array("name" => "Trafalgar Truck Stop Restaurant open", "address" => "7443 Trafalgar Rd", "city" => "Hornby", "province" => "Ontario", "postal_code" => "L0P 1E0", "id" => "7487626", "phone" => "905-875-1388", "coordinates" => "43.563305,-79.847446"),
-        array("name" => "Just Johns", "address" => "17 Talbot St E", "city" => "Jarvis", "province" => "Ontario", "postal_code" => "N0A 1J0", "website" => "http://www.justjohns.ca", "id" => "6665137", "phone" => "519-952-0275", "coordinates" => "42.884267,-80.1154603"),
-        array("name" => "Arnold's Kitchen Express", "address" => "348 Bronte St S", "city" => "Milton", "province" => "Ontario", "postal_code" => "L9T 5B6", "id" => "3635792", "phone" => "905-876-2706", "coordinates" => "43.500752,-79.877596"),
-        array("name" => "Casa Americo", "address" => "144 Main St E", "city" => "Milton", "province" => "Ontario", "postal_code" => "L9T 1N6", "website" => "http://www.facebook.com/pages/Casa-Americo/436234343079596", "id" => "6584458", "phone" => "289-878-4948", "coordinates" => "43.511625,-79.88463"),
-        array("name" => "Cora Breakfast & Lunch open", "address" => "65 Ontario St S", "city" => "Milton", "province" => "Ontario", "postal_code" => "L9T 2M3", "id" => "7982415", "phone" => "905-636-0007", "coordinates" => "43.5172568,-79.8758977"),
-        array("name" => "Hero Certified Burgers", "address" => "7J-850 Main St E", "city" => "Milton", "province" => "Ontario", "postal_code" => "L9T 0J4", "website" => "http://www.circusorange.com", "id" => "6768037", "phone" => "905-878-7287", "coordinates" => "43.526339,-79.866233"),
-        array("image" => "http://cdn.ci3.yp.ca/l/1592/60/15926064aa_l.gif", "name" => "Twice The Deal Pizza", "address" => "15-327 Bronte St S", "city" => "Milton", "province" => "Ontario", "postal_code" => "L9T 4A4", "website" => "http://www.twicethedealpizza.ca", "id" => "7963483", "phone" => "289-270-1852", "coordinates" => "43.502617,-79.878414"),
-        array("image" => "http://cdn.ci3.yp.ca/l/1619/16/16191604ab_l.gif", "name" => "Pita Pit", "address" => "1120 Steeles Ave E", "city" => "Milton", "province" => "Ontario", "postal_code" => "L9T 6C8", "id" => "100994277", "phone" => "905-636-8008", "coordinates" => "43.5432651,-79.8695316"),
-        array("image" => "http://cdn.media.yp.ca/8255788/image-BC-tnUsQBrOWCrv24256239468053856_t.jpeg", "name" => "Thai House Cuisine 3", "address" => "181 Main St E", "city" => "Milton", "province" => "Ontario", "postal_code" => "L9T 1N7", "website" => "http://www.thaihouse.ca", "id" => "6290179", "phone" => "905-203-0912", "coordinates" => "43.512524,-79.883824"),
-        array("name" => "Milton Fish And Chips", "address" => "17 Wilson Dr", "city" => "Milton", "province" => "Ontario", "postal_code" => "L9T 3J7", "id" => "1067866", "phone" => "905-693-8999", "coordinates" => "43.523733,-79.872946"),
-        array("name" => "Mucho Burrito", "address" => "890 Main St E", "city" => "Milton", "province" => "Ontario", "postal_code" => "L9T 0J4", "website" => "http://www.muchoburrito.com", "id" => "6961128", "phone" => "905-203-0048", "coordinates" => "43.526162,-79.865515"),
-        array("name" => "Portabellos Pizza & Eatery", "address" => "10220 Derry", "city" => "Milton", "province" => "Ontario", "postal_code" => "L0P 1E0", "website" => "https://www.facebook.com/PortabellosPizzaEatery", "id" => "7626765", "phone" => "905-878-1933", "coordinates" => "43.528164,-79.837302"),
-        array("name" => "Toss Thai", "address" => "1120 Steeles Ave E", "city" => "Milton", "province" => "Ontario", "postal_code" => "L9T 6C8", "website" => "http://tossthai.com", "id" => "7975606", "phone" => "905-636-8878", "coordinates" => "43.540215,-79.874414"),
-        array("name" => "Ambiance Of India", "address" => "2157 Royal Windsor Dr", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5J 1K5", "website" => "https://www.facebook.com/pages/Ambiance-of-India/253624531315178", "id" => "6202401", "phone" => "905-403-9900", "coordinates" => "43.50873,-79.633053"),
-        array("name" => "Bamboo Bubble Tea", "address" => "1100 Burnhamthorpe Rd W", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5C 4G4", "id" => "7909525", "phone" => "905-949-1868", "coordinates" => "43.570166,-79.66209"),
-        array("name" => "Bukhara Grill", "address" => "1170 Burnhamthorpe Rd W", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5C 4E6", "website" => "http://bukharagrill.ca", "id" => "8048193", "phone" => "905-232-6813", "coordinates" => "43.5689,-79.663564"),
-        array("name" => "Burrito Boyz", "address" => "17 Tannery St", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 1V1", "id" => "6571946", "phone" => "905-567-2699", "coordinates" => "43.581283,-79.714695"),
-        array("name" => "Burrito Boyz", "address" => "9 Stavebank Rd", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5G 2T3", "website" => "https://www.facebook.com/pages/Burrito-Boyz-Port-Credit/151264428279652", "id" => "2816811", "phone" => "905-891-2699", "coordinates" => "43.552609,-79.585527"),
-        array("name" => "California Sandwiches", "address" => "3018 Winston Churchill Blvd", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5L 2V7", "website" => "http://eatcalifornia.ca/", "id" => "2151959", "phone" => "905-607-5445", "coordinates" => "43.523199,-79.68225"),
-        array("name" => "Chickenland", "address" => "3405 Glen Erin Dr", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5L 3S2", "id" => "2178341", "phone" => "905-820-9999", "coordinates" => "43.536227,-79.685122"),
-        array("name" => "Chiuchow Man Chinese Restaurant", "address" => "1177 Central Pky W", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5C 4P3", "website" => "https://www.facebook.com/pages/Chiuchow-Man-Restaurant/742432025768779", "id" => "2179545", "phone" => "905-803-8783", "coordinates" => "43.5678729,-79.6634717"),
-        array("name" => "Cora Breakfast & Lunch open", "address" => "6720 Meadowvale Town Centre Cir", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5N 4B7", "id" => "2204096", "phone" => "905-814-5225", "coordinates" => "43.582679,-79.76197"),
-        array("name" => "Dairy Queen - Orange Julius", "address" => "R115B-5100 Erin Mills Pky", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 4Z5", "id" => "7667384", "phone" => "905-569-3888", "coordinates" => "43.560664,-79.709451"),
-        array("name" => "Fonkoosh", "address" => "11 Pearl St", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 1X1", "website" => "https://www.facebook.com/chefsdoor?sk=app_211168815639816", "id" => "8011186", "phone" => "905-812-9696", "coordinates" => "43.580823,-79.713158"),
-        array("name" => "Golden Fountain Chinese Restaurant", "address" => "1250 Eglinton Ave W", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5V 1N3", "website" => "https://www.facebook.com/pages/????-Golden-Fountain-Chinese-Restaurant/294512530615443", "id" => "7900494", "phone" => "905-821-8688", "coordinates" => "43.578858,-79.684105"),
-        array("name" => "Hero Certified Burgers", "address" => "2690 Erin Centre Blvd", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 5P5", "id" => "100317033", "phone" => "905-608-8999", "coordinates" => "43.558199,-79.716948"),
-        array("image" => "http://cdn.ci1.yp.ca/l/1614/58/16145822aa_l.gif", "name" => "Almonasabah Arabic Cuisine", "address" => "107-2340 Council Ring Rd", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5L 1C1", "id" => "100986961", "phone" => "905-820-5080", "coordinates" => "43.534741,-79.678552"),
-        array("image" => "http://cdn.ci3.yp.ca/l/1594/34/15943471aa_l.gif", "name" => "Moon Sushi Japanese Cuisine", "address" => "1900 Fowler Dr", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5K 0A1", "website" => "http://www.moonsushi.ca", "id" => "100671527", "phone" => "905-916-7888", "coordinates" => "43.527049,-79.651304"),
-        array("image" => "http://cdn.ci4.yp.ca/l/1570/86/15708687aa_l.gif", "name" => "Enzo's Two Guys From Italy", "address" => "128 Queen St S", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 1K8", "website" => "http://www.enzostwoguysfromitaly.com", "id" => "2651729", "phone" => "289-814-3541", "coordinates" => "43.583039,-79.717739"),
-        array("image" => "http://cdn.media.yp.ca/8197748/pcc_0_65323000_1451409523_t.jpg", "name" => "Chinese Dumpling House", "address" => "4040 Creditview Rd", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5C 4E3", "website" => "http://www.facebook.com/pages/Deluxe-Noodles-Chinese-Restaurant/118743754836890", "id" => "2222767", "phone" => "905-270-5988", "coordinates" => "43.568947,-79.665389"),
-        array("image" => "http://cdn.media.yp.ca/8234462/ContentInjectionCoupler-1851520-1_t.jpg", "name" => "Casalinga Ristorante", "address" => "2057 Royal Windsor Dr", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5J 1K5", "website" => "http://www.casalingaristorante.com", "id" => "7731989", "phone" => "647-559-3080", "coordinates" => "43.511037,-79.630743"),
-        array("image" => "http://cdn.media.yp.ca/8235778/ContentInjectionCoupler-1850930-1_t.jpg", "name" => "Indian Cuisine By The Lake", "address" => "56A Lakeshore Rd E", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5G 1E1", "website" => "www.facebook.com/IndianCuisineByTheLake", "id" => "7649666", "phone" => "289-724-2294", "coordinates" => "43.552498,-79.584934"),
-        array("image" => "http://cdn.media.yp.ca/8243644/ContentInjectionCoupler-1851395-1_t.jpg", "name" => "Axia Restaurant & Bar", "address" => "5045 Plantation Pl", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 6J3", "id" => "2636910", "phone" => "905-608-2942", "coordinates" => "43.55048,-79.71636"),
-        array("image" => "http://cdn.media.yp.ca/8259446/ContentInjectionCoupler-1851276-1_t.jpg", "name" => "Solstice Restaurant & Wine Bar", "address" => "1801 Lakeshore Rd W", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5J 1J6", "website" => "http://www.solsticerestaurant.ca", "id" => "2543537", "phone" => "289-724-3584", "coordinates" => "43.516228,-79.624323"),
-        array("image" => "http://cdn.media.yp.ca/8334614/ContentInjectionCoupler-1850975-1_t.jpg", "name" => "Clarkson Mediterranean Bistro", "address" => "1731 Lakeshore Rd W", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5J 1J4", "website" => "http://www.clarksonmediterraneanbistro.com", "id" => "8194698", "phone" => "289-724-3564", "coordinates" => "43.517757,-79.622893"),
-        array("image" => "http://cdn.media.yp.ca/8357722/ContentInjectionCoupler-1850832-1_t.jpg", "name" => "Miga Korean Bbq Restaurant", "address" => "2382 Dundas St W", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5K 1R7", "website" => "http://www.migabbq.com", "id" => "1062755", "phone" => "647-490-2260", "coordinates" => "43.529693,-79.674126"),
-        array("image" => "http://cdn.media.yp.ca/8668658/12644940-474755196063923-2228933806412267700-n-BC-k25D77lbxXZf25661482074376092_t.jpg", "name" => "Marco Polo Restobar", "address" => "1971 Lakeshore Rd W", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5J 1J6", "website" => "http://www.marcopolorestobar.com", "id" => "100695837", "phone" => "905-822-1414", "coordinates" => "43.512879,-79.627962"),
-        array("name" => "John Anderson Charcoal Broil Hamburgers", "address" => "1069 Dundas St W", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5C 1C3", "id" => "860724", "phone" => "905-276-8752", "coordinates" => "43.557603,-79.642555"),
-        array("name" => "Kitpiya", "address" => "11 Pearl St", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 1X1", "id" => "6957181", "phone" => "905-369-0167", "coordinates" => "43.580941,-79.713241"),
-        array("name" => "Llive Hospitality Inc", "address" => "970 Southdown Rd", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5J 2Y4", "id" => "100983949", "phone" => "905-822-5333", "coordinates" => "43.510095,-79.628803"),
-        array("name" => "Made In Japan Teriyaki Experience", "address" => "960 Southdown Rd", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5J 2Y4", "website" => "http://www.teriyakiexperience.com", "id" => "2388418", "phone" => "905-822-1933", "coordinates" => "43.510077,-79.628776"),
-        array("name" => "Mandarin Restaurant", "address" => "3105 Dundas Street West", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5L 3R8", "website" => "http://www.facebook.com/mandarinrestaurants", "id" => "6952678", "phone" => "905-569-7000", "coordinates" => "43.521003,-79.683728"),
-        array("name" => "OhÃ© Bombay", "address" => "3100 Winston Churchill Blvd", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5L 2V7", "website" => "https://www.facebook.com/ohbombay", "id" => "6265839", "phone" => "905-608-8885", "coordinates" => "43.525033,-79.684863"),
-        array("name" => "Osmow's Grill", "address" => "251 Queen St S", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 1L7", "website" => "http://www.facebook.com/pages/Osmows-Grill/127378230632175", "id" => "2668112", "phone" => "905-826-6021", "coordinates" => "43.580093,-79.71157"),
-        array("name" => "Pita Nutsy", "address" => "241 Queen St S", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 1L7", "website" => "http://www.pitanutso.com/", "id" => "2669731", "phone" => "905-858-6161", "coordinates" => "43.580432,-79.711755"),
-        array("name" => "Pizza Hot Pizza", "address" => "3899 Trelawny Cir", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5N 6S3", "website" => "http://pizzahotpizza.com", "id" => "7817970", "phone" => "905-826-4477", "coordinates" => "43.579457,-79.770696"),
-        array("name" => "Popeyes", "address" => "6750 Winston Churchill Blvd", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5N 4C4", "id" => "100511331", "phone" => "905-997-9229", "coordinates" => "43.583307,-79.76446"),
-        array("name" => "Popular Pizza", "address" => "17 Tannery St", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 1V1", "website" => "http://popularpizzamississauga.com/", "id" => "3395394", "phone" => "905-812-8844", "coordinates" => "43.581243,-79.714757"),
-        array("name" => "Pretzelmaker", "address" => "5100 Erin Mills Parkway", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L4M 5Z2", "website" => "http://www.facebook.com/pretzelmaker", "id" => "3946397", "phone" => "905-820-2077", "coordinates" => "43.560664,-79.709451"),
-        array("name" => "Royal Chinese Wok", "address" => "9-3050 Artesian Dr", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 7P5", "website" => "http://www.royalchinesewok.ca/", "id" => "100915803", "phone" => "905-608-9999", "coordinates" => "43.5462,-79.715215"),
-        array("name" => "Souvlaki Hut", "address" => "1725 Lakeshore Rd W", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5J 1J4", "website" => "http://www.souvlakihut.com", "id" => "6500708", "phone" => "905-823-7775", "coordinates" => "43.517861,-79.622778"),
-        array("name" => "Souvlaki Port Credit", "address" => "85 Lakeshore Rd E", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5G 1C9", "website" => "http://www.souvlakiportcredit.com", "id" => "6096926", "phone" => "905-271-2300", "coordinates" => "43.552807,-79.584097"),
-        array("name" => "Star Fast Food", "address" => "1177 Central Pky W", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5C 4P3", "id" => "4139563", "phone" => "905-848-7767", "coordinates" => "43.5678729,-79.6634717"),
-        array("name" => "Supperworks open", "address" => "1150 Lorne Park Rd", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5H 3A5", "website" => "http://cyriousgarageworks.com/", "id" => "7628512", "phone" => "905-278-7224", "coordinates" => "43.530823,-79.615389"),
-        array("name" => "Teriyaki Experience", "address" => "6550 Meadowvale Town Centre Circle", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5N 4B7", "id" => "3944337", "phone" => "905-821-0976", "coordinates" => "43.582732,-79.761451"),
-        array("name" => "Thai Delight", "address" => "6970 Lisgar Dr", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5N 8C8", "id" => "3948474", "phone" => "905-785-0882", "coordinates" => "43.576264,-79.782985"),
-        array("name" => "Thai Express", "address" => "3077 Mavis Rd", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5C 1T7", "website" => "http://www.thaiexpress.ca", "id" => "100465808", "phone" => "905-615-8424", "coordinates" => "43.567879,-79.634831"),
-        array("name" => "Thai Express", "address" => "5100 Erin Mills Parkway", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 4Z5", "website" => "http://www.facebook.com/THAIEXPRESS", "id" => "6992186", "phone" => "905-607-2903", "coordinates" => "43.560664,-79.709451"),
-        array("name" => "Turtle Jack's", "address" => "6610 Meadowvale", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5N 4B7", "id" => "6914573", "phone" => "905-812-8005", "coordinates" => "43.580568,-79.759775"),
-        array("name" => "Wings Up", "address" => "3030 Thomas St", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 0R4", "website" => "http://www.wingsup.com", "id" => "6872796", "phone" => "905-286-9464", "coordinates" => "43.5604234,-79.7341423"),
-        array("name" => "Zeerah Takeout", "address" => "3050 Artesian Dr", "city" => "Mississauga", "province" => "Ontario", "postal_code" => "L5M 7P5", "website" => "http://www.zeerah.ca", "id" => "6093023", "phone" => "905-569-7916", "coordinates" => "43.5462,-79.715215"),
-        array("name" => "Adonis Mediterranean Restaurant", "address" => "497 Pinegrove Rd", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6K 2C2", "id" => "6969535", "phone" => "905-849-4944", "coordinates" => "43.435822,-79.696721"),
-        array("name" => "Agabi's Restaurant", "address" => "234 Kerr St", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6K 3A8", "website" => "http://www.facebook.com/pages/Agabi/120881747957644", "id" => "6940564", "phone" => "905-338-1888", "coordinates" => "43.441973,-79.678541"),
-        array("name" => "Art's Fish & Chips", "address" => "1500 Sixth Line", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 2P2", "id" => "109066", "phone" => "905-844-9209", "coordinates" => "43.46484,-79.71014"),
-        array("name" => "Big Grill", "address" => "1500 Upper Middle Rd W", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6M 3G3", "id" => "7917566", "phone" => "905-901-1971", "coordinates" => "43.438428,-79.742177"),
-        array("name" => "Burrito Master", "address" => "2335 Trafalgar Rd", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 6N9", "website" => "http://www.burritomasters.ca/", "id" => "8213815", "phone" => "289-725-9000", "coordinates" => "43.483629,-79.712768"),
-        array("name" => "Denny's", "address" => "3451 South Service Rd W", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6L 0C3", "id" => "100781686", "phone" => "289-881-7253", "coordinates" => "43.397065,-79.747287"),
-        array("name" => "Dinner At Home Meals", "address" => "1414 Wallace Rd", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6L 2Y2", "id" => "100806613", "phone" => "905-580-5191", "coordinates" => "43.42096,-79.712674"),
-        array("name" => "Golden Leaf", "address" => "357 Kerr St", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6K 3B9", "id" => "5193985", "phone" => "905-842-4949", "coordinates" => "43.444158,-79.682382"),
-        array("name" => "Habanero Taqueria", "address" => "1289 Marlborough Crt", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 2R9", "website" => "http://www.thehabanero.ca", "id" => "8083186", "phone" => "289-837-0111", "coordinates" => "43.469892,-79.693119"),
-        array("name" => "Hero Certified Burgers", "address" => "511 Maple Grove Dr", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6J 4W3", "website" => "http://www.heroburgers.com", "id" => "8238900", "phone" => "905-294-8989", "coordinates" => "43.478974,-79.657374"),
-        array("image" => "http://cdn.ci1.yp.ca/l/1553/46/15534678aa_l.gif", "name" => "Salad Thai Restaurant", "address" => "398 Kerr St", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6K 3C1", "id" => "2732393", "phone" => "905-849-5961", "coordinates" => "43.444832,-79.683574"),
-        array("image" => "http://cdn.ci1.yp.ca/l/1554/24/15542415aa_l.gif", "name" => "Caz's Great Fish", "address" => "270 North Service Rd W", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6M 2R8", "website" => "http://cazsgreatfishoakville.com/", "id" => "2166083", "phone" => "289-813-1940", "coordinates" => "43.4486,-79.705066"),
-        array("image" => "http://cdn.ci1.yp.ca/l/1615/98/16159855aa_l.gif", "name" => "Big Taste Pizza", "address" => "2165 Grosvenor St.", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 7K9", "website" => "http://www.zuppler.com/restaurants/pizzadepotgrosvenorstold#!_", "id" => "100894716", "phone" => "905-842-3338", "coordinates" => "43.488054,-79.697665"),
-        array("image" => "http://cdn.ci1.yp.ca/l/1618/94/16189457aa_l.gif", "name" => "Vegebitz Inc open", "address" => "2460 Neyagawa Blvd", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 7P4", "website" => "http://www.Vegebitez.com", "id" => "100540181", "phone" => "905-844-4888", "coordinates" => "43.463547,-79.743593"),
-        array("image" => "http://cdn.ci2.yp.ca/l/1568/77/15687716ad_l.gif", "name" => "Cynthia's Chinese Restaurant", "address" => "2460 Neyagawa Blvd", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 7P4", "website" => "http://www.facebook.com/CynthiasChineseRestaurant", "id" => "6031612", "phone" => "647-503-4935", "coordinates" => "43.463547,-79.743593"),
-        array("image" => "http://cdn.ci5.yp.ca/l/1615/87/16158731aa_l.gif", "name" => "Barburritos Restaurant", "address" => "240 Leighland Ave", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 3H6", "website" => "http://www.barburrito.ca", "id" => "100976339", "phone" => "905-338-4835", "coordinates" => "43.463001,-79.688334"),
-        array("image" => "http://cdn.media.yp.ca/8254746/pcc-6786636821724513398-1_t.jpg", "name" => "Dragon House Chinese Cuisine", "address" => "2530 6th Line", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 6W5", "website" => "http://www.dragon-house.ca", "id" => "7905840", "phone" => "905-257-2211", "coordinates" => "43.476861,-79.726103"),
-        array("image" => "http://cdn.media.yp.ca/8261238/ContentInjectionCoupler-1851404-1_t.jpg", "name" => "Mr. Greek", "address" => "2501 Hampshire Gate", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 6C8", "website" => "http://www.mrgreek.com", "id" => "3127166", "phone" => "905-829-0330", "coordinates" => "43.519637,-79.682683"),
-        array("image" => "http://cdn.media.yp.ca/8339708/ContentInjectionCoupler-1851550-1_t.jpg", "name" => "Salvatore's Of Oakville Italian Restaurant", "address" => "218 Lakeshore Rd E", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6J 1H8", "id" => "8036494", "phone" => "905-844-1010", "coordinates" => "43.446097,-79.667845"),
-        array("image" => "http://ssvs.yp.ca/o37/63776031001/201511/3636/63776031001_4594083777001_4594060336001-th.jpg?pubId=63776031001", "name" => "Sachi Sushi Japanese & Korean Restaurant", "address" => "1122 Dorval Dr", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6M 3E4", "website" => "http://sachisushi.ca/", "id" => "7830995", "phone" => "905-337-7767", "coordinates" => "43.449495,-79.704958"),
-        array("name" => "Jimmy the Greek", "address" => "240 Leighland Ave", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 3H6", "id" => "858141", "phone" => "905-842-4453", "coordinates" => "43.463001,-79.688334"),
-        array("name" => "JPA Hospitality Inc", "address" => "1500 Sixth Line", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 2P2", "website" => "http://www.thewingery.com", "id" => "1724846", "phone" => "905-842-3388", "coordinates" => "43.465106,-79.709516"),
-        array("name" => "K&B Sushi", "address" => "2045 Winston Park Dr", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 6P5", "website" => "http://www.kbsushi.com", "id" => "8027348", "phone" => "905-829-3889", "coordinates" => "43.510897,-79.667934"),
-        array("name" => "Kebab Stop", "address" => "667 Fourth Line", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6L 5B5", "website" => "http://www.kebabstop.ca", "id" => "6966236", "phone" => "905-845-9999", "coordinates" => "43.434074,-79.702794"),
-        array("name" => "Lourice", "address" => "1289 Marlborough Crt", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 2R9", "id" => "6265615", "phone" => "905-815-8800", "coordinates" => "43.469892,-79.693119"),
-        array("name" => "Oaks Gardens Restaurant", "address" => "128 Speers Rd", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6K 2E7", "id" => "1156316", "phone" => "905-845-6611", "coordinates" => "43.445873,-79.687836"),
-        array("name" => "Oakville Fish N Chips", "address" => "109 Maurice Dr", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6K 2W6", "id" => "2440265", "phone" => "905-844-2612", "coordinates" => "43.437021,-79.678351"),
-        array("name" => "Ritorno", "address" => "261 Oak Walk Dr", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 6M3", "id" => "4141464", "phone" => "905-257-5881", "coordinates" => "43.484878,-79.719568"),
-        array("name" => "Sana Grill", "address" => "105 Jones St", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6L 3E7", "id" => "100512815", "phone" => "289-837-3332", "coordinates" => "43.395956,-79.710522"),
-        array("name" => "Teriyaki Experience", "address" => "200-240 North Service Road W", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6M 2Y1", "id" => "2388424", "phone" => "905-338-7312", "coordinates" => "43.450094,-79.70217"),
-        array("name" => "Teriyaki Experience", "address" => "3513 Wyecroft Rd", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6L 0B6", "website" => "http://www.teriyakiexperience.com/index.html", "id" => "3769191", "phone" => "905-825-5155", "coordinates" => "43.395793,-79.748794"),
-        array("name" => "Thai Express", "address" => "1430 Trafalgar Rd", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 2L1", "id" => "100420728", "phone" => "905-844-8532", "coordinates" => "43.471343,-79.696681"),
-        array("name" => "Thai Express", "address" => "240 Leighland Ave", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 3H6", "id" => "100420565", "phone" => "905-815-0693", "coordinates" => "43.461465,-79.686238"),
-        array("name" => "The Firehall Cool Bar Hot Grill", "address" => "2441 Lakeshore Rd W", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6L 5V5", "website" => "http://www.thefirehall.ca/", "id" => "2268153", "phone" => "289-813-4542", "coordinates" => "43.394921,-79.711143"),
-        array("name" => "The Olive Press", "address" => "2322 Dundas St W", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6M 4J3", "id" => "3728501", "phone" => "905-827-4241", "coordinates" => "43.4413341,-79.7707771"),
-        array("name" => "Topper's Pizza", "address" => "220 North Service Rd W", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6M 2Y3", "website" => "https://www.facebook.com/topperspizzacanada", "id" => "2582893", "phone" => "905-845-1717", "coordinates" => "43.44945,-79.703272"),
-        array("name" => "Williams Fresh Cafe", "address" => "1500 Upper Middle Rd W", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6M 3G3", "website" => "http://www.williamsfreshcafe.com", "id" => "7640560", "phone" => "905-825-8150", "coordinates" => "43.438428,-79.742177"),
-        array("name" => "Wingsup", "address" => "2423 Trafalgar Rd", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6H 6K7", "id" => "100985205", "phone" => "905-257-7878", "coordinates" => "43.485285,-79.715953"),
-        array("name" => "Yame Sushi", "address" => "339 Kerr St", "city" => "Oakville", "province" => "Ontario", "postal_code" => "L6K 3B7", "website" => "http://www.yamesushi.com", "id" => "2776869", "phone" => "905-901-9090", "coordinates" => "43.443816,-79.681794"),
-        array("image" => "http://cdn.ci4.yp.ca/t/1615/08/16150841aa_t.gif", "name" => "The Sweet Spot open", "address" => "1721 Chiefswood", "city" => "Ohsweken", "province" => "Ontario", "postal_code" => "N0A 1M0", "description" => "The Healthy Choice! * organic fresh pressed juice * veggie & fruit trays * organic wraps, salads & soups * gluten-free foods * dine in, take out & delivery on reserve! * we cater too!", "website" => "http://www.staysweet.ca", "id" => "100840264", "phone" => "519-445-9292", "coordinates" => "43.0701871,-80.1170874"),
-        array("name" => "Maracle Man's Chip Stand", "address" => "1721 4th Line Rd", "city" => "Ohsweken", "province" => "Ontario", "postal_code" => "N0A 1M0", "id" => "100632518", "phone" => "519-445-4949", "coordinates" => "43.0720978,-80.1269114"),
-        array("name" => "Townline Takeout", "address" => "7135 Indian Line", "city" => "Scotland", "province" => "Ontario", "postal_code" => "N0E 1R0", "id" => "7097261", "phone" => "519-445-2518", "coordinates" => "43.024403,-80.236441"),
-        array("name" => "Chef In A Box", "address" => "181 Brant Rd", "city" => "St George Brant", "province" => "Ontario", "postal_code" => "N0E 1N0", "id" => "100565963", "phone" => "519-414-2433", "coordinates" => "43.236693,-80.288796"),
-        array("name" => "Aramark Canada Ltd", "address" => "108 Highland Rd W", "city" => "Stoney Creek", "province" => "Ontario", "postal_code" => "L8J 2T2", "website" => "http://aramark.ca", "id" => "8129705", "phone" => "905-573-2863", "coordinates" => "43.182794,-79.779012"),
-        array("image" => "http://cdn.ci1.yp.ca/t/1566/67/15666710aa_t.gif", "name" => "The Village Restaurant open", "address" => "35 King St E", "city" => "Stoney Creek", "province" => "Ontario", "postal_code" => "L8G 1J9", "description" => "Discover Our Little Corner in the Creek", "website" => "http://www.villagerestaurant.ca", "id" => "1671061", "phone" => "905-662-1811", "coordinates" => "43.2165842,-79.7563263"),
-        array("image" => "http://cdn.ci1.yp.ca/t/1581/19/15811967aa_t.gif", "name" => "Spasso Ristorante Banquet Hall & Event Centre", "address" => "940 Queenston Rd", "city" => "Stoney Creek", "province" => "Ontario", "postal_code" => "L8G 1B7", "description" => "Enjoy a delicious and fresh experience", "website" => "http://spassoristorante.ca", "id" => "8050224", "phone" => "905-664-7817", "coordinates" => "43.225428,-79.75289"),
-        array("image" => "http://cdn.ci2.yp.ca/l/1566/67/15666710aa_l.gif", "name" => "The Village Restaurant open", "address" => "35 King St E", "city" => "Stoney Creek", "province" => "Ontario", "postal_code" => "L8G 1J9", "website" => "http://villagerestaurant.ca/", "id" => "1671061", "phone" => "905-662-1811"),
-        array("name" => "Pizza Pizza", "address" => "19-800 Queenston Rd", "city" => "Stoney Creek", "province" => "Ontario", "postal_code" => "L8G 1A7", "website" => "http://www.pizzapizza.ca", "id" => "6198355", "phone" => "905-527-1111", "coordinates" => "43.2279227,-79.7637245"),
-        array("image" => "http://cdn.ci3.yp.ca/l/3000/58/30005898zz_l.gif", "name" => "Kate's Town Talk Bakery open", "address" => "206 Queen St S", "city" => "Streetsville", "province" => "Ontario", "postal_code" => "L5M 1L3", "website" => "http://www.katestowntalk.ca", "id" => "6958908", "phone" => "905-821-1166", "coordinates" => "43.581418,-79.713588"),
-        array("name" => "Lai Wah Heen", "address" => "2-108 Chestnut St", "city" => "Toronto", "province" => "Ontario", "postal_code" => "M5G 1R3", "website" => "http://laiwahheen.com/", "id" => "100926270", "phone" => "416-977-9899", "coordinates" => "43.65475,-79.385801"),
-        array("name" => "Ming's Garden", "address" => "4630 Victoria", "city" => "Vineland", "province" => "Ontario", "postal_code" => "L0R 2C0", "id" => "100733811", "phone" => "905-562-3388", "coordinates" => "43.1836502,-79.3947143"),
-        array("name" => "Golden Leaf Chinese Restaurant", "address" => "283 Highway No 5 E", "city" => "Waterdown", "province" => "Ontario", "postal_code" => "L0R 2H0", "website" => "http://www.hchc-fho.ca", "id" => "7856069", "phone" => "905-689-7133", "coordinates" => "43.334716,-79.894954"),
-        array("image" => "http://cdn.ci5.yp.ca/l/1594/23/15942302aa_l.gif", "name" => "Dragon Island", "address" => "115 Hamilton St N SS 4", "city" => "Waterdown", "province" => "Ontario", "postal_code" => "L0R 2H6", "website" => "http://dragonisland.ca/", "id" => "4277750", "phone" => "905-689-0034", "coordinates" => "43.335717,-79.902134"),
-        array("image" => "http://cdn.media.yp.ca/6509164/pcc_0_98974400_1414696439_t.JPG", "name" => "AJ's Grill open", "address" => "94 Dundas St E RR 2", "city" => "Waterdown", "province" => "Ontario", "postal_code" => "L0R 2H2", "website" => "http://www.ajsgrill.ca", "id" => "7858058", "phone" => "905-690-1900", "coordinates" => "43.317715,-79.909307"),
-        array("name" => "Turtle Jack's", "address" => "255 Dundas Street E", "city" => "Waterdown", "province" => "Ontario", "postal_code" => "L0R 2H6", "id" => "3334418", "phone" => "905-690-1787", "coordinates" => "43.332196,-79.897735"),
-);
+    $provinces = array(
+            "ON" => "Ontario",
+            "QC" => "Quebec",
+            "NS" => "Nova Scotia",
+            "NB" => "New Brunswick",
+            "MB" => "Manitoba",
+            "BC" => "British Columbia",
+            "PE" => "Prince Edward Island",
+            "SK" => "Saskatchewan",
+            "AB" => "Alberta",
+            "NL" => "Newfoundland and Labrador",
+            "NT" => "Northwest Territories",
+            "YT" => "Yukon",
+            "NU" => "Nunavut"
+    );
 
     $now = now();
     $getimages = false;//set to true to download images for the restaurant, done during second refresh though
@@ -300,64 +36,112 @@ $restaurants = array(    array("name" => "Cora Breakfast & Lunch open", "address
     $times["country"] = 'Canada';
     $times["uploaded_by"] = read("id");
 
-    foreach($restaurants as $restaurant){
-        $getit = true;
-        if(is_array($cities)){
-            $getit = in_array(strtolower($restaurant["city"]), $cities);
-        }
-        if ($getit){
-            if(isset($restaurant["coordinates"])){
-                $coordinates = explode(",", $restaurant["coordinates"]);
-                $restaurant["latitude"] = $coordinates[0];
-                $restaurant["longitude"] = $coordinates[1];
-                unset($restaurant["coordinates"]);
-            }
-            if(isset($restaurant["phone"])){
-                $restaurant["phone"] = str_replace("-", "", $restaurant["phone"]);
-            }
-            $restaurant["formatted_address"] = implode(", ", array($restaurant["address"], $restaurant["city"], $restaurant["province"], $restaurant["postal_code"], "Canada"));
-            $restaurant["email"] = "roy+" . $restaurant["id"] . "@trinoweb.com";
-            $restaurant["slug"] = app('App\Http\Controllers\RestaurantController')->createslug( $restaurant["name"] );
-            unset($restaurant["id"]);
-
-            $ob = select_field("restaurants", "email", $restaurant["email"]);
-            if($ob){
-                $repair = array();
-                if(!$ob->slug){$repair["slug"] = $restaurant["slug"];}
-                $repair = array_merge($times, $repair);
-                if($repair){update_database("restaurants", "id", $ob->id, $repair);}
+    $handle = fopen( public_path("assets/restaurants.ini") , "r");
+    $restaurant = array();
+    if ($handle) {
+        while (($line = fgets($handle)) !== false) {
+            // process the line read.
+            $line=trim($line);
+            if ( left($line,1) == "[" && right($line,1) == "]" ){
+                processrestaurant($restaurant, $times, $now, $getimages);
+                $restaurant = array();
             } else {
-                $restaurant = array_merge($times, $restaurant);
-                $ob = \App\Http\Models\Restaurants::findOrNew(0);
-                $ob->populate($restaurant,false);
-                $ob->save();
-
-                if(isset($restaurant["image"]) && $getimages){
-                    $image = downloadfile($restaurant["image"], public_path("/assets/images/restaurants/" . $ob->id . "/image." .  pathinfo($restaurant["image"], PATHINFO_EXTENSION)));
-                    if($image !== false){
-                        $restaurant["id"] = $ob->id;
-                        $restaurant["photo"] = $image;
-                        update_database("restaurants", "id", $ob->id, array("logo" => $image));
-                    }
+                $equal = strpos($line, "=");
+                if( $equal ) {
+                    $key = left($line, $equal);
+                    $value = right($line, strlen($line) - $equal - 1);
+                    $restaurant[$key] = $value;
                 }
-                $restaurant = object_to_array($restaurant);
             }
+            //break;
+        }
+        fclose($handle);
+        processrestaurant($restaurant, $times, $now, $getimages);
+    } else {
+        echo "error opening the file.";
+    }
 
-            $profile = select_field("profiles", "restaurant_id", $ob->id);
-            if(!$profile){
-                echo "<BR>Made account: " . new_anything("profiles", array("profile_type" => 2, "name" => $ob->name . " owner", "email" => $ob->email, "password" => "18GgKcb2FFBHM", "restaurant_id" => $ob->id, "created_at" => $now, "phone" => $ob->phone));
-            }
+function processrestaurant($restaurant, $times, $now, $getimages){
+    if(!$restaurant){return false;}
 
-            $catid = select_field("category", "res_id", $ob->id);
-            if(!$catid){
-                $catid = new_anything("category", array("title" => "Main", "display_order" => 1, "res_id" => $ob->id));
-                new_anything("menus", array("cat_name" => "Main", "cat_id" => $catid, "is_active" => 1, "display_order" => 1, "price" => 1, "description" => "", "restaurant_id" => $ob->id, "menu_item" => "Test Item", "uploaded_by" => read("id"), "uploaded_on" => $now));
-            }
-            var_dump($restaurant);
+    foreach(array("address" => "street", "postal_code" => "postalcode", "phone" => "telephone") as $dest => $src){
+        if(isset($restaurant[$src])){
+            $restaurant[$dest] = $restaurant[$src];
+            unset($restaurant[$src]);
         }
     }
 
-    function downloadfile($URL, $Filename = false){
+    if(isset($restaurant["coordinates"])){
+        $coordinates = explode(",", $restaurant["coordinates"]);
+        if(count($coordinates) == 2){
+            $restaurant["latitude"] = $coordinates[0];
+            $restaurant["longitude"] = $coordinates[1];
+            unset($restaurant["coordinates"]);
+        } else {
+            var_dump($coordinates);
+        }
+    }
+    if(isset($restaurant["phone"])){
+        $restaurant["phone"] = str_replace("-", "", $restaurant["phone"]);
+    }
+
+    foreach(array("address", "phone", "city", "province", "postal_code", "id") as $key){
+        if(!isset($restaurant[$key]) || !$restaurant[$key]){
+            echo "MISSING DATA: " . $key;
+            var_dump($restaurant);return false;
+        }
+    }
+
+    $restaurant["formatted_address"] = implode(", ", array($restaurant["address"], $restaurant["city"], $restaurant["province"], $restaurant["postal_code"], "Canada"));
+    $restaurant["email"] = "roy+" . $restaurant["id"] . "@trinoweb.com";
+    $restaurant["slug"] = app('App\Http\Controllers\RestaurantController')->createslug( $restaurant["name"] );
+
+    if($restaurant["id"] == "3439905"){
+        //var_dump($restaurant);die();
+    }
+
+    unset($restaurant["id"]);
+    $ob = select_field("restaurants", "email", $restaurant["email"]);
+    if($ob){
+        $repair = array();
+        if(!$ob->slug){$repair["slug"] = $restaurant["slug"];}
+        $repair = array_merge($times, $repair);
+        if($repair){update_database("restaurants", "id", $ob->id, $repair);}
+
+        $restaurant["status"] = "Existed already, repaired";
+    } else {
+        $restaurant = array_merge($times, $restaurant);
+        $ob = \App\Http\Models\Restaurants::findOrNew(0);
+        $ob->populate($restaurant,false);
+        $ob->save();
+
+        if(isset($restaurant["image"]) && $getimages){
+            $image = downloadfile($restaurant["image"], public_path("/assets/images/restaurants/" . $ob->id . "/image." .  pathinfo($restaurant["image"], PATHINFO_EXTENSION)));
+            if($image !== false){
+                $restaurant["id"] = $ob->id;
+                $restaurant["photo"] = $image;
+                update_database("restaurants", "id", $ob->id, array("logo" => $image));
+            }
+        }
+        $restaurant = object_to_array($restaurant);
+
+        $restaurant["status"] = "Created";
+    }
+
+    $profile = select_field("profiles", "restaurant_id", $ob->id);
+    if(!$profile){
+        echo "<BR>Made account: " . new_anything("profiles", array("profile_type" => 2, "name" => $restaurant["name"] . " owner", "email" => $restaurant["email"], "password" => "18GgKcb2FFBHM", "restaurant_id" => $ob->id, "created_at" => $now, "phone" => $restaurant["phone"]));
+    }
+
+    $catid = select_field("category", "res_id", $ob->id);
+    if(!$catid){
+        $catid = new_anything("category", array("title" => "Main", "display_order" => 1, "res_id" => $ob->id));
+        new_anything("menus", array("cat_name" => "Main", "cat_id" => $catid, "is_active" => 1, "display_order" => 1, "price" => 1, "description" => "", "restaurant_id" => $ob->id, "menu_item" => "Test Item", "uploaded_by" => read("id"), "uploaded_on" => $now));
+    }
+    var_dump($restaurant);
+}
+
+function downloadfile($URL, $Filename = false){
         $URL = @file_get_contents($URL);
         if($URL !== false){
             if($Filename){

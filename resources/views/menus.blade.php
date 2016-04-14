@@ -1,28 +1,28 @@
 <?php
-printfile("views/menus.blade.php");
-$alts = array(
-        "product-pop-up" => "Product info",
-        "up_cat" => "Move Category up",
-        "down_cat" => "Move Category down",
-        "up_parent" => "Move this up",
-        "down_parent" => "Move this down",
-        "deleteMenu" => "Delete this item",
-        "edititem" => "Edit this item"
-);
+    printfile("views/menus.blade.php");
+    $alts = array(
+            "product-pop-up" => "Product info",
+            "up_cat" => "Move Category up",
+            "down_cat" => "Move Category down",
+            "up_parent" => "Move this up",
+            "down_parent" => "Move this down",
+            "deleteMenu" => "Delete this item",
+            "edititem" => "Edit this item"
+    );
 
-$menuTSv = "?i=";
-$menuTS = read('menuTS');
-if ($menuTS) {
-    $menuTSv = "?i=" . $menuTS;
-    Session::forget('session_menuTS');
-}
+    $menuTSv = "?i=";
+    $menuTS = read('menuTS');
+    if ($menuTS) {
+        $menuTSv = "?i=" . $menuTS;
+        Session::forget('session_menuTS');
+    }
 
-$prevCat = "";
-$catNameStr = [];
-$parentCnt = [];
-$thisCatCnt = 0;
-$itemPosnForJS = [];
-// $catCnt set in restaurants-menus.blade
+    $prevCat = "";
+    $catNameStr = [];
+    $parentCnt = [];
+    $thisCatCnt = 0;
+    $itemPosnForJS = [];
+    // $catCnt set in restaurants-menus.blade
 ?>
 
 <script>
@@ -33,9 +33,9 @@ $itemPosnForJS = [];
 
 @if(!isset($_GET['page']))
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
-        @endif
+@endif
 
-        <?php
+    <?php
         $menus_listA = [];
         $menus_sortA = [];
         $cats_listA = [];
@@ -198,39 +198,38 @@ $itemPosnForJS = [];
 
                 <div class="list-group-item parents" id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
                     <!-- start of menu item -->
-                    <div class="">
+                    <div>
                         <div class="row">
-
                             <div class="col-md-12"><!-- start div 4 -->
 
                                 <?php
-                                $main_price = $value->price;
-                                $dis = '';
-                                $everyday = '';
-                                $days = explode(',', $value->days_discount);
-                                $today = date('D');
-                                if ($value->has_discount == '1' && in_array($today, $days)) {
-                                    if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
-                                        $everyday = 'everyday';
-                                    } else {
-                                        $everyday = str_replace($today, ',', $value->days_discount);
-                                        $everyday = 'Today and ' . str_replace(',', '/', $everyday);
-                                        $everyday = str_replace('//', '', $everyday);
-                                        $everyday = str_replace(' and /', '', $everyday);
-                                    }
-                                    $discount = $value->discount_per;
-                                    $d = $main_price * $discount / 100;
-                                    $main_price = $main_price - $d;
-                                    $dis = "" . $discount . "% off " . $everyday . "";
+                                    $main_price = $value->price;
+                                    $dis = '';
+                                    $everyday = '';
+                                    $days = explode(',', $value->days_discount);
+                                    $today = date('D');
+                                    if ($value->has_discount == '1' && in_array($today, $days)) {
+                                        if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
+                                            $everyday = 'everyday';
+                                        } else {
+                                            $everyday = str_replace($today, ',', $value->days_discount);
+                                            $everyday = 'Today and ' . str_replace(',', '/', $everyday);
+                                            $everyday = str_replace('//', '', $everyday);
+                                            $everyday = str_replace(' and /', '', $everyday);
+                                        }
+                                        $discount = $value->discount_per;
+                                        $d = $main_price * $discount / 100;
+                                        $main_price = $main_price - $d;
+                                        $dis = "" . $discount . "% off " . $everyday . "";
 
-                                }
+                                    }
                                 ?>
 
                                 <h4 class="card-title">
 
                                     <div class="" style="width: 100%;float:left;">
 
-                                        <a href="#" id="{{ $value->id }}"
+                                        <a href="#" id="{{ $value->id }}" name="{{ $value->id }}"
                                            data-res-id="{{ $value->restaurant_id }}"
                                            title="{{ $alts["product-pop-up"] }}"
                                            class="card-link" data-toggle="modal"

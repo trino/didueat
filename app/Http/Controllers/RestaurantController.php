@@ -201,9 +201,9 @@ class RestaurantController extends Controller {
                         $oldImgExpl=explode(".",$ob->logo);
                         $todaytime = date("Ymdhis");
                         foreach(array("/icon-", "/small-", "/big-") as $file){ 
-                          if(file_exists($destinationPath.$file.$ob->logo)){
-                            rename($destinationPath.$file.$ob->logo, $destinationPath.$file.$oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
-                          }
+                              if(file_exists($destinationPath.$file.$ob->logo)){
+                                    rename($destinationPath.$file.$ob->logo, $destinationPath.$file.$oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                              }
                         }
                        if(file_exists($destinationPath.$file.$ob->logo)){ // for original file with no prefix
                          rename($destinationPath."/".$ob->logo, $destinationPath."/".$oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
@@ -254,8 +254,7 @@ class RestaurantController extends Controller {
 
                 $ob->populate($update,$addlogo);
                 $isnowopen = $ob->save();
-                if($id==0 || $id == "")
-                {
+                if($id==0 || $id == "") {
                     $id = $ob->id;
                 }
                 if(!$post['id']){
@@ -264,9 +263,9 @@ class RestaurantController extends Controller {
                 
 // add first category
 
-								       if($ob->id){
-  															// now add first category
-		  													$this->saveCat($ob->id, "Entre", 1); // default category is Entre
+               if($ob->id){
+                    // now add first category
+                    $this->saveCat($ob->id, "Main", 1); // default category is Main
                }
                 // first delete all existing cuisines for this restaurant in cuisines table, then add new ones
                 $restCuisine_ids = \App\Http\Models\Cuisines::where('restID', $post['id'])->get();
@@ -966,6 +965,7 @@ $newCatID=false;
         $ob2 = new \App\Http\Models\Category();
         $ob2->populate($arr);
         $ob2->save();
+        return $ob2;
     }
 
     //I don't know what this does
