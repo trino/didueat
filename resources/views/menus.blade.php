@@ -225,7 +225,7 @@
                                     }
                                 ?>
 
-                                <h4 class="card-title">
+                                <h5 class="card-title">
 
                                     <div class="" style="width: 100%;float:left;">
 
@@ -264,7 +264,7 @@
                                     </div>
 
                                     <div class="" style=""></div>
-                                </h4>
+                                </h5>
 
 
                                 <div class="clearfix">

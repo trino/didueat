@@ -442,9 +442,14 @@ td {
     border-top: 0 !important;
 }
 
-.card-header {
-
+.card-header,.card-block, .list-group-item {
+padding: .5rem 1rem !important;
 }
+
+.list-inline-item {
+     padding-right: .75rem;
+ }
+
 
 .banner-text-shadow {
     text-shadow: 1px 1px 9px rgba(0, 0, 0, 2);
@@ -542,9 +547,6 @@ body {
 
 }
 
-.list-inline-item {
-    padding-right: .75rem;
-}
 
 .image_placeholder {
     background: #d9534f;
