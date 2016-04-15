@@ -1,28 +1,28 @@
 <?php
-    printfile("views/menus.blade.php");
-    $alts = array(
-            "product-pop-up" => "Product info",
-            "up_cat" => "Move Category up",
-            "down_cat" => "Move Category down",
-            "up_parent" => "Move this up",
-            "down_parent" => "Move this down",
-            "deleteMenu" => "Delete this item",
-            "edititem" => "Edit this item"
-    );
+printfile("views/menus.blade.php");
+$alts = array(
+        "product-pop-up" => "Product info",
+        "up_cat" => "Move Category up",
+        "down_cat" => "Move Category down",
+        "up_parent" => "Move this up",
+        "down_parent" => "Move this down",
+        "deleteMenu" => "Delete this item",
+        "edititem" => "Edit this item"
+);
 
-    $menuTSv = "?i=";
-    $menuTS = read('menuTS');
-    if ($menuTS) {
-        $menuTSv = "?i=" . $menuTS;
-        Session::forget('session_menuTS');
-    }
+$menuTSv = "?i=";
+$menuTS = read('menuTS');
+if ($menuTS) {
+    $menuTSv = "?i=" . $menuTS;
+    Session::forget('session_menuTS');
+}
 
-    $prevCat = "";
-    $catNameStr = [];
-    $parentCnt = [];
-    $thisCatCnt = 0;
-    $itemPosnForJS = [];
-    // $catCnt set in restaurants-menus.blade
+$prevCat = "";
+$catNameStr = [];
+$parentCnt = [];
+$thisCatCnt = 0;
+$itemPosnForJS = [];
+// $catCnt set in restaurants-menus.blade
 ?>
 
 <script>
@@ -33,9 +33,9 @@
 
 @if(!isset($_GET['page']))
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
-@endif
+        @endif
 
-    <?php
+        <?php
         $menus_listA = [];
         $menus_sortA = [];
         $cats_listA = [];
@@ -114,13 +114,13 @@
             ($thisCatCnt >= ($catCnt - 1)) ? $thisDownCatSort = "none" : $thisDownCatSort = "show";
 
 
-                if(!read('id')){
+            if (!read('id')) {
 
-                    $thisUpCatSort  ='none';
-                    $thisDownCatSort ='none';
-                    $thisDownMenuVisib ='none';
-                            $thisUpMenuVisib ='none';
-                }
+                $thisUpCatSort = 'none';
+                $thisDownCatSort = 'none';
+                $thisDownMenuVisib = 'none';
+                $thisUpMenuVisib = 'none';
+            }
             ?>
 
             <DIV class="list-group m-y-1" id="c{{ $thisCatCnt }}" style=""><!-- start of this category -->
@@ -203,26 +203,26 @@
                             <div class="col-md-12"><!-- start div 4 -->
 
                                 <?php
-                                    $main_price = $value->price;
-                                    $dis = '';
-                                    $everyday = '';
-                                    $days = explode(',', $value->days_discount);
-                                    $today = date('D');
-                                    if ($value->has_discount == '1' && in_array($today, $days)) {
-                                        if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
-                                            $everyday = 'everyday';
-                                        } else {
-                                            $everyday = str_replace($today, ',', $value->days_discount);
-                                            $everyday = 'Today and ' . str_replace(',', '/', $everyday);
-                                            $everyday = str_replace('//', '', $everyday);
-                                            $everyday = str_replace(' and /', '', $everyday);
-                                        }
-                                        $discount = $value->discount_per;
-                                        $d = $main_price * $discount / 100;
-                                        $main_price = $main_price - $d;
-                                        $dis = "" . $discount . "% off " . $everyday . "";
-
+                                $main_price = $value->price;
+                                $dis = '';
+                                $everyday = '';
+                                $days = explode(',', $value->days_discount);
+                                $today = date('D');
+                                if ($value->has_discount == '1' && in_array($today, $days)) {
+                                    if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
+                                        $everyday = 'everyday';
+                                    } else {
+                                        $everyday = str_replace($today, ',', $value->days_discount);
+                                        $everyday = 'Today and ' . str_replace(',', '/', $everyday);
+                                        $everyday = str_replace('//', '', $everyday);
+                                        $everyday = str_replace(' and /', '', $everyday);
                                     }
+                                    $discount = $value->discount_per;
+                                    $d = $main_price * $discount / 100;
+                                    $main_price = $main_price - $d;
+                                    $dis = "" . $discount . "% off " . $everyday . "";
+
+                                }
                                 ?>
 
                                 <h5 class="card-title">
@@ -328,7 +328,8 @@
                                 @if(read('restaurant_id') == $restaurant->id || $canedit)
 
                                     <div class="btn-group pull-left" role="group" style="vertical-align: middle">
-
+                                        <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}"
+                                              style="color:blue; display: none;"></span>
                                         @if($value->uploaded_by)
                                             Uploaded by: <A
                                                     HREF="{{ url("user/uploads/" . $value->uploaded_by) }}">{{ select_field("profiles", "id", $value->uploaded_by, "name" ) }}</A>
@@ -338,7 +339,6 @@
                                         @endif
 
                                     </div>
-                                    <div class="clearfix"></div>
                                 @endif
 
 
@@ -363,7 +363,6 @@
 
                                 @if($canedit)
 
-
                                     <a id="up_parent_{{ $value->id.'_'.$value->cat_id }}"
                                        title="{{ $alts["up_parent"] }}"
                                        class="btn btn-sm btn-link pull-right sorting_parent"
@@ -379,20 +378,6 @@
                                        onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }});return false"
                                        style="display:{{ $thisDownMenuVisib }} !important">
                                         <i class="fa fa-arrow-down"></i></a>
-
-                                    <a      class="btn btn-sm btn-link pull-right sorting_parent">
-
-                                                         <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}"
-                                                               style="color:blue; display: none;"></span>
-
-                                        <label class="c-input c-checkbox pull-right " id="enable{{ $value->id }}">
-                                            <input {{ iif($value->is_active, "CHECKED") }} id="check{{ $value->id }}"
-                                                   onclick="enableitem({{ $value->id }});" type="checkbox"
-                                                   class="is_active"><strong>Enable</strong>
-                                            <span class="c-indicator"></span>
-                                        </label>
-                                    </a>
-
 
                                 @endif
 
@@ -445,10 +430,8 @@
 <div class="clearfix"></div>
 
 <SCRIPT>
-
-            <?php echo $itemPosnForJSStr;?>
-
-            var itemPosnOrig = itemPosn;
+    <?php echo $itemPosnForJSStr;?>
+    var itemPosnOrig = itemPosn;
     var menuSortChngs = [];
     var catOrigPosns = [<?php echo $catIDforJS_Str;?>]; // as original cat posns as indexes, with the values being the db cat_id
     var currentCatOrderIDs = catOrigPosns;//Not sure if we'll need this - surrounding cat divs stay same on pg (indexes in array), but value chng to the cat_id
@@ -464,11 +447,8 @@
         catPosns[i] = i;
         catNameLnks += spaces + "<a HREF='#" + catNameA[i] + "'>" + catNameA[i] + "</a>";
 
-// menuSortChngs same indexing as catNameA (use for loop to get catid index, then use index on catNameA), prompt user to save if exiting pg
         menuSortChngs[catOrigPosns[i]] = false;
     }
-
-    //document.getElementById('categoryLinks').innerHTML="<b><u>View Menu Categories</u>:</b> &nbsp; &nbsp; "+catNameLnks;
 
     //enable/disable a menu item via ajax
     function enableitem(id) {

@@ -87,8 +87,26 @@ $alts = array(
         "moredetails" => "View more information about this restaurant",
         "logo" => "This restaurant's logo"
 );
+
+
+
+
 ?>
-<div class="list-group-item">
+
+<?php
+
+$a = ['#dadada', '#f4f4f4', '#e7e7e7', '#efefef', '#cdcdcd', '#f2f2f2', '#fff', '#fafafa'];
+
+$color = $a[mt_rand(0, count($a) - 1)];
+
+
+?>
+
+
+
+<!--div class="list-group-item" style="background: <?php echo $color; ?>;border:0 !important;"-->
+<div class="list-group-item m-t-1"  style="background: #f5f5f5;padding:1rem !important;">
+
     <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1">
 
@@ -111,31 +129,24 @@ $alts = array(
 
     <div class="col-md-10 p-a-0">
         <h4 style="margin-bottom: .1rem !important;">
-
-
             @if(isset($order))
-
-
                 <a class="card-link restaurant-url"
                    href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
                    title="{{ $alts["restaurants/menu"] }}">
                     {{ $Restaurant['name'] }}
-
-
-                            <!--div class="pull-right">
-                        <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
-                           class="restaurant-url btn @if($Message=='View Menu') btn-secondary @else btn-primary @endif hidden-sm-down"
-                           title="{{ $alts[$Message] }}">{{ $Message }}</a>
-                    </div-->
-
-
                 </a>
+
             @else
                 {{ $Restaurant['name'] }}
 
 
             @endif
 
+                <div class="pull-right">
+                    <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
+                       class="restaurant-url btn @if($Message=='View Menu') btn-secondary @else btn-primary @endif hidden-sm-down"
+                       title="{{ $alts[$Message] }}">{{ $Message }}</a>
+                </div>
 
         </h4>
 
@@ -150,9 +161,9 @@ $alts = array(
         <div class="clearfix"></div>
 
 
-        <span class="list-inline-item"> {{ $Restaurant['phone'] }} </span> <span class="list-inline-item">{{ $Restaurant['address'] }}
-            , {{ $Restaurant['city'] }} </span>
-        <div class="clearfix"></div>
+        <!--span class="list-inline-item"> {{ $Restaurant['phone'] }} </span> <span class="list-inline-item">{{ $Restaurant['address'] }}
+                , {{ $Restaurant['city'] }} </span>
+        <div class="clearfix"></div-->
 
         @if($Restaurant["is_delivery"])
             @if(!$Restaurant["is_pickup"])
@@ -162,35 +173,42 @@ $alts = array(
             <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
         @elseif($Restaurant["is_pickup"])
             <span class="list-inline-item"><strong>Pickup only</strong></span>
-            @endif
+        @endif
+        @if(isset($latitude) && $radius && $Restaurant['distance'])
+            <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
+        @endif
 
-                    <!--span class="label label-warning">Tags: {{ $Restaurant['tags'] }}</span-->
-
-            @if(isset($latitude) && $radius && $Restaurant['distance'])
-                <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
-            @endif
-
-            @if(isset($details) && $details)
-                <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel"
-                   title="{{ $alts["moredetails"] }}">More Details</a>
-            @endif
+        @if(isset($details) && $details)
+            <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel"
+               title="{{ $alts["moredetails"] }}">More Details</a>
+        @endif
     </div>
-    <div class="clearfix"></div>
+
+    <div class="clearfix m-b-1"></div>
+
 </div>
 
-<?php
-if (isset($is_menu)) {
-    $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
-    if ($menuitems) {
-        echo '<div class="list-group-item"><table style="min-width: 100% !important;" class="table m-b-0"><THEAD><TR><TH style="border-top:0;">Item</TH><TH style="border-top:0;">Cost</TH></TR></THEAD>';
-        foreach ($menuitems as $menuitem) {
-            //'restaurant_id', 'menu_item', 'description', 'price', 'rating', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order', 'cat_id', 'has_discount', 'discount_per', 'days_discount', 'is_active', 'uploaded_by', 'cat_name', 'uploaded_on'
-            $filename = asset("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg");
-            echo '<TR><TD><IMG style="width: 64px; height: 64px;" SRC="' . $filename . '">' . $menuitem->menu_item . '</TD>';
+<a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" style="    text-decoration:none;
+">
+    <?php
+    if (isset($is_menu)) {
+        $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
+        if ($menuitems) {
 
-            echo '<TD style="vertical-align: middle;">' . asmoney($menuitem->price) . '</TD></TR>';
+            foreach ($menuitems as $menuitem) {
+                echo '<div class="list-group-item">';
+                //'restaurant_id', 'menu_item', 'description', 'price', 'rating', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order', 'cat_id', 'has_discount', 'discount_per', 'days_discount', 'is_active', 'uploaded_by', 'cat_name', 'uploaded_on'
+                $filename = file_exists("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg");
+                if (($filename == 1)) {
+                    //echo $filename;
+                    $filename = asset("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg") . ' ';
+                    echo '<IMG style="width: 34px; height: 34px;" SRC="' . $filename . '">';
+                }
+                echo ' ' . $menuitem->menu_item . '';
+                echo ' ' . asmoney($menuitem->price) . '    <div class="clearfix " style="margin-bottom:.1rem;"></div>';
+                echo '</div>';
+            }
         }
-        echo '</TABLE><div class="clearfix"></div></DIV>';
     }
-}
-?>
+    ?></a>
+

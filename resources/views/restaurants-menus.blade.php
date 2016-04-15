@@ -30,16 +30,6 @@
         if (read("profiletype") == 1 || read("profiletype") == 3) {$allowedtoupload = true;}
     ?>
 
-<!--div class="card  m-b-0" style="border-radius:0 !important;">
-    <div class="card-block ">
-        <div class="container" style="margin-top: 0 !important;padding:0 !important;">
-            <div id="categoryLinks" style="padding-left:15px"></div>
-
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div-->
-
 
     <div class="container" >
         <?php printfile("views/restaurants-menus.blade.php"); ?>
