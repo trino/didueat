@@ -77,7 +77,7 @@ if (!$is_open) {
             }
         }
     } else {
-       // $MoreTime = "Not accepting orders";
+        // $MoreTime = "Not accepting orders";
     }
 }
 $alts = array(
@@ -89,7 +89,7 @@ $alts = array(
 );
 ?>
 <div class="list-group-item">
-    <div class="col-md-3 col-xs-3 p-a-0" style="z-index: 1;">
+    <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1">
 
             @if(isset($details) && $details)
@@ -109,7 +109,7 @@ $alts = array(
         <div class="clearfix"></div>
     </div>
 
-    <div class="col-md-9 p-a-0">
+    <div class="col-md-10 p-a-0">
         <h4 style="margin-bottom: .1rem !important;">
 
 
@@ -122,11 +122,11 @@ $alts = array(
                     {{ $Restaurant['name'] }}
 
 
-                    <div class="pull-right">
+                            <!--div class="pull-right">
                         <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
                            class="restaurant-url btn @if($Message=='View Menu') btn-secondary @else btn-primary @endif hidden-sm-down"
                            title="{{ $alts[$Message] }}">{{ $Message }}</a>
-                    </div>
+                    </div-->
 
 
                 </a>
@@ -140,18 +140,18 @@ $alts = array(
         </h4>
 
 
-
-            @if(!$is_open)
-                <div class="smallT">{{ $MoreTime }}</div>
-            @endif
-            {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}
-@if($Restaurant["cuisine"])
+        @if(!$is_open)
+            <div class="smallT">{{ $MoreTime }}</div>
+        @endif
+        {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}
+        @if($Restaurant["cuisine"])
             <span class="list-inline-item"> {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
-@endif
-            <div class="clearfix"></div>
+        @endif
+        <div class="clearfix"></div>
 
 
-    <span class="list-inline-item"> {{ $Restaurant['phone'] }} </span> <span class="list-inline-item">{{ $Restaurant['address'] }}, {{ $Restaurant['city'] }} </span>
+        <span class="list-inline-item"> {{ $Restaurant['phone'] }} </span> <span class="list-inline-item">{{ $Restaurant['address'] }}
+            , {{ $Restaurant['city'] }} </span>
         <div class="clearfix"></div>
 
         @if($Restaurant["is_delivery"])

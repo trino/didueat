@@ -1,76 +1,76 @@
 <?php
-    $first = false;
-    $type = "hidden";
-    //$localIPTst = $_SERVER['REMOTE_ADDR'];
-    //$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
-    $latlngStr = "";
-    $locationStr = "";
-    $useCookie = false;
-    $useHamilton = true;
-    $is_pickup_checked="";
-    $is_delivery_checked="";
-    $is_menu_checked = iif(isset($_COOKIE["is_menu"]) && $_COOKIE["is_menu"], " CHECKED");
-    if(isset($_COOKIE['delivery_type'])){
-       switch ($_COOKIE['delivery_type']){
-           case "is_delivery":
-                $is_delivery_checked="checked";
-                break;
-           case "is_pickup":
-                $is_pickup_checked="checked";
-                break;
-           default:
-                $is_delivery_checked="checked";
-                $is_pickup_checked="checked";
+$first = false;
+$type = "hidden";
+//$localIPTst = $_SERVER['REMOTE_ADDR'];
+//$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+$latlngStr = "";
+$locationStr = "";
+$useCookie = false;
+$useHamilton = true;
+$is_pickup_checked = "";
+$is_delivery_checked = "";
+$is_menu_checked = iif(isset($_COOKIE["is_menu"]) && $_COOKIE["is_menu"], " CHECKED");
+if (isset($_COOKIE['delivery_type'])) {
+    switch ($_COOKIE['delivery_type']) {
+        case "is_delivery":
+            $is_delivery_checked = "checked";
+            break;
+        case "is_pickup":
+            $is_pickup_checked = "checked";
+            break;
+        default:
+            $is_delivery_checked = "checked";
+            $is_pickup_checked = "checked";
+    }
+} else {
+    $is_delivery_checked = "checked";
+    $is_pickup_checked = "checked";
+}
+
+/*
+if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
+    $Province = "";
+    if (function_exists('geoip_record_by_name')) {
+        $info = geoip_record_by_name($localIPTst);
+        $City = $info['city'];
+        $Country = $info['country_name'];
+        if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
+            $Province = $info['region'];
         }
     } else {
-         $is_delivery_checked="checked";
-         $is_pickup_checked="checked";
-    }
-
-    /*
-    if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
-        $Province = "";
-        if (function_exists('geoip_record_by_name')) {
-            $info = geoip_record_by_name($localIPTst);
-            $City = $info['city'];
-            $Country = $info['country_name'];
-            if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
-                $Province = $info['region'];
-            }
+        $ip = $localIPTst;
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+        $City = $details->city;
+        if ($details->country == "US"){$Country = "United States";}
+        if ($details->country == "CA"){$Country = "Canada";}
+        if(isset($Country)){
+            $Province = $details->region;
         } else {
-            $ip = $localIPTst;
-            $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-            $City = $details->city;
-            if ($details->country == "US"){$Country = "United States";}
-            if ($details->country == "CA"){$Country = "Canada";}
-            if(isset($Country)){
-                $Province = $details->region;
-            } else {
-                $Country = $details->country;
-            }
-            $latlng = explode(",", $details->loc);
-            $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
+            $Country = $details->country;
         }
-    } else {
-        // get city [, province/state], and country from cookie or session, once implemented
+        $latlng = explode(",", $details->loc);
+        $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
     }
-    */
+} else {
+    // get city [, province/state], and country from cookie or session, once implemented
+}
+*/
 
-    if ($useHamilton) {
-        $City = "Hamilton";
-        $Province = "Ontario";
-        $Country = "Canada";
-        $latHam = "43.2566983";
-        $lonHam = "-79.8690719";
-        $loc = "43.2566983,-79.8690719";
-    } else if (is_object($details)) {
-        $loc = $details->loc;
-    }
+if ($useHamilton) {
+    $City = "Hamilton";
+    $Province = "Ontario";
+    $Country = "Canada";
+    $latHam = "43.2566983";
+    $lonHam = "-79.8690719";
+    $loc = "43.2566983,-79.8690719";
+} else if (is_object($details)) {
+    $loc = $details->loc;
+}
 
-    $alts = array(
-            "city" => "View restaurants for this city",
-            "signup" => "Sign up as a restaurant owner"
-    );
+$alts = array(
+        "city" => "View restaurants for this city",
+        "signup" => "Sign up as a restaurant owner"
+);
 ?>
 
 
@@ -79,20 +79,17 @@
 
     <div class="jumbotron jumbotron-fluid  bg-success main-bg-image">
         <div class="container" style="margin-top: 0 !important;">
-            <div class="row text-md-center " style="padding:0 1.25rem !important;">
+            <div class="row text-md-center " style="padding:0 1rem !important;">
                 <div class="col-md-offset-2 text-xs-center col-md-8 " style="">
-                    <h1 class="banner-text-shadow"><span style="font-size: 119%">Pickup & Delivery from </span><span style="font-size: 124%"> Hamilton Restaurants</span></h1>
+                    <h1 class="banner-text-shadow"><span style="font-size: 119%">Pickup & Delivery from </span><span
+                                style="font-size: 124%"> Hamilton Restaurants</span></h1>
                     <div class="clearfix"></div>
                 </div>
 
-                <div class="col-md-offset-3  col-md-6 text-md-center">
+                <div class="col-md-offset-3 col-md-6 text-md-center">
                     @include('common.search_bar')
                 </div>
                 <div class="clearfix"></div>
-
-
-                <div class="col-md-offset-3 text-xs-center col-md-6 ">
-                    <div class="text-xs-center" onclick="submitform(event, 0);">
 
                         <!--h5 class="m-t-1 display-5 banner-text-shadow" loc="{{ $loc }}"-->
                         <!--h5 class="m-t-1 display-5 banner-text-shadow">
@@ -140,11 +137,11 @@
 
                                 <div class="p-l-0 p-r-1 pull-left">
                                     <div class="form-group">
-                                    <input name="delivery_type" type="hidden" id="delivery_type" />
+                                        <input name="delivery_type" type="hidden" id="delivery_type"/>
                                         <label class="c-input c-checkbox ">
                                             <input type="checkbox" name="deliverycb" id="deliverycb"
                                                    value="is_delivery"
-                                                  {{ $is_delivery_checked }}
+                                                   {{ $is_delivery_checked }}
                                                    onclick="setdeliverytype();"/>
                                             <span class="c-indicator"></span>
                                             Delivery
@@ -157,33 +154,13 @@
                                         <label class="c-input c-checkbox ">
                                             <input type="checkbox" name="pickupcb" id="pickupcb"
                                                    value="is_pickup"
-                                                  {{ $is_pickup_checked }}
+                                                   {{ $is_pickup_checked }}
                                                    onclick="setdeliverytype();"/>
                                             <span class="c-indicator"></span>
                                             Pickup
                                         </label>
                                     </div>
                                 </div>
-
-                                <!--div class="p-l-0 pull-right">
-                                    <div class="form-group">
-                                        <label class="c-input c-checkbox ">
-                                            <input type="checkbox" name="is_menu" id="is_menu"
-                                                   {{ $is_menu_checked }}
-                                                   />
-                                            <span class="c-indicator"></span>
-                                            Show Menus
-                                        </label>
-                                    </div>
-                                </div-->
-
-                                <!--label class="c-input c-checkbox">
-                                    <input type="checkbox" name="is_complete" id="is_complete" value="true" checked
-                                           onclick="createCookieValue('is_complete', this.value)"/>
-                                    <span class="c-indicator"></span>
-                                    Order Online
-                                </label-->
-
 
                                 <div class="form-group">
                                     <input type="text" name="name" id="name" value="" class="form-control"
@@ -196,9 +173,9 @@
                                             onchange="createCookieValue('cuisine', this.value)">
                                         <option value="">Cuisine Type</option>
                                         @foreach($cuisine as $value)
-                                        <option>{{ $value }}</option>
+                                            <option>{{ $value }}</option>
                                         @endforeach
-                                        </select>
+                                    </select>
                                 </div>
 
 
@@ -243,13 +220,15 @@
                 </div>
             </div>
 
-            <div id="icons_show">
+            <!--div id="icons_show">
                 <div class="col-lg-12 p-b-1 text-xs-center" style="padding-top:1rem !important;">
-                    <h2 class="text-muted ">WHY ORDER FROM {{ strtoupper(DIDUEAT)  }}?</h2><hr>
+                    <h2 class="text-muted ">WHY ORDER FROM {{ strtoupper(DIDUEAT)  }}?</h2>
+                    <hr>
                 </div>
                 <div class="col-lg-4 text-xs-center">
                     <div class="card card-block text-xs-center m-b-0">
-                        <div class="exp_cir bg-success"><i class="fa fa-map-marker fa-2x " style="line-height: inherit;"></i></div>
+                        <div class="exp_cir bg-success"><i class="fa fa-map-marker fa-2x "
+                                                           style="line-height: inherit;"></i></div>
                         <br><br>
                         <h4>Local</h4>
                         <footer>
@@ -259,7 +238,8 @@
                 </div>
                 <div class="col-lg-4 text-xs-center">
                     <div class="card card-block text-xs-center m-b-0">
-                        <div class="exp_cir bg-warning"><i class="fa fa-cutlery fa-2x " style="line-height: inherit;"></i></div>
+                        <div class="exp_cir bg-warning"><i class="fa fa-cutlery fa-2x "
+                                                           style="line-height: inherit;"></i></div>
                         <br><br>
                         <h4>Efficient</h4>
                         <footer>
@@ -269,7 +249,8 @@
                 </div>
                 <div class="col-lg-4 text-xs-center">
                     <div class="card card-block text-xs-center m-b-0">
-                        <div class="exp_cir bg-info"><i class="fa fa-usd fa-2x " style="line-height: inherit;"></i></div>
+                        <div class="exp_cir bg-info"><i class="fa fa-usd fa-2x " style="line-height: inherit;"></i>
+                        </div>
                         <br><br>
                         <h4>Discounts</h4>
                         <footer>
@@ -278,18 +259,24 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                @if(!Session::has('is_logged_in'))
-                    <div class="col-lg-12 text-xs-center p-t-0"><hr>
-                        <div class="text-xs-center m-b-0 p-a-1 text-muted" style="width: 100%">
-                            <h2>ADVERTISE FOR FREE. GO ONLINE ANYTIME.</h2>
-                            <!--a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a-->
-                            <a class="btn btn-lg btn-success-outline btn-responsive"  href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}">Restaurant Sign Up</a>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
 
-                @endif
-            </div>
+            </div-->
+
+            @if(!Session::has('is_logged_in') && false)
+                <div class="col-lg-12 text-xs-center p-t-0">
+                    <hr>
+                    <div class="text-xs-center m-b-0 p-a-1 text-muted" style="width: 100%">
+                        <h2>ADVERTISE FOR FREE. GO ONLINE ANYTIME.</h2>
+                        <!--a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a-->
+                        <a class="btn btn-lg btn-success-outline btn-responsive"
+                           href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}">Restaurant Sign
+                            Up</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+            @endif
+
         </div>
     </div>
 
@@ -298,31 +285,31 @@
         var elementname = '#formatted_address2';
         onloadpage();
 
-        function setdeliverytype(){
-            deliverytype=""
+        function setdeliverytype() {
+            deliverytype = ""
             var text, replacewith = "delivery_type="
-            if(document.getElementById('deliverycb').checked && document.getElementById('pickupcb').checked){
-               deliverytype = "both";
-               replacewith = replacewith + "both";
-            } else{
-                if(document.getElementById('pickupcb').checked){
-                   deliverytype = "is_pickup";
-                   replacewith = replacewith + "is_pickup";
+            if (document.getElementById('deliverycb').checked && document.getElementById('pickupcb').checked) {
+                deliverytype = "both";
+                replacewith = replacewith + "both";
+            } else {
+                if (document.getElementById('pickupcb').checked) {
+                    deliverytype = "is_pickup";
+                    replacewith = replacewith + "is_pickup";
                 } else {
-                   deliverytype = "is_delivery"; // the default
-                   replacewith = replacewith + "is_delivery";
-                   if(!document.getElementById('deliverycb').checked){
-                      alert("At least Delivery or Pickup must be checked (or both). We are checking Delivery as the default, but you may adjust as you see fit");
-                      document.getElementById('deliverycb').checked="true";
-                   }
+                    deliverytype = "is_delivery"; // the default
+                    replacewith = replacewith + "is_delivery";
+                    if (!document.getElementById('deliverycb').checked) {
+                        alert("At least Delivery or Pickup must be checked (or both). We are checking Delivery as the default, but you may adjust as you see fit");
+                        document.getElementById('deliverycb').checked = "true";
+                    }
                 }
             }
-            document.getElementById('delivery_type').value=deliverytype;
+            document.getElementById('delivery_type').value = deliverytype;
             createCookieValue('delivery_type', deliverytype);
             replacewith = replacewith + deliverytype;
             deliverytype = "delivery_type=" + deliverytype;
 
-            $('.restaurant-url').each(function() {
+            $('.restaurant-url').each(function () {
                 text = $(this).attr('href');
                 text = text.replace(replacewith, deliverytype);
                 $(this).attr('href', text);
@@ -375,11 +362,11 @@
             if (getCookie('SortOrder')) {
                 $('#search-form #SortOrder').val(getCookie('SortOrder'));
             }
-            if(getCookie("is_menu")){
+            if (getCookie("is_menu")) {
                 $('#search-form #is_menu').attr("checked", true);
             }
 
-             /*
+            /*
              if (getCookie('cname') || getCookie('latitude2') || getCookie('longitude2') || getCookie('minimum') || getCookie('cuisine') || getCookie('rating') || getCookie('SortOrder')) {
              $('#search-form #clearSearch').show();
              } else {
@@ -424,7 +411,7 @@
             $('#restuarant_bar').html("");
             $('#results_show').hide();
             $('#start_up_message').show();
-            $('#icons_show').show();
+          //  $('#icons_show').show();
             $("#formatted_address2").val("");
             $("html, body").animate({scrollTop: 0}, "slow");
         }
@@ -485,7 +472,7 @@
                 if (!address_alias) {
                     return false;
                 }
-                var data = $('#search-form').serialize() + "&" + $('#addressbar').serialize() ; // "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias + "&city";
+                var data = $('#search-form').serialize() + "&" + $('#addressbar').serialize(); // "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias + "&city";
             }
 
             if (start == 0) {
@@ -493,7 +480,7 @@
                 $('#restuarant_bar').html('');
                 $('#parentLoadingbar').show();
                 $('#start_up_message').hide();
-                $('#icons_show').hide();
+               // $('#icons_show').hide();
                 $('#results_show').show();
                 $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data: data}, function (result) {
                     var quantity = 0;

@@ -328,15 +328,6 @@
                                 @if(read('restaurant_id') == $restaurant->id || $canedit)
 
                                     <div class="btn-group pull-left" role="group" style="vertical-align: middle">
-                                        <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}"
-                                              style="color:blue; display: none;"></span>
-
-                                        <label class="c-input c-checkbox p-r-1" id="enable{{ $value->id }}">
-                                            <input {{ iif($value->is_active, "CHECKED") }} id="check{{ $value->id }}"
-                                                   onclick="enableitem({{ $value->id }});" type="checkbox"
-                                                   class="is_active">Enable Item
-                                            <span class="c-indicator"></span>
-                                        </label>
 
                                         @if($value->uploaded_by)
                                             Uploaded by: <A
@@ -347,6 +338,7 @@
                                         @endif
 
                                     </div>
+                                    <div class="clearfix"></div>
                                 @endif
 
 
@@ -365,10 +357,12 @@
                                        data-target="#addMenuModel"><strong>Edit</strong>
                                     </a>
 
+
                                 @endif
 
 
                                 @if($canedit)
+
 
                                     <a id="up_parent_{{ $value->id.'_'.$value->cat_id }}"
                                        title="{{ $alts["up_parent"] }}"
@@ -385,6 +379,19 @@
                                        onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }});return false"
                                        style="display:{{ $thisDownMenuVisib }} !important">
                                         <i class="fa fa-arrow-down"></i></a>
+
+                                    <a      class="btn btn-sm btn-link pull-right sorting_parent">
+
+                                                         <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}"
+                                                               style="color:blue; display: none;"></span>
+
+                                        <label class="c-input c-checkbox pull-right " id="enable{{ $value->id }}">
+                                            <input {{ iif($value->is_active, "CHECKED") }} id="check{{ $value->id }}"
+                                                   onclick="enableitem({{ $value->id }});" type="checkbox"
+                                                   class="is_active"><strong>Enable</strong>
+                                            <span class="c-indicator"></span>
+                                        </label>
+                                    </a>
 
 
                                 @endif

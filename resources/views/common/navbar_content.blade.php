@@ -14,7 +14,7 @@
                     if($Name == "My Profile"){
                         $FontAwesome = '<i class="fa fa-user" style="color:#0275d8 !important;margin-right:.3em;"></i> ';
                     }
-                    echo $FontAwesome . $Name . '</h4></div><div class="card-block p-a-0"><div class="list-group-flush">';
+                    echo $FontAwesome . $Name . '</h4></div><div class="card-block" style="padding:0 !important;"><div class="list-group-flush">';
                     $Name = str_replace(" ", "_", strtolower($Name)) . "_menu";
                     echo '<ul class="sub-menu " id="' . $Name . '">';
                     foreach ($URL as $URL2 => $Name) {

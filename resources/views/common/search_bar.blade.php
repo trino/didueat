@@ -36,7 +36,7 @@
                 );
             ?>
             <input type="text" name="formatted_address" id="formatted_address2"
-                   class="form-control formatted_address btn-responsive" placeholder="Enter your address"
+                   class="form-control formatted_address" placeholder="Enter your address"
                    onchange="change_address_event();"
                    @if(isset($_GET["search"]))
                            value="{{ $_GET["search"] }}"
@@ -57,13 +57,13 @@
                 <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe" style="color:blue;"></i></A>
             @endif
             <span class="input-group-btn" style="vertical-align: top;">
-                <button class="btn  btn-success dueBtn btn-responsive" oldstyle="display: none;" id="header-search-button" onclick="$('#search-form-submit').trigger('click');" title="{{ $alts["search"] }}">
+                <button class="btn  btn-success dueBtn" oldstyle="display: none;" id="header-search-button" onclick="$('#search-form-submit').trigger('click');" title="{{ $alts["search"] }}">
                     <i class="fa fa-search"></i>
                 </button>
             </span>
         </div>
         </FORM>
-        Or view all restaurants from <A class="stroke-black-1px" onclick="setaddress('Hamilton, ON, Canada');">Hamilton</A> or <A class="stroke-black-1px" onclick="cities();">a list of cities</A>
+       <!-- Or view all restaurants from <A class="stroke-black-1px" onclick="setaddress('Hamilton, ON, Canada');">Hamilton</A> or <A class="stroke-black-1px" onclick="cities();">a list of cities</A> -->
     </div>
 
     <script>
@@ -106,7 +106,7 @@
             $('#restuarant_bar').html('');
             $('#parentLoadingbar').show();
             $('#start_up_message').hide();
-            $('#icons_show').hide();
+           // $('#icons_show').hide();
             $('#results_show').show();
             $.post("{{ url('/restaurant/cities') }}", {token: token}, function (result) {
                 var quantity = 0;

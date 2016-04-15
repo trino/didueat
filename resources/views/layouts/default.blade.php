@@ -145,12 +145,12 @@
         }
     </SCRIPT>
 </head>
-<body>
-<div class="overlay_loader">
+<body class="">
+<!--div class="overlay_loader">
     <div class="overlay">
         <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
     </div>
-</div>
+</div-->
 
 <div class="">
     <div class="container-fluid" style="margin-bottom: 44px;">
@@ -163,7 +163,10 @@
     @include('common.alert_messages')
 </div>
 
-<div class="container-fluid">
+
+
+
+<div class="container-fluid ">
     @yield('content')
 </div>
 

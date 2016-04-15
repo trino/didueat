@@ -231,8 +231,8 @@ hr {
 
 @media screen and (max-width: 400px) {
     .navbar, .alert {
-        padding-left: 1.25rem !important;
-        padding-right: 1.25rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
     }
 
     .row, .container, .modal-image {
