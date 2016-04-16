@@ -185,7 +185,7 @@
                         @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
                             <a href="javascript:void(0)" class="btn btn-primary  btn-block" onclick="checkout();" TITLE="{{ $title }}">{{ $checkout }}</a>
                         @elseif($business_day && !$restaurant->open)
-                            <a class="btn btn-primary-outline btn-block" title="{{ $alts["call"] }}" href="tel:{{ $restaurant->phone }}">Call: {{ phonenumber($restaurant->phone, true) }}</a>
+                            <a class="btn btn-primary btn-lg btn-block" title="{{ $alts["call"] }}" href="tel:{{ $restaurant->phone }}"><!--i class="fa fa-phone fa-2x"></i-->Call: {{ phonenumber($restaurant->phone, true) }}</a>
                         @else
                             <a class="btn btn-danger-outline disabled  btn-block" href="#"title="{{ $alts["closed"] }}">Currently Closed</a>
                         @endif

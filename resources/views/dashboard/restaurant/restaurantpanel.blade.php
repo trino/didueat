@@ -104,7 +104,7 @@ $color = $a[mt_rand(0, count($a) - 1)];
 
 
         <!--div class="list-group-item" style="background: <?php echo $color; ?>;border:0 !important;"-->
-<div class="list-group-item text-muted" style="background: #f5f5f5;padding:1rem !important;">
+<div class="list-group-item" style="background: #f5f5f5;padding:1rem !important;">
 
     <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1">
@@ -127,28 +127,26 @@ $color = $a[mt_rand(0, count($a) - 1)];
     </div>
 
     <div class="col-md-10 p-a-0 ">
-        <h4 style="margin-bottom: .1rem !important;">
+        <h4 style="margin-bottom: .2rem !important;">
             @if(isset($order))
                 <a class="card-link restaurant-url"
                    href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
                    title="{{ $alts["restaurants/menu"] }}">
                     {{ $Restaurant['name'] }}
                 </a>
-                <div class="pull-right">
+                <!--div class="pull-right">
                     <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
                        class="restaurant-url btn @if($Message=='View Menu') btn-secondary @else btn-primary @endif hidden-sm-down"
                        title="{{ $alts[$Message] }}">{{ $Message }}</a>
-                </div>
+                </div-->
 
             @else
                 {{ $Restaurant['name'] }}
 
-
-            @endif
-
+           @endif
 
         </h4>
-
+<div class=" text-muted">
 
         @if(!$is_open)
             <div class="smallT">{{ $MoreTime }}</div>
@@ -157,51 +155,56 @@ $color = $a[mt_rand(0, count($a) - 1)];
         @if($Restaurant["cuisine"])
             <span class="list-inline-item"> {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
         @endif
-        <div class="clearfix"></div>
-
 
         <!--span class="list-inline-item"> {{ $Restaurant['phone'] }} </span> <span class="list-inline-item">{{ $Restaurant['address'] }}
                 , {{ $Restaurant['city'] }} </span>
         <div class="clearfix"></div-->
 
-        @if($Restaurant["is_delivery"])
-            @if(!$Restaurant["is_pickup"])
-                <span class="list-inline-item"><strong>Delivery only</strong></span>
-            @endif
-            <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
-            <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
-        @elseif($Restaurant["is_pickup"])
-            <span class="list-inline-item"><strong>Pickup only</strong></span>
-        @endif
         @if(isset($latitude) && $radius && $Restaurant['distance'])
             <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
         @endif
-
         @if(isset($details) && $details)
+
+
+                    @if($Restaurant["is_delivery"])
+                        @if(!$Restaurant["is_pickup"])
+                            <span class="list-inline-item"><strong>Delivery only</strong></span>
+                        @endif
+                        <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
+                        <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
+                    @elseif($Restaurant["is_pickup"])
+                        <span class="list-inline-item"><strong>Pickup only</strong></span>
+                    @endif
+
+
             <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel"
                title="{{ $alts["moredetails"] }}">More Details</a>
         @endif
+
+
+
+    </div>
     </div>
 
     <div class="clearfix"></div>
 
 </div>
 
-    <?php
-    if (isset($is_menu)) {
+<?php
+if (isset($is_menu)) {
 
-        ?>
+?>
 <div class="m-b-1">
     <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" style="    text-decoration:none;
 ">
 
-<?
+        <?
         $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
         if ($menuitems) {
 
             $i = 0;
             foreach ($menuitems as $menuitem) {
-                echo '<div class="list-group-item">';
+                echo '<div class="list-group-item" style="border-top:0 !important;paddi">';
                 //'restaurant_id', 'menu_item', 'description', 'price', 'rating', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order', 'cat_id', 'has_discount', 'discount_per', 'days_discount', 'is_active', 'uploaded_by', 'cat_name', 'uploaded_on'
                 $filename = file_exists("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg");
                 if (($filename == 1)) {
@@ -223,6 +226,6 @@ $color = $a[mt_rand(0, count($a) - 1)];
         ?>
     </a></div>
 
-        <?
-    }
-    ?>
+<?
+}
+?>

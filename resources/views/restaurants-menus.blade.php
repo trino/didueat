@@ -82,8 +82,8 @@
                                 <div class="card  m-b-0" style="border-radius:0 !important;">
                                     <div class="card-block text-xs-center ">
                                         <div class="container" style="margin-top: 0 !important;padding:0 !important;">
-                                            <h4>Restaurant Incomplete?</h4>
-                                            <p>Upload menu items to recieve a percentage of every sale!</p>
+                                            <h4></h4>
+                                            <p></p>
                                             <div class="col-md-4 col-md-offset-4 ">
                                                 <a href="#" id="add_item0" type="button"
                                                    class="btn btn-success btn-lg additem  btn-block"

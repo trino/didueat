@@ -135,6 +135,15 @@
             var base_url = window.location.protocol + '//didueat.ca/';
         }
     </SCRIPT>
+
+
+        <div class="overlay_loader">
+            <div class="overlay">
+                <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
+            </div>
+        </div>
+
+
 </head>
 
 <body>
@@ -167,11 +176,6 @@
 @endif
 
 
-<div class="overlay_loader">
-    <div class="overlay">
-        <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
-    </div>
-</div>
 
 <script>
     $(window).load(function () {

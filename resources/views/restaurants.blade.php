@@ -168,15 +168,15 @@ $alts = array(
                                            onkeyup="createCookieValue('cname', this.value)"/>
                                 </div>
 
-                                <div class="form-group">
+                                <!--div class="form-group">
                                     <select name="cuisine" id="cuisine" class="form-control"
                                             onchange="createCookieValue('cuisine', this.value)">
-                                        <option value="">Cuisine Type</option>
+                                        <option value="">All Cuisine</option>
                                         @foreach($cuisine as $value)
                                             <option>{{ $value }}</option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div-->
 
 
                                 <div id="radius_panel" class="form-group row" style="display:none;">

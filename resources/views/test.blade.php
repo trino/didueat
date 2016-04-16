@@ -108,7 +108,6 @@ function processrestaurant($restaurant, $times, $now, $getimages){
         if(!$ob->slug){$repair["slug"] = $restaurant["slug"];}
         $repair = array_merge($times, $repair);
         if($repair){update_database("restaurants", "id", $ob->id, $repair);}
-
         $restaurant["status"] = "Existed already, repaired";
     } else {
         $restaurant = array_merge($times, $restaurant);
