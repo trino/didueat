@@ -113,7 +113,7 @@
     @if($hasMorePage > 0)
         <div class="row">
             <div class="col-md-12 ">
-                <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn btn-secondary-outline btn-lg btn-block" title="{{ $alts["loadmore"] }}">Load More ...</button>
+                <button id="loadingbutton" data-id="{{ $start }}" align="center"  style="border-radius: 0;" class="loadMoreRestaurants btn btn-secondary-outline btn-lg btn-block" title="{{ $alts["loadmore"] }}">Load More ...</button>
                 <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" alt="{{ $alts["loading"] }}"/>
             </div>
         </div>

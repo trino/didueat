@@ -104,7 +104,7 @@ $color = $a[mt_rand(0, count($a) - 1)];
 
 
         <!--div class="list-group-item" style="background: <?php echo $color; ?>;border:0 !important;"-->
-<div class="list-group-item" style="background: #f5f5f5;padding:1rem !important;">
+<div class="list-group-item" style=" @if(isset($order)) background: #f5f5f5; @endif padding:1rem !important;">
 
     <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1">
