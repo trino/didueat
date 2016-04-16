@@ -358,10 +358,6 @@ $itemPosnForJS = [];
                                     </a>
 
 
-                                @endif
-
-
-                                @if($canedit)
 
                                     <a id="up_parent_{{ $value->id.'_'.$value->cat_id }}"
                                        title="{{ $alts["up_parent"] }}"

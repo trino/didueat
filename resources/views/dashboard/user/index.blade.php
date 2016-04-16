@@ -3,7 +3,7 @@
 
 <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
 <script type="text/javascript">
-    window.showEntries = 10;
+    window.showEntries = 100;
     window.page = 1;
     window.pageUrlLoad = "{{ url('users/list/ajax') . "?" . http_build_query($_GET) }}";
 </script>

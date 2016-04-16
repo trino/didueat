@@ -21,8 +21,8 @@ $alts = array(
 
             <li class="nav-item m-l-0">
                 <a class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}" title="{{ $alts["home"] }}">
-                    <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}"
-                         style="height: 31px;"/>
+                    <img class="p-l-1 pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}"
+                         style="height: 33px;"/>
                 </a>
             </li>
         </ul>
@@ -50,7 +50,7 @@ $alts = array(
                         <i class="fa fa-bars hidden-md-up"  style="font-size: 27px !important;"></i>
                     </a-->
 
-                <div class="btn-group">
+                <div class="">
                     <button type="button" style="border-radius:0;" class="btn btn-lg btn-success"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
@@ -65,15 +65,19 @@ $alts = array(
                         } else {
                             echo asset('assets/images/icon-didueatdefault.png');
                         }
-                        ?>" class="img-circle hidden-sm-down"
-                             style="margin-top:-10px !important;margin-bottom:-6px !important;height: 28px;width:28px;">
+                        ?>" class="img-circle"
+                             style="margin-top:-10px !important;margin-bottom:-6px !important;height: 30px;width:30px;">
 
 
-                        <span class="hidden-sm-down" style="">{{explode(' ', Session::get('session_name'))[0] }}</span>
-                        <i class="fa fa-bars hidden-md-up" style="margin:-6px;font-size: 27px !important;"></i>
+                        <span class="" style="">{{explode(' ', Session::get('session_name'))[0] }}</span>
+
+                        <!--i class="fa fa-bars fa-2x hidden-md-up" style=""></i-->
+
 
 
                     </button>
+
+
                     <div class="dropdown-menu  dropdown-menu-right" style="min-width: 200px;">
                         @include('common.navbar_content')
                     </div>
