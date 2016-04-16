@@ -9,11 +9,8 @@ $alts = array(
 ?>
 
 
-
 <nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav">
     <div class="container" style="margin-top:0px !important;">
-
-
         <ul class="nav navbar-nav pull-left " style="">
             <li class="nav-item hidden-sm-down ">
                 <a class="" href="{{ url('/') }}" title="{{ $alts["home"] }}">
@@ -25,16 +22,12 @@ $alts = array(
             <li class="nav-item m-l-0">
                 <a class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}" title="{{ $alts["home"] }}">
                     <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}"
-                         style="height: 33px;"/>
+                         style="height: 31px;"/>
                 </a>
             </li>
-
         </ul>
-
-
         <ul class="nav navbar-nav pull-right " style="">
             <li class="nav-item ">
-
 
                 @if(Session::has('is_logged_in'))
                         <!--a href="#" data-toggle="modal" data-target="#navigationModal" title="{{ $alts["navigationModal"] }}"
@@ -82,15 +75,11 @@ $alts = array(
 
                     </button>
                     <div class="dropdown-menu  dropdown-menu-right" style="min-width: 200px;">
-
                         @include('common.navbar_content')
-
-
                     </div>
                 </div>
 
                 <!--a href="#" data-toggle="modal" data-target="#navigationModal" class="pull-right"></a-->
-
                 <!--a type="button" data-toggle="collapse" href="#"
                    class="pull-xs-right hidden-sm-up btn btn-sm btn-primary "
                    data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a-->
@@ -106,13 +95,11 @@ $alts = array(
                     </div>
 
                 @endif
-
-
-
             </li>
 
             <li class="nav-item m-l-0">
-                <A ID="cart-header" style="display:none; border-radius: 0;" CLASS="anchor btn bg-warning btn-lg" title="{{ now() }}"
+                <A ID="cart-header" style="display:none; border-radius: 0;" CLASS="anchor btn bg-warning btn-lg"
+                   title="{{ now() }}"
                    onclick="return scrolltocheckout();" title="{{ $alts["cart-header"] }}">
                     <span class="fa fa-spinner fa-spin cart-header-gif"></SPAN>
                     <SPAN class="cart-header-items cart-header-show"></SPAN>
@@ -121,21 +108,6 @@ $alts = array(
                 </A>
             </li>
         </ul>
-
-        <!--ul class="nav nav-pills">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-            </li>
-        </ul-->
-
-
     </div>
 </nav>
 <?php
@@ -144,7 +116,7 @@ foreach (areacodes() as $Region) {
     $AreaCodes = array_merge($AreaCodes, array_keys($Region));
 }
 ?>
-<SCRIPT>
+<script>
     function modalcheck() {
         if ($("#navigationModal").length == 0) {
             window.location.assign("{{  url("user/info") }}");
@@ -157,11 +129,11 @@ foreach (areacodes() as $Region) {
     $(document).ready(function () {
         switch (window.location.hash) {
             @if(!read("id"))
-                case "#login":
+            case "#login":
                 $('.reserve_login').trigger("click");
                 break;
                 @endif
 
         }
     });
-</SCRIPT>
+</script>

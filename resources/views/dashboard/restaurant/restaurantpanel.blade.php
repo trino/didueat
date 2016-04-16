@@ -104,7 +104,7 @@ $color = $a[mt_rand(0, count($a) - 1)];
 
 
         <!--div class="list-group-item" style="background: <?php echo $color; ?>;border:0 !important;"-->
-<div class="list-group-item m-t-1" style="background: #f5f5f5;padding:1rem !important;">
+<div class="list-group-item text-muted" style="background: #f5f5f5;padding:1rem !important;">
 
     <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1">
@@ -126,7 +126,7 @@ $color = $a[mt_rand(0, count($a) - 1)];
         <div class="clearfix"></div>
     </div>
 
-    <div class="col-md-10 p-a-0">
+    <div class="col-md-10 p-a-0 ">
         <h4 style="margin-bottom: .1rem !important;">
             @if(isset($order))
                 <a class="card-link restaurant-url"
@@ -134,6 +134,11 @@ $color = $a[mt_rand(0, count($a) - 1)];
                    title="{{ $alts["restaurants/menu"] }}">
                     {{ $Restaurant['name'] }}
                 </a>
+                <div class="pull-right">
+                    <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
+                       class="restaurant-url btn @if($Message=='View Menu') btn-secondary @else btn-primary @endif hidden-sm-down"
+                       title="{{ $alts[$Message] }}">{{ $Message }}</a>
+                </div>
 
             @else
                 {{ $Restaurant['name'] }}
@@ -141,11 +146,6 @@ $color = $a[mt_rand(0, count($a) - 1)];
 
             @endif
 
-            <div class="pull-right">
-                <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
-                   class="restaurant-url btn @if($Message=='View Menu') btn-secondary @else btn-primary @endif hidden-sm-down"
-                   title="{{ $alts[$Message] }}">{{ $Message }}</a>
-            </div>
 
         </h4>
 
@@ -183,18 +183,23 @@ $color = $a[mt_rand(0, count($a) - 1)];
         @endif
     </div>
 
-    <div class="clearfix m-b-1"></div>
+    <div class="clearfix"></div>
 
 </div>
 
-<a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" style="    text-decoration:none;
-">
     <?php
     if (isset($is_menu)) {
+
+        ?>
+<div class="m-b-1">
+    <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" style="    text-decoration:none;
+">
+
+<?
         $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
         if ($menuitems) {
 
-            $i= 0;
+            $i = 0;
             foreach ($menuitems as $menuitem) {
                 echo '<div class="list-group-item">';
                 //'restaurant_id', 'menu_item', 'description', 'price', 'rating', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order', 'cat_id', 'has_discount', 'discount_per', 'days_discount', 'is_active', 'uploaded_by', 'cat_name', 'uploaded_on'
@@ -209,9 +214,15 @@ $color = $a[mt_rand(0, count($a) - 1)];
                 echo '</div>';
 
                 $i++;
-                if($i ==5){break;}
+                if ($i == 5) {
+                    break;
+                }
             }
         }
-    }
-    ?></a>
 
+        ?>
+    </a></div>
+
+        <?
+    }
+    ?>

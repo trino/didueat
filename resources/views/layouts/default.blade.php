@@ -34,19 +34,16 @@
 
     <meta charset="utf-8">
     <!--meta content="width=device-width, initial-scale=1.0" name="viewport"-->
-        <meta name="theme-color" content="#5cb85c" />
+    <meta name="theme-color" content="#5cb85c"/>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
     <meta content="{{ (isset($keyword))?$keyword.' | ':'' }}{{ DIDUEAT }}" name="keywords">
     <meta content="Didueat" name="author">
     <meta name="content-language" content="en-CA"/>
     <meta http-equiv="content-language" content="en-CA"/>
     <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}"
           name="description">
-
     <meta property="og:site_name" content="DiduEat">
     <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT }}">
     <meta property="og:description"
@@ -61,9 +58,10 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
     <!-- Safari doesn't trust the certificate from here:    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <link href="{{ asset('assets/global/css/font-awesome.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity=""
-          crossorigin="anonymous">
-    <!--link href="{{ asset('assets/global/css/bootstrap.css') }}" rel="stylesheet"-->
+    <!--link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity="" crossorigin="anonymous"-->
+    <link rel="stylesheet" href="http://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" integrity="" crossorigin="anonymous">
+
+        <!--link href="{{ asset('assets/global/css/bootstrap.css') }}" rel="stylesheet"-->
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
 
     <!-- JS these two must go first -->
@@ -95,31 +93,24 @@
             .container-fluid {
                 border: 1px solid green;
             }
-
             .container {
                 border: 1px solid green;
             }
-
             div[class^="col-"], div[class*=" col-"] {
                 border: 1px solid red !important;
             }
-
             .div {
                 border: 1px solid red !important;
             }
-
             tr {
                 border: 3px solid pink;
             }
-
             td {
                 border: 3px solid yellow;
             }
-
             th {
                 border: 3px solid purple;
             }
-
             form {
                 border: 3px solid black;
             }
@@ -145,26 +136,17 @@
         }
     </SCRIPT>
 </head>
-<body class="">
-<!--div class="overlay_loader">
-    <div class="overlay">
-        <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
-    </div>
-</div-->
 
-<div class="">
-    <div class="container-fluid" style="margin-bottom: 44px;">
-        @include('layouts.includes.header')
-    </div>
-    <div class="clearfix"></div>
+<body>
+
+<div class="container-fluid" style="margin-bottom: 44px;">
+    @include('layouts.includes.header')
 </div>
+
 
 <div class="container-fluid">
     @include('common.alert_messages')
 </div>
-
-
-
 
 <div class="container-fluid ">
     @yield('content')
@@ -184,8 +166,13 @@
     @include('popups.navigation_bar')
 @endif
 
-</body>
-</html>
+
+<div class="overlay_loader">
+    <div class="overlay">
+        <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
+    </div>
+</div>
+
 <script>
     $(window).load(function () {
         $('.overlay_loader').hide();
@@ -205,3 +192,7 @@
     ga('create', 'UA-74638591-1', 'auto');
     ga('send', 'pageview');
 </script>
+
+
+</body>
+</html>

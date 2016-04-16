@@ -136,7 +136,7 @@
             $cur_page = 0;
         }
 
-        $html .= '<div ><p a="' . $no_of_paginations . '">Total Records ' . $recCount . '. Showing page ' . $cur_page . ' of ' . $no_of_paginations . '</p><div></div>';
+        $html .= '<div ><p a="' . $no_of_paginations . '">Total ' . $recCount . '. Showing ' . $cur_page . ' of ' . $no_of_paginations . '</p><div></div>';
 
         return $html;
     }
