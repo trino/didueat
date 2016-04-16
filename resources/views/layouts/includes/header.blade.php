@@ -19,10 +19,11 @@ $alts = array(
                 </a>
             </li>
 
-            <li class="nav-item m-l-0">
+            <li class="nav-item m-l-1">
                 <a class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}" title="{{ $alts["home"] }}">
-                    <img class="p-l-1 pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}"
-                         style="height: 33px;"/>
+                    <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}"
+                         style="height: 31px;"/>
+
                 </a>
             </li>
         </ul>
@@ -30,27 +31,8 @@ $alts = array(
             <li class="nav-item ">
 
                 @if(Session::has('is_logged_in'))
-                        <!--a href="#" data-toggle="modal" data-target="#navigationModal" title="{{ $alts["navigationModal"] }}"
-                       style="padding-top:4px;padding-left:6px !important; color:white; text-decoration: none;" class="pull-right"
-                       onclick="modalcheck();">
 
-                        <img src="<?php
-                $logoTS = "";
-                if (Session::has('logoTS')) {
-                    $logoTS = "?i=" . Session('logoTS');
-                }
-                $filename = 'assets/images/users/' . read("id") . "/icon-" . read('photo');
-                if (Session::has('session_photo') && file_exists(public_path($filename))) {
-                    echo asset($filename) . $logoTS;
-                } else {
-                    echo asset('assets/images/icon-didueatdefault.png');
-                }
-                ?>" class="img-circle hidden-sm-down" style="margin-left:6px !important;height: 30px;width:30px;">
-                        <span class="hidden-sm-down" style="">{{explode(' ', Session::get('session_name'))[0] }}</span>
-                        <i class="fa fa-bars hidden-md-up"  style="font-size: 27px !important;"></i>
-                    </a-->
-
-                <div class="">
+                  <div class="btn-group">
                     <button type="button" style="border-radius:0;" class="btn btn-lg btn-success"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
@@ -66,18 +48,14 @@ $alts = array(
                             echo asset('assets/images/icon-didueatdefault.png');
                         }
                         ?>" class="img-circle"
-                             style="margin-top:-10px !important;margin-bottom:-6px !important;height: 30px;width:30px;">
+                             style="margin-top:-10px !important;margin-bottom:-6px !important;height: 28px;width:28px;">
 
 
                         <span class="" style="">{{explode(' ', Session::get('session_name'))[0] }}</span>
 
-                        <!--i class="fa fa-bars fa-2x hidden-md-up" style=""></i-->
-
 
 
                     </button>
-
-
                     <div class="dropdown-menu  dropdown-menu-right" style="min-width: 200px;">
                         @include('common.navbar_content')
                     </div>
@@ -90,10 +68,10 @@ $alts = array(
                 <!--li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log out</a></li-->
                 @else
                     <div class="btn-group">
-                        <a style="border-radius:0;" class="btn btn-lg btn-success reserve_login " data-toggle="modal"
+                        <a style="border-radius:0; padding-left:10px;padding-right:10px;" class="btn btn-lg btn-success reserve_login " data-toggle="modal"
                            title="{{ $alts["login"] }}"
                            data-target="#loginModal" onclick="$('#login-ajax-form').attr('data-route', 'reservation');">Login</a>
-                        <a style="border-radius:0;" class="btn btn-lg btn-success " data-toggle="modal"
+                        <a style="border-radius:0; padding-left:10px;padding-right:10px;" class="btn btn-lg btn-success " data-toggle="modal"
                            data-target="#signupModal" title="{{ $alts["signup"] }}">Signup</a>
 
                     </div>
@@ -102,7 +80,7 @@ $alts = array(
             </li>
 
             <li class="nav-item m-l-0">
-                <A ID="cart-header" style="display:none; border-radius: 0;" CLASS="anchor btn bg-warning btn-lg"
+                <A ID="cart-header" style="display:none; border-radius: 0; padding-left:10px;padding-right:10px;" CLASS="anchor btn bg-warning btn-lg"
                    title="{{ now() }}"
                    onclick="return scrolltocheckout();" title="{{ $alts["cart-header"] }}">
                     <span class="fa fa-spinner fa-spin cart-header-gif"></SPAN>

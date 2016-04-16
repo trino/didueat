@@ -629,11 +629,11 @@ body {
     background-color: #fafafa;
 }
 
-.navbar, .row, .container {
-    /*
-  padding-left: 1.25rem !important;
-  padding-right: 1.25rem !important;
+.navbar {
 
+  padding-left: 0rem !important;
+  padding-right:0rem !important;
+/*
   box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.18);
   */
 
