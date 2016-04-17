@@ -3,17 +3,17 @@
 
     <footer class="text-muted p-b-1 p-l-1 p-r-1">
         <?php
-            printfile("views/dashboard/layouts/includes/footer.blade.php");
-            $alts = array(
-                    "home/about" => "About " . DIDUEAT,
-                    "home/faq" => "Frequently asked questions",
-                    "contactus" => "Contact us",
-                    "restaurants/signup" => "Sign up as a restaurant owner",
-                    "allergy" => "Information on allergies",
-                    "socmed" => "View us on social media",
-                    "home/terms" => "Terms of use",
-                    "trinoweb" => "More about the webmasters"
-            );
+        printfile("views/dashboard/layouts/includes/footer.blade.php");
+        $alts = array(
+                "home/about" => "About " . DIDUEAT,
+                "home/faq" => "Frequently asked questions",
+                "contactus" => "Contact us",
+                "restaurants/signup" => "Sign up as a restaurant owner",
+                "allergy" => "Information on allergies",
+                "socmed" => "View us on social media",
+                "home/terms" => "Terms of use",
+                "trinoweb" => "More about the webmasters"
+        );
         ?>
         <div class="row text-xs-center">
             <div class="col-lg-12 ">
@@ -21,10 +21,10 @@
 
                 <ul class="list-inline">
                     @include('popups.simplemodal')
-                    <li class="list-inline-item"><a href="{{ url("home/about") }}" title="{{ $alts["home/about"] }}">About</a></li>
-                    <li class="list-inline-item"><a href="{{ url("home/faq") }}" title="{{ $alts["home/faq"] }}">FAQ</a></li>
-
-
+                    <li class="list-inline-item"><a href="{{ url("home/about") }}" title="{{ $alts["home/about"] }}">About</a>
+                    </li>
+                    <li class="list-inline-item"><a href="{{ url("home/faq") }}" title="{{ $alts["home/faq"] }}">FAQ</a>
+                    </li>
                     <li class="list-inline-item"><a href="mailto:info@didueat.ca?subject=Contact%20Me%20Regarding%20Didu%20Eat&body=
 Message:
 %0A%0A
@@ -39,7 +39,7 @@ Contact Number:
 Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
 
 
-                <?php
+                    <?php
                     $IsOnSignup = \Request::route()->getName() == "restaurants.signup.index";
 
                     if (!read("id")) {
@@ -47,29 +47,35 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                         echo '<li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>';
                     }
 
-                    if (!$IsOnSignup &&  (!Session::get('session_type_user') == "restaurant" || debugmode())) {?>
-                        <li class="list-inline-item">
-                            <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant Sign Up</a>
-                        </li>
+                    if (!$IsOnSignup && (!Session::get('session_type_user') == "restaurant" || debugmode())) {?>
+                    <li class="list-inline-item">
+                        <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant
+                            Sign Up</a>
+                    </li>
                     <?php } ?>
 
 
                     <li class="list-inline-item">
-                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" title="{{ $alts["allergy"] }}" class="simplemodal">Allergy</a>
+                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy"
+                           title="{{ $alts["allergy"] }}" class="simplemodal">Allergy</a>
                     </li>
 
                     @if(!islive())
                         <li class="list-inline-item">
-                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }} Debug Mode</a>
+                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }}
+                                Debug Mode</a>
                         </li>
                     @endif
 
                     <li class="list-inline-item">
-                        <h3>
-                            <A href="https://www.facebook.com/didueatcanada/" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-facebook"></i></A>&nbsp;
-                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-twitter"></i></A>&nbsp;
-                            <A href="https://www.instagram.com/didueat/" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-instagram"></i></A>
-                        </h3>
+                        <h5>
+                            <A href="https://www.facebook.com/didueatcanada/" target="_blank"
+                               title="{{ $alts["socmed"] }}"><i class="fa fa-facebook"></i></A>&nbsp;
+                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank"
+                               title="{{ $alts["socmed"] }}"><i class="fa fa-twitter"></i></A>&nbsp;
+                            <A href="https://www.instagram.com/didueat/" target="_blank"
+                               title="{{ $alts["socmed"] }}"><i class="fa fa-instagram"></i></A>
+                        </h5>
                     </li>
 
 
@@ -78,7 +84,8 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
 
             <div class="col-lg-12 " style="font-size: 90%;">
                 <p>
-                    Designed and built with all the <i class="fa fa-heart" style="color:#d9534f!important"></i> in theworld by
+                    Designed and built with all the <i class="fa fa-heart" style="color:#d9534f!important"></i> in
+                    theworld by
                     <a href="http://trinoweb.com/" target="_blank" title="{{ $alts["trinoweb"] }}">
                         <B CLASS="nowrap">
                             <SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN><SPAN style="color:black;">WEB</SPAN>
@@ -88,21 +95,18 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
 
                     &copy; {{ DIDUEAT  }} <?= date("Y"); ?>
 
-                    @if(Session::get('session_type_user') == "super")
+                    @if(Session::get('session_type_user') == "super" && false)
                         <?php
-                            $end_loading_time = microtime(true);
-                            printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
-                            echo "";
-                            echo getOS();
-                            echo " => ";
-                            echo getUserBrowser();
+                        $end_loading_time = microtime(true);
+                        printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
+                        echo "";
+                        echo getOS();
+                        echo " => ";
+                        echo getUserBrowser();
                         ?>
                     @endif
-
                     <a href="{{ url("home/terms") }}" title="{{ $alts["home/terms"] }}">Terms of Use</a>
-
                 </p>
-
             </div>
         </div>
     </footer>
@@ -235,6 +239,7 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                 $('#cartsz').closest('#printableArea').attr("class", "col-lg-4 col-md-5 col-sm-12");
             }
         }
+
         $(window).resize(function () {
             handleresizing($(window).width());
         });
@@ -279,9 +284,11 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
         function getvalue(ElementID) {
             return document.getElementById(ElementID).value;
         }
+
         function setvalue(ElementID, Value) {
             document.getElementById(ElementID).innerHTML = Value;
         }
+
         function escapechars(text) {
             return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
         }
@@ -388,7 +395,7 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                                     $('.password_reservation').hide();
                                     $('.password_reservation').removeAttr('required');
 
-                                    if(needsrating){
+                                    if (needsrating) {
                                         $('#ratingModal').modal('show');
                                     }
 
@@ -430,12 +437,12 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
         $('body').on('submit', '#register-form', function (e) {
             var token = $("#register-form input[name=_token]").val();
                     <?php
-                        $fields = array("name", "email", "password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "gmt");//, "confirm_password"
-                        foreach( $fields as $field){
+                    $fields = array("name", "email", "password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "gmt");//, "confirm_password"
+                    foreach ($fields as $field) {
                         echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
-                        }
+                    }
                     ?>
-                    var subscribed = 0;
+            var subscribed = 0;
             if ($("#register-form input[name=subscribed]").is(':checked')) {
                 subscribed = $("#register-form input[name=subscribed]").val();
             }
@@ -445,10 +452,10 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
             $.post("{{ url('auth/register/ajax') }}", {
                 _token: token,
                 <?php
-                    foreach( $fields as $field){
-                        echo $field . ': ' . $field . ',' . "\r\n";
-                    }
-                ?>
+                        foreach ($fields as $field) {
+                            echo $field . ': ' . $field . ',' . "\r\n";
+                        }
+                        ?>
                 subscribed: subscribed
             }, function (result) {
                 $("#register-form #actionBtn").show();
@@ -569,7 +576,7 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
     //when a review is submitted, this will update the review stars.
     function updatereview(target_id) {
         var reviews = $("#reviewcount" + target_id).html();
-        if (isundefined(reviews)){
+        if (isundefined(reviews)) {
             var reviews = 1;
         } else {
             reviews = Number(reviews.replace(/\D/g, '')) + 1;
@@ -595,8 +602,8 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
             }
         })
     }
-    function getAttribute(element, atttribute){
-        if (element.hasAttribute(atttribute)){
+    function getAttribute(element, atttribute) {
+        if (element.hasAttribute(atttribute)) {
             return element.getAttribute(atttribute);
         }
     }

@@ -90,7 +90,7 @@
         }
         $data["user/info"] = "Settings";
 
-            
+
         $data["auth/logout"] = "Log out";
 
         if (read("oldid")) {
