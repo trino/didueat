@@ -103,8 +103,9 @@ $color = $a[mt_rand(0, count($a) - 1)];
 ?>
 
 
-        <!--div class="list-group-item" style="background: <?php echo $color; ?>;border:0 !important;"-->
-<div class="list-group-item" style=" @if(isset($order)) background: #f5f5f5; @endif padding:1rem !important;">
+
+<div class="list-group m-b-1" style="">
+<div class="list-group-item" style=" @if(isset($order)) background: #f5f5f5; @endif ">
 
     <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1">
@@ -189,14 +190,15 @@ $color = $a[mt_rand(0, count($a) - 1)];
     </div>
 
     <div class="clearfix"></div>
+    </div>
 
-</div>
+
 
 <?php
 if (isset($is_menu)) {
 
 ?>
-<div class="m-b-1">
+<div class="">
 
     <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
        style="text-decoration:none;">
@@ -234,6 +236,7 @@ if (isset($is_menu)) {
     <div class="clearfix"></div>
 </div>
 
+
 <?
 }
-?>
+?></div>

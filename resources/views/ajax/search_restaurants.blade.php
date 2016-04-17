@@ -38,7 +38,7 @@
         return;
     }
 
-    echo '<div class="list-group" id="restuarant_bar">';
+    echo '<div class="list-group" style="border: 0 !important;" id="restuarant_bar">';
 
     $totalCnt=0;
     $openCnt=0;
