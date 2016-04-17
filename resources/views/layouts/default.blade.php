@@ -137,11 +137,11 @@
     </SCRIPT>
 
 
-        <div class="overlay_loader">
+        <!--div class="overlay_loader">
             <div class="overlay">
                 <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
             </div>
-        </div>
+        </div-->
 
 
 </head>

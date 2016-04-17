@@ -23,10 +23,8 @@
                                 Note:
                                 <span> {{ $note }} </span>
                                 <br /><br />
-                                (The above note is written by the restaurant staff)
-                                <br /><br />
                                 <? } ?>
-                                If you have any questions about your order, login to contact the restaurant directly. <!--a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a-->
+                                If you have any questions about your order, login to contact the restaurant directly. You can find their contact info on your receipt by logging in. <!--a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a-->
                                 <br /><br />
                                 Regards,
                                 <br />

@@ -39,7 +39,7 @@
                                 <span class='menu_bold'>{{ $tt }}</span><?php if ($extz != '') echo ":";?> {{ str_replace('<br/>', '', $extz) }}
                             </td>
 
-                            <td class="total text-xs-right" @if(isset($order)) style='width:25%;' @endif>${{number_format($arr_prs[$k],2)}}</td>
+                            <td valign="top" class="total text-xs-right" @if(isset($order)) style='width:25%;' @endif>${{number_format($arr_prs[$k],2)}}</td>
 
                             <input type="hidden" class="amount" value="{{number_format($arr_prs[$k], 2)}}">
                             <input type="hidden" class="menu_ids" name="menu_ids[]" value="1"/>

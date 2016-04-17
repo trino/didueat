@@ -203,7 +203,7 @@ $alts = array(
                             </div>
                         </div>
                         <div class="card-footer text-xs-right">
-                            <div class=" ">     <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary-outline"
+                            <div class="">     <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary-outline"
                                    value="Reset"/>
                             <input type="button" name="search" class="btn btn-primary" value="Search"
                                    id="search-form-submit"

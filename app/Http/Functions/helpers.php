@@ -1,10 +1,10 @@
 <?php
     ini_set('session.gc_maxlifetime', 86400);//force long session
-    define("MAX_DELIVERY_DISTANCE", 30);
-    define("TINY_THUMB", '64x64');
-    define("MED_THUMB", '165x165');
+    define("MAX_DELIVERY_DISTANCE", 5);
+    define("TINY_THUMB", '150x150');
+    define("MED_THUMB", '250x250');
     define("BIG_SQ", '600x600');
-    define("DIDUEAT", 'Didueat');
+    define("DIDUEAT", 'DiduEat');
 /*
     define("SMALL_THUMB", '120x120');
     define("MAX_IMG_SIZE_P", '600x800');
