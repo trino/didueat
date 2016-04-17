@@ -178,6 +178,15 @@
 
 
 <script>
+$(function() {
+   $(window).unload(function() {
+      var scrollPosition = $("div#element").scrollTop();
+      localStorage.setItem("scrollPosition", scrollPosition);
+   });
+   if(localStorage.scrollPosition) {
+      $("div#element").scrollTop(localStorage.getItem("scrollPosition"));
+   }
+});
     $(window).load(function () {
         $('.overlay_loader').hide();
     });
@@ -197,6 +206,6 @@
     ga('send', 'pageview');
 </script>
 
-
+<div id="element" style="display: none;"></div>
 </body>
 </html>
