@@ -162,7 +162,7 @@ $alts = array(
                                     </div>
                                 </div-->
 
-                                <div class="form-group">
+                                <div class="form-group" style="margin-bottom: 0 !important;">
                                     <input type="text" name="name" id="name" value="" class="form-control"
                                            placeholder="Restaurant Name"
                                            onkeyup="createCookieValue('cname', this.value)"/>

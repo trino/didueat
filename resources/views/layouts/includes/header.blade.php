@@ -68,10 +68,10 @@ $alts = array(
                 <!--li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log out</a></li-->
                 @else
                     <div class="btn-group">
-                        <a style="border-radius:0; padding-left:10px;padding-right:10px;" class="btn btn-lg btn-success reserve_login " data-toggle="modal"
+                        <a style="border-radius:0; padding-left:1rem;padding-right:1rem;" class="btn btn-lg btn-success reserve_login " data-toggle="modal"
                            title="{{ $alts["login"] }}"
                            data-target="#loginModal" onclick="$('#login-ajax-form').attr('data-route', 'reservation');">Login</a>
-                        <a style="border-radius:0; padding-left:10px;padding-right:10px;" class="btn btn-lg btn-success " data-toggle="modal"
+                        <a style="border-radius:0; padding-left:1rem;padding-right:1rem;" class="btn btn-lg btn-success " data-toggle="modal"
                            data-target="#signupModal" title="{{ $alts["signup"] }}">Signup</a>
 
                     </div>

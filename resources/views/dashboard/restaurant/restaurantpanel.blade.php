@@ -160,9 +160,10 @@ $color = $a[mt_rand(0, count($a) - 1)];
                         , {{ $Restaurant['city'] }} </span>
         <div class="clearfix"></div-->
 
-                @if(isset($latitude) && $radius && $Restaurant['distance'])
+                @if(isset($latitude) && $radius && $Restaurant['distance'] && false)
                     <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
                 @endif
+
                 @if(isset($details) && $details)
 
                     @if(false)
@@ -196,16 +197,17 @@ if (isset($is_menu)) {
 
 ?>
 <div class="m-b-1">
-    <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" style="    text-decoration:none;
-">
+
+    <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
+       style="text-decoration:none;">
 
         <?
         $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
         if ($menuitems) {
-
+            echo '<div class="list-group-item" style="padding-top: 0rem !important; "></div>';
             $i = 0;
             foreach ($menuitems as $menuitem) {
-                echo '<div class="list-group-item" style="border-top:0 !important;paddi">';
+                echo '<div class="list-group-item" style="padding-top: .25rem !important;padding-bottom: .25rem !important; ">';
                 //'restaurant_id', 'menu_item', 'description', 'price', 'rating', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order', 'cat_id', 'has_discount', 'discount_per', 'days_discount', 'is_active', 'uploaded_by', 'cat_name', 'uploaded_on'
                 $filename = file_exists("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg");
                 if (($filename == 1)) {
@@ -223,9 +225,14 @@ if (isset($is_menu)) {
                 }
             }
         }
+        echo '<div class="list-group-item" style="padding-top: 0rem !important; "></div>';
+
 
         ?>
-    </a></div>
+    </a>
+
+    <div class="clearfix"></div>
+</div>
 
 <?
 }

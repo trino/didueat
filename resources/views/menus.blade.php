@@ -225,7 +225,7 @@ $itemPosnForJS = [];
                                 }
                                 ?>
 
-                                <h5 class="card-title" style="margin-bottom: .2rem;">
+                                <h5 class="card-title" style="">
 
                                     <div class="" style="width: 100%;float:left;vertical-align: middle;">
 

@@ -57,7 +57,7 @@
                 <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe" style="color:blue;"></i></A>
             @endif
             <span class="input-group-btn" style="vertical-align: top;">
-                <button class="btn  btn-success dueBtn" oldstyle="display: none;" id="header-search-button" onclick="$('#search-form-submit').trigger('click');" title="{{ $alts["search"] }}">
+                <button style="border: 1px solid #5cb85c !important;" class="btn  btn-success dueBtn" oldstyle="display: none;" id="header-search-button" onclick="$('#search-form-submit').trigger('click');" title="{{ $alts["search"] }}">
                     <i class="fa fa-search"></i>
                 </button>
             </span>
