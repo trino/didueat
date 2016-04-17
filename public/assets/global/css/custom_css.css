@@ -1,8 +1,19 @@
+*{
+    border: 0 !important;
+}
+textarea, select, input[type=text],input[type=number],input[type=email],input[type=password],input[type=text],input[type=text]{
+    background: #f5f5f5 !important;
+    border: 1px solid #e8e8e8 !important;
+}
 a{
     cursor: pointer;
 }
 .btn-lg, .btn-group-lg > .btn {
     font-size: 1rem !important;
+}
+.btn-secondary,.btn-secondary-outline{
+    border: 1px solid #e8e8e8 !important;
+
 }
 
 .navbar {
@@ -14,8 +25,8 @@ h1 {
 }
 
 hr {
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #fff;
+    border-top: 1px solid #ddd !important;
+    border-bottom: 1px solid #fff !important;
 }
 
 .slimhr {
@@ -537,7 +548,7 @@ td {
 }
 
 .card-header,  .list-group-item {
-    padding: .5rem 1rem !important;
+    padding: .75rem 1rem !important;
 }
 
 .list-inline-item {

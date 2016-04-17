@@ -22,6 +22,7 @@
                         {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
                     </p>
 
+
                 <?php
                     $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
                 //    echo "<p><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</p>";
@@ -49,6 +50,23 @@
                         <strong class="">Views</strong> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
                     </p>
                 @endif
+
+                    <p>
+
+
+                        @if($restaurant["is_delivery"])
+                            @if(!$restaurant["is_pickup"])
+                                <span class="list-inline-item"><strong>Delivery only</strong></span>
+                            @endif
+                            <span class="list-inline-item"><strong>Delivery</strong> {{ asmoney($restaurant['delivery_fee'],$free=true) }}</span>
+                            <span class="list-inline-item"><strong>Minimum</strong> {{ asmoney($restaurant['minimum'],$free=false) }}</span>
+                        @elseif($restaurant["is_pickup"])
+                            <span class="list-inline-item"><strong>Pickup Only</strong></span>
+                        @endif
+
+
+
+                    </p>
 
                     @if(false)
                         <h3>Tags</h3>

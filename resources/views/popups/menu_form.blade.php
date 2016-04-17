@@ -27,7 +27,7 @@
                 <div class="col-sm-6">
 
 
-                    <input class="form-control cat_name form-group" value="" placeholder="Or Create New Category"/>
+                    <input class="form-control cat_name form-group" type="text" placeholder="Or Create New Category"/>
 
 
 

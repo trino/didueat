@@ -35,7 +35,7 @@
                 <img src="{{$item_bigImage }}" style="max-width:100%;" alt="{{ $alts["bigimage"] }}"/>
             @endif
 
-            <div style=" width:100%; border:0; @if ($has_bigImage)background-color: rgba(0,0,0,0.7); @endif" class=" bg-inverse card-header @if ($has_bigImage) fronttext @else bg-success @endif">
+            <div style=" width:100%; border:0; @if ($has_bigImage)background-color: rgba(0,0,0,0.4); @endif" class=" bg-inverse card-header @if ($has_bigImage) fronttext @else bg-success @endif">
                 <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" title="Close"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
                     <span aria-hidden="true " style="color:white;">&times;</span>

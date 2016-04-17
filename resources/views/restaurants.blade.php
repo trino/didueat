@@ -81,8 +81,8 @@ $alts = array(
         <div class="container" style="margin-top: 0 !important;">
             <div class="row text-md-center " style="padding:0 1rem !important;">
                 <div class="col-md-offset-2 text-xs-center col-md-8 " style="">
-                    <h1 class="banner-text-shadow"><span style="font-size: 119%">Pickup & Delivery from </span><span
-                                style="font-size: 124%"> Hamilton Restaurants</span></h1>
+                    <h1 class="banner-text-shadow"><span style="font-size: 119%">Meals Delivered From </span><span
+                                style="font-size: 119%"> Hamilton Restaurants</span></h1>
                     <div class="clearfix"></div>
                 </div>
 
@@ -127,7 +127,7 @@ $alts = array(
                 <div class="col-lg-4" ID="filter-results">
                     <div class="card ">
                         <div class="card-header">
-                            <h4 class="card-title">Filter Search</h4>
+                            <h4 class="card-title">Search Restaurant</h4>
                         </div>
 
                         <div class="card-block">
@@ -135,7 +135,7 @@ $alts = array(
                             {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form m-b-0','method'=>'post','role'=>'form', 'onkeypress' => 'return keypress(event);')) !!}
                             <div class="sort search-form clearfix">
 
-                                <div class="p-l-0 p-r-1 pull-left">
+                                <!--div class="p-l-0 p-r-1 pull-left">
                                     <div class="form-group">
                                         <input name="delivery_type" type="hidden" id="delivery_type"/>
                                         <label class="c-input c-checkbox ">
@@ -160,7 +160,7 @@ $alts = array(
                                             Pickup
                                         </label>
                                     </div>
-                                </div>
+                                </div-->
 
                                 <div class="form-group">
                                     <input type="text" name="name" id="name" value="" class="form-control"
@@ -203,11 +203,13 @@ $alts = array(
                             </div>
                         </div>
                         <div class="card-footer text-xs-right">
-                            <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary"
-                                   value="Clear"/>
+                            <div class=" ">     <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary-outline"
+                                   value="Reset"/>
                             <input type="button" name="search" class="btn btn-primary" value="Search"
                                    id="search-form-submit"
                                    onclick="submitform(event, 0);"/>
+
+                                </div>
                         </div>
                         {!! Form::close() !!}
                     </div>

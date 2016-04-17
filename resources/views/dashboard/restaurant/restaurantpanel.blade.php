@@ -143,47 +143,48 @@ $color = $a[mt_rand(0, count($a) - 1)];
             @else
                 {{ $Restaurant['name'] }}
 
-           @endif
+            @endif
 
         </h4>
-<div class=" text-muted">
+        <div class=" text-muted">
 
-        @if(!$is_open)
-            <div class="smallT">{{ $MoreTime }}</div>
-        @endif
-        {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}
-        @if($Restaurant["cuisine"])
-            <span class="list-inline-item"> {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
-        @endif
+            @if(!$is_open)
+                <div class="smallT">{{ $MoreTime }}</div>
+            @endif
+            {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}
+            @if($Restaurant["cuisine"])
+                <span class="list-inline-item"> {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
+                @endif
 
-        <!--span class="list-inline-item"> {{ $Restaurant['phone'] }} </span> <span class="list-inline-item">{{ $Restaurant['address'] }}
-                , {{ $Restaurant['city'] }} </span>
+                        <!--span class="list-inline-item"> {{ $Restaurant['phone'] }} </span> <span class="list-inline-item">{{ $Restaurant['address'] }}
+                        , {{ $Restaurant['city'] }} </span>
         <div class="clearfix"></div-->
 
-        @if(isset($latitude) && $radius && $Restaurant['distance'])
-            <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
-        @endif
-        @if(isset($details) && $details)
+                @if(isset($latitude) && $radius && $Restaurant['distance'])
+                    <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
+                @endif
+                @if(isset($details) && $details)
 
-
-                    @if($Restaurant["is_delivery"])
-                        @if(!$Restaurant["is_pickup"])
-                            <span class="list-inline-item"><strong>Delivery only</strong></span>
+                    @if(false)
+                        @if($Restaurant["is_delivery"])
+                            @if(!$Restaurant["is_pickup"])
+                                <span class="list-inline-item"><strong>Delivery only</strong></span>
+                            @endif
+                            <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
+                            <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
+                        @elseif($Restaurant["is_pickup"])
+                            <span class="list-inline-item"><strong>Pickup only</strong></span>
                         @endif
-                        <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
-                        <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
-                    @elseif($Restaurant["is_pickup"])
-                        <span class="list-inline-item"><strong>Pickup only</strong></span>
                     @endif
 
 
-            <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel"
-               title="{{ $alts["moredetails"] }}">More Details</a>
-        @endif
+                    <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal"
+                       data-target="#viewMapModel"
+                       title="{{ $alts["moredetails"] }}">More Details</a>
+                @endif
 
 
-
-    </div>
+        </div>
     </div>
 
     <div class="clearfix"></div>
