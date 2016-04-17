@@ -81,8 +81,8 @@ $alts = array(
         <div class="container" style="margin-top: 0 !important;">
             <div class="row text-md-center " style="padding:0 1rem !important;">
                 <div class="col-md-offset-2 text-xs-center col-md-8 " style="">
-                    <h1 class="banner-text-shadow"><span style="font-size: 119%">Meals Delivered From </span><span
-                                style="font-size: 119%"> Hamilton Restaurants</span></h1>
+                    <h1 class="banner-text-shadow"><span style="font-size: 127%">Meals Delivered From </span><span
+                                style="font-size: 126%"> Hamilton Restaurants</span></h1>
                     <div class="clearfix"></div>
                 </div>
 

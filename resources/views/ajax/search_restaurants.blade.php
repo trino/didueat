@@ -82,7 +82,7 @@
     );
 ?>
 </div>
-
+<!-- whats with the div? -->
 
 <script>
     <?= "var totalCnt = " . $totalCnt . ";

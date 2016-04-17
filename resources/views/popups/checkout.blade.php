@@ -128,7 +128,7 @@
             <label class="radio-inline c-input c-radio">
                 <input type="radio" name="payment_type" onclick="$('.CC').show();" value="cc"/>
                 <span class="c-indicator"></span>
-                Debit/Credit Card            </label>
+                Debit/Credit</label>
         </div>
     <div class="clearfix"></div>
 

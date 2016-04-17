@@ -1808,7 +1808,7 @@
         if(left($Message, 8) == "message:"){
             $Message = right($Message, strlen($Message)-8);
             switch($Message){
-                case "nostores": $Message = '<span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Found in your Area<span id="openClosed" class="smRd"></span>'; $Success = "card"; break;
+                case "nostores": $Message = '<span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Deliver To You<span id="openClosed" class="smRd"></span>'; $Success = "card"; break;
                 case "menuadd": $Message = "Menu item saved successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
                 case "user_fire":case "user_hire": case "user_possess": case "user_depossess": $Message = "User has been " . str_replace("eed", "ed", str_replace("user_", "", $Message) . "ed"); break;

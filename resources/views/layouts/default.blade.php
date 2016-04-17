@@ -1,5 +1,5 @@
 <?php
-if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_ADDR']) == '::1') {
+if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_ADDR']) == '::1'   || trim($_SERVER['REMOTE_ADDR']) == '127.0.0.1'    ) {
 } else {
     die();
 }

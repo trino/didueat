@@ -91,8 +91,10 @@
                             <tr>
                                 <td colspan="2">
                                     @if(isset($restaurant->is_delivery) && $restaurant->is_delivery == 1)
-                                        <label class="radio-inline c-input c-radio">
-                                            <input type="radio"
+                                        <label class="radio-inline c-input c-radio" style="display: none;">
+                                            <input
+
+                                                    type="radio"
                                                    id="delivery1"
                                                    name="delevery_type"
                                                    onclick="delivery('show');"
