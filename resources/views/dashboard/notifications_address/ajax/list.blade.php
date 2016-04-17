@@ -69,7 +69,8 @@
                                echo '<label class="c-input c-checkbox pull-left"><INPUT TYPE="CHECKBOX" ID="add_enable_' . $value->id . '" CLASS="fullcheck"';
                                if($candisable){
                                    echo ' ONCLICK="add_enable(' . $value->id . ');"';
-                                   if ($value->enabled) {
+                                   if (isset($value->enabled) && $value->enabled) {
+
                                        echo ' CHECKED';
                                    }
                                } else {

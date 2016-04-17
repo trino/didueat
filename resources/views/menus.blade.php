@@ -123,7 +123,7 @@ $itemPosnForJS = [];
             }
             ?>
 
-            <DIV class="list-group m-y-1" id="c{{ $thisCatCnt }}" style=""><!-- start of this category -->
+            <DIV class="list-group m-b-1" id="c{{ $thisCatCnt }}"><!-- start of this category -->
                 <div class="list-group-item parents" style="background: #f5f5f5;"><!-- start of category heading -->
                     <div class="">
                         <div class="row">
