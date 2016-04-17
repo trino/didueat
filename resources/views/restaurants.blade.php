@@ -513,7 +513,24 @@ $alts = array(
             }
             return false;
         }
-
+        
+        
+        
+        
+        ////////////////////////////////////////////////////////////////
+        $(document).ready(function() {
+        	var win = $(window);
+        
+        	// Each time the user scrolls
+        	win.scroll(function() {
+        		// End of the document reached?
+        		if ($(document).height() - win.height() == win.scrollTop()) {
+        			$('.loadMoreRestaurants').click();
+        		}
+        	});
+        });
+        /////////////////////////////////////////////////////////
+        
         $('body').on('click', '.loadMoreRestaurants', function (e) {
             var start = $(this).attr('data-id');
             submitform(e, start);
