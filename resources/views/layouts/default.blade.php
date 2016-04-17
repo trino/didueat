@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_ADDR']) == '::1') {
+} else {
+    die();
+}
+?>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php
@@ -59,9 +65,10 @@
     <!-- Safari doesn't trust the certificate from here:    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <link href="{{ asset('assets/global/css/font-awesome.min.css') }}" rel="stylesheet">
     <!--link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity="" crossorigin="anonymous"-->
-    <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" integrity="" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" integrity=""
+          crossorigin="anonymous">
 
-        <!--link href="{{ asset('assets/global/css/bootstrap.css') }}" rel="stylesheet"-->
+    <!--link href="{{ asset('assets/global/css/bootstrap.css') }}" rel="stylesheet"-->
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
 
     <!-- JS these two must go first -->
@@ -93,24 +100,31 @@
             .container-fluid {
                 border: 1px solid green;
             }
+
             .container {
                 border: 1px solid green;
             }
+
             div[class^="col-"], div[class*=" col-"] {
                 border: 1px solid red !important;
             }
+
             .div {
                 border: 1px solid red !important;
             }
+
             tr {
                 border: 3px solid pink;
             }
+
             td {
                 border: 3px solid yellow;
             }
+
             th {
                 border: 3px solid purple;
             }
+
             form {
                 border: 3px solid black;
             }
@@ -137,11 +151,11 @@
     </SCRIPT>
 
 
-        <!--div class="overlay_loader">
-            <div class="overlay">
-                <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
-            </div>
-        </div-->
+    <div class="overlay_loader">
+        <div class="overlay">
+            <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
+        </div>
+    </div>
 
 
 </head>
@@ -176,17 +190,16 @@
 @endif
 
 
-
 <script>
-$(function() {
-   $(window).unload(function() {
-      var scrollPosition = $("div#element").scrollTop();
-      localStorage.setItem("scrollPosition", scrollPosition);
-   });
-   if(localStorage.scrollPosition) {
-      $("div#element").scrollTop(localStorage.getItem("scrollPosition"));
-   }
-});
+    $(function () {
+        $(window).unload(function () {
+            var scrollPosition = $("div#element").scrollTop();
+            localStorage.setItem("scrollPosition", scrollPosition);
+        });
+        if (localStorage.scrollPosition) {
+            $("div#element").scrollTop(localStorage.getItem("scrollPosition"));
+        }
+    });
     $(window).load(function () {
         $('.overlay_loader').hide();
     });
