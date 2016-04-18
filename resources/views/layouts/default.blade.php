@@ -1,5 +1,5 @@
 <?php
-if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_ADDR']) == '::1'   || trim($_SERVER['REMOTE_ADDR']) == '127.0.0.1'    ) {
+if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_ADDR']) == '::1'   || trim($_SERVER['REMOTE_ADDR']) == '127.0.0.1' || trim($_SERVER['REMOTE_ADDR']) == '24.36.252.21'    ) {
 } else {
     die();
 }
@@ -162,7 +162,7 @@ if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_AD
 
 <body>
 
-<div class="container-fluid" style="margin-bottom: 44px;">
+<div class="container-fluid" style="margin-bottom: 50px;">
     @include('layouts.includes.header')
 </div>
 

@@ -239,7 +239,7 @@ $itemPosnForJS = [];
 
                                             @if($has_iconImage)
                                                 <img src="{{ $item_iconImg }}"
-                                                     class="img-rounded" style="height:30px;width:30px;float:left;margin-right:.5rem;"
+                                                     class="img-circle" style="height:30px;width:30px;float:left;margin-right:.5rem;"
                                                      alt="{{ $value->menu_item }}"/>
                                                 @else
                                                         <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->

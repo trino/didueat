@@ -87,37 +87,21 @@ $alts = array(
         "moredetails" => "View more information about this restaurant",
         "logo" => "This restaurant's logo"
 );
-
-
-
-
 ?>
 
-<?php
-
-$a = ['#dadada', '#f4f4f4', '#e7e7e7', '#efefef', '#cdcdcd', '#f2f2f2', '#fff', '#fafafa'];
-
-$color = $a[mt_rand(0, count($a) - 1)];
-
-
-?>
-
-
-
-<div class="list-group m-b-1" style="">
-<div class="list-group-item" style=" @if(isset($order)) background: #f5f5f5; @endif ">
+<div class="card-header" style=" @if(!isset($order)) background: white !important; margin-bottom:1rem !important;    box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
+@endif ">
 
     <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1">
 
             @if(isset($details) && $details)
-                <img style="max-width:100%;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
+                <img style="max-width:100%;" class="img-circle" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
                 <div class="clearfix"></div>
-
             @else
                 <a href="{{ url('restaurants/' . $Restaurant['slug'] . '/menu') }}?delivery_type={{ $delivery_type }}"
                    class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
-                    <img style="max-width:100%;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
+                    <img style="max-width:100%;" class="img-circle" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
 
                     <div class="clearfix"></div>
                 </a>
@@ -128,7 +112,7 @@ $color = $a[mt_rand(0, count($a) - 1)];
     </div>
 
     <div class="col-md-10 p-a-0 ">
-        <h4 style="margin-bottom: .2rem !important;">
+        <h3 style="margin-bottom: .2rem !important;">
             @if(isset($order))
                 <a class="card-link restaurant-url"
                    href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
@@ -146,7 +130,7 @@ $color = $a[mt_rand(0, count($a) - 1)];
 
             @endif
 
-        </h4>
+        </h3>
         <div class=" text-muted">
 
             @if(!$is_open)
@@ -190,8 +174,7 @@ $color = $a[mt_rand(0, count($a) - 1)];
     </div>
 
     <div class="clearfix"></div>
-    </div>
-
+</div>
 
 
 <?php
@@ -218,7 +201,7 @@ if (isset($is_menu)) {
                     echo '<IMG style="width: 34px; height: 34px;" class="img-rounded" SRC="' . $filename . '">';
                 }
                 echo ' ' . $menuitem->menu_item . '';
-                echo '    &ndash; ' . asmoney($menuitem->price) . '    <div class="clearfix " style="margin-bottom:.1rem;"></div>';
+                echo '<span style="white-space: nowrap;"> &ndash; ' . asmoney($menuitem->price) . '</span><div class="clearfix " style="margin-bottom:.1rem;"></div>';
                 echo '</div>';
 
                 $i++;
@@ -239,4 +222,4 @@ if (isset($is_menu)) {
 
 <?
 }
-?></div>
+?>

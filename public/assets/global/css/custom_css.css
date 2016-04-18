@@ -1,3 +1,4 @@
+
 .list-group, .card {
 
     margin-bottom: 1rem !important;
@@ -11,7 +12,9 @@
 }
 
 .card-header, .list-group-item {
-    padding: .75rem 1rem !important;
+    padding:  1rem !important;
+
+
 }
 
 .list-inline-item {
@@ -40,7 +43,8 @@ a {
 }
 
 .navbar {
-    padding: 0rem;
+    padding: .20rem 1rem;    box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
+
 }
 
 h1 {
@@ -757,6 +761,9 @@ fieldset[disabled] .btn-primary.focus {
 }
 */
 
+
+
+/*
 @media (max-width: 768px) {
     .btn-responsive {
         padding: 2px 4px;
@@ -836,6 +843,7 @@ fieldset[disabled] .btn-primary.focus {
         width: 90%
     }
 }
+*/
 
 @media screen and (max-width: 400px) {
     .navbar, .alert {
@@ -875,20 +883,16 @@ fieldset[disabled] .btn-primary.focus {
 
 @media screen and (max-width: 768px) {
 
-    .btn-responsive {
-        padding: 8px 16px !important;
-    }
-
     h1 {
-        font-size: 1.25rem !important;
+        font-size: 1.4rem !important;
     }
 
     h2 {
-        font-size: 1.2rem !important;
+        font-size: 1.35rem !important;
     }
 
     h3 {
-        font-size: 1.15rem !important;
+        font-size: 1.30rem !important;
     }
 
     h4 {
@@ -896,14 +900,11 @@ fieldset[disabled] .btn-primary.focus {
     }
 
     h5 {
-        font-size: 1.05rem !important;
+        font-size: 1.20rem !important;
     }
 
     h6 {
-        font-size: 1rem !important;
-    }
-
-    .container {
+        font-size: 1.15rem !important;
     }
 
     .navbar {

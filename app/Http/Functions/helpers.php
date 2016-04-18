@@ -1815,7 +1815,7 @@
             }
         }
         if ($Success == "card"){
-            echo '<div class="bg-success text-xs-center list-group-item m-b-1" style="border: 0 !important;">' . $Message . '</div>';
+            echo '<div class="bg-success text-xs-center m-b-1" style="padding: .9rem;border: 0 !important;">' . $Message . '</div>';
         } else {
             if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
             echo '<div class="alert alert-' . $Success . '" role="alert"';

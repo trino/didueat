@@ -72,7 +72,7 @@ echo newrow($new, "Email", $size, true); ?>
 </div>
 <?php echo newrow();
 
-if(isset($user_detail)){
+if(isset($user_detail) && false){
 echo newrow(false, " ", "", false, 7, false); ?>
 <label class="c-input c-checkbox">
     <input type="checkbox" name="subscribed" id="subscribed" value="true"

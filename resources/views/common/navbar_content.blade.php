@@ -51,7 +51,7 @@
             makelink(array('orders/list/admin' => 'Orders',
                     'users/list' => "Users",
                     'restaurant/list' => "Restaurants",
-                    'subscribers/list' => "Subscribers",
+                   /* 'subscribers/list' => "Subscribers", */
                     'user/reviews' => "Reviews",
                     'eventlogs/list' => "Event Log",
                     'home/debug' => "Debug Log"
