@@ -115,7 +115,7 @@
                 <a class="card-link restaurant-url"
                    href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}"
                    title="{{ $alts["restaurants/menu"] }}">
-                    {{ $Restaurant['name'] }}
+                    {{ printfile("(ID: " . $Restaurant["id"] . ") ") . $Restaurant['name'] }}
                 </a>
                 <!--div class="pull-right">
                     <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"

@@ -1,76 +1,76 @@
 <?php
-$first = false;
-$type = "hidden";
-//$localIPTst = $_SERVER['REMOTE_ADDR'];
-//$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
-$latlngStr = "";
-$locationStr = "";
-$useCookie = false;
-$useHamilton = true;
-$is_pickup_checked = "";
-$is_delivery_checked = "";
-$is_menu_checked = iif(isset($_COOKIE["is_menu"]) && $_COOKIE["is_menu"], " CHECKED");
-if (isset($_COOKIE['delivery_type'])) {
-    switch ($_COOKIE['delivery_type']) {
-        case "is_delivery":
-            $is_delivery_checked = "checked";
-            break;
-        case "is_pickup":
-            $is_pickup_checked = "checked";
-            break;
-        default:
-            $is_delivery_checked = "checked";
-            $is_pickup_checked = "checked";
-    }
-} else {
-    $is_delivery_checked = "checked";
-    $is_pickup_checked = "checked";
-}
-
-/*
-if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
-    $Province = "";
-    if (function_exists('geoip_record_by_name')) {
-        $info = geoip_record_by_name($localIPTst);
-        $City = $info['city'];
-        $Country = $info['country_name'];
-        if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
-            $Province = $info['region'];
+    $first = false;
+    $type = "hidden";
+    //$localIPTst = $_SERVER['REMOTE_ADDR'];
+    //$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+    $latlngStr = "";
+    $locationStr = "";
+    $useCookie = false;
+    $useHamilton = true;
+    $is_pickup_checked = "";
+    $is_delivery_checked = "";
+    $is_menu_checked = iif(isset($_COOKIE["is_menu"]) && $_COOKIE["is_menu"], " CHECKED");
+    if (isset($_COOKIE['delivery_type'])) {
+        switch ($_COOKIE['delivery_type']) {
+            case "is_delivery":
+                $is_delivery_checked = "checked";
+                break;
+            case "is_pickup":
+                $is_pickup_checked = "checked";
+                break;
+            default:
+                $is_delivery_checked = "checked";
+                $is_pickup_checked = "checked";
         }
     } else {
-        $ip = $localIPTst;
-        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-        $City = $details->city;
-        if ($details->country == "US"){$Country = "United States";}
-        if ($details->country == "CA"){$Country = "Canada";}
-        if(isset($Country)){
-            $Province = $details->region;
-        } else {
-            $Country = $details->country;
-        }
-        $latlng = explode(",", $details->loc);
-        $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
+        $is_delivery_checked = "checked";
+        $is_pickup_checked = "checked";
     }
-} else {
-    // get city [, province/state], and country from cookie or session, once implemented
-}
-*/
 
-if ($useHamilton) {
-    $City = "Hamilton";
-    $Province = "Ontario";
-    $Country = "Canada";
-    $latHam = "43.2566983";
-    $lonHam = "-79.8690719";
-    $loc = "43.2566983,-79.8690719";
-} else if (is_object($details)) {
-    $loc = $details->loc;
-}
+    /*
+    if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
+        $Province = "";
+        if (function_exists('geoip_record_by_name')) {
+            $info = geoip_record_by_name($localIPTst);
+            $City = $info['city'];
+            $Country = $info['country_name'];
+            if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
+                $Province = $info['region'];
+            }
+        } else {
+            $ip = $localIPTst;
+            $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+            $City = $details->city;
+            if ($details->country == "US"){$Country = "United States";}
+            if ($details->country == "CA"){$Country = "Canada";}
+            if(isset($Country)){
+                $Province = $details->region;
+            } else {
+                $Country = $details->country;
+            }
+            $latlng = explode(",", $details->loc);
+            $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
+        }
+    } else {
+        // get city [, province/state], and country from cookie or session, once implemented
+    }
+    */
 
-$alts = array(
-        "city" => "View restaurants for this city",
-        "signup" => "Sign up as a restaurant owner"
-);
+    if ($useHamilton) {
+        $City = "Hamilton";
+        $Province = "Ontario";
+        $Country = "Canada";
+        $latHam = "43.2566983";
+        $lonHam = "-79.8690719";
+        $loc = "43.2566983,-79.8690719";
+    } else if (is_object($details)) {
+        $loc = $details->loc;
+    }
+
+    $alts = array(
+            "city" => "View restaurants for this city",
+            "signup" => "Sign up as a restaurant owner"
+    );
 ?>
 
 
@@ -207,7 +207,7 @@ $alts = array(
                                    value="Reset"/>
                             <input type="button" name="search" class="btn btn-primary" value="Search"
                                    id="search-form-submit"
-                                   onclick="submitform(event, 0);"/>
+                                   onclick="submitform(event, 0, 'search onclick');"/>
 
                                 </div>
                         </div>
@@ -285,6 +285,11 @@ $alts = array(
 
     <script type="text/javascript">
         var elementname = '#formatted_address2';
+        var IgnoreOne = false;
+        var startingat = 0;
+        @if(isset($_GET["start"]))
+            startingat = "{{ $_GET["start"] }}";
+        @endif
         onloadpage();
 
         function setdeliverytype() {
@@ -320,7 +325,7 @@ $alts = array(
 
         function keypress(event) {
             if (event.keyCode == 13) {
-                submitform(event, 0);
+                submitform(event, 0, "keypress");
                 return false;
             }
         }
@@ -386,6 +391,10 @@ $alts = array(
                 $("#header-search-button").show();
                 $('#search-form-submit').trigger('click');
             }
+
+            @if(isset($_GET["start"]))
+                //submitform($(".footer"), 0);
+            @endif
         }
 
         $('body').on('click', '#clearSearch', function () {
@@ -413,7 +422,7 @@ $alts = array(
             $('#restuarant_bar').html("");
             $('#results_show').hide();
             $('#start_up_message').show();
-          //  $('#icons_show').show();
+            //  $('#icons_show').show();
             $("#formatted_address2").val("");
             $("html, body").animate({scrollTop: 0}, "slow");
         }
@@ -427,12 +436,13 @@ $alts = array(
          });
          */
 
-        var IgnoreOne = false;
-        function submitform(e, start) {
+        function submitform(e, start, eventname) {
             if (IgnoreOne) {
                 IgnoreOne = false;
                 return false;
             }
+
+            ChangeUrl("Search", "{{ url("?start=") }}" + start);
             var formatted_address = $(elementname).val();
             var latitude = $('#latitude').val().trim();
             var longitude = $('#longitude').val().trim();
@@ -484,7 +494,7 @@ $alts = array(
                 $('#start_up_message').hide();
                // $('#icons_show').hide();
                 $('#results_show').show();
-                $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data: data}, function (result) {
+                $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data: data, start: startingat}, function (result) {
                     var quantity = 0;
                     $('#parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);
@@ -533,7 +543,7 @@ $alts = array(
         
         $('body').on('click', '.loadMoreRestaurants', function (e) {
             var start = $(this).attr('data-id');
-            submitform(e, start);
+            submitform(e, start, "body onclick");
         });
 
         var p = document.getElementById("radius");

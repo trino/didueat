@@ -28,6 +28,7 @@
     $difference = $server_gmt - $user_gmt;
     $server_time = date('H:i:s');
     $user_time = $server_time;
+    if(!isset($sql)){$sql = "MISSING SQL";}
     printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
     if (is_object($count)) {
         echo "Count should not be an object!!!";
@@ -83,7 +84,7 @@
 </div>
 
 <script>
-    var totalCnt = <?= '"' . $totalCnt . ";
+    var totalCnt = <?= $totalCnt . ";
          var openCnt = " . $openCnt . ";
          var closedCnt = " . $closedCnt . ";";
     ?>

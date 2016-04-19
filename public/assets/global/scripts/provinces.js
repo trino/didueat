@@ -29,7 +29,7 @@ function initAutocompleteWithID(ID){
         google.maps.event.addDomListener(input, 'keydown', function(e) { 
         if (e.keyCode == 13 && $('.pac-container:visible').length) {
             setTimeout(function(){
-                submitform(e, 0);
+                submitform(e, 0, "provinces.js");
             }, 200);
         }
 }); 
