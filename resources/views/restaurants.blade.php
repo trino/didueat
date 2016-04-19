@@ -442,7 +442,11 @@
                 return false;
             }
 
-            ChangeUrl("Search", "{{ url("?start=") }}" + start);
+            if(startingat){
+                ChangeUrl("Search", "{{ url("?start=") }}" + startingat);
+            } else {
+                ChangeUrl("Search", "{{ url("?start=") }}" + start);
+            }
             var formatted_address = $(elementname).val();
             var latitude = $('#latitude').val().trim();
             var longitude = $('#longitude').val().trim();
