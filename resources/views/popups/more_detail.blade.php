@@ -56,12 +56,12 @@
 
                         @if($restaurant["is_delivery"])
                             @if(!$restaurant["is_pickup"])
-                                <span class="list-inline-item"><strong>Delivery only</strong></span>
+                                <!--span class="list-inline-item"><strong>Delivery only</strong></span-->
                             @endif
                             <span class="list-inline-item"><strong>Delivery</strong> {{ asmoney($restaurant['delivery_fee'],$free=true) }}</span>
                             <span class="list-inline-item"><strong>Minimum</strong> {{ asmoney($restaurant['minimum'],$free=false) }}</span>
                         @elseif($restaurant["is_pickup"])
-                            <span class="list-inline-item"><strong>Pickup Only</strong></span>
+                            <!--span class="list-inline-item"><strong>Pickup Only</strong></span-->
                         @endif
 
 
@@ -94,7 +94,7 @@
                         }
                     }
 
-                        echo '<strong>Pickup Hours</strong>';
+                        echo '<strong>Hours</strong>';
 
 
                     echo "<table>";

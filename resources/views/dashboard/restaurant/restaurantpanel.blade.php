@@ -154,12 +154,12 @@ $alts = array(
                     @if(false)
                         @if($Restaurant["is_delivery"])
                             @if(!$Restaurant["is_pickup"])
-                                <span class="list-inline-item"><strong>Delivery only</strong></span>
+                                <!--span class="list-inline-item"><strong>Delivery only</strong></span-->
                             @endif
                             <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
                             <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
                         @elseif($Restaurant["is_pickup"])
-                            <span class="list-inline-item"><strong>Pickup only</strong></span>
+                            <!--span class="list-inline-item"><strong>Pickup only</strong></span-->
                         @endif
                     @endif
 

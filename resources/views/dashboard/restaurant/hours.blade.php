@@ -71,7 +71,7 @@ echo newrow($new, "I Offer Pickup",null, false,6,null); ?>
 <div class="row">
 
     <div class="col-md-12 col-xs-12 p-t-1" >
-        <h4>Pickup Hours</h4>
+        <h4>Hours</h4>
 
         <?php
             function getkey($object, $key) {
@@ -150,7 +150,7 @@ echo newrow($new, "I Offer Pickup",null, false,6,null); ?>
     <div class="col-md-12 col-xs-12 p-a-0" >
         @if($use_delivery_hours)
             <DIV CLASS="is_delivery_options col-md-12">
-                <h4 class="pull-left p-r-1">Delivery Hours</h4>
+                <h4 class="pull-left p-r-1">Hours</h4>
                 <LABEL class="">
                     <LABEL class="c-input c-checkbox pull-left" valign="bottom">
                         <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" name="samehours" {{ ($isthesame)? " checked":"" }}>
