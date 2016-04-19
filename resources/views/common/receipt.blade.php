@@ -81,51 +81,47 @@
         <div class="card-block">
 
             <div class="receipt_main">
+                @if(!isset($order))
+                    <table style="<?php if(!isset($em)){?>width:100%;<?php }else{?>width:100%;padding:22px 0<?php }?>">
+                    <tr>
+                        <td colspan="2">
+                            @if(isset($restaurant->is_delivery) && $restaurant->is_delivery == 1)
+                                <label class="radio-inline c-input c-radio">
+                                    <input type="radio" id="delivery1" name="delevery_type"
+                                           onclick="delivery('show');"
+                                           @if(!isset($restaurant->is_pickup) || !$restaurant->is_pickup)
+                                           CHECKED TITLE="Only does delivery"
+                                            @endif
+                                            >
+                                    <span class="c-indicator"></span>
+                                    <strong>Delivery</strong>
+                                </label>
+                            @endif
+
+                            @if(isset($restaurant->is_pickup) && $restaurant->is_pickup == 1)
+                                <label class="radio-inline c-input c-radio">
+                                    <input type="radio" id="pickup1" name="delevery_type"
+                                           class="deliverychecked"
+                                           onclick="delivery('hide');"
+                                           @if(!isset($restaurant->is_delivery) || !$restaurant->is_delivery)
+                                           CHECKED TITLE="Only does pickup"
+                                            @endif
+                                            >
+                                    <span class="c-indicator"></span>
+                                    <strong>Pickup</strong>
+                                </label>
+                            @endif
+                        </td>
+
+                    </tr>
+                    </table>
+                @endif
 
                 @include('common.items')
 
                 <div class="totals form-group" style=" width:100%;">
                     <table style="<?php if(!isset($em)){?>width:100%;<?php }else{?>width:100%;padding:22px 0<?php }?>">
                         <tbody>
-                        @if(!isset($order))
-                            <tr>
-                                <td colspan="2">
-                                    @if(isset($restaurant->is_delivery) && $restaurant->is_delivery == 1)
-                                        <label class="radio-inline c-input c-radio" style="display: none;">
-                                            <input
-
-                                                    type="radio"
-                                                   id="delivery1"
-                                                   name="delevery_type"
-                                                   onclick="delivery('show');"
-                                                   @if(!isset($restaurant->is_pickup) || !$restaurant->is_pickup)
-                                                        CHECKED TITLE="Only does delivery"
-                                                   @endif
-                                            >
-                                            <span class="c-indicator"></span>
-                                            <strong>Delivery</strong>
-                                        </label>
-                                    @endif
-
-                                    @if(isset($restaurant->is_pickup) && $restaurant->is_pickup == 1)
-                                        <label class="radio-inline c-input c-radio">
-                                            <input type="radio" id="pickup1" name="delevery_type"
-                                                   class="deliverychecked"
-                                                   onclick="delivery('hide');"
-                                                   @if(!isset($restaurant->is_delivery) || !$restaurant->is_delivery)
-                                                        CHECKED TITLE="Only does pickup"
-                                                   @endif
-                                            >
-                                            <span class="c-indicator"></span>
-                                            <strong>Pickup</strong>
-                                        </label>
-                                    @endif
-                                </td>
-
-                            </tr>
-                        @endif
-
-
                         <tr>
                             <td width=" @if(isset($order)) 75% @else 50% @endif "><strong>Subtotal</strong></td>
                             <td width=" @if(isset($order)) 25% @else 50% @endif ">
