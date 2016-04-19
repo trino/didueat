@@ -1,7 +1,20 @@
-<div class="container">
-    <hr>
-
-    <footer class="text-muted p-b-1 p-l-1 p-r-1">
+<STYLE>
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: {{ iif(debugmode(), 130, 100)}}px;
+        background-color: white;
+        z-index: 100;
+    }
+    body{
+        padding-bottom: 130px;
+    }
+</STYLE>
+@include('popups.simplemodal')
+<div class="container m-t-1 footer">
+    <footer class="text-muted p-a-1">
         <?php
         printfile("views/dashboard/layouts/includes/footer.blade.php");
         $alts = array(
@@ -20,7 +33,6 @@
 
 
                 <ul class="list-inline">
-                    @include('popups.simplemodal')
                     <li class="list-inline-item"><a href="{{ url("home/about") }}" title="{{ $alts["home/about"] }}">About</a>
                     </li>
                     <li class="list-inline-item"><a href="{{ url("home/faq") }}" title="{{ $alts["home/faq"] }}">FAQ</a>
@@ -48,23 +60,25 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                     }
 
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "restaurant" || debugmode())) {?>
-                    <li class="list-inline-item">
-                        <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant
-                            Sign Up</a>
-                    </li>
+                        <li class="list-inline-item">
+                            <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant
+                                Sign Up</a>
+                        </li>
                     <?php } ?>
 
 
                     <li class="list-inline-item">
-                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy"
-                           title="{{ $alts["allergy"] }}" class="simplemodal">Allergy</a>
+                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" title="{{ $alts["allergy"] }}" class="simplemodal">Allergy</a>
                     </li>
 
                     @if(!islive())
                         <li class="list-inline-item">
-                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }}
-                                Debug Mode</a>
+                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }} Debug Mode</a>
                         </li>
+                    @endif
+
+                    @if(debugmode())
+                        <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}&action=clearcache">Clear Cache</a>
                     @endif
 
                     <li class="list-inline-item">

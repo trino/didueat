@@ -7,7 +7,7 @@ $alts = array(
         "signup" => "Create a new account"
 );
 ?>
-<nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav">
+<nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav" style="">
     <div class="container" style="margin-top:0px !important;">
         <ul class="nav navbar-nav pull-left " style="">
             <li class="nav-item hidden-sm-down ">
@@ -17,7 +17,7 @@ $alts = array(
                 </a>
             </li>
 
-            <li class="nav-item m-l-0">
+            <li class="nav-item m-l-0 pading-left-mobile">
                 <a style="padding-bottom:0 !important;padding-top:4px !important;" class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}" title="{{ $alts["home"] }}">
                     <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}"
                          style="height: 39px;"/>

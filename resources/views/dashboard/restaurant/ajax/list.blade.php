@@ -11,7 +11,8 @@
             "incomplete" => "This restaurant is incomplete and can not be opened",
             "logo" => "This restaurant's logo",
             "delete" => "Delete this restaurant",
-            "fixmenus" => "Fix old menu item's categories so they show up properly. Only needs to be done once, ever"
+            "fixmenus" => "Fix old menu item's categories so they show up properly. Only needs to be done once, ever",
+            "possess" => "Log in as the owner of this restaurant"
     );
     if(!isset($note)){$note = "";}
 ?>
@@ -26,7 +27,6 @@
             <div class="col-lg-9">
                 <h4 class="card-title">
                     Restaurants {{ $note }}
-
                     @if(debugmode() && !$note)
                         <A HREF="?fixmenus" STYLE="float:right;" class="" title="{{ $alts["fixmenus"] }}">Fix menus</A>
                     @endif
@@ -50,11 +50,8 @@
                             <td>
                                 <div class="">
                                     <a href="{{ url('restaurants/' . $value->slug . '/menu/') }}" class="" title="{{ $alts["menu"] }}">Menu</a><br>
-                                    @if(read("type_user") == "super")
-
-
-
-
+                                    @if(read("profiletype") == 1)
+                                        <a href="{{ url('users/action/user_possess/') . '/' . select_field("profiles", "restaurant_id", $value->id, "id") }}" class="" title="{{ $alts["possess"] }}">Possess</a><br>
                                         <a href="{{ url('orders/list/restaurant/' . $value->id) }}" class="" title="{{ $alts["orders"] }}">Orders</a><br>
                                         <a href="{{ url('restaurant/info/'.$value->id) }}" class="" title="{{ $alts["edit"] }}">Edit</a><br>
                                         <!--a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->

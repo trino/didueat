@@ -15,19 +15,39 @@ class HomeController extends Controller {
 
     //toggle debug mode
     public function debugmode(){
-        $message = "You do not have authorization to use that feature";
-        //if(\Session::get('session_type_user') == "super") {
-            $filename = getcwd() . "/debugmode.ip";
-            if (debugmode()) {
-                @unlink($filename);
-                $message = "Debug mode disabled";
-            } else {
-                file_put_contents($filename, $_SERVER['REMOTE_ADDR']);
-                $message = "Debug mode enabled";
-            }
-        //}
+        $action = \Input::get('action', "debugmode");
+        switch ($action){
+            case "debugmode":
+                $filename = getcwd() . "/debugmode.ip";
+                if (debugmode()) {
+                    @unlink($filename);
+                    $message = "Debug mode disabled";
+                } else {
+                    file_put_contents($filename, $_SERVER['REMOTE_ADDR']);
+                    $message = "Debug mode enabled";
+                }
+                break;
+            case "clearcache":
+                $this->clearcache();
+                $message = "Cache has been cleared";
+                break;
+        }
         return $this->success($message, $_GET["url"]);
     }
+
+    public function clearcache(){
+        $this->cleardir(storage_path() . '/framework/views');
+        $this->cleardir(storage_path() . '/framework/cache');
+        \Artisan::call('cache:clear');
+    }
+
+    public function cleardir($dir){
+        $files = array_diff(scandir($dir), array('.','..','.gitignore'));
+        foreach ($files as $file) {
+            unlink($dir . '/' . $file);
+        }
+    }
+
 
     public function index() {
         $data['title'] = 'Home';

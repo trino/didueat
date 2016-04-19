@@ -35,7 +35,7 @@ class RestaurantController extends Controller {
      * @return Response
      */
     public function listingAjax() {
-        $per_page = \Input::get('showEntries');
+        $per_page = 20;// \Input::get('showEntries');
         $page = \Input::get('page');
         $cur_page = $page;
         $page -= 1;
@@ -191,8 +191,7 @@ class RestaurantController extends Controller {
                     $newName=$ob->slug.".".$ext;
     
                     $destinationPath = public_path('assets/images/restaurants/'.urldecode($post['id']));
-                    
-                    $imgVs=getimagesize($destinationPath."/".$post['logo']);
+                    //$imgVs=getimagesize($destinationPath."/".$post['logo']);
     
                     if (!file_exists($destinationPath)) {
                         mkdir('assets/images/restaurants/' . $post['id'], 0777, true);
