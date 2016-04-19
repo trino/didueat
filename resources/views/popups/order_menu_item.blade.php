@@ -9,15 +9,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <?php
-            printfile("resources/views/popups/order_menu_item.blade.php");
-            $alts = array(
-                    "addspan" => "Add this addon",
-                    "remspan" => "Remove this addon",
-                    "add" => "Add these items to your cart",
-                    "minus" => "Remove 1 item",
-                    "plus" => "Add 1 item",
-                    "bigimage" => "This item's picture"
-            );
+                printfile("resources/views/popups/order_menu_item.blade.php");
+                $alts = array(
+                        "addspan" => "Add this addon",
+                        "remspan" => "Remove this addon",
+                        "add" => "Add these items to your cart",
+                        "minus" => "Remove 1 item",
+                        "plus" => "Add 1 item",
+                        "bigimage" => "This item's picture",
+                        "csr" => "What to do if something is wrong with the order"
+                );
             ?>
             <style>
                 .image {
@@ -102,14 +103,10 @@
                                     <tr>
                                         <td width="100%" id="td_{{ $sub->id }}" class="valign-top">
 
-                                            <input type="hidden" value="{{ $sub->exact_upto_qty }}"
-                                                   id="extra_no_{{ $sub->id }}">
-                                            <input type="hidden" value="{{ $sub->req_opt }}"
-                                                   id="required_{{ $sub->id }}">
-                                            <input type="hidden" value="{{ $sub->sing_mul }}"
-                                                   id="multiple_{{ $sub->id }}">
-                                            <input type="hidden" value="{{ $sub->exact_upto }}"
-                                                   id="upto_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->exact_upto_qty }}" id="extra_no_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->req_opt }}" id="required_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->sing_mul }}" id="multiple_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->exact_upto }}" id="upto_{{ $sub->id }}">
 
                                             <div class="infolist m-t-1">
                                                 <div style="display: none;">
@@ -121,43 +118,43 @@
                                                 </div>
                                                 <strong>{{ ucfirst($sub->menu_item) }}</strong><br>
 
-                                                           <span class="limit-options text-muted">
-                                                               <?php
-                                                               if ($sub->exact_upto == 0) {
-                                                                   $upto = "up to ";
-                                                               } elseif ($sub->exact_upto == '1') {
-                                                                   $upto = "exactly ";
-                                                               }
-                                                               if ($sub->req_opt == '0') {
-                                                                   if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                                       echo "Select " . $upto . $sub->exact_upto_qty . "";
-                                                                   }
-                                                                   echo " - optional";
-                                                               } elseif ($sub->req_opt == '1') {
-                                                                   if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                                       echo "Select " . $upto . $sub->exact_upto_qty . "";
-                                                                   }
-                                                                   echo " - required";
-                                                               }
-                                                               ?>
-                                                           </span>
+                                                <span class="limit-options text-muted">
+                                                   <?php
+                                                       if ($sub->exact_upto == 0) {
+                                                           $upto = "up to ";
+                                                       } elseif ($sub->exact_upto == '1') {
+                                                           $upto = "exactly ";
+                                                       }
+                                                       if ($sub->req_opt == '0') {
+                                                           if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
+                                                               echo "Select " . $upto . $sub->exact_upto_qty . "";
+                                                           }
+                                                           echo " - optional";
+                                                       } elseif ($sub->req_opt == '1') {
+                                                           if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
+                                                               echo "Select " . $upto . $sub->exact_upto_qty . "";
+                                                           }
+                                                           echo " - required";
+                                                       }
+                                                   ?>
+                                                </span>
 
                                                 <div class="clearfix"></div>
                                                 <span class="error_{{ $sub->id }} errormsg"></span>
 
                                                 <div class="list clearfix row  m-t-1">
                                                     <?php
-                                                    $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get();
-                                                    $a = 0;
+                                                        $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get();
+                                                        $a = 0;
                                                     ?>
                                                     @foreach($mini_menus as $mm)
                                                         <?php
-                                                        $a++;
-                                                        if ($mm->price != 0) {
-                                                            $extra_price = '(+$' . $mm->price . ')_';
-                                                        } else {
-                                                            $extra_price = '_';
-                                                        }
+                                                            $a++;
+                                                            if ($mm->price != 0) {
+                                                                $extra_price = '(+$' . $mm->price . ')_';
+                                                            } else {
+                                                                $extra_price = '_';
+                                                            }
                                                         ?>
 
                                                         <div class="col-xs-12 col-sm-6 form-group"
@@ -186,9 +183,7 @@
                                                                 </div>
 
 
-                                                                <div
-                                                                        style="width:35%;float:left;   @if ($sub->sing_mul == '1')display:none; @endif"
-                                                                        class="pull-left p-a-0">
+                                                                <div style="width:35%;float:left;   @if ($sub->sing_mul == '1')display:none; @endif" class="pull-left p-a-0">
 
                                                                     <a id="addspan_{{ $mm->id }}"
                                                                        title="{{ $alts["addspan"] }}"
@@ -212,9 +207,9 @@
 
                                                         </div>
                                                         <?php
-                                                        if (!($a & 1)) {
-                                                            echo '<div class="clearfix" ></div>';
-                                                        }
+                                                            if (!($a & 1)) {
+                                                                echo '<div class="clearfix" ></div>';
+                                                            }
                                                         ?>
                                                     @endforeach
                                                     <input type="hidden" value="" class="chars_{{ $sub->id }}">
@@ -244,6 +239,14 @@
                         <!--button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->
+                        <SELECT ID="csr{{ $value->id }}" TITLE="{{ $alts["csr"] }}" CLASS="btn btn-secondary">
+                            <?php
+                                $Actions = array("Go with merchant recommendation", "Refund this item", "Contact me", "Cancel entire order");
+                                foreach($Actions as $Index => $Action){
+                                    echo '<OPTION VALUE="' . $Index . '">' . $Action . '</OPTION>';
+                                }
+                            ?>
+                        </SELECT>
                     </div>
                     <div class="pull-right" style="margin-left:.5rem;">
                         <a id="profilemenu{{ $value->id }}" title="{{ $alts["add"] }}"
@@ -257,14 +260,13 @@
                         <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());"
                                 class="btn btn-secondary p-x-0" @if(!$usedropdown) style="display:none;" @endif >
                             <?php
-                            for ($i = 1; $i <= 10; $i++) {
-                                echo '<OPTION';
-                                if ($i == 1) {
-                                    echo ' SELECTED';
+                                for ($i = 1; $i <= 10; $i++) {
+                                    echo '<OPTION';
+                                    if ($i == 1) {
+                                        echo ' SELECTED';
+                                    }
+                                    echo '>' . $i . '</OPTION>';
                                 }
-                                echo '>' . $i . '</OPTION>';
-                            }
-                            ?>
                             ?>
                         </SELECT>
                         @if($usedropdown) <SPAN STYLE="display: none;"> @endif
