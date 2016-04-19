@@ -9,6 +9,10 @@
     </thead>
     <TBODY>
         <?php
+            $alts = array(
+                    "csr" => "What to do if something is wrong with the order"
+            );
+
             if(isset($order)){
                 $menu_ids = $order->menu_ids;
                 $arr_menu = explode(',', $menu_ids);
@@ -31,12 +35,26 @@
                     $image = (isset($m->image) && !empty($m->image)) ? $m->image : 'default.png';
                     ?>
                         <tr id="list{{ $order->listid }}" class="infolist">
-                            <td valign="top" class="receipt_image" style='@if(isset($order)) width:20%; @else width:50px !important; @endif'> @if(isset($order))         <span class="count">{{ $arr_qty[$k] }}</span>@endif </td>
+                            <td valign="top" class="receipt_image" style='@if(isset($order)) width:20%; @else width:50px !important; @endif'>
+                                @if(isset($order)) <span class="count">{{ $arr_qty[$k] }}</span> @endif
+                                @if($showCSR) <BR><i id="spin{{ $order->id }}" class="fa fa-spinner fa-spin pull-bottom" style="display:none;"></i> @endif
+                            </td>
 
                             <td @if(isset($order)) style='width:55%;' @endif>
                                 <input type="hidden" class="count" name="qtys[]" value="{{ $arr_qty[$k] }}"/>
-
                                 <span class='menu_bold'>{{ $tt }}</span><?php if ($extz != '') echo ":";?> {{ str_replace('<br/>', '', $extz) }}
+                                @if($showCSR)
+                                    <SELECT ID="csr{{ $order->listid }}" TITLE="{{ $alts["csr"] }}" INDEX="{{ $order->id }}" ONCHANGE="changecsr(event);">
+                                        <?php
+                                            $Actions = array("Go with merchant recommendation", "Refund this item", "Contact me", "Cancel entire order");
+                                            foreach($Actions as $Index => $Action){
+                                                echo '<OPTION VALUE="' . $Index . '"';
+                                                if($order->csr == $Index){ echo ' SELECTED';}
+                                                echo '>' . $Action . '</OPTION>';
+                                            }
+                                        ?>
+                                    </SELECT>
+                                @endif
                             </td>
 
                             <td valign="top" class="total text-xs-right" @if(isset($order)) style='width:25%;' @endif>${{number_format($arr_prs[$k],2)}}</td>
@@ -53,3 +71,26 @@
         ?>
     </TBODY>
 </table>
+@if($showCSR)
+    <STYLE>
+        .receipt_image {
+            position: relative;
+        }
+        .pull-bottom {
+            position: absolute;
+            bottom: 0;
+            margin-bottom: 8px;
+        }
+    </STYLE>
+    <SCRIPT>
+        function changecsr(event){
+            var ID = $(event.target).attr("index");
+            var Action = $(event.target).val();
+            $("#spin" + ID).show();
+            $.post("{{ url('ajax') }}", {_token: "{{ csrf_token() }}", type: "csr", id: ID, action: Action}, function (result) {
+                $("#spin" + ID).hide();
+                if(result) {alert(result);}
+            });
+        }
+    </SCRIPT>
+@endif

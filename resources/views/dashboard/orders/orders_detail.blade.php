@@ -23,6 +23,7 @@
                     "decline" => "Decline this order",
                     "cantdecline" => "Unable to decline this order"
             );
+            $showCSR = true;
         ?>
         <div class="row">
 

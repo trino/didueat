@@ -19,6 +19,9 @@
     if (!isset($profile)) {
         $profile = false;
     }
+    if(!isset($showCSR)){
+        $showCSR = false;
+    }
     if (!isset($type)) {
         $type = false;
     }

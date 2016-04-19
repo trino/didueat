@@ -584,6 +584,10 @@ class HomeController extends Controller {
                     }
                     break;
 
+                case "csr":
+                    update_database("reservations", "id", $_POST["id"], array("csr" => $_POST["action"]));
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
                     if(debugmode()){ echo "\r\n" . var_export($_POST, true);}
