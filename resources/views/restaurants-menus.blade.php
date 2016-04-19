@@ -28,6 +28,11 @@
 
         $allowedtoupload = $is_my_restro;
         if (read("profiletype") == 1 || read("profiletype") == 3) {$allowedtoupload = true;}
+
+        if(!$restaurant->latitude || !$restaurant->longitude){
+            $restaurant->longitude = 0;
+            $restaurant->latitude = 90;
+        }
     ?>
 
 
@@ -646,6 +651,7 @@
 
                 updatecart();
             });
+
             function inArray(needle, haystack) {
                 var length = haystack.length;
                 for (var i = 0; i < length; i++) {
