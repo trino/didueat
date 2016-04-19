@@ -1,6 +1,18 @@
-<div class="container m-t-1">
-
-
+<STYLE>
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: {{ iif(debugmode(), 130, 100)}}px;
+        background-color: white;
+        z-index: 100;
+    }
+    body{
+        padding-bottom: 130px;
+    }
+</STYLE>
+<div class="container m-t-1 footer">
     <footer class="text-muted p-a-1">
         <?php
         printfile("views/dashboard/layouts/includes/footer.blade.php");
