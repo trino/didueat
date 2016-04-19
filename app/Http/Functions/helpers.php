@@ -259,11 +259,15 @@
     }
 
     //unified error handling
-    function handleexception($e){
-        $Message = $e->getMessage();
-        if (debugmode()) {
-            $Message .= "<BR>File " . $e->getFile() . " Line " . $e->getLine();
-            debugprint($Message . "\r\n Trace " . $e->getTraceAsString());
+    function handleexception($e, $isSQL = false){
+        if($isSQL){
+            $Message = "An SQL error occurred. Please try again. \r\n /r/n SQL:" . $e->getSql();
+        } else {
+            $Message = $e->getMessage();
+            if (debugmode()) {
+                $Message .= "<BR>File " . $e->getFile() . " Line " . $e->getLine();
+                debugprint($Message . "\r\n Trace " . $e->getTraceAsString());
+            }
         }
         return $Message;
     }

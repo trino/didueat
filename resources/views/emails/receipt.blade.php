@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" @if(!isset($order)) style="width:100%" @else style="width:800px" @endif>
         <?php
-            printfile($profile_type . " views/emails/receipt.blade.php");
+            if(!isset($email)){$email = false;}
+            printfile($profile_type . " views/emails/receipt.blade.php<BR>Email: " . $email);
             $order = select_field("reservations", "id", $orderid);
             $restaurant = select_field("restaurants", "id", $order->restaurant_id);
             $user_detail = select_field("profiles", "id", $order->user_id);
-            $email_msg=1;
         ?>
         <!--h4 style="">Order Status:&nbsp; <span style="color:#f00">{{$order->status}}</span><br/><span style="font-weight:normal;">Note: You will receive a confirmation email when your order has been finalized</span></span></h4>
         

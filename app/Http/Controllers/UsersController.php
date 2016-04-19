@@ -283,6 +283,7 @@ class UsersController extends Controller {
         //echo '<pre>'.print_r($post); die;
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             \DB::beginTransaction();
+            $Stage = 1;
             try {//populate data array
                 $msg = "";
                 if(!isset($post['listid'])){
@@ -296,7 +297,7 @@ class UsersController extends Controller {
                     }
                     \App\Http\Models\CreditCard::makenew($creditinfo);
                 }
-
+                $Stage=2;
                 $post['name'] = $post['ordered_by'];
                 $res['restaurant_id'] = $post['hidden_rest_id'];
                 $res['user_id'] = $post['user_id'];
@@ -315,7 +316,7 @@ class UsersController extends Controller {
                 $res['restaurant_id'] = $post['res_id'];
                 $res['order_till'] = $post['order_till'];
                 if(isset($post['contact'])) {$res['contact'] = $post['contact'];}
-
+                $Stage=3;
                 if(isset($post["reservation_address_dropdown"]) && $post["reservation_address_dropdown"]){
                     $Address = select_field("profiles_addresses", "id", $post["reservation_address_dropdown"]);
                     $res['address2'] = $Address->address;
@@ -344,7 +345,7 @@ class UsersController extends Controller {
                     }
                 }
                 //echo '<pre>';print_r($res); die;
-                
+                $Stage=4;
                 
                 $res['name'] = trim($post['ordered_by']);
 
@@ -360,10 +361,12 @@ class UsersController extends Controller {
                         
                     }
                 }
+                $Stage=5;
                 $ob2 = new \App\Http\Models\Reservations();
                 $ob2->populate($res, "guid");
                 $ob2->save();
                 $oid = $ob2->id;
+                $Stage=6;
                 /*
                 if($post['payment_type']=='cc')
                 {
@@ -385,6 +388,7 @@ class UsersController extends Controller {
                 $res1 = \App\Http\Models\Reservations::find($oid);
                 $res1->populate($res);
                 $res1->save();
+                $Stage=7;
 
                 //echo '<pre>';print_r($res); die;
                 event(new \App\Events\AppEvents($res, "Order Created"));
@@ -396,6 +400,7 @@ class UsersController extends Controller {
                     $userArray3["name"] = $post["ordered_by"];
                     $userArray3["email"] = $post["email"];
                 }
+                $Stage=8;
 
                 $userArray3['mail_subject'] = 'Your ' . DIDUEAT . ' order has been received!';
                 $userArray3["guid"] = $ob2->guid;
@@ -403,13 +408,14 @@ class UsersController extends Controller {
                 $userArray3["profile_type"] = "user";
 
                 $this->sendEMail("emails.receipt", $userArray3);
+                $Stage=9;
 
                 $userArray3["profile_type"] = "restaurant";
                 $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to ' . DIDUEAT. ' for more details. Thank you.';
                 //notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter", $IncludeVan = false, $Emails = true, $Calls = true, $SMS = true) {
                 $ret = app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt");
                 //debugprint( var_export($ret, true) );
-
+                $Stage=10;
                 //CC
                 if($post['payment_type']=='cc') {
                     if(isset($post["stripeToken"]) && $post["stripeToken"]){
@@ -422,12 +428,14 @@ class UsersController extends Controller {
                     }
                     
                 }
+                $Stage=11;
                 echo '6';
 
                 \DB::commit();
             } catch(\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
-                echo "An error occurred. Please try again.";
+                var_dump($e);
+                echo handleexception($e, true);
                 die();
             } catch(\Exception $e) {
                 \DB::rollback();
