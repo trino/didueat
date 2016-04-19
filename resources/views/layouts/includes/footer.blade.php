@@ -12,6 +12,7 @@
         padding-bottom: 130px;
     }
 </STYLE>
+@include('popups.simplemodal')
 <div class="container m-t-1 footer">
     <footer class="text-muted p-a-1">
         <?php
@@ -32,7 +33,6 @@
 
 
                 <ul class="list-inline">
-                    @include('popups.simplemodal')
                     <li class="list-inline-item"><a href="{{ url("home/about") }}" title="{{ $alts["home/about"] }}">About</a>
                     </li>
                     <li class="list-inline-item"><a href="{{ url("home/faq") }}" title="{{ $alts["home/faq"] }}">FAQ</a>
