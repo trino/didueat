@@ -1,7 +1,7 @@
-<div class="container">
-    <hr>
+<div class="container m-t-1">
 
-    <footer class="text-muted p-b-1 p-l-1 p-r-1">
+
+    <footer class="text-muted p-a-1">
         <?php
         printfile("views/dashboard/layouts/includes/footer.blade.php");
         $alts = array(

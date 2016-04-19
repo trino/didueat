@@ -37,9 +37,8 @@
 
             <div class="col-lg-8 col-md-7 col-sm-12 ">
 
-                @if(!$is_my_restro)
                     @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true))
-                @endif
+
 
                 <div class="">
                     <div class="overlay overlay_reservation">
