@@ -115,7 +115,7 @@ $alts = array(
         <h3 style="margin-bottom: .2rem !important;">
             @if(isset($order))
                 <a class="card-link restaurant-url"
-                   href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
+                   href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}"
                    title="{{ $alts["restaurants/menu"] }}">
                     {{ $Restaurant['name'] }}
                 </a>

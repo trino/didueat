@@ -35,7 +35,7 @@ class RestaurantController extends Controller {
      * @return Response
      */
     public function listingAjax() {
-        $per_page = \Input::get('showEntries');
+        $per_page = 20;// \Input::get('showEntries');
         $page = \Input::get('page');
         $cur_page = $page;
         $page -= 1;

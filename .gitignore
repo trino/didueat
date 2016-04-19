@@ -84,3 +84,4 @@ config/app.php
 .env
 *.env
 public/debugmode.ip
+.idea/misc.xml
