@@ -846,9 +846,8 @@ fieldset[disabled] .btn-primary.focus {
 */
 
 @media screen and (max-width: 400px) {
-    .navbar, .alert {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
+    .pading-left-mobile{
+        padding-left: .9rem !important;
     }
 
     .row, .container, .modal-image {
