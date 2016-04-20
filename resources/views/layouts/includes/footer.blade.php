@@ -109,7 +109,7 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
 
                     &copy; {{ DIDUEAT  }} <?= date("Y"); ?>
 
-                    @if(Session::get('session_type_user') == "super" && false)
+                    @if(Session::get('session_type_user') == "super" )
                         <?php
                         $end_loading_time = microtime(true);
                         printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
