@@ -157,6 +157,10 @@ function fillInAddress1() {
       return place;
     }
     else{
+    // reset msg above in case user enters new address in field
+      document.getElementById('postal_code').readOnly=true;
+      document.getElementById('pcNotFnd').innerHTML="";
+      document.getElementById('pcNotFnd').style.display="none";
       isaddress_incomplete();
       return place;
     }

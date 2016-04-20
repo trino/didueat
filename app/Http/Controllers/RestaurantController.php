@@ -135,7 +135,8 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function addRestaurants($post = false) {
-// Note: HomeController.php is what is actually used to add new restaurant, not this file, which is used to update/edit a restaurant
+// Note: HomeController starts new resto w/ signupRestaurants() then sends to RestaurantController/restaurantInfo() which actually adds new resto to db
+// this fn is used to update/edit a restaurant
         if(!$post) {$post = \Input::all();}//check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {//populate data array from the post
@@ -143,7 +144,7 @@ class RestaurantController extends Controller {
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate(array(),false);
                 $ob->save();
-
+                
                 $this->restaurantInfo($ob->id, read("id"));
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
@@ -169,16 +170,7 @@ class RestaurantController extends Controller {
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
-            /*if (!isset($post['country']) || empty($post['country'])) {
-                return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
-            }
-            if (!isset($post['postal_code']) || empty(clean_postalcode($post['postal_code']))) {
-                return $this->failure("[Postal Code] field is missing or invalid!", 'restaurant/info/' . $post['id']);
-            }
-            if (!isset($post['city']) || empty($post['city'])) {
-                return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
-            }
-            */
+
             try {
                 $update=$post;
                 $addlogo='';
@@ -258,14 +250,11 @@ class RestaurantController extends Controller {
                 }
                 if(!$post['id']){
                     $post['id'] = $ob->id;
+	 	                // add first category
+ 		                $this->saveCat($ob->id, "Main", 1); // default category is Main
                 }
-                
-// add first category
 
-               if($ob->id){
-                    // now add first category
-                    $this->saveCat($ob->id, "Main", 1); // default category is Main
-               }
+
                 // first delete all existing cuisines for this restaurant in cuisines table, then add new ones
                 $restCuisine_ids = \App\Http\Models\Cuisines::where('restID', $post['id'])->get();
                 foreach ($restCuisine_ids as $c) {
