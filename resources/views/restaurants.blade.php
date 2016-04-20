@@ -437,6 +437,8 @@
          });
          */
 
+        var lastdata = "";
+
         function submitform(e, start, eventname) {
             if (IgnoreOne) {
                 IgnoreOne = false;
@@ -492,6 +494,11 @@
                 var data = $('#search-form').serialize() + "&" + $('#addressbar').serialize(); // "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias + "&city";
             }
 
+            var tempdata = data + "&start=" + start;
+            if(tempdata == lastdata){
+                return tempdata;
+            }
+
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
                 $('#restuarant_bar').html('');
@@ -499,7 +506,7 @@
                 $('#start_up_message').hide();
                // $('#icons_show').hide();
                 $('#results_show').show();
-                $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data: data, start: startingat}, function (result) {
+                $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data: data, start: start}, function (result) {
                     var quantity = 0;
                     $('#parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);
@@ -526,7 +533,8 @@
                     $('#loadMoreBtnContainer').remove();
                 });
             }
-            return false;
+
+            return tempdata;
         }
         
         
@@ -577,10 +585,10 @@
         	});
         });
         /////////////////////////////////////////////////////////
-        
+
         $('body').on('click', '.loadMoreRestaurants', function (e) {
             var start = $(this).attr('data-id');
-            submitform(e, start, "body onclick");
+            lastdata = submitform(e, start, "body onclick");
         });
 
         var p = document.getElementById("radius");
