@@ -46,7 +46,10 @@
                                     <?php
                                         if($showCSR){
                                             $Actions = array("Go with merchant recommendation", "Refund this item", "Contact me", "Cancel entire order");
-                                            echo $Actions[$order->csr];
+                                            if(isset($order->csr) && $order->csr)
+                                            echo "<br/><b>".$Actions[$order->csr].'</b>';
+                                            else
+                                            echo "<br/><b>".$Actions[0].'</b>';
                                         }
                                     ?>
                             </td>
