@@ -70,6 +70,11 @@
                 'order' => (\Input::get('order')) ? \Input::get('order') : 'DESC',
                 'searchResults' => \Input::get('searchResults')
             );
+            $userid = \Input::get('user_id');
+            if($userid){
+                $data["user_id"] = $userid;
+            }
+            //  $Query = \App\Http\Models\Profiles::listing($data, "list", $recCount)->get();
 
             $Query = \App\Http\Models\RatingUsers::listing($data, "list", $recCount)->get();
             $no_of_paginations = ceil($recCount / $per_page);
