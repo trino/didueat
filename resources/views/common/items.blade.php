@@ -43,18 +43,12 @@
                             <td @if(isset($order)) style='width:55%;' @endif>
                                 <input type="hidden" class="count" name="qtys[]" value="{{ $arr_qty[$k] }}"/>
                                 <span class='menu_bold'>{{ $tt }}</span><?php if ($extz != '') echo ":";?> {{ str_replace('<br/>', '', $extz) }}
-                                @if($showCSR)
-                                    <SELECT ID="csr{{ $order->listid }}" TITLE="{{ $alts["csr"] }}" INDEX="{{ $order->id }}" ONCHANGE="changecsr(event);">
-                                        <?php
+                                    <?php
+                                        if($showCSR){
                                             $Actions = array("Go with merchant recommendation", "Refund this item", "Contact me", "Cancel entire order");
-                                            foreach($Actions as $Index => $Action){
-                                                echo '<OPTION VALUE="' . $Index . '"';
-                                                if($order->csr == $Index){ echo ' SELECTED';}
-                                                echo '>' . $Action . '</OPTION>';
-                                            }
-                                        ?>
-                                    </SELECT>
-                                @endif
+                                            echo $Actions[$order->csr];
+                                        }
+                                    ?>
                             </td>
 
                             <td valign="top" class="total text-xs-right" @if(isset($order)) style='width:25%;' @endif>${{number_format($arr_prs[$k],2)}}</td>
