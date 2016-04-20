@@ -206,7 +206,7 @@ if (isset($is_menu)) {
                 if (($filename == 1)) {
                     //echo $filename;
                     $filename = asset("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg") . ' ';
-                    echo '<IMG style="width: 34px; height: 34px;" class="img-rounded" SRC="' . $filename . '">';
+                    echo '<IMG style="width: 34px; height: 34px;" class="img-circle" SRC="' . $filename . '">';
                 }
                 echo ' ' . $menuitem->menu_item . '';
                 echo '<span style="white-space: nowrap;"> &ndash; ' . asmoney($menuitem->price) . '</span><div class="clearfix " style="margin-bottom:.1rem;"></div>';
