@@ -127,14 +127,14 @@
                                                        }
                                                        if ($sub->req_opt == '0') {
                                                            if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                               echo "Select " . $upto . $sub->exact_upto_qty . "";
+                                                               echo "Select " . $upto . $sub->exact_upto_qty . " ";
                                                            }
-                                                           echo " - optional";
+                                                           echo "optional";
                                                        } elseif ($sub->req_opt == '1') {
                                                            if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                               echo "Select " . $upto . $sub->exact_upto_qty . "";
+                                                               echo "Select " . $upto . $sub->exact_upto_qty . " ";
                                                            }
-                                                           echo " - required";
+                                                           echo "required";
                                                        }
                                                    ?>
                                                 </span>

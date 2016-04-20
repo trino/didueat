@@ -230,7 +230,7 @@ $itemPosnForJS = [];
                                     <div class="" style="width: 100%;float:left;vertical-align: middle;">
 
                 <a
-
+style="line-height:30px;"
                         href="#" id="{{ $value->id }}" name="{{ $value->id }}"
                    data-res-id="{{ $value->restaurant_id }}"
                    title="{{ $alts["product-pop-up"] }}"
