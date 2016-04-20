@@ -44,25 +44,23 @@
     $closedStr = "";
 
     if(isset($query) && $count > 0 && is_iterable($query)){
+        $restaurants = array();
         foreach($query as $value){
-            ob_start();
-            $is_open = \App\Http\Models\Restaurants::getbusinessday($value);
-            ?>
-                <div class="list-group">
-                    @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "is_menu" => isset($is_menu)))
-                </div>
-            <?php
-            if ($is_open) {
-                $openStr .= "" . ob_get_contents();
-            } else {
-                $closedStr .= "" . ob_get_contents();
-            }
-            ob_end_clean();
-            $totalCnt++;
-            if (isset($is_open) && $is_open == 1) {
-                $openCnt++;
-            } else {
-                $closedCnt++;
+            if(!isset($restaurants[$value["id"]])){
+                $restaurants[$value["id"]] = true;
+                $is_open = \App\Http\Models\Restaurants::getbusinessday($value);
+                $thisrestaurant = '<div class="list-group">' . view("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "is_menu" => isset($is_menu))) . '</div>';
+                if ($is_open) {
+                    $openStr .= $thisrestaurant;
+                } else {
+                    $closedStr .= $thisrestaurant;
+                }
+                $totalCnt++;
+                if (isset($is_open) && $is_open == 1) {
+                    $openCnt++;
+                } else {
+                    $closedCnt++;
+                }
             }
         }
     }
