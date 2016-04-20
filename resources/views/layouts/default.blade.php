@@ -195,15 +195,9 @@ if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_AD
 
 
 <script>
-    $(function () {
-        $(window).unload(function () {
-            var scrollPosition = $("div#element").scrollTop();
-            localStorage.setItem("scrollPosition", scrollPosition);
-        });
-        if (localStorage.scrollPosition) {
-            $("div#element").scrollTop(localStorage.getItem("scrollPosition"));
-        }
-    });
+
+     
+
     $(window).load(function () {
         $('.overlay_loader').hide();
     });
@@ -223,7 +217,7 @@ if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_AD
     ga('send', 'pageview');
 </script>
 
-<div id="element" style="display: none;"></div>
+
 
 
 

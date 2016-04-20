@@ -58,7 +58,7 @@ class HomeController extends Controller {
        // $data['top_ten'] = $this->getTopTen();
         $data['query'] = 0;
         $data['count'] = 0;
-        $data['start'] = 0;
+        //$data['start'] = 0;
         $data['hasMorePage'] = 0;
         return view('restaurants', $data);
     }

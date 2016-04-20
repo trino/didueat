@@ -280,6 +280,7 @@
             @endif
 
         </div>
+        <div id="element">abc</div>
     </div>
 
 
@@ -442,11 +443,11 @@
                 return false;
             }
 
-            if(startingat){
+            /*if(startingat){
                 ChangeUrl("Search", "{{ url("?start=") }}" + startingat);
             } else {
                 ChangeUrl("Search", "{{ url("?start=") }}" + start);
-            }
+            }*/
             var formatted_address = $(elementname).val();
             var latitude = $('#latitude').val().trim();
             var longitude = $('#longitude').val().trim();
@@ -494,7 +495,7 @@
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
                 $('#restuarant_bar').html('');
-                $('#parentLoadingbar').show();
+                //$('#parentLoadingbar').show();
                 $('#start_up_message').hide();
                // $('#icons_show').hide();
                 $('#results_show').show();
@@ -514,7 +515,7 @@
                     }
                 });
             } else {
-                $('.loadingbar').show();
+                //$('.loadingbar').show();
                 $('#loadingbutton').hide();
                 $.post("{{ url('/search/restaurants/ajax') }}", {
                     start: start,
@@ -532,11 +533,43 @@
         
         
         ////////////////////////////////////////////////////////////////
+       $(document).ready(function () {
+    $(window).on('beforeunload', function () {
+        document.cookie = "keepscroll=" + $(window).scrollTop();
+    });
+    var cs = document.cookie ? document.cookie.split(';') : [];
+    var i = 0, cslen = cs.length;
+    for (; i < cs.length; i++) {
+        var c = cs[i].split('=');
+        if (c[0].trim() == "keepscroll") {
+            setTimeout(function(){
+                if($(document).height()<c[1])
+                {
+                   $('.loadMoreRestaurants').click()
+                     setTimeout(function(){$(window).scrollTop(parseInt(c[1]));},800);
+                    
+                    
+                  
+                  // alert($(document).height());
+                  
+                }
+            },800);
+            
+            
+            break;
+        }
+    }
+});
+        
+        
         $(document).ready(function() {
         	var win = $(window);
         
         	// Each time the user scrolls
         	win.scroll(function() {
+        	   //if($(document).height()>4000)
+        	  //alert($(window).scrollTop());
+        	   //alert($("div#element").scrollTop());
         		// End of the document reached?
         		if ($(document).height() - win.height() == win.scrollTop()) {
         			$('.loadMoreRestaurants').click();
