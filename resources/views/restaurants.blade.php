@@ -288,7 +288,7 @@
         var IgnoreOne = false;
         var startingat = 0;
         @if(isset($_GET["start"]))
-            startingat = "{{ $_GET["start"] }}";
+            //startingat = "{{ $_GET["start"] }}";
         @endif
         onloadpage();
 

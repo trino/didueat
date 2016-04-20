@@ -1,4 +1,4 @@
-<STYLE>
+<!--STYLE>
     .footer {
         position: fixed;
         bottom: 0;
@@ -12,7 +12,7 @@
     body {
         padding-bottom: 130px;
     }
-</STYLE>
+</STYLE-->
 @include('popups.simplemodal')
 <div class="container m-t-1 footer">
     <footer class="text-muted p-a-1">
