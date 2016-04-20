@@ -42,7 +42,7 @@
 
             <div class="col-lg-8 col-md-7 col-sm-12 ">
 
-                    @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true))
+                    @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true, "showtoday" => true))
 
 
                 <div class="">
