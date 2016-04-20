@@ -280,7 +280,7 @@
             @endif
 
         </div>
-        <div id="element">abc</div>
+        <div id="element">&nbsp;</div>
     </div>
 
 
