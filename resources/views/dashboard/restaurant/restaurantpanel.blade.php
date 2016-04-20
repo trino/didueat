@@ -59,9 +59,11 @@
 
     $Day = current_day_of_week();
     if ($is_open) {
-        $open = converttime($Restaurant[$is_open . "_open" . $key]);
-        $close = converttime($Restaurant[$is_open . "_close" . $key]);
-        $MoreTime = "Open " . strtolower($is_open) . " from " . $open . " to " . $close;
+        if(isset($showtoday)){
+            $open = converttime($Restaurant[$is_open . "_open" . $key]);
+            $close = converttime($Restaurant[$is_open . "_close" . $key]);
+            $MoreTime = "Open today from " . $open . " to " . $close;
+        }
     } else {
         $MoreTime = "Currently closed";
         $grayout = " grayout";
