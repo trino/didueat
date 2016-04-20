@@ -65,10 +65,10 @@ if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_AD
     <!-- Safari doesn't trust the certificate from here:
      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <link href="{{ asset('assets/global/css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!--link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet"-->
     <!--link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity="" crossorigin="anonymous"-->
-    <!--link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" integrity=""
-          crossorigin="anonymous"-->
+    <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" integrity=""
+          crossorigin="anonymous">
 
     <!--link href="{{ asset('assets/global/css/bootstrap.css') }}" rel="stylesheet"-->
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">

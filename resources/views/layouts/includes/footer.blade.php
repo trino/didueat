@@ -8,7 +8,8 @@
         background-color: white;
         z-index: 100;
     }
-    body{
+
+    body {
         padding-bottom: 130px;
     }
 </STYLE>
@@ -60,25 +61,28 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                     }
 
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "restaurant" || debugmode())) {?>
-                        <li class="list-inline-item">
-                            <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant
-                                Sign Up</a>
-                        </li>
+                    <li class="list-inline-item">
+                        <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant
+                            Sign Up</a>
+                    </li>
                     <?php } ?>
 
 
                     <li class="list-inline-item">
-                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" title="{{ $alts["allergy"] }}" class="simplemodal">Allergy</a>
+                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy"
+                           title="{{ $alts["allergy"] }}" class="simplemodal">Allergy</a>
                     </li>
 
                     @if(!islive())
                         <li class="list-inline-item">
-                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }} Debug Mode</a>
+                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }}
+                                Debug Mode</a>
                         </li>
                     @endif
 
                     @if(debugmode())
-                        <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}&action=clearcache">Clear Cache</a>
+                        <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}&action=clearcache">Clear
+                            Cache</a>
                     @endif
 
                     <li class="list-inline-item">
@@ -91,8 +95,6 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                                title="{{ $alts["socmed"] }}"><i class="fa fa-instagram"></i></A>
                         </h5>
                     </li>
-
-
                 </ul>
             </div>
 
