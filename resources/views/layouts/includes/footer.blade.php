@@ -396,6 +396,7 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                                     $(".static-rating").attr('class', 'rating');
                                     $(".rating input[type=radio]").attr("class", "update-rating");
                                     $(".parents").find(".rating").removeClass("rating").addClass("static-rating");
+                                    $(".text-muted > div > .rating").removeClass("rating").addClass("static-rating");
 
                                     $('.hidden_elements').hide();
                                     $('#fullname, #ordered_email, #ordered_contact').attr('readonly', 'readonly')
