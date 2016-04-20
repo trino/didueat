@@ -19,14 +19,20 @@
                 <a href="{{ url("/orders/list/cancel/email/" . $email . "/" . $order->guid) }}">Decline</a>
             </div>
         </h3-->
-        {{ DIDUEAT }} order received. Please see order details below:
         <TABLE WIDTH="100%">
+            <TR>
+                <TD COLSPAN="2">
+                    <table><tr><td>{{ DIDUEAT }} order received. Please see order details below:</td></tr></table>
+                </TD>
+            </TR>
             <TR>
                 <TD WIDTH="50%" class="orderinfo"><?= $receipt; ?></TD>
                 <TD WIDTH="50%" class="receipt"><?= $view;  ?></TD>
             </TR>
+            <TR>
+                <TD COLSPAN="2"><?= $hash; ?></TD>
+            </TR>
         </TABLE>
-        <?= $hash; ?>
 
         <div class="clearfix"></div>
         @include("emails.footer")

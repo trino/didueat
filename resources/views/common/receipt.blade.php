@@ -120,13 +120,10 @@
                     </table>
                 @endif
 
-                @include('common.items')
-
                 <div class="totals form-group" style=" width:100%;">
-                    <table style="<?php if(!isset($em)){?>width:100%;<?php }else{?>width:100%;padding:22px 0<?php }?>">
-                        <tbody>
+                        @include('common.items')
                         <tr>
-                            <td width=" @if(isset($order)) 75% @else 50% @endif "><strong>Subtotal</strong></td>
+                            <td colspan="2" width=" @if(isset($order)) 75% @else 50% @endif "><strong>Subtotal</strong></td>
                             <td width=" @if(isset($order)) 25% @else 50% @endif ">
                                 <div class="pull-right subtotal inlineblock">
                                     ${{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}
@@ -136,7 +133,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Tax (<span id="tax inlineblock">13</span>%)</strong></td>
+                            <td colspan="2"><strong>Tax (<span id="tax inlineblock">13</span>%)</strong></td>
                             <td>
                                 <div class="pull-right ">
                                     <span class="tax inlineblock">${{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}</span>
@@ -147,7 +144,7 @@
                             </td>
                         </tr>
                         <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df">
-                            <td><strong>Delivery</strong></td>
+                            <td colspan="2"><strong>Delivery</strong></td>
                             <td>
                                 <div class="pull-right ">
                                     <span class="df">${{ (isset($order)) ? number_format($order->delivery_fee,2) :(isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}</span>
@@ -169,7 +166,7 @@
 
 
                         <tr>
-                            <td><strong>Total</strong></td>
+                            <td colspan="2"><strong>Total</strong></td>
                             <td>
                                 <div class="grandtotal inlineblock pull-right">${{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}</div>
                                 <input type="hidden" name="g_total" class="grandtotal" value="{{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}"/>

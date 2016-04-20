@@ -66,8 +66,7 @@
                 }
             }
         ?>
-    </TBODY>
-</table>
+
 @if($showCSR)
     <STYLE>
         .receipt_image {
