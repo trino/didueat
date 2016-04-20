@@ -1,4 +1,12 @@
 <?php
+    $alts = array(
+            "restaurants/menu" => "View Restaurant",
+            "View Menu" => "View this restaurant's menu",
+            "Order Online" => "Order from this restaurant's menu",
+            "moredetails" => "View more information about this restaurant",
+            "logo" => "This restaurant's logo"
+    );
+
     if (!function_exists("toseconds")) {
         printfile("dashboard/restaurant/restaurantpanel.blade.php");
         //convert a 24hr time into seconds
@@ -40,7 +48,6 @@
     $key = iif($delivery_type == "is_delivery", "_del"); //check if store is open
     $is_open = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
 
-
     $MoreTime = "";
     $grayout = "";
     $Message = "Order Online";
@@ -51,7 +58,11 @@
     $user_time = date('H:i:s');
 
     $Day = current_day_of_week();
-    if (!$is_open) {
+    if ($is_open) {
+        $open = converttime($Restaurant[$is_open . "_open" . $key]);
+        $close = converttime($Restaurant[$is_open . "_close" . $key]);
+        $MoreTime = "Open " . strtolower($is_open) . " from " . $open . " to " . $close;
+    } else {
         $MoreTime = "Currently closed";
         $grayout = " grayout";
         if ($Restaurant['open']) {
@@ -78,13 +89,6 @@
             // $MoreTime = "Not accepting orders";
         }
     }
-    $alts = array(
-            "restaurants/menu" => "View Restaurant",
-            "View Menu" => "View this restaurant's menu",
-            "Order Online" => "Order from this restaurant's menu",
-            "moredetails" => "View more information about this restaurant",
-            "logo" => "This restaurant's logo"
-    );
 ?>
 
 <div class="card-header" style=" @if(!isset($order)) background: white !important; margin-bottom:1rem !important;    box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
@@ -131,7 +135,7 @@
         </h3>
         <div class=" text-muted">
 
-            @if(!$is_open)
+            @if($MoreTime)
                 <div class="smallT">{{ $MoreTime }}</div>
             @endif
             {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}

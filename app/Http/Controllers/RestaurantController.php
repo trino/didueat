@@ -468,18 +468,16 @@ class RestaurantController extends Controller {
         return view('popups.menu_form', $data);
     }
     
-    public function loadPrevious($addonid)
-    {
-        if(!isset($addonid))
-        {
+    public function loadPrevious($addonid) {
+        if(!isset($addonid)) {
             $lastid =  \App\Http\Models\Menus::where('parent','<>','0')->orderBy('id', 'DESC')->first();
             $addonid = $lastid->parent;
         }
         $data['child'] = \App\Http\Models\Menus::where('id', $addonid)->first();
         return view('dashboard.restaurant.additional', $data);
     }
-    public function alladdons($resid)
-    {
+
+    public function alladdons($resid) {
         $data['menus'] = \App\Http\Models\Menus::where('restaurant_id',$resid)->where('parent','0')->get();
         return view('popups.all_addons',$data);
         

@@ -7,6 +7,9 @@
             $order = select_field("reservations", "id", $orderid);
             $restaurant = select_field("restaurants", "id", $order->restaurant_id);
             $user_detail = select_field("profiles", "id", $order->user_id);
+            $receipt = view('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail));
+            $view = view('common.receipt', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "email" => true, "hash" => true));
+            $hash = hashtext($receipt . $view);
         ?>
         <!--h4 style="">Order Status:&nbsp; <span style="color:#f00">{{$order->status}}</span><br/><span style="font-weight:normal;">Note: You will receive a confirmation email when your order has been finalized</span></span></h4>
         
@@ -16,24 +19,16 @@
                 <a href="{{ url("/orders/list/cancel/email/" . $email . "/" . $order->guid) }}">Decline</a>
             </div>
         </h3-->
+        {{ DIDUEAT }} order received. Please see order details below:
+        <TABLE WIDTH="100%">
+            <TR>
+                <TD WIDTH="50%" class="orderinfo"><?= $receipt; ?></TD>
+                <TD WIDTH="50%" class="receipt"><?= $view;  ?></TD>
+            </TR>
+        </TABLE>
+        <?= $hash; ?>
 
-        <div class="row" >
-            <div class="col-md-6">
-                {{ DIDUEAT }} order received. Please see order details below:
-            </div>
-            <div class="col-md-6" class="orderinfo">
-                <?= $receipt = view('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail)); ?>
-            </div>
-
-            <div class="col-md-6" class="receipt">
-                <?= $view = view('common.receipt', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "email" => true, "hash" => true));  ?>
-            </div>
-
-            <div class="col-md-6" class="hash">
-                <?= hashtext($receipt . $view); ?>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+        <div class="clearfix"></div>
         @include("emails.footer")
     </body>
 </html>

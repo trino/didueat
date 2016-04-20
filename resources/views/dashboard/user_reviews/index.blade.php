@@ -1,6 +1,10 @@
 @extends('layouts.default')
 @section('content')
-
+<?php
+    if(read("profiletype") > 1 && !read("restaurant_id")){
+        $_GET["user_id"] = read("id");
+    }
+?>
 <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
 <script type="text/javascript">
     window.showEntries = 10;

@@ -141,13 +141,13 @@ Route::group(['middleware' => ['logged', 'role:super']], function() {
     Route::post('subscribers/send',                                 'SubscribersController@send');
     
     Route::resource('restaurant/newsletter',                        'AdministratorController@newsletter');
-
-    Route::resource('user/reviews',                                 'UserReviewsController@index');
-    Route::post('user/reviews/list/ajax',                           'UserReviewsController@listingAjax');
-    Route::get('user/reviews/action/{id}',                          'UserReviewsController@reviewAction');
-    Route::post('user/reviews/action/{id}',                         'UserReviewsController@reviewAction');
-    Route::get('user/reviews/edit/{id}',                            'UserReviewsController@ajaxEditUserReviewForm');
 });
+
+Route::resource('user/reviews',                                     'UserReviewsController@index');
+Route::post('user/reviews/list/ajax',                               'UserReviewsController@listingAjax');
+Route::get('user/reviews/action/{id}',                              'UserReviewsController@reviewAction');
+Route::post('user/reviews/action/{id}',                             'UserReviewsController@reviewAction');
+Route::get('user/reviews/edit/{id}',                                'UserReviewsController@ajaxEditUserReviewForm');
 
 Route::get('restaurant/list',                                       'RestaurantController@index');
 Route::post('restaurant/list/ajax',                                 'RestaurantController@listingAjax');
