@@ -77,7 +77,7 @@
             if (!\Session::get('session_restaurant_id') || $profiletype == 1) {
                 $data["orders/list/user"] = "Orders";
                 $data["user/addresses"] = "Address";
-                $data['user/reviews'] = "Reviews";
+                if($profiletype > 1) {$data['user/reviews'] = "Reviews";}
                 //    $data["credit-cards/list/user"] = "Credit Card";
                 if ($profiletype == 1 || $profiletype == 3) {
                     $data["user/uploads"] = "Uploads";
