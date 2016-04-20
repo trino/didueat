@@ -36,9 +36,8 @@ $('.additem').live('click', function () {
        
         $.ajax({
             url: base_url+'restaurant/alladdons/'+res_id,
-            success:function(addons)
-            {
-                $('#addMenuModel .modal-footer').prepend('<select class="loadPrevious btn" id="loadPrevious'+id+'">'+addons+'</select><a id="add_additional'+id+'" class="btn btn-secondary  add_additional ignore ignore2 ignore1" href="javascript:void(0)">Add Addon</a>'+
+            success:function(addons) {
+                $('#addMenuModel .modal-footer').prepend('<select class="loadPrevious btn" id="loadPrevious'+id+'" style="max-width: 300px;">'+addons+'</select><a id="add_additional'+id+'" class="btn btn-secondary add_additional ignore ignore2 ignore1" href="javascript:void(0)">Add Addon</a>'+
 '<a id="save'+id+'" class="btn  btn-primary savebtn ignore ignore2 ignore1" href="javascript:void(0)">Save</a>');
             }
         })
