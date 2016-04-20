@@ -12,6 +12,7 @@
             $alts = array(
                     "csr" => "What to do if something is wrong with the order"
             );
+            $Actions = array("Go with merchant recommendation", "Refund this item", "Contact me", "Cancel entire order");
 
             if(isset($order)){
                 $menu_ids = $order->menu_ids;
@@ -19,6 +20,7 @@
                 $arr_qty = explode(',', $order->qtys);
                 $arr_prs = explode(',', $order->prs);
                 $arr_extras = explode(',', $order->extras);
+                $csr_actions = explode(',', $order->csr);
 
                 foreach ($arr_menu as $k => $me) {
                     if ($order->extras != "") {
@@ -45,11 +47,8 @@
                                 <span class='menu_bold'>{{ $tt }}</span><?php if ($extz != '') echo ":";?> {{ str_replace('<br/>', '', $extz) }}
                                     <?php
                                         if($showCSR){
-                                            $Actions = array("Go with merchant recommendation", "Refund this item", "Contact me", "Cancel entire order");
-                                            if(isset($order->csr) && $order->csr)
-                                            echo "<br/><b>".$Actions[$order->csr].'</b>';
-                                            else
-                                            echo "<br/><b>".$Actions[0].'</b>';
+                                            if(!isset($csr_actions[$k])){$csr_actions[$k] = 0;}
+                                            echo "<br/><b>".$Actions[$csr_actions[$k]].'</b>';
                                         }
                                     ?>
                             </td>

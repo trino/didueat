@@ -376,6 +376,8 @@
                 var td_index = 0;
                 var td_temp = 9999;
                 var n_counter = 0;
+                var csr = $("#csr" + menu_id).val();
+
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
                     if ($(this).hasClass('checked') || ($(this).is(':checked') && $(this).attr('title') != "")) {
                         var tit = $(this).attr('title');
@@ -569,6 +571,8 @@
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
                         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
                         '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +
+                        '<input type="hidden" class="csr" name="csr[]" value="' + csr + '" />' +
+                        
                         '<a href="javascript:void(0);" class="del-goods" onclick=""></a>');
 
                 price = parseFloat(price);

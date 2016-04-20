@@ -313,8 +313,10 @@ class UsersController extends Controller {
                 $res['qtys'] = implode(',', $post['qtys']);
                 $res['extras'] = implode(',', $post['extras']);
                 $res['menu_ids'] = implode(',', $post['menu_ids']);
+                $res['csr'] = implode(',', $post['csr']);
                 $res['restaurant_id'] = $post['res_id'];
                 $res['order_till'] = $post['order_till'];
+
                 if(isset($post['contact'])) {$res['contact'] = $post['contact'];}
                 $Stage=3;
                 if(isset($post["reservation_address_dropdown"]) && $post["reservation_address_dropdown"]){
