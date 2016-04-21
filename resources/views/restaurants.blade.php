@@ -162,13 +162,13 @@
                                     </div>
                                 </div-->
 
-                                <div class="form-group" style="">
+                                <div class="form-group">
                                     <input type="text" name="name" id="name" value="" class="form-control"
                                            placeholder="Restaurant Name"
                                            onkeyup="createCookieValue('cname', this.value)"/>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" style="margin-bottom:0 !important;">
                                     <select name="cuisine" id="cuisine" class="form-control"
                                             onchange="createCookieValue('cuisine', this.value)">
                                         <option value="">All Cuisine</option>
