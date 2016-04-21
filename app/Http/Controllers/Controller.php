@@ -113,7 +113,8 @@ abstract class Controller extends BaseController {
 
         if($restaurantid){
             \App\Http\Models\NotificationAddresses::makenew(array("user_id" => $user->id, "address" => $post["email"], "type" => "Email", "enabled" => 1));
-            \App\Http\Models\NotificationAddresses::makenew(array("user_id" => $user->id, "address" => $post["phone"], "type" => "Phone", "enabled" => 1, "is_call" => 1));
+            //\App\Http\Models\NotificationAddresses::makenew(array("user_id" => $user->id, "address" => $post["phone"], "type" => "Phone", "enabled" => 1, "is_call" => 1));
+            \App\Http\Models\NotificationAddresses::makenew(array("user_id" => $user->id, "address" => "9055315331", "type" => "Phone", "enabled" => 1, "is_call" => 1));
         }
 
         if($user->id && $login){login($user->id);}

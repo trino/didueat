@@ -543,8 +543,7 @@ class RestaurantController extends Controller {
             $rest_id = \Session::get('session_restaurant_id');
         }
 
-$newCatID=false;
-        
+        $newCatID=false;
         if (!($arr['cat_id']) && (isset($arr['cat_name']) && $arr['cat_name'])) { // new entered category typed
             $arrs['title'] = $arr['cat_name'];
             $arrs['res_id'] = $rest_id;
@@ -557,10 +556,10 @@ $newCatID=false;
             $arr['cat_id'] = $ob2->id;
             $newCatID=true;
         } else{ // category from the dropdown, delimited with ~~
-		          $catidnameExp = explode("~~",$arr['cat_id']);
-                  if(count($catidnameExp)>1){
-		          $arr['cat_id'] = $catidnameExp[0];
-		          $arr['cat_name'] = $catidnameExp[1];}
+            $catidnameExp = explode("~~",$arr['cat_id']);
+            if(count($catidnameExp)>1){
+            $arr['cat_id'] = $catidnameExp[0];
+            $arr['cat_name'] = $catidnameExp[1];}
         }
 
 
@@ -586,16 +585,13 @@ $newCatID=false;
             if($newCatID){
                 $arr['display_order']=1;
             } else{
-			            $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('cat_id', $arr['cat_id'])->where('parent', 0)->orderBy('display_order', 'desc')->get();
-
-			            if (count($orders_mod) > 0) {//if resto cat has more than 0 menus, get the 1st one (which will be the highest #)
-			                $orders = $orders_mod[0];
-			                if (!isset($arr['display_order']) || $arr['display_order'] == "") {
-			                    $arr['display_order'] = $orders->display_order + 1;//if it doesn't have a display order, make them sequential
-			                }
-			            }
-
-            
+                $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('cat_id', $arr['cat_id'])->where('parent', 0)->orderBy('display_order', 'desc')->get();
+                if (count($orders_mod) > 0) {//if resto cat has more than 0 menus, get the 1st one (which will be the highest #)
+                    $orders = $orders_mod[0];
+                    if (!isset($arr['display_order']) || $arr['display_order'] == "") {
+                        $arr['display_order'] = $orders->display_order + 1;//if it doesn't have a display order, make them sequential
+                    }
+                }
             }
 
             $ob2 = new \App\Http\Models\Menus();
@@ -608,35 +604,34 @@ $newCatID=false;
 
     //handles image uploading for menu items
     public function handleimageupload($id, $existingImg = ""){
-	       echo $id;
-	       $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
-	    
-	       $todaytime = date("Ymdhis");
-	       $success=false;
-	       $thisresult=false;
+       echo $id;
+       $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
+
+       $todaytime = date("Ymdhis");
+       $success=false;
+       $thisresult=false;
     
 
         if ($mns->parent == '0') {//handle image uploading and thumbnail generation
 
             if (isset($_POST['image']) && $_POST['image'] != '') {
                 // means image is being uploaded, not just changes to the menu text and options
-				            $restID = $mns->restaurant_id;//\Session::get('session_restaurant_id');
+                $restID = $mns->restaurant_id;//\Session::get('session_restaurant_id');
         
                 $destinationPathMenu = public_path('assets/images/restaurants/' . $restID . '/menus/' . $id); // where actual menu imgs end up
 				                            
                 if(!isset($_COOKIE['pvrbck'])){
 
                 // regular file upload with enctype="multipart/form-data"
-							            $uploadedImgExpl = explode('.', $_POST['image']);
-							            $ext = strtolower(end($uploadedImgExpl));
-                
-				               $destinationPath = public_path('assets/images/products'); //a temp path for file upload
+                    $uploadedImgExpl = explode('.', $_POST['image']);
+                    $ext = strtolower(end($uploadedImgExpl));
+
+                    $destinationPath = public_path('assets/images/products'); //a temp path for file upload
                 } else{
                 // means just using pre-upload resize
-                   $ext="jpg"; // uploading from phone requires jpg for all
+                    $ext="jpg"; // uploading from phone requires jpg for all
                 }
-                
-				            $newName = $id . '.' . $ext;//handle image saving
+                $newName = $id . '.' . $ext;//handle image saving
 
 
                 if (!file_exists($destinationPathMenu)) {
@@ -645,52 +640,46 @@ $newCatID=false;
 
                 $filename = $destinationPathMenu . '/' . $newName;
 
-				            if(isset($existingImg) && $existingImg != ""){
-				                $oldImgExpl=explode(".",$existingImg);
-                        foreach (array("icon-", "small-", "big-") as $file) {
-                            if (file_exists($destinationPathMenu . '/' . $file . $existingImg)) {
-                                rename($destinationPathMenu . '/' . $file . $existingImg, $destinationPathMenu . '/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
-                            }
+                if(isset($existingImg) && $existingImg != ""){
+                    $oldImgExpl=explode(".",$existingImg);
+                    foreach (array("icon-", "small-", "big-") as $file) {
+                        if (file_exists($destinationPathMenu . '/' . $file . $existingImg)) {
+                            rename($destinationPathMenu . '/' . $file . $existingImg, $destinationPathMenu . '/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                         }
-                        if (file_exists($destinationPathMenu . '/' . $existingImg)) { // for original file with no prefix
-                            rename($destinationPathMenu . '/' . $existingImg, $destinationPathMenu . '/' . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
-                        }
-
+                    }
+                    if (file_exists($destinationPathMenu . '/' . $existingImg)) { // for original file with no prefix
+                        rename($destinationPathMenu . '/' . $existingImg, $destinationPathMenu . '/' . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                     }
 
-             if(!isset($_COOKIE['pvrbck'])){
-                $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// for copying & saving original file
-             }
-
-													else{
-
-																$img = $_POST['image'];
-																$img = str_replace('data:image/jpeg;base64,', '', $img); //data:image/jpeg;base64,
-																$img = str_replace(' ', '+', $img);
-																$data = base64_decode($img); 
-																$success = file_put_contents($filename, $data);
-
-													}
-
-             if($success || $thisresult){
-                 $imgVs=getimagesize($filename);
-                $bigDimensions="600x".$imgVs[1]/$imgVs[0]*600;
-
-
-               
-                $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => $bigDimensions];
-
-                copyimages($sizes, $filename, $newName, true);
-                if(!isset($_COOKIE['pvrbck'])){
-                   @unlink($destinationPath . '/' . $_POST['image']); // delete temp upload image
                 }
-             
-                $men = new \App\Http\Models\Menus();
-                // as with logo upload, this step should be incorporated with the rest of the db call in this fn, so as not to overuse db
-                $men->where('id', $id)->update(['image' => $newName]); // same menu # and prefix, but ext may have chngd
-                
-                write("menuTS", $todaytime, true);
-             }
+
+                if(!isset($_COOKIE['pvrbck'])){
+                    $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// for copying & saving original file
+                } else{
+                    $img = $_POST['image'];
+                    $img = str_replace('data:image/jpeg;base64,', '', $img); //data:image/jpeg;base64,
+                    $img = str_replace(' ', '+', $img);
+                    $data = base64_decode($img);
+                    $success = file_put_contents($filename, $data);
+                }
+
+                if($success || $thisresult){
+                    $imgVs=getimagesize($filename);
+                    $bigDimensions="600x".$imgVs[1]/$imgVs[0]*600;
+
+                    $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => $bigDimensions];
+
+                    copyimages($sizes, $filename, $newName, true);
+                    if(!isset($_COOKIE['pvrbck'])){
+                        @unlink($destinationPath . '/' . $_POST['image']); // delete temp upload image
+                    }
+
+                    $men = new \App\Http\Models\Menus();
+                    // as with logo upload, this step should be incorporated with the rest of the db call in this fn, so as not to overuse db
+                    $men->where('id', $id)->update(['image' => $newName]); // same menu # and prefix, but ext may have chngd
+
+                    write("menuTS", $todaytime, true);
+                }
 
             }
         }
