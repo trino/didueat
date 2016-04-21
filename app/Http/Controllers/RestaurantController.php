@@ -535,8 +535,6 @@ class RestaurantController extends Controller {
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
-                //if($Key=='cat_id')
-                //$arr[$Key] = 1;
             }
         }
         if(isset($arr['restaurant_id'])) {

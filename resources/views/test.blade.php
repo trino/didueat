@@ -15,6 +15,17 @@
                 echo 'array("' . implode('", "', $Genres) . '");';
 
             break;
+
+            case "max":
+                //var_dump( select_field_where("menus", array("cat_id" => 2, "restaurant_id" => 29), "MAX(display_order)") );
+
+
+                var_dump($Order);
+
+                break;
+
+            default:
+                echo $_GET["action"] . "is unhandled";
         }
         die();
     }
