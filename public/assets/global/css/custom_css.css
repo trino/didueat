@@ -11,7 +11,7 @@
     margin-bottom: 0.1rem !important;
 }
 
-.card-header, .list-group-item {
+.card-header, .list-group-item,.card-footer {
     padding:  1rem !important;
 
 
