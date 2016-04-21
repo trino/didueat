@@ -62,7 +62,7 @@
         if(isset($showtoday)){
             $open = converttime($Restaurant[$is_open . "_open" . $key]);
             $close = converttime($Restaurant[$is_open . "_close" . $key]);
-            $MoreTime = "Open today from " . $open . " to " . $close;
+            $MoreTime = "Open " . $open . " to " . $close;
         }
     } else {
         $MoreTime = "Currently closed";
@@ -138,7 +138,7 @@
         <div class=" text-muted">
 
             @if($MoreTime)
-                <div class="smallT">{{ $MoreTime }}</div>
+                <div class="smallT" style="">{{ $MoreTime }}</div>
             @endif
             {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}
             @if($Restaurant["cuisine"])

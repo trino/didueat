@@ -502,7 +502,7 @@
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
                 $('#restuarant_bar').html('');
-                //$('#parentLoadingbar').show();
+                $('#parentLoadingbar').show();
                 $('#start_up_message').hide();
                // $('#icons_show').hide();
                 $('#results_show').show();
@@ -522,7 +522,7 @@
                     }
                 });
             } else {
-                //$('.loadingbar').show();
+                $('.loadingbar').show();
                 $('#loadingbutton').hide();
                 $.post("{{ url('/search/restaurants/ajax') }}", {
                     start: start,

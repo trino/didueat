@@ -194,7 +194,7 @@ td {
 }
 
 .overlay_reservation {
-    background-color: rgba(255, 255, 255,.9);
+    background-color: rgba(0, 0, 0,.3);
     z-index: 99999;
     left: 0px;
     top: 0px;
@@ -216,7 +216,7 @@ td {
 }
 
 .overlay_loader {
-    background: rgba(255, 255, 255, .9) none repeat scroll 0 0;
+    background: rgba(0, 0, 0, .3) none repeat scroll 0 0;
     height: 100%;
     left: 0;
     position: fixed;
@@ -226,9 +226,9 @@ td {
 }
 
 .overlay {
-    left: calc(50% - 22px);
+    left: calc(50% - 50px);
     position: absolute;
-    top: calc(50% - 22px);
+    top: calc(50% - 50px);
 }
 
 .subber {
