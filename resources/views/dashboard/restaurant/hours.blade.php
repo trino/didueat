@@ -61,7 +61,7 @@ echo newrow($new, "I Offer Pickup",null, false,6,null); ?>
            onchange="$('#max_delivery_distance_label').html('Max Delivery Distance<br/><span>(' + p.value + ' km)</span>');">
     </DIV></DIV>
 
-    <?= newrow($new, "Estimated delivery time", "", true, 2);
+    <?php echo newrow($new, "Estimated delivery time", "", true, 2);
         $range = durationtotext(array(15,120,15), false, " ", "", "hour", "min");
         makeselect("aprox_time", $range, (isset($restaurant->aprox_time))?$restaurant->aprox_time:old('aprox_time'));
     ?>
@@ -74,38 +74,70 @@ echo newrow($new, "I Offer Pickup",null, false,6,null); ?>
         <h4>Hours</h4>
         @if(read("profiletype") == 1)
             <TEXTAREA ID="TOTALHOURS" PLACEHOLDER="Paste Google results here" style="width:100%"></TEXTAREA><BR>
-            <INPUT TYPE="BUTTON" VALUE="Extract from Google results" onclick="extract();" style="width:100%">
+            <INPUT TYPE="BUTTON" VALUE="Extract from Google results" onclick="extract();" style="width:90%">
+            <A HREF="https://www.google.ca/search?q={{ $restaurant["name"] . " " . $restaurant["address"] }}" target="_blank" style="float:right"><i class="fa fa-search" aria-hidden="true"></i> Google</A>
             <SCRIPT>
                 function extract(){
                     var hours = $("#TOTALHOURS").val().split(/\r\n|\r|\n/g);
                     var daysofweek = <?= getweekdays(true); ?>;
                     var open, close;
                     for(var index = 0; index < hours.length; index ++){
+                        hours[index] = hours[index].replace(" to ", "–").trim();
+                        hours[index] = hours[index].replace(" - ", "-");
+                        hours[index] = hours[index].replace(" ", "	");
+                        hours[index] = hours[index].replace(":", "");
+
                         var today = hours[index].split("	");
                         var dayofweek = today[0];
-                        var todayshours = today[1];
+                        var todayshours = today[1].toUpperCase();
                         var dayofweekindex = daysofweek.indexOf(dayofweek);
+                        if(dayofweekindex == -1){
+                            for(dayofweekindex = 0; dayofweekindex < daysofweek.length; dayofweekindex++){
+                                if( dayofweek.toLowerCase() == daysofweek[dayofweekindex].substr(0, dayofweek.length).toLowerCase() ){
+                                    dayofweek = daysofweek[dayofweekindex];
+                                    break;
+                                }
+                            }
+                        }
+
                         if(todayshours == "Closed") {
                             open = "";
                             close = "";
                         } else {
+                            todayshours = todayshours.replace("-", "–");
                             todayshours = todayshours.split("–");
                             open = fixtime(todayshours[0]);
                             close = fixtime(todayshours[1]);
                             if (open.indexOf(":") == -1){
-                                open = open + ":00" + close.substr(close.length - 2);
+                                if (open.length < 3){
+                                    open = open + ":00";
+                                } else {
+                                    open = open.substr(0, open.length - 2) + ":" + open.substr(open.length-2);
+                                }
+                                open = open + close.substr(close.length - 2);
                             }
                         }
-                        $("input[name=" + dayofweek + "_open]").val(open);
-                        $("input[name=" + dayofweek + "_close]").val(close);
+                        if(dayofweek == "all"){
+                               for(dayofweekindex = 0; dayofweekindex < daysofweek.length; dayofweekindex++){
+                                   dayofweek = daysofweek[dayofweekindex];
+                                   $("input[name=" + dayofweek + "_open]").val(open);
+                                   $("input[name=" + dayofweek + "_close]").val(close);
+                               }
+                        } else {
+                            $("input[name=" + dayofweek + "_open]").val(open);
+                            $("input[name=" + dayofweek + "_close]").val(close);
+                        }
                     }
                 }
                 function fixtime(time){
+                    time = time.replace(" ", "");
                     if (time.indexOf(":") == -1){
                         time = time.replace("AM", ":00AM");
                         time = time.replace("PM", ":00PM");
                     }
-                    return time;
+                    time = time.replace("00:00", ":00");
+                    time = time.replace("30:00", ":30");
+                    return time.toUpperCase();
                 }
             </SCRIPT>
         @endif
