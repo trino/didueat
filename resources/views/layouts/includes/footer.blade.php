@@ -336,6 +336,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
             e.preventDefault();
         });
 
+
         //handles submission of the login form (should be moved to where it's used)
         $('body').on('submit', '#login-ajax-form', function (e) {
             e.preventDefault();
@@ -408,7 +409,12 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                                         }
                                     });
                                     //only loads header
-                                    $('.header-nav').load(document.URL + ' .header-nav>');
+                                    $('.header-nav').load(document.URL + ' .header-nav>', function() {
+                                        if (typeof onheaderload === "function") {
+                                            onheaderload();
+                                        }
+                                    });
+
                                     $('.password_reservation').hide();
                                     $('.password_reservation').removeAttr('required');
 

@@ -1,4 +1,14 @@
 <?php
+    function get_string_between($string, $start, $end){
+        $string = ' ' . $string;
+        $ini = strpos($string, $start);
+        if ($ini == 0) return '';
+        $ini += strlen($start);
+        $len = strpos($string, $end, $ini) - $ini;
+        return substr($string, $ini, $len);
+    }
+
+    if(isset($_POST["action"])){$_GET=$_POST;}
     if(isset($_GET["action"])){
         switch($_GET["action"]){
             case "genres":
@@ -16,12 +26,15 @@
 
             break;
 
-            case "max":
-                //var_dump( select_field_where("menus", array("cat_id" => 2, "restaurant_id" => 29), "MAX(display_order)") );
-
-
-                var_dump($Order);
-
+            case "hours":
+                $File = str_replace(" ", "%20", urldecode($_GET["url"]));
+                /*
+                $File = file_get_contents($File);
+                $File = get_string_between($File, 'url=', '"');
+                $File = file_get_contents("https://www.google.ca" . $File);
+                //$File = get_string_between($File, '<table class="ts loht__hours-table">', '</table>');
+                */
+                echo $File;
                 break;
 
             default:
@@ -29,6 +42,8 @@
         }
         die();
     }
+
+die();
 
     $provinces = array(
             "ON" => "Ontario",

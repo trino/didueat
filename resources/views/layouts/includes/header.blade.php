@@ -112,7 +112,7 @@
             @endif
         }
         @if(Route::getCurrentRoute()->getActionName() == "App\Http\Controllers\HomeController@menusRestaurants")
-            updatecart();
+            updatecart("header");
         @endif
     });
 </script>

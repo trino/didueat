@@ -58,7 +58,7 @@ function clearCartItems() {
         }
         $('.grandtotal').text('$0.00');
         total_items = 0;
-        updatecart();
+        updatecart("clearCartItems");
     } else {
         return false;
     }
@@ -393,7 +393,7 @@ $(function(){
             }
             total_items--;
         }
-        updatecart();
+        updatecart("direction");
     }
 
     //not sure what this does
@@ -428,7 +428,8 @@ $(function(){
 })
 
 //updates the cart in the header
-function updatecart(){
+function updatecart(where){
+    console.log("update cart: " + where);
     var total = $(".grandtotal").html();
     $("#cart-header").show();
     $(".cart-header-total").html(total);
@@ -446,7 +447,7 @@ function updatecart(){
 
 function onlogin(){
     setTimeout(function() {
-        updatecart();
+        updatecart("onlogin");
     }, 1500);
 }
 

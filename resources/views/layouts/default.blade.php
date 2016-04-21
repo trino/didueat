@@ -134,6 +134,7 @@ if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' ||trim($_SERVER['REMOTE_ADD
     @endif
 
     <SCRIPT>
+        var routename = "{{ \Route::getCurrentRoute()->getActionName() }}";
         var baseurl = "{{ url('/') }}";
         var debugmode = "{{ debugmode() }}";
         //only do an alert if debugmode is on

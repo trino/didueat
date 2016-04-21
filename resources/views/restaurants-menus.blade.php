@@ -572,7 +572,7 @@
                         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
                         '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +
                         '<input type="hidden" class="csr" name="csr[]" value="' + csr + '" />' +
-                        
+
                         '<a href="javascript:void(0);" class="del-goods" onclick=""></a>');
 
                 price = parseFloat(price);
@@ -653,7 +653,7 @@
                 show_header();
                 total_items = "(" + (parseInt(Number(total_items)) + parseInt(Number(n))) + ")";
 
-                updatecart();
+                updatecart("add_menu_profile click");
             });
 
             function inArray(needle, haystack) {
@@ -731,8 +731,9 @@
                     $("#add_item<?php echo e($_GET["menuitem"]); ?>").trigger("click");
                 }, 500);
             <?php endif; ?>
+            //updatecart();
         });
-        updatecart();
+        //updatecart("restaurants-menus.blade.php");
 
         function changeitem(id){
             var CURRENT = $('#qty'+ id).val(), DESIRED = $('#itemsel'+ id).val(), QTY = 0, DIR = "";
@@ -770,5 +771,10 @@
             }
         });
 
+        function onheaderload(){
+            setTimeout(function() {
+                updatecart("onlogin rest");
+            }, 1500);
+        }
     </script>
 @stop

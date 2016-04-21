@@ -229,9 +229,8 @@ $itemPosnForJS = [];
 
                                     <div class="" style="width: 100%;float:left;vertical-align: middle;">
 
-                <a
-style="line-height:30px;"
-                        href="#" id="{{ $value->id }}" name="{{ $value->id }}"
+                <a style="line-height:30px;"
+                   href="#" id="{{ $value->id }}" name="{{ $value->id }}"
                    data-res-id="{{ $value->restaurant_id }}"
                    title="{{ $alts["product-pop-up"] }}"
                    class="card-link" data-toggle="modal"
@@ -246,22 +245,22 @@ style="line-height:30px;"
                                                 @endif
 
                                                 {{ $value->menu_item }}
-<span style="white-space: nowrap">
-                                                &ndash;
-                                                @if($main_price>0)
-                                                    ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
-                                                @else
-                                                    ${{number_format($min_p,2)}}+
-                                                @endif
-                                                @if($dis)
-                                                    <strike class="text-muted btn btn-sm btn-link"
-                                                            style="float: right">${{number_format($value->price,2)}}</strike>
-                                                @endif
-                                                @if($dis)
-                                                    <strike class="text-muted btn btn-sm btn-link"
-                                                            style="float: right">${{number_format($value->price,2)}}</strike>
-                                                @endif
-</span>
+                                                <span style="white-space: nowrap">
+                                                    &ndash;
+                                                    @if($main_price>0)
+                                                        ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
+                                                    @else
+                                                        ${{number_format($min_p,2)}}+
+                                                    @endif
+                                                    @if($dis)
+                                                        <strike class="text-muted btn btn-sm btn-link"
+                                                                style="float: right">${{number_format($value->price,2)}}</strike>
+                                                    @endif
+                                                    @if($dis)
+                                                        <strike class="text-muted btn btn-sm btn-link"
+                                                                style="float: right">${{number_format($value->price,2)}}</strike>
+                                                    @endif
+                                                </span>
                                         </a>
                                     </div>
 

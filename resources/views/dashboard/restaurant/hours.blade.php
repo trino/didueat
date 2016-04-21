@@ -75,20 +75,40 @@ echo newrow($new, "I Offer Pickup",null, false,6,null); ?>
         @if(read("profiletype") == 1)
             <TEXTAREA ID="TOTALHOURS" PLACEHOLDER="Paste Google results here" style="width:100%"></TEXTAREA><BR>
             <INPUT TYPE="BUTTON" VALUE="Extract from Google results" onclick="extract();" style="width:90%">
-            <A HREF="https://www.google.ca/search?q={{ $restaurant["name"] . " " . $restaurant["address"] }}" target="_blank" style="float:right"><i class="fa fa-search" aria-hidden="true"></i> Google</A>
+            <A ID="hurl" HREF="https://www.google.ca/search?q={{ $restaurant["name"] . " " . $restaurant["address"] }}" target="_blank" style="float:right" on_olod_click="return google();">
+                <i class="fa fa-search" aria-hidden="true"></i> Google
+            </A>
             <SCRIPT>
+                function google(){
+                    var URL = $("#hurl").attr("href");
+                    $.post("{{ url('test') }}", {
+                        action: "hours",
+                        url: encodeURIComponent(URL),
+                        _token: "{{csrf_token()}}"
+                        }, function (result) {
+                            alert(result);
+                        }
+                    );
+                    return false;
+                }
+
                 function extract(){
                     var hours = $("#TOTALHOURS").val().split(/\r\n|\r|\n/g);
                     var daysofweek = <?= getweekdays(true); ?>;
                     var open, close;
                     for(var index = 0; index < hours.length; index ++){
+                        hours[index] = hours[index].replace("am", "AM");
+                        hours[index] = hours[index].replace("pm", "PM");
+                        hours[index] = hours[index].replace(" PM", "PM");
+                        hours[index] = hours[index].replace(" AM", "AM");
+
                         hours[index] = hours[index].replace(" to ", "–").trim();
                         hours[index] = hours[index].replace(" - ", "-");
                         hours[index] = hours[index].replace(" ", "	");
-                        hours[index] = hours[index].replace(":", "");
 
                         var today = hours[index].split("	");
                         var dayofweek = today[0];
+                        dayofweek = dayofweek.replace(":", "");
                         var todayshours = today[1].toUpperCase();
                         var dayofweekindex = daysofweek.indexOf(dayofweek);
                         if(dayofweekindex == -1){
@@ -100,7 +120,7 @@ echo newrow($new, "I Offer Pickup",null, false,6,null); ?>
                             }
                         }
 
-                        if(todayshours == "Closed") {
+                        if(todayshours == "CLOSED") {
                             open = "";
                             close = "";
                         } else {
