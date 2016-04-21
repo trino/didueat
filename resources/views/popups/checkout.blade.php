@@ -125,8 +125,8 @@
             </label>
         </div>
         <div class="col-xs-8">
-            <label class="radio-inline c-input c-radio">
-                <input type="radio" name="payment_type" onclick="$('.CC').show();" value="cc"/>
+            <label class="radio-inline c-input c-radio" onclick="alert('Due to techical issues we are only accepting cash on arrival. Our apologies for any inconvenience caused.');" style="cursor: not-allowed;">
+                <input type="radio" name="payment_type" onclick="$('.CC').show();" value="cc" DISABLED/>
                 <span class="c-indicator"></span>
                 Debit/Credit</label>
         </div>
