@@ -162,13 +162,13 @@
                                     </div>
                                 </div-->
 
-                                <div class="form-group" style="margin-bottom: 0 !important;">
+                                <div class="form-group" style="">
                                     <input type="text" name="name" id="name" value="" class="form-control"
                                            placeholder="Restaurant Name"
                                            onkeyup="createCookieValue('cname', this.value)"/>
                                 </div>
 
-                                <!--div class="form-group">
+                                <div class="form-group">
                                     <select name="cuisine" id="cuisine" class="form-control"
                                             onchange="createCookieValue('cuisine', this.value)">
                                         <option value="">All Cuisine</option>
@@ -176,7 +176,7 @@
                                             <option>{{ $value }}</option>
                                         @endforeach
                                     </select>
-                                </div-->
+                                </div>
 
 
                                 <div id="radius_panel" class="form-group row" style="display:none;">
