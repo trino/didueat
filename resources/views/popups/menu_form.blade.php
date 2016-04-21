@@ -15,7 +15,7 @@
             <input type="hidden" class="rest_id" value="<?php if(isset($rest_id)){echo $rest_id;};?>" />
             <div>
                 <div class="col-sm-6">
-                    <select class="cat_id form-control form-group">
+                    <select class="cat_id form-control form-group" id="catList">
                         <option value="">Select Category</option>
                         @foreach($category as $cat)
                             <?php $cats_order[]=$cat->display_order;?>
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="col-sm-6">
-                    <input class="form-control cat_name form-group" type="text" placeholder="Or Create New Category"/>
+                    <input class="form-control cat_name form-group" type="text" name="cat_name" id="cat_name" placeholder="Or Create New Category"/>
                 </div>
                 <?php $highestCatOrder=max($cats_order); ?>
 

@@ -281,6 +281,15 @@ $('.days_discount_all').live('click',function(){
 
 //handle the save button
 $('.savebtn').live('click', function () {
+catObj=document.getElementById('catList');
+for(var i=0;i<catObj.length;i++){
+ if(catObj.options[i].text == document.getElementById('cat_name').value){
+  catObj.selectedIndex=i;
+  document.getElementById('cat_name').value="";
+  break;
+}
+
+}
     $('.overlay_loader').show();
     var id = $(this).attr('id').replace('save', '');
     $_parent = $(this).closest('.modal-content').find('.newmenu');
