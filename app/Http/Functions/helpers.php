@@ -63,7 +63,10 @@
     }
 
     //returns a list of weekdays
-    function getweekdays(){
+    function getweekdays($asJavascript = false){
+        if($asJavascript){
+            return '["' . implode('", "' ,getweekdays()) . '"]';
+        }
         return array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
     }
 

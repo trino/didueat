@@ -26,14 +26,6 @@
                             <h4 class="card-title">Hours & Delivery</h4>
                         </div>
                         <div class="card-block">
-                            @if($resturant->website)
-                                <A HREF="{{ $resturant->website }}" TARGET="_blank">Website</A>
-                            @else
-                                <A HREF="https://www.google.ca/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q={{ $resturant->name }}" TARGET="_blank">Google</A>
-                            @endif
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="card-block">
                             @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
                             <div class="clearfix"></div>
                         </div>
@@ -55,6 +47,20 @@
                         </div>
 
                         <div class="card-block">
+                            <div class="row">
+                                <?php
+                                    echo '<A HREF="';
+                                    if($resturant->website){
+                                        echo $resturant->website;
+                                    } else {
+                                        echo 'https://www.google.ca/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=' . $resturant->name;
+                                    }
+                                    echo '" TARGET="_blank">' . newrow(false, 'Website') . '</A><input type="text" name="website" class="form-control" VALUE="';
+                                    if($resturant->website){echo $resturant->website;}
+                                    echo '">'
+                                ?>
+                            </div></div>
+
                             <!--div class="row">
                                 <div class="col-md-12">
                                     <label class="c-input c-radio">
