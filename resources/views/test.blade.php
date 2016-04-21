@@ -1,4 +1,23 @@
 <?php
+    if(isset($_GET["action"])){
+        switch($_GET["action"]){
+            case "genres":
+                $Genres = array("American,BBQ,Burgers", "Mediterranean,Middle Eastern", "Vietnamese", "Korean,Thai,Vietnamese", "Middle Eastern", "Pizza", "Fast Food,Indian,Mediterranean", "Canadian,Mexican", "Asian,French,Thai", "Chinese", "American,Fast Food,Pizza", "Korean", "Latin,Mexican", "Asian,Chinese", "Italian,Pizza", "Korean", "American,Canadian", "Asian,Chinese", "Cafe", "Mediterranean", "Italian", "Asian,Chinese", "Italian,Pizza", "Mediterranean", "American,Sandwiches", "Asian,Chinese", "Asian,Chinese", "Asian,Chinese", "Asian,Chinese", "Breakfast,Cafe,Canadian", "Asian,Vietnamese", "Asian,Chinese", "Italian,Steakhouse", "American,Canadian", "Pizza", "Asian,Chinese", "Polish", "Asian,Japanese", "Pizza", "Asian,Chinese", "Middle Eastern");
+                $Phones = array("2893897332", "9055315331", "9059623121", "9055218880", "9057454959", "9055370871", "9053189856", "9059287157", "9056627878", "9055733888", "9056622210", "9059204956", "9059729999", "9055602127", "9055609111", "9055293811", "2893891486", "9055450352", "9053937641", "9056610000", "2897690021", "9053892288", "9055253334", "9055294335", "9055296043", "2897690025", "2899190519", "9056898866", "9053855324", "9055224995", "9055298181", "9056648898", "2897690045", "2897682707", "9055450101", "9055479250", "9052979375", "9055751942", "9053877171", "9053183636", "9056625000");
+
+                foreach($Genres as $Index => $Genre){
+                    $Restaurant = select_field("restaurants", "phone", $Phones[$Index]);
+                    if($Restaurant){
+                        update_database("restaurants", "id", $Restaurant->id, array("cuisine" => $Genre));
+                        var_dump($Restaurant->name . " found and changed to " . $Genre);
+                    } else {
+                        var_dump($Phones[$Index] . " not found");
+                    }
+                }
+            break;
+        }
+        die();
+    }
 
     $provinces = array(
             "ON" => "Ontario",
