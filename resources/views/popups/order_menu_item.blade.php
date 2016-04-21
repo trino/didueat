@@ -231,7 +231,7 @@
                         If issue arises?
                     </div>
                     <div class="col-md-8">
-                        <SELECT style="width:100%;" ID="csr{{ $value->id }}" TITLE="{{ $alts["csr"] }}" CLASS="btn btn-secondary text-muted">
+                        <SELECT style="width:100%;text-align: left;" ID="csr{{ $value->id }}" TITLE="{{ $alts["csr"] }}" CLASS="btn btn-secondary text-muted">
                             <?php
                             $Actions = array("Go with restaurant suggestion","Contact me", "Refund this item",  "Cancel entire order");
                             foreach ($Actions as $Index => $Action) {
@@ -249,7 +249,7 @@
             <div class="card-footer">
                 <div class="">
                     <div class=" pull-left">
-                        <button type="button" class="btn btn-link hidden-md-up p-x-0 m-x-" title="Close"
+                        <button type="button" class="btn btn-link text-muted hidden-md-up p-x-0 m-x-" title="Close"
                                 data-dismiss="modal">
                             Close
                         </button>

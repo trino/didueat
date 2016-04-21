@@ -22,7 +22,7 @@
         <TABLE WIDTH="100%">
             <TR>
                 <TD COLSPAN="2">
-                    <table><tr><td>{{ DIDUEAT }} order received. Please see order details below:</td></tr></table>
+                    <table><tr><td>We've received your {{ DIDUEAT }} order. Please stand by, your food will be arriving soon.</td></tr></table>
                 </TD>
             </TR>
             <TR>
