@@ -46,10 +46,10 @@ Message:
 %0A%0A
 %0A%0A
 Name:
-%3A%0A%0A
+%0A%0A
 Contact Number:
-%3A%0A%0A
-Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
+%0A%0A
+Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
 
 
                     <?php

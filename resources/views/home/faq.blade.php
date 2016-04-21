@@ -1,7 +1,6 @@
 @extends('layouts.default')
 @section('content')
 
-
 <script>
     //togle the visibility of an element
     function toggleDisplay(id,b){
@@ -36,34 +35,31 @@
     }
 </script>
 
-<br/>
 
+<div class="container">
+<div class="row m-t-1">
 
-<div class="row">
-    
-    <div class="container">
-    
-        <h3 class="col-lg-9">FAQs: Frequently Asked Questions, and Answers</h3>
-            
+        <h1 class="col-lg-9">Frequently Asked Questions & Answers</h1>
+
         <div class="col-lg-9">
             {{ DIDUEAT }} wants to make every step of your dining experience as easy and pleasurable as possible. To assist you in the process, we encourage you to read through our FAQs and learn from the most frequently asked questions. If you have a question that cannot be answered by our FAQs page, then please send an email with your question to <a href="mailto:info@didueat.ca">info@didueat.ca</a>. We will answer your question as soon as possible, so that you can enjoy your dining experience without any uncertainties.
-        
+
             <div class="row">
                 <div class="container">
-        
+
                     <div class="col-lg-5">
                         &bull; <a HREF="#general">General Questions About Using {{ DIDUEAT }}</a><br/>
                         &bull; <a HREF="#managing">Managing Your {{ DIDUEAT }} Account</a><br/>
                         &bull; <a HREF="#other">Other Questions</a>
                     </div>
-        
+
                     <div class="col-lg-7">
                         &bull; <a HREF="#repeat">Repeat Visits And Examining Previous Orders</a><br/>
                         &bull; <a HREF="#payment">Payment Questions</a>
                     </div>
                 </div>
             </div>
-        
+
             <br/>
         </div>
 
@@ -71,25 +67,25 @@
             <A onclick="collapseall('true');">Collapse All</A><BR>
             <A onclick="collapseall('false');">Expand All</A>
         </div>
-        
+
         <div class="clearfix"></div>
-        
+
         <div class="col-lg-9">
             <button class="btn btn-danger col-lg-9 questions btn-responsive2" style="cursor:not-allowed;font-weight:bold">TOP FAQ's: Answering the most common questions</button>
         </div>
-        
+
         <div class="col-lg-9">
             <button type="button" class="btn btn-info col-lg-9 btn-responsive2 questions" data-toggle="collapse" data-target="#faq1" onclick="chngIcon(1)">
                 How soon will my order arrive?
                 <div id="ic1" class="glyphicon glyphicon-chevron-down pull-right glyphUp padL"></div>
             </button>
-        
+
             <div id="faq1" class="collapse col-lg-9 faqTxt">
                 Your dining enjoyment is the top priority for {{ DIDUEAT }}'s restaurants, and they work hard to ensure your meals arrive in a timely fashion. At peak times, your delivery may be slightly delayed, so please check your order confirmation email for the estimated delivery time. If the delivery is substantially delayed, please call the restaurant with the number in the order confirmation email, and ask for an updated delivery time estimate.
             </div>
             <div class="clearfix"></div>
         </div>
-        
+
         <div class="col-lg-9">
             <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq2" onclick="chngIcon(2)">
                 If I have questions, can I call the restaurant?
@@ -100,7 +96,7 @@
             </div>
             <div class="clearfix"></div>
         </div>
-        
+
         <div class="col-lg-9">
             <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq3" onclick="chngIcon(3)">
                 What do I do if I have a problem with my order after it has arrived?
@@ -112,18 +108,18 @@
             </div>
             <div class="clearfix"></div>
         </div>
-            
+
         <div class="col-lg-9">
             <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq4" onclick="chngIcon(4)">
                 Can I change my order after I have completed my payment?
                 <div id="ic4" class="glyphicon glyphicon-chevron-down pull-right glyphUp padL"></div>
             </button>
             <div id="faq4" class="collapse col-lg-9 faqTxt">
-                If your food has not been prepared, most restaurants will be happy to comply with order changes. To make a change, please contact our help line (1-888-888-8888) as soon as possible after placing your  order, and we will see if the restaurant is able to adjust your order (a small, $1 charge will apply for any changes made after you have placed an order). Please do remember that there may be a refund or         additional charge, depending on the changes you make. If a refund is to be made to you, this will apply to the same account for which you paid, and will require a few to be processed by the credit card           company or bank. If your changes require an additional cost, an email will be sent to your registered email address confirming the changes to your order, and will include a link to a payment page. Please         follow this link as soon as possible, because your order will be placed on hold until your new payment is made. Once payment is received, the restaurant will receive your updated details, and an additional       order confirmation email will be sent to you. 
+                If your food has not been prepared, most restaurants will be happy to comply with order changes. To make a change, please contact our help line (1-888-888-8888) as soon as possible after placing your  order, and we will see if the restaurant is able to adjust your order (a small, $1 charge will apply for any changes made after you have placed an order). Please do remember that there may be a refund or         additional charge, depending on the changes you make. If a refund is to be made to you, this will apply to the same account for which you paid, and will require a few to be processed by the credit card           company or bank. If your changes require an additional cost, an email will be sent to your registered email address confirming the changes to your order, and will include a link to a payment page. Please         follow this link as soon as possible, because your order will be placed on hold until your new payment is made. Once payment is received, the restaurant will receive your updated details, and an additional       order confirmation email will be sent to you.
             </div>
             <div class="clearfix"></div>
         </div>
-        
+
         <div class="col-lg-9">
             <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq5" onclick="chngIcon(5)">
                 Can I change my order to pickup or delivery after completing my order?
@@ -134,7 +130,7 @@
             </div>
             <div class="clearfix"></div>
         </div>
-            
+
         <div class="col-lg-9">
             <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq6" onclick="chngIcon(6)">
                 Do I have to register so that I can order food?
@@ -147,7 +143,7 @@
             </div>
             <div class="clearfix"></div>
         </div>
-            
+
         <div class="col-lg-9">
             <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq7" onclick="chngIcon(7)">
                 Can I have more than one address stored?
@@ -158,7 +154,7 @@
             </div>
             <div class="clearfix"></div>
         </div>
-        
+
         <div class="col-lg-9">
             <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq8" onclick="chngIcon(8)">
                 What if I forget my password?
@@ -171,7 +167,7 @@
             </div>
             <div class="clearfix"></div>
         </div>
-        
+
         <div class="col-lg-9">
             <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq9" onclick="chngIcon(9)">
                 What steps do I take to order my food?
@@ -190,7 +186,7 @@
                         <li style="margin-bottom:7px"><b>SELECT A RESTAURANT:</b> Make your choice from the list displayed by clicking the Order Online button, and then start selecting your meal(s).</li>
                     </ol>
                 </div>
-        
+
                 <div type="button" class="col-lg-10" style="cursor:pointer;background:#5ecc95;color:#fff;border-radius:3px;padding:4px;text-align:left;padding-left:7px;margin:2px;font-weight:bold" onclick="toggleDisplay('9b',true)">
                     B. Select Your Meal
                     <span id="ic9b" class="glyphicon glyphicon-chevron-down pull-right"></span>
@@ -202,7 +198,7 @@
                         <li style="margin-bottom:7px"><b>PICKUP OR DELIVERY</b> Be sure to specify whether you want your meal for Delivery or Pickup.</li>
                     </ol>
                 </div>
-        
+
                 <div type="button" class="col-lg-10" style="cursor:pointer;background:#5ecc95;color:#fff;border-radius:3px;padding:4px;text-align:left;padding-left:7px;margin:2px;font-weight:bold" onclick="toggleDisplay('9c',true)">
                     C. Place Your Order
                     <span id="ic9c" class="glyphicon glyphicon-chevron-down pull-right"></span>
@@ -218,8 +214,8 @@
          <div class="clearfix"></div>
     </div>
 </div>
-    
-  
+
+
 <a name="general"></a>
 <br/>
 
@@ -284,8 +280,8 @@
                     Yes, the process is essentially the same, with a few considerations. Please bear in mind that not all restaurants will offer both delivery and pickup options -- if you see both options when placing your order, then you can specify your preference. Please also bear in mind that most restaurants will place an additional charge on your order to pay for delivery, and it is also customary to tip the driver accordingly. Lastly, the estimated time for delivery or pickup will be different, simply because it will take a little extra time to have your order delivered.
                 </div>
                 <div class="clearfix"></div>
-            </div>            
-            
+            </div>
+
             <div class="col-lg-9">
                 <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq27" onclick="chngIcon(27)">
                     How do I find out about {{ DIDUEAT }} promotions or contests?
@@ -296,7 +292,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-            
+
             <div class="col-lg-9">
                 <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq29" onclick="chngIcon(29)">
                     What if there are no restaurants near enough to me to deliver to my address?
@@ -328,8 +324,8 @@
                     Absolutely. When placing your order, you can specify a date and time for delivery. In this way, you can enjoy the convenience of our online ordering system, and save time and effort in the process. You can also order from multiple restaurants if you want a more varied cuisine for your guests -- simply checkout multiple times, from as many restaurants as you like. Once you have received your order confirmation email(s), you can contact the restaurant(s) with the number(s) provided in the email(s) if you have any follow-up questions. Please note, advanced orders can be placed only up to 15 days ahead.
                 </div>
                 <div class="clearfix"></div>
-            </div>            
-            
+            </div>
+
             <div class="col-lg-9">
                 <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq32" onclick="chngIcon(32)">
                     What food genres or cuisine types are available on {{ DIDUEAT }}?
@@ -381,7 +377,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-            
+
             <div class="col-lg-9">
                 <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq41" onclick="chngIcon(41)">
                     Is there a way to reorder the exact same meal as I did on a previous order?
@@ -391,8 +387,8 @@
                     Certainly. You can review previous orders with the My Orders tab under the My Profiles list. This will show you any pending orders, as well as past orders. Here you will be given the opportunity to save a past order as a "Favorite" (coming soon), as well as the ability to reorder a meal. When reordering a meal from your past orders list, or from your Favorites list, you will be taken to the same restaurant, wherein an attempt will be made to place the same order for you. Please note however, that if the restaurant has changed it's menu in any way, your order may not be exactly replicated. So please review the new order, and adjust it accordingly. Please also note that the prices of menu items will change from time to time, which is entirely at the discretion of our restaurants.
                 </div>
                 <div class="clearfix"></div>
-            </div>            
-            
+            </div>
+
             <div class="col-lg-9">
                 <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq42" onclick="chngIcon(42)">
                     I did not receive my order confirmation email. What do I do?
@@ -403,7 +399,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-            
+
             <div class="col-lg-9">
                 <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq43" onclick="chngIcon(43)">
                     How to prevent order confirmation emails from going in my email Spam folder.
@@ -450,8 +446,8 @@
                     This is a personal choice. If you have a secure computer and/or cellphone from which you can place your orders, then you may wish to keep connected all of the time. In other situations, you may think it is a better idea to logout each time you leave {{ DIDUEAT }}. Certainly, it is prudent to logout when you are not at a secure location, but staying logged in can be more convenient for many people.
                 </div>
                 <div class="clearfix"></div>
-            </div>      
-      
+            </div>
+
             <div class="col-lg-9">
                 <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq51" onclick="chngIcon(51)">
                     How do I edit my profile and information?
@@ -461,8 +457,8 @@
                     Simply click your name at the top right of the page, and a pop-up will appear with options for administering your {{ DIDUEAT }} account. Within the pop-up, you can review previous orders, add or modify your delivery addresses and payment card information, and make changes to your profile photo and password. This is also where you can log out of your {{ DIDUEAT }} account.
                 </div>
                 <div class="clearfix"></div>
-            </div>      
-      
+            </div>
+
             <div class="col-lg-9">
                 <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq51" onclick="chngIcon(51)">
                     What is the purpose of the Profile Photo?
@@ -557,8 +553,8 @@
                     Yes you can. Once logged in, simply click your name at the top right of the page, and then click the My Credit/Debit Cards tab in the My Profile pop-up that appears. If you do not currently have any cards added, click the Add button at the top of the My Credit/Debit Cards page, and enter your credit card and/or debit card details. To edit an existing card, click the Edit button beside your card details, and make adjustments accordingly.
                 </div>
                 <div class="clearfix"></div>
-            </div>      
-      
+            </div>
+
             <div class="col-lg-9">
                 <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq72" onclick="chngIcon(72)">
                     I'm receiving an order refund. How long does it take to receive my refund?
@@ -611,8 +607,8 @@
 
             <div class="col-lg-9">
                 <button class="btn btn-danger col-lg-9 questions btn-responsive2" style="cursor:not-allowed;font-weight:bold">Other Questions</button>
-            </div>      
-      
+            </div>
+
             <div class="col-lg-9">
                 <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq80" onclick="chngIcon(80)">
                     Can I leave a review after I have ordered from a restaurants on {{ DIDUEAT }}?
@@ -622,8 +618,8 @@
                     Most definitely! We encourage our customers to both rate our restaurants (between 1 and 5), and write a written review our restaurants. This is a valuable resource, and helps everyone, including helping to keep our restaurants informed of public opinion. You will be given the opportunity to review a restaurant for up to 7 days after you have placed an order. Please be honest, and maintain a certain decorum in your choice of words.
                 </div>
                 <div class="clearfix"></div>
-            </div>      
-      
+            </div>
+
             <div class="col-lg-9">
                 <button type="button" class="btn btn-info col-lg-9 btn-responsive2" style="text-align:left;padding-left:7px;margin:2px" data-toggle="collapse" data-target="#faq81" onclick="chngIcon(81)">
                     Can I change my review of a restaurant?
@@ -651,8 +647,7 @@
             <div class="clearfix"></div>
         </div>
     </div>
+    </div>
 
-
-    <br/><br/><br/>
 
 @stop

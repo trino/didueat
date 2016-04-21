@@ -28,9 +28,9 @@
                         if (isset($_GET['flash'])) {
                             echo '';
                             if ($_GET['flash'] == '1') {
-                                echo "Your order has been received";
+                                echo "Your order has been received. Your food will be arriving soon!";
                             } elseif ($_GET['flash'] == '2') {
-                                echo "Your order has been received and your account has been created";
+                                echo "Your order has been received and your account has been created.";
                             } else {
                                 session('status');
                             }
