@@ -145,10 +145,15 @@ if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' ||trim($_SERVER['REMOTE_ADD
 
         var token = "{{ csrf_token() }}";
         var path = window.location.pathname;
+        var base_url;
         if (path.replace('didueat', '') != path) {
-            var base_url = 'http://localhost/didueat/public/';
+            base_url = 'http://localhost/didueat/public/';
         } else {
-            var base_url = window.location.protocol + '//didueat.ca/';
+            base_url = window.location.protocol + '//';
+            if (window.location.href.toLowerCase().indexOf("www") > -1){
+                base_url = base_url + "www.";
+            }
+            base_url = base_url + 'didueat.ca/';
         }
     </SCRIPT>
 

@@ -21,10 +21,17 @@
                 {!! Form::open(array('url' => 'restaurant/info', 'onsubmit' => 'return validateFn(this)', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
 
                     <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
-
                     <div class="card">
                         <div class="card-header"><a name="PickupAndDelivery"></a>
                             <h4 class="card-title">Hours & Delivery</h4>
+                        </div>
+                        <div class="card-block">
+                            @if($resturant->website)
+                                <A HREF="{{ $resturant->website }}" TARGET="_blank">Website</A>
+                            @else
+                                <A HREF="https://www.google.ca/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q={{ $resturant->name }}" TARGET="_blank">Google</A>
+                            @endif
+                            <div class="clearfix"></div>
                         </div>
                         <div class="card-block">
                             @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
