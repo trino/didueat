@@ -73,18 +73,22 @@
                 $open = $Restaurant[$Day . "_open" . $key];
                 $close = $Restaurant[$Day . "_close" . $key];
                 if ($open && $close && $open != $close) {
+                    $allowbreak = true;
                     $Date = strtotime($open, time() + ($day * 86400));
                     //$MoreTime = "Opens in " . timediff($Date);
                     $MoreTime = "Opens ";
                     if ($day == 0) {
                         $MoreTime .= "today";
+                        if ($close > $open && $close < $user_time){$allowbreak = false;} //closed for today already
                     } else if ($day == 1) {
                         $MoreTime .= "tomorrow";
                     } else {
                         $MoreTime .= "in " . $day . " days";
                     }
-                    $MoreTime .= " at " . converttime($open);
-                    break;
+                    if($allowbreak) {
+                        $MoreTime .= " at " . converttime($open);
+                        break;
+                    }
                 }
             }
         } else {
