@@ -72,7 +72,43 @@ echo newrow($new, "I Offer Pickup",null, false,6,null); ?>
 
     <div class="col-md-12 col-xs-12 p-t-1" >
         <h4>Hours</h4>
-
+        @if(read("profiletype") == 1)
+            <TEXTAREA ID="TOTALHOURS" PLACEHOLDER="Paste Google results here" style="width:100%"></TEXTAREA><BR>
+            <INPUT TYPE="BUTTON" VALUE="Extract from Google results" onclick="extract();" style="width:100%">
+            <SCRIPT>
+                function extract(){
+                    var hours = $("#TOTALHOURS").val().split(/\r\n|\r|\n/g);
+                    var daysofweek = <?= getweekdays(true); ?>;
+                    var open, close;
+                    for(var index = 0; index < hours.length; index ++){
+                        var today = hours[index].split("	");
+                        var dayofweek = today[0];
+                        var todayshours = today[1];
+                        var dayofweekindex = daysofweek.indexOf(dayofweek);
+                        if(todayshours == "Closed") {
+                            open = "";
+                            close = "";
+                        } else {
+                            todayshours = todayshours.split("–");
+                            open = fixtime(todayshours[0]);
+                            close = fixtime(todayshours[1]);
+                            if (open.indexOf(":") == -1){
+                                open = open + ":00" + close.substr(close.length - 2);
+                            }
+                        }
+                        $("input[name=" + dayofweek + "_open]").val(open);
+                        $("input[name=" + dayofweek + "_close]").val(close);
+                    }
+                }
+                function fixtime(time){
+                    if (time.indexOf(":") == -1){
+                        time = time.replace("AM", ":00AM");
+                        time = time.replace("PM", ":00PM");
+                    }
+                    return time;
+                }
+            </SCRIPT>
+        @endif
         <?php
             function getkey($object, $key) {
                 return $object->$key;
@@ -256,4 +292,4 @@ echo newrow($new, "I Offer Pickup",null, false,6,null); ?>
     $(document).ready(function () {
         same(false);
     });
-</script></script></script></script></script></script></script></script>
+</script>
