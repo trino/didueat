@@ -71,7 +71,7 @@ class UsersController extends Controller {
      * @return Response
      */
     public function listingAjax() {
-        $per_page = \Input::get('showEntries', 20);//if(!$per_page){$per_page=20;}
+        $per_page = \Input::get('showEntries');
         $page = \Input::get('page');
         $cur_page = $page;
         $page -= 1;

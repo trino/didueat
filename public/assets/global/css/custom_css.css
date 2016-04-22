@@ -153,6 +153,7 @@ label {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    padding: 8rem 0 10rem 0;
 }
 
 .signup-bg-image {
@@ -889,7 +890,7 @@ fieldset[disabled] .btn-primary.focus {
 @media screen and (max-width: 768px) {
 
     h1 {
-        font-size: 1.4rem !important;
+        font-size: 1.15rem !important;
     }
 
     h2 {

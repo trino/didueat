@@ -44,7 +44,7 @@
                             </label>
                         </p-->
 
-                        <p class="m-t-0 m-b-1"><a style="font-size: 90%;" href="javascript:void(0);" data-toggle="modal" data-target="#forgotpasswordModal" data-dismiss="modal" title="{{ $alts["forgot"] }}">
+                        <p style="margin: .5rem 0;"><a class="text-muted" style="font-size: 90%;" href="javascript:void(0);" data-toggle="modal" data-target="#forgotpasswordModal" data-dismiss="modal" title="{{ $alts["forgot"] }}">
                                 Forgot Password?
                         </a></p>
 

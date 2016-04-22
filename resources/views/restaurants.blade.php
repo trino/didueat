@@ -77,10 +77,10 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-success main-bg-image">
+    <div class=" bg-success main-bg-image">
         <div class="container" style="margin-top: 0 !important;">
             <div class="row text-md-center " style="padding:0 1rem !important;">
-                <div class="col-md-offset-2 text-xs-center col-md-8 " style="">
+                <div class="col-md-offset-2 text-xs-center col-md-8 m-b-1" style="">
                     <h1 class="banner-text-shadow"><span style="font-size: 127%">Meals Delivered From </span><span
                                 style="font-size: 126%"> Hamilton Restaurants</span></h1>
                     <div class="clearfix"></div>
@@ -280,7 +280,7 @@
             @endif
 
         </div>
-        <div id="element">&nbsp;</div>
+        <div id="element"></div>
     </div>
 
 

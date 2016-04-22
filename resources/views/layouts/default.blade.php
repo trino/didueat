@@ -1,10 +1,9 @@
 <?php
-if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' ||trim($_SERVER['REMOTE_ADDR']) == '65.93.60.187' ||trim($_SERVER['REMOTE_ADDR']) == '103.10.29.22' || trim($_SERVER['REMOTE_ADDR']) == '24.141.192.74' || trim($_SERVER['REMOTE_ADDR']) == '::1'   || trim($_SERVER['REMOTE_ADDR']) == '127.0.0.1' || trim($_SERVER['REMOTE_ADDR']) == '24.36.252.21'    ) {
+if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_ADDR']) == '65.93.60.187' || trim($_SERVER['REMOTE_ADDR']) == '103.10.29.22' || trim($_SERVER['REMOTE_ADDR']) == '24.141.192.74' || trim($_SERVER['REMOTE_ADDR']) == '::1' || trim($_SERVER['REMOTE_ADDR']) == '127.0.0.1' || trim($_SERVER['REMOTE_ADDR']) == '24.36.252.21') {
 } else {
     die();
 }
-?>
-        <!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <?php
@@ -151,7 +150,7 @@ if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' ||trim($_SERVER['REMOTE_ADD
             base_url = 'http://localhost/didueat/public/';
         } else {
             base_url = window.location.protocol + '//';
-            if (window.location.href.toLowerCase().indexOf("www") > -1){
+            if (window.location.href.toLowerCase().indexOf("www") > -1) {
                 base_url = base_url + "www.";
             }
             base_url = base_url + 'didueat.ca/';
@@ -170,16 +169,16 @@ if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' ||trim($_SERVER['REMOTE_ADD
 
 <body>
 
-<div class="container-fluid" style="margin-bottom: 45px;">
+<div class="container-fluid bg-success" style="margin-bottom: 45px;">
     @include('layouts.includes.header')
 </div>
 
 
-<div class="container-fluid">
+<div class="container-fluid" style="padding-top: 3px;">
     @include('common.alert_messages')
 </div>
 
-<div class="container-fluid ">
+<div class="container-fluid">
     @yield('content')
 </div>
 
@@ -198,11 +197,8 @@ if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' ||trim($_SERVER['REMOTE_ADD
 @endif
 
 
-
-
 <script>
 
-     
 
     $(window).load(function () {
         $('.overlay_loader').hide();
@@ -222,9 +218,6 @@ if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' ||trim($_SERVER['REMOTE_ADD
     ga('create', 'UA-74638591-1', 'auto');
     ga('send', 'pageview');
 </script>
-
-
-
 
 
 </body>

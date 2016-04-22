@@ -80,9 +80,12 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                         </li>
                     @endif
 
-                    @if(debugmode())
+                    @if((Session::get('session_type_user') == "super" ) || !islive())
+                        <li class="list-inline-item">
+
                         <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}&action=clearcache">Clear
                             Cache</a>
+                        </li>
                     @endif
 
                     <li class="list-inline-item">
@@ -101,7 +104,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
             <div class="col-lg-12 " style="font-size: 90%;">
                 <p>
                     Designed and built with all the <i class="fa fa-heart" style="color:#d9534f!important"></i> in
-                    theworld by
+                    the world by
                     <a href="http://trinoweb.com/" target="_blank" title="{{ $alts["trinoweb"] }}">
                         <B CLASS="nowrap">
                             <SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN><SPAN style="color:black;">WEB</SPAN>
