@@ -81,8 +81,8 @@ $itemPosnForJS = [];
 
             <?php
             $noUpCatSort = false;
-            $thisUpMenuVisib = "show";
-            $thisDownMenuVisib = "show";
+            $thisUpMenuVisib = "visible";
+            $thisDownMenuVisib = "visible";
             $parentCnt[$thisCatCnt] = $value->id; // for js sorting with ajax, not implemented yet
             $itemPosnForJS[$value->cat_id][$value->id] = $value->display_order;
             $catPosn[] = $thisCatCnt;
@@ -93,16 +93,16 @@ $itemPosnForJS = [];
             if ($index < ($thisCnt - 1)) { // means it's not the last item
                 $nextIndx = ($index + 1);
                 if ($value->cat_id != $catIDNum[$nextIndx]) {
-                    $thisDownMenuVisib = "none";
+                    $thisDownMenuVisib = "hidden";
                 }
             } else {
-                $thisDownMenuVisib = "none"; // last item in array
+                $thisDownMenuVisib = "hidden"; // last item in array
             }
 
             //echo "\$prevCat: ".$prevCat."  --  \$index: ".$index."  --  \$nextIndx: ".$nextIndx."  -- totalItems-1: ".($thisCnt-1)."  --  cat_id: ".$value->cat_id."  --   next CatID: ".$catIDNum[$nextIndx]."  --  ".$value->menu_item."  --  ".$value->display_order;
 
             if($value->cat_id != $prevCat){ // means it's a new category
-            $thisUpMenuVisib = "none";
+            $thisUpMenuVisib = "hidden";
             $catMenuCnt = 0; // reset count for this category
             if ($prevCat) {
                 echo '</div><!-- end of previous category -->';
@@ -110,16 +110,16 @@ $itemPosnForJS = [];
             $prevCat = $value->cat_id; // also used as current cat_id until next loop
 
             $catNameStr[$prevCat] = $value->cat_name;
-            ($noUpCatSort) ? $thisUpCatSort = "none" : $thisUpCatSort = "show";
-            ($thisCatCnt >= ($catCnt - 1)) ? $thisDownCatSort = "none" : $thisDownCatSort = "show";
+            ($noUpCatSort) ? $thisUpCatSort = "hidden" : $thisUpCatSort = "visible";
+            ($thisCatCnt >= ($catCnt - 1)) ? $thisDownCatSort = "hidden" : $thisDownCatSort = "visible";
 
 
             if (!read('id')) {
 
-                $thisUpCatSort = 'none';
-                $thisDownCatSort = 'none';
-                $thisDownMenuVisib = 'none';
-                $thisUpMenuVisib = 'none';
+                $thisUpCatSort = 'hidden';
+                $thisDownCatSort = 'hidden';
+                $thisDownMenuVisib = 'hidden';
+                $thisUpMenuVisib = 'hidden';
             }
             ?>
 
@@ -136,14 +136,14 @@ $itemPosnForJS = [];
                             <div class="col-xs-2">
                                 <div class="pull-right" aria-label="Basic example">
                                     <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
-                                       id="up{{ $thisCatCnt }}" style="display:{{ $thisUpCatSort }} !important"
+                                       id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
                                        href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
                                         <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
                                         <i class="fa fa-arrow-up"></i>
                                     </a>
 
                                     <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-link"
-                                       id="down{{ $thisCatCnt }}" style="display:{{ $thisDownCatSort }} !important"
+                                       id="down{{ $thisCatCnt }}" style="visibility:{{ $thisDownCatSort }} !important"
                                        href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
                                         <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/down");?>"> -->
                                         <i class="fa fa-arrow-down"></i>
@@ -365,7 +365,7 @@ $itemPosnForJS = [];
                                        class="btn btn-sm btn-link pull-right sorting_parent"
                                        href="javascript:void(0);"
                                        onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'up', {{ $catMenuCnt }});return false"
-                                       style="display:{{ $thisUpMenuVisib }} !important">
+                                       style="visibility:{{ $thisUpMenuVisib }} !important">
                                         <i class="fa fa-arrow-up"></i></a>
 
                                     <a id="down_parent_{{ $value->id.'_'.$value->cat_id }}"
@@ -373,7 +373,7 @@ $itemPosnForJS = [];
                                        class="btn btn-sm btn-link pull-right sorting_parent"
                                        href="javascript:void(0);"
                                        onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }});return false"
-                                       style="display:{{ $thisDownMenuVisib }} !important">
+                                       style="visibility:{{ $thisDownMenuVisib }} !important">
                                         <i class="fa fa-arrow-down"></i></a>
 
                                 @endif
