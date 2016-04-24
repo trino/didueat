@@ -399,8 +399,9 @@ for(var i=0;i<catObj.length;i++){
     if($_parent.find('.is_active').is(':checked')) {
         is_active = 1;
     }
-    var ch_en = check_enabled(id,cat_id,is_active,$_parent.find('.is_active'),base_url);
-    
+    var ch_en = 1;
+   // var ch_en = check_enabled(id,cat_id,is_active,$_parent.find('.is_active'),base_url);
+
     if(ch_en=='0') {
         return false;
     }

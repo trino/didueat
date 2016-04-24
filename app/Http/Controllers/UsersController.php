@@ -3,42 +3,45 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-class UsersController extends Controller {
-    
+class UsersController extends Controller
+{
+
     /**
      * Constructor
      * @param null
      * @return redirect
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->beforeFilter(function () {
             $act = str_replace('user.', '', \Route::currentRouteName());
             $act = str_replace('.store', '', $act);
             initialize("users");
         });
     }
-    
+
     /**
      * Users List
      * @param null
      * @return view
      */
-    public function index() {
+    public function index()
+    {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             //check for missing data
             if (!isset($post['name']) || empty($post['name'])) {
-                return $this->failure('[Name] field is missing','users/list', true);
+                return $this->failure('[Name] field is missing', 'users/list', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/list', true);
+                return $this->failure(trans('messages.user_missing_email.message'), 'users/list', true);
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
-                return $this->failure( trans('messages.user_email_already_exist.message'),'users/list', true);
+                return $this->failure(trans('messages.user_email_already_exist.message'), 'users/list', true);
             }
             if (!isset($post['password']) || empty($post['password'])) {
-                return $this->failure( trans('messages.user_pass_field_missing.message') . " (0x03)",'users/list', true);
+                return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x03)", 'users/list', true);
             }
             /*if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
                 return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'users/list', true);
@@ -56,7 +59,7 @@ class UsersController extends Controller {
                 return $this->failure(trans('messages.user_email_already_exist.message'), 'users/list', true);
             } catch (\Exception $e) {
                 \DB::rollback();
-                return $this->failure( handleexception($e), 'users/list', true);
+                return $this->failure(handleexception($e), 'users/list', true);
             }
         } else {//get data to load the page
             $data['title'] = 'Users List';
@@ -65,12 +68,13 @@ class UsersController extends Controller {
             return view('dashboard.user.index', $data);
         }
     }
-    
+
     /**
      * Listing Ajax
      * @return Response
      */
-    public function listingAjax() {
+    public function listingAjax()
+    {
         $per_page = \Input::get('showEntries');
         $page = \Input::get('page');
         $cur_page = $page;
@@ -86,11 +90,11 @@ class UsersController extends Controller {
             'order' => (\Input::get('order')) ? \Input::get('order') : 'DESC',
             'searchResults' => \Input::get('searchResults')
         );
-        
+
         $Query = \App\Http\Models\Profiles::listing($data, "list", $recCount)->get();
 
         $no_of_paginations = ceil($recCount / $per_page);
-        
+
         $data['Query'] = $Query;
         $data['recCount'] = $recCount;
         $data['Pagination'] = getPagination($recCount, $no_of_paginations, $cur_page, TRUE, TRUE, TRUE, TRUE);
@@ -100,14 +104,15 @@ class UsersController extends Controller {
         return view('dashboard.user.ajax.list', $data);
     }
 
-    
+
     /**
      * Edit User Form
      * @param $id
      * @return view
      */
-    public function ajaxEditUserForm($id=0) {
-        if($id) {
+    public function ajaxEditUserForm($id = 0)
+    {
+        if ($id) {
             $data['user_detail'] = \App\Http\Models\Profiles::find($id);
             $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
         }
@@ -123,21 +128,22 @@ class UsersController extends Controller {
      * @param null
      * @return view
      */
-    public function userUpdate() {
+    public function userUpdate()
+    {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing or duplicate data
             if (!isset($post['id']) || empty($post['id'])) {
                 return $this->failure('[ID] field is missing', 'users/list', true);
             }
             if (!isset($post['name']) || empty($post['name'])) {
-                return $this->failure('[Name] field is missing','users/list', true);
+                return $this->failure('[Name] field is missing', 'users/list', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/list', true);
+                return $this->failure(trans('messages.user_missing_email.message'), 'users/list', true);
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->where('id', '!=', $post['id'])->count();
             if ($is_email > 0) {
-                return $this->failure(trans('messages.user_email_already_exist.message'),'users/list', true);
+                return $this->failure(trans('messages.user_email_already_exist.message'), 'users/list', true);
             }
             /*
             if (!isset($post['password']) || empty($post['password'])) {
@@ -147,8 +153,8 @@ class UsersController extends Controller {
                 return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'users/list', true);
             }
             */
-            if (isset($post['password'])){// && isset($post['confirm_password']) && $post['password'] != $post['confirm_password']) {
-                return $this->failure(trans('messages.user_passwords_mismatched.message'),'users/list', true);
+            if (isset($post['password'])) {// && isset($post['confirm_password']) && $post['password'] != $post['confirm_password']) {
+                return $this->failure(trans('messages.user_passwords_mismatched.message'), 'users/list', true);
             }
             \DB::beginTransaction();
             try {//save user's browser/OS info
@@ -161,10 +167,10 @@ class UsersController extends Controller {
                 $user = \App\Http\Models\Profiles::find($post['id']);
                 $user->populate(array_filter($post));
                 $user->save();
-                
+
                 event(new \App\Events\AppEvents($user, "User Updated"));
 
-                if(isset($post['adid']) && !empty($post['adid'])){
+                if (isset($post['adid']) && !empty($post['adid'])) {
                     $add = \App\Http\Models\ProfilesAddresses::find($post['adid']);
                     $add->populate(array_filter($post));
                     $add->save();
@@ -172,26 +178,27 @@ class UsersController extends Controller {
                     \DB::commit();
                 }
 
-                return $this->success( 'User has been updated successfully.', 'users/list', true);
+                return $this->success('User has been updated successfully.', 'users/list', true);
             } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
-                return $this->failure( trans('messages.user_email_already_exist.message'), 'users/list', true);
+                return $this->failure(trans('messages.user_email_already_exist.message'), 'users/list', true);
             } catch (\Exception $e) {
                 \DB::rollback();
-                return $this->failure(handleexception($e),'users/list', true);
+                return $this->failure(handleexception($e), 'users/list', true);
             }
         } else {
-            return $this->failure( "Invalid parsed data!",'users/list', true);
+            return $this->failure("Invalid parsed data!", 'users/list', true);
         }
     }
-    
+
     /**
      * Users Action
      * @param $type
      * @param $id
      * @return redirect
      */
-    public function usersAction($type = '', $id = 0) {
+    public function usersAction($type = '', $id = 0)
+    {
         //check for missing type/id
         if (!isset($type) || empty($type)) {
             return $this->failure("[Type] is missing!", 'users/list');
@@ -202,7 +209,7 @@ class UsersController extends Controller {
         try {
             $ob = \App\Http\Models\Profiles::find($id);//search for user $id
             event(new \App\Events\AppEvents($ob, "User Status Changed"));//log event
-            switch ($type){
+            switch ($type) {
                 case "user_fire"://fire user by deleting them
                     $ob->delete();
                     return $this->listingAjax();
@@ -222,14 +229,15 @@ class UsersController extends Controller {
             }
             return $this->success("message:" . $type, 'users/list');
         } catch (\Exception $e) {
-            return $this->failure( handleexception($e), 'users/list');
+            return $this->failure(handleexception($e), 'users/list');
         }
     }
 
     //handle updating a profile image
-    public function save_profile_image($Keyname = "image", $UserID = false){
-        if(!$UserID){
-            $UserID= \Session::get('session_id');
+    public function save_profile_image($Keyname = "image", $UserID = false)
+    {
+        if (!$UserID) {
+            $UserID = \Session::get('session_id');
         }
 
         if (\Input::hasFile($Keyname)) {
@@ -249,27 +257,26 @@ class UsersController extends Controller {
      * @param null
      * @return view
      */
-    public function images() {
+    public function images()
+    {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if (!isset($post['restaurant_id']) || empty($post['restaurant_id'])) {
                 return $this->failure("[Restaurant] field is missing!", 'user/images');
             }
             if (!isset($post['title']) || empty($post['title'])) {
-                return $this->failure( "[Title] field is missing!",'user/images');
+                return $this->failure("[Title] field is missing!", 'user/images');
             }
             if (!\Input::hasFile('image')) {
-                return $this->failure( "[Image] field is missing!",'user/images');
+                return $this->failure("[Image] field is missing!", 'user/images');
             }
             try {
                 $this->save_profile_image();
-                return $this->success( "Image uploaded successfully", 'user/images');
+                return $this->success("Image uploaded successfully", 'user/images');
+            } catch (\Exception $e) {
+                return $this->failure(handleexception($e), 'user/images');
             }
-            catch(\Exception $e) {
-                return $this->failure(handleexception($e),'user/images');
-            }
-        } 
-        else {
+        } else {
             $data['title'] = 'Images Manage';
             $data['restaurants_list'] = \App\Http\Models\Restaurants::get();//get all restaurants
             //$data['images_list'] = \App\Http\Models\ProfilesImages::get();//get all profile images
@@ -278,26 +285,29 @@ class UsersController extends Controller {
     }
 
     //create a new order via AJAX
-    public function ajax_register() {
+    public function ajax_register()
+    {
         $post = \Input::all();
         //echo '<pre>'.print_r($post); die;
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             \DB::beginTransaction();
-            $Stage = 1;
-            try {//populate data array
+            //$Stage = 1;
+            try {
+
                 $msg = "";
-                if(!isset($post['listid'])){
+                if (!isset($post['listid'])) {
                     die("There are no items in your cart");
                 }
 
-                if( (!isset($post["cardid"]) || !$post["cardid"]) && isset($post["savecard"]) && $post["savecard"]){
+                if ((!isset($post["cardid"]) || !$post["cardid"]) && isset($post["savecard"]) && $post["savecard"]) {
                     $creditinfo = array();
-                    foreach(array("cardnumber" => "card_number", "cardcvc" => "ccv", "cardmonth" => "expiry_month", "cardyear" => "expiry_year") as $source => $destination){
+                    foreach (array("cardnumber" => "card_number", "cardcvc" => "ccv", "cardmonth" => "expiry_month", "cardyear" => "expiry_year") as $source => $destination) {
                         $creditinfo[$destination] = $post[$source];
                     }
                     \App\Http\Models\CreditCard::makenew($creditinfo);
                 }
-                $Stage=2;
+
+                //$Stage = 2;
                 $post['name'] = $post['ordered_by'];
                 $res['restaurant_id'] = $post['hidden_rest_id'];
                 $res['user_id'] = $post['user_id'];
@@ -317,15 +327,19 @@ class UsersController extends Controller {
                 $res['restaurant_id'] = $post['res_id'];
                 $res['order_till'] = $post['order_till'];
 
-                if(isset($post['contact'])) {$res['contact'] = $post['contact'];}
-                $Stage=3;
-                if(isset($post["reservation_address_dropdown"]) && $post["reservation_address_dropdown"]){
+                if (isset($post['contact'])) {
+                    $res['contact'] = $post['contact'];
+                }
+
+                //$Stage = 3;
+                if (isset($post["reservation_address_dropdown"]) && $post["reservation_address_dropdown"]) {
                     $Address = select_field("profiles_addresses", "id", $post["reservation_address_dropdown"]);
                     $res['address2'] = $Address->address;
                     $res['city'] = $Address->city;
                     $res['province'] = $Address->province;
                     $res['country'] = $Address->country;
                     $res['postal_code'] = $Address->postal_code;
+
                 } else {
                     if (\Input::has('address')) {
                         $res['address2'] = $post['address'];
@@ -346,29 +360,29 @@ class UsersController extends Controller {
                         $res['postal_code'] = $post['postal_code'];
                     }
                 }
-                //echo '<pre>';print_r($res); die;
-                $Stage=4;
-                
+
+                //$Stage = 4;
                 $res['name'] = trim($post['ordered_by']);
 
                 //if the user is not logged in and specified a password, make a new user
                 if (!\Session::has('session_id') && (isset($post['password']) && $post['password'] != '')) {
                     if (\App\Http\Models\Profiles::where('email', $post['email'])->first()) {
-                       // echo '1yyb';
                         die();
                     } else {
                         $uid = $this->registeruser("Users@ajax_register", $post, 2, 0);
                         $res['user_id'] = $uid->id;
                         $msg = "78";
-                        
+
                     }
                 }
-                $Stage=5;
+
+                //$Stage = 5;
                 $ob2 = new \App\Http\Models\Reservations();
                 $ob2->populate($res, "guid");
                 $ob2->save();
                 $oid = $ob2->id;
-                $Stage=6;
+                //$Stage = 6;
+
                 /*
                 if($post['payment_type']=='cc')
                 {
@@ -381,20 +395,17 @@ class UsersController extends Controller {
                             $this->failure("Your order has <B>NOT</B> been paid.");
                         }
                     }
-                    
                 }*/
 
                 $res['ordered_by'] = $post['ordered_by'];
-                
+
                 //$res_data = array('email' => $post['email'], /*'address2' => $post['address2'], 'city' => $post['city'], 'ordered_by' => $post['postal_code'],*/ 'remarks' => $post['remarks'], 'order_till' => $post['order_till'], 'contact' => $phone);
                 $res1 = \App\Http\Models\Reservations::find($oid);
                 $res1->populate($res);
                 $res1->save();
-                $Stage=7;
+                //$Stage = 7;
 
-                //echo '<pre>';print_r($res); die;
                 event(new \App\Events\AppEvents($res, "Order Created"));
-
                 if ($res1->user_id) {
                     $u2 = \App\Http\Models\Profiles::find($res1->user_id);
                     $userArray3 = $u2->toArray();
@@ -402,7 +413,7 @@ class UsersController extends Controller {
                     $userArray3["name"] = $post["ordered_by"];
                     $userArray3["email"] = $post["email"];
                 }
-                $Stage=8;
+                //$Stage = 8;
 
                 $userArray3['mail_subject'] = 'Your ' . DIDUEAT . ' order has been received!';
                 $userArray3["guid"] = $ob2->guid;
@@ -410,36 +421,40 @@ class UsersController extends Controller {
                 $userArray3["profile_type"] = "user";
 
                 $this->sendEMail("emails.receipt", $userArray3);
-                $Stage=9;
+                //$Stage = 9;
 
                 $userArray3["profile_type"] = "restaurant";
-                $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to ' . DIDUEAT. ' for more details. Thank you.';
+                $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to ' . DIDUEAT . ' for more details. Thank you.';
                 //notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter", $IncludeVan = false, $Emails = true, $Calls = true, $SMS = true) {
                 $ret = app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt");
-                //debugprint( var_export($ret, true) );
-                $Stage=10;
+                //$Stage = 10;
+
                 //CC
-                if($post['payment_type']=='cc') {
-                    if(isset($post["stripeToken"]) && $post["stripeToken"]){
+                if ($post['payment_type'] == 'cc') {
+                    if (isset($post["stripeToken"]) && $post["stripeToken"]) {
                         if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total'])) {
-                        //    $this->success("Your order has been paid.");
+                            echo '6';
+                            //$this->success("Your order has been paid.");
                             //$data['order']->paid = 1;
-                        }else {
-                     //       $this->failure("Your order has <B>NOT</B> been paid.");
+                        } else {
+                            //$this->failure("Your order has <B>NOT</B> been paid.");
+                            echo "There was an issue processing your Card. Please try again or select Pay by Cash on Delivery";
+
                         }
                     }
-                    
+                } else {
+                    echo '6';
                 }
-                $Stage=11;
-                echo '6';
+
+                //$Stage = 11;
 
                 \DB::commit();
-            } catch(\Illuminate\Database\QueryException $e) {
+            } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
                 var_dump($e);
                 echo handleexception($e, true);
                 die();
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 \DB::rollback();
                 echo handleexception($e);
                 die();
@@ -451,7 +466,8 @@ class UsersController extends Controller {
     }
 
     //converts the current profile to JSON
-    function json_data() {
+    function json_data()
+    {
         $id = $_POST['id'];
         $user = \App\Http\Models\Profiles::select('profiles.id as user_id', 'profiles.name', 'profiles.email', 'profiles.phone as phone', 'profiles_addresses.address as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province', 'profiles_addresses.notes as notes', "profiles.restaurant_id as restaurant_id")->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
         $user->token = csrf_token();
@@ -465,16 +481,24 @@ class UsersController extends Controller {
         return json_encode($user);
     }
 
-    function uploads($UserID = false){
-        if(!$UserID){$UserID = read("id");}
+    function uploads($UserID = false)
+    {
+        if (!$UserID) {
+            $UserID = read("id");
+        }
         return view('dashboard.user.uploads', array("userid" => $UserID));
     }
 
-    function uploadsajax($UserID = false){
-        if(!$UserID){$UserID = read("id");}
+    function uploadsajax($UserID = false)
+    {
+        if (!$UserID) {
+            $UserID = read("id");
+        }
 
         $per_page = \Input::get('showEntries', 20);
-        if(!is_numeric($per_page)){$per_page = 20;}
+        if (!is_numeric($per_page)) {
+            $per_page = 20;
+        }
         $page = \Input::get('page');
         $cur_page = $page;
         $page -= 1;

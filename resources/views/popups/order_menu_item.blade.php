@@ -268,7 +268,7 @@
                         $usedropdown = true;
                         ?>
                         <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());"
-                                class="btn btn-secondary p-x-0" @if(!$usedropdown) style="display:none;" @endif >
+                                class="btn btn-secondary p-x-0" style=" background: transparent; border:0 !important; @if(!$usedropdown) display:none; @endif ">
                             <?php
                             for ($i = 1; $i <= 10; $i++) {
                                 echo '<OPTION';

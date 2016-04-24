@@ -91,6 +91,7 @@ a.anchor {
 
 .modal {
     overflow-y: auto;
+    -webkit-overflow-scrolling: auto !important; /* modal with radio doesnt work without this */
 }
 
 .modal-open {
@@ -153,7 +154,7 @@ label {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    padding: 8rem 0 10rem 0;
+    padding: 6rem 0 8rem 0;
 }
 
 .signup-bg-image {
@@ -212,7 +213,7 @@ td {
     position: absolute;
 }
 
-.errormsg {
+.errormsg, .instruct {
     color: red;
 }
 
@@ -496,11 +497,6 @@ body {
     margin-bottom: 5px;
 }
 
-.instruct {
-
-    color: #373a3c ;
-
-}
 
 /*
 
@@ -890,11 +886,11 @@ fieldset[disabled] .btn-primary.focus {
 @media screen and (max-width: 768px) {
 
     h1 {
-        font-size: 1.15rem !important;
+        font-size: 1.3rem !important;
     }
 
     h2 {
-        font-size: 1.35rem !important;
+        font-size: 1.3rem !important;
     }
 
     h3 {

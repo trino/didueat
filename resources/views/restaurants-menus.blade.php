@@ -45,8 +45,32 @@
                     @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true, "showtoday" => true))
 
 
-                <div class="">
-                    <div class="overlay overlay_reservation">
+
+                @if($allowedtoupload)
+
+                    <div class="card  m-b-0" style="border-radius:0 !important;">
+                        <div class="card-block text-xs-center ">
+                            <div class="container" style="margin-top: 0 !important;padding:0 !important;">
+
+                                <div class="col-md-4 col-md-offset-4 ">
+                                    <a href="#" id="add_item0" type="button"
+                                       class="btn btn-success btn-lg additem  btn-block"
+                                       data-toggle="modal"
+                                       title="{{ $alts["add_item"] }}"
+                                       data-target="#addMenuModel">
+                                        Upload Menu Item
+                                    </a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+
+
+
+                <div class="overlay overlay_reservation">
                         <div class="loadmoreajaxloader"></div>
                     </div>
                     <div id="saveOrderChngBtn" style="display:none">
@@ -104,7 +128,7 @@
 
                         <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
-                </div>
+
 
                 <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
                     @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))
@@ -205,8 +229,8 @@
         function check_val(v) {
         }
 
-    //    Stripe.setPublishableKey('pk_test_fcMnnEwpoC2fUrTPpOayYUOf');
-        Stripe.setPublishableKey('pk_rlgl8pX7nDG2JA8O3jwrtqKpaDIVf');
+      Stripe.setPublishableKey('pk_vnR0dLVmyF34VAqSegbpBvhfhaLNi'); //live
+      //test   Stripe.setPublishableKey('pk_rlgl8pX7nDG2JA8O3jwrtqKpaDIVf');
         var stripeResponseHandler = function (status, response) {
             //var $form = $('#payment-form');
             var $form = $('#profiles');

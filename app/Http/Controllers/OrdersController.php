@@ -71,6 +71,10 @@
          * @return view
          */
         public function order_detail($ID, $type){
+
+
+            debugprint("3333333333333333");
+
             $data['order'] = \App\Http\Models\Reservations::select('reservations.*')->where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first();
             if (is_null($data['order']['restaurant_id'])) {//check for a valid restaurant $ID
                 return back()->with('status', 'Restaurant Not Found!');

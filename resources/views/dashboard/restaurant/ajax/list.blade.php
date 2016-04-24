@@ -62,7 +62,7 @@
                             
                             
                             <td>{{ $value->id }}</td>
-                            <td><img src="{{ $logo }}" width="90" alt="{{ $alts["logo"] }}"/></td>
+                            <td><img class="img-circle" src="{{ $logo }}" width="90" alt="{{ $alts["logo"] }}"/></td>
                             <td>{{ $value->name }}</td>
                             <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value->id, true, 'update-rating', false) !!}</td>
                             <td>

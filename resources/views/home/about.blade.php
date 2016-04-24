@@ -3,9 +3,10 @@
     <?php printfile("views/home/about.blade.php"); ?>
     <div class="container">
             <div class="row">
+            <div class="card">
                 <div class="col-md-12 m-t-1">
                     <h1>About Us</h1>
-                    <br>
+
                     {{ DIDUEAT }} is an online service that helps hungry Canadians order delivery from local restaurants.
                     <br><br>
                     Having great local food delivered helps us all keep up with our busy
@@ -14,6 +15,7 @@
                     <br><br>
                     {{ DIDUEAT }}'s quickly expanding network is reaching our goal of making everyone's life a
                     little bit better. It's secure and easy to use, you'll wonder why you ever ordered over the phone.
+                </div>
                 </div>
         </div>
     </div>

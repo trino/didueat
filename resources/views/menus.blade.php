@@ -127,13 +127,13 @@ $itemPosnForJS = [];
                 <div class="list-group-item parents" style="background: #f5f5f5;"><!-- start of category heading -->
                     <div class="">
                         <div class="row">
-                            <div class="col-xs-10">
+                            <div class="col-xs-8">
                                 <a href="#" name="<?php echo $value->cat_name; ?>"></a>
                                 <h4 class="card-title"><?= $value->cat_name;?></h4>
                             </div>
 
 
-                            <div class="col-xs-2">
+                            <div class="col-xs-4">
                                 <div class="pull-right" aria-label="Basic example">
                                     <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
                                        id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
