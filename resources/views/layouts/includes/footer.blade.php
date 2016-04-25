@@ -90,7 +90,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
 
                     <li class="list-inline-item">
                         <h5>
-                            <A href="https://www.facebook.com/didueatcanada/" target="_blank"
+                            <A href="https://www.facebook.com/didueathamilton/" target="_blank"
                                title="{{ $alts["socmed"] }}"><i class="fa fa-facebook"></i></A>&nbsp;
                             <A href="https://mobile.twitter.com/didueatcanada" target="_blank"
                                title="{{ $alts["socmed"] }}"><i class="fa fa-twitter"></i></A>&nbsp;

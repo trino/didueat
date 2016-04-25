@@ -173,8 +173,6 @@ $itemPosnForJS = [];
                 $thisCatCnt++;
                 }
 
-
-
                 //load images, duplicate code
 
                 $has_iconImage = false;
@@ -196,7 +194,8 @@ $itemPosnForJS = [];
                 $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
                 ?>
 
-                <div class="list-group-item parents" id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
+                <div style="padding-bottom: 0 !important; " class="list-group-item parents"
+                     id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
                     <!-- start of menu item -->
                     <div>
                         <div class="row">
@@ -225,41 +224,42 @@ $itemPosnForJS = [];
                                 }
                                 ?>
 
-                                <h5 class="card-title" style="">
+                                <h5 class="card-title">
 
-                                    <div class="" style="width: 100%;float:left;vertical-align: middle;">
+                                    <div style="width: 100%;float:left;vertical-align: middle;">
 
-                <a style="line-height:30px;"
-                   href="#" id="{{ $value->id }}" name="{{ $value->id }}"
-                   data-res-id="{{ $value->restaurant_id }}"
-                   title="{{ $alts["product-pop-up"] }}"
-                   class="card-link" data-toggle="modal"
-                   data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
+                                        <a style="line-height:30px;"
+                                           href="#" id="{{ $value->id }}" name="{{ $value->id }}"
+                                           data-res-id="{{ $value->restaurant_id }}"
+                                           title="{{ $alts["product-pop-up"] }}"
+                                           class="card-link" data-toggle="modal"
+                                           data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
 
                                             @if($has_iconImage)
                                                 <img src="{{ $item_iconImg }}"
-                                                     class="img-circle" style="height:30px;width:30px;float:left;margin-right:.5rem;"
+                                                     class="img-circle"
+                                                     style="height:30px;width:30px;float:left;margin-right:.5rem;"
                                                      alt="{{ $value->menu_item }}"/>
                                                 @else
                                                         <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
-                                                @endif
+                                            @endif
 
-                                                {{ $value->menu_item }}
-                                                <span style="white-space: nowrap">
+                                            {{ $value->menu_item }}
+                                            <span style="white-space: nowrap">
                                                     &ndash;
-                                                    @if($main_price>0)
-                                                        ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
-                                                    @else
-                                                        ${{number_format($min_p,2)}}+
-                                                    @endif
-                                                    @if($dis)
-                                                        <strike class="text-muted btn btn-sm btn-link"
-                                                                style="float: right">${{number_format($value->price,2)}}</strike>
-                                                    @endif
-                                                    @if($dis)
-                                                        <strike class="text-muted btn btn-sm btn-link"
-                                                                style="float: right">${{number_format($value->price,2)}}</strike>
-                                                    @endif
+                                                @if($main_price>0)
+                                                    ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
+                                                @else
+                                                    ${{number_format($min_p,2)}}+
+                                                @endif
+                                                @if($dis)
+                                                    <strike class="text-muted btn btn-sm btn-link"
+                                                            style="float: right">${{number_format($value->price,2)}}</strike>
+                                                @endif
+                                                @if($dis)
+                                                    <strike class="text-muted btn btn-sm btn-link"
+                                                            style="float: right">${{number_format($value->price,2)}}</strike>
+                                                @endif
                                                 </span>
                                         </a>
                                     </div>
@@ -268,12 +268,12 @@ $itemPosnForJS = [];
                                 </h5>
 
 
-                                <div class="clearfix">
+                                <!--div class="clearfix">
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
                                     <p class="card-text m-a-0">
                                         {{$dis}}
                                     </p>
-                                </div>
+                                </div-->
 
 
                                 <p class="card-text m-a-0  text-muted">
@@ -391,6 +391,7 @@ $itemPosnForJS = [];
                 ?>
                 @include('popups.order_menu_item')
                 @endwhile
+                <div class="clearfix p-b-1" style="background: white;"></div>
 
             </div> <!-- end of last category -->
 
@@ -427,7 +428,7 @@ $itemPosnForJS = [];
 <div class="clearfix"></div>
 
 <SCRIPT>
-    <?php echo $itemPosnForJSStr;?>
+            <?php echo $itemPosnForJSStr;?>
     var itemPosnOrig = itemPosn;
     var menuSortChngs = [];
     var catOrigPosns = [<?php echo $catIDforJS_Str;?>]; // as original cat posns as indexes, with the values being the db cat_id

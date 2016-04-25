@@ -51,7 +51,7 @@
             );
             ?>
             <input type="text" name="formatted_address" id="formatted_address2"
-                   class="form-control formatted_address" placeholder="Delivery Address"
+                   class="form-control formatted_address" placeholder="Enter your address"
                    onchange="change_address_event();"
                    @if(isset($_GET["search"]))
                    value="{{ $_GET["search"] }}"

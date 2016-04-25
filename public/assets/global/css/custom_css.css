@@ -94,8 +94,16 @@ a.anchor {
     -webkit-overflow-scrolling: auto !important; /* modal with radio doesnt work without this */
 }
 
+body.modal-open {
+    overflow: hidden;
+
+}
+
 .modal-open {
-    overflow: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .modal-open[style] {
@@ -129,6 +137,7 @@ a.anchor {
 .close {
     font-size: 2rem !important;
     font-weight: normal;
+    opacity: .8 !important;
 }
 
 .container-fluid {
@@ -892,7 +901,9 @@ fieldset[disabled] .btn-primary.focus {
 
 @media screen and (max-width: 768px) {
 
-
+    .modal-dialog{
+        margin: 0 !important;
+    }
     h1 {
         font-size: 1.3rem !important;
     }
@@ -910,7 +921,7 @@ fieldset[disabled] .btn-primary.focus {
     }
 
     h5 {
-        font-size: 1.20rem !important;
+        font-size: 1rem !important;
     }
 
     h6 {

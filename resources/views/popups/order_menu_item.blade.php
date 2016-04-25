@@ -37,14 +37,14 @@
                 <img src="{{$item_bigImage }}" style="max-width:100%;" alt="{{ $alts["bigimage"] }}"/>
             @endif
 
-            <div style=" width:100%; border:0; @if ($has_bigImage)background-color: rgba(0,0,0,0.4); @endif"
+            <div style=" width:100%; border:0; @if ($has_bigImage)background:transparent !important; @endif"
                  class=" bg-inverse card-header @if ($has_bigImage) fronttext @else bg-success @endif">
                 <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" title="Close"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
                     <span aria-hidden="true " style="color:white;">&times;</span>
                 </button>
 
-                <h4 class="modal-title" id="viewDetailModel">
+                <h4 class="modal-title banner-text-shadow" id="viewDetailModel">
 
                     {{ $value->menu_item }} &ndash;
                     @if($value->price>0)
@@ -231,7 +231,7 @@
                         If issue arises?
                     </div>
                     <div class="col-md-8">
-                        <SELECT style="width:100%;text-align: left;" ID="csr{{ $value->id }}" TITLE="{{ $alts["csr"] }}" CLASS="btn btn-secondary text-muted">
+                        <SELECT style="padding:.375rem;width:100%;text-align: left;" ID="csr{{ $value->id }}" TITLE="{{ $alts["csr"] }}" CLASS="btn btn-secondary text-muted">
                             <?php
                             $Actions = array("Go with restaurant suggestion","Contact me", "Refund this item",  "Cancel entire order");
                             foreach ($Actions as $Index => $Action) {
@@ -263,12 +263,12 @@
                            class="btn  btn-primary add_menu_profile add_end"
                            href="javascript:void(0);">ADD</a>
                     </div>
-                    <div class="pull-right">Qty
+                    <div class="pull-right text-muted">Qty
                         <?php
                         $usedropdown = true;
                         ?>
                         <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());"
-                                class="btn btn-secondary p-x-0" style=" background: transparent; border:0 !important; @if(!$usedropdown) display:none; @endif ">
+                                class="btn btn-secondary p-x-0 text-muted" style=" background: transparent; border:0 !important; @if(!$usedropdown) display:none; @endif ">
                             <?php
                             for ($i = 1; $i <= 10; $i++) {
                                 echo '<OPTION';
