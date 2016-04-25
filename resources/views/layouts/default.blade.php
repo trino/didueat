@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <!--?php
+   <!--?php
     if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_ADDR']) == '65.93.60.187' || trim($_SERVER['REMOTE_ADDR']) == '103.10.29.22' || trim($_SERVER['REMOTE_ADDR']) == '24.141.192.74' || trim($_SERVER['REMOTE_ADDR']) == '::1' || trim($_SERVER['REMOTE_ADDR']) == '127.0.0.1' || trim($_SERVER['REMOTE_ADDR']) == '24.36.252.21') {
     } else {
         die();
     }
     ?-->
-
     <?php
-    $start_loading_time = microtime(true);
+    //$start_loading_time = microtime(true);
 
     if (Session::has('menuTS')) {
         $GLOBALS['menuTS'] = Session('menuTS');

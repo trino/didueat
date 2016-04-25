@@ -83,8 +83,8 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                     @if((Session::get('session_type_user') == "super" ) || !islive())
                         <li class="list-inline-item">
 
-                        <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}&action=clearcache">Clear
-                            Cache</a>
+                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}&action=clearcache">Clear
+                                Cache</a>
                         </li>
                     @endif
 
@@ -114,7 +114,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
 
                     &copy; {{ DIDUEAT  }} <?= date("Y"); ?>
 
-                    @if(Session::get('session_type_user') == "super" )
+                    @if(Session::get('session_type_user') == "super" && false )
                         <?php
                         $end_loading_time = microtime(true);
                         printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
@@ -412,7 +412,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                                         }
                                     });
                                     //only loads header
-                                    $('.header-nav').load(document.URL + ' .header-nav>', function() {
+                                    $('.header-nav').load(document.URL + ' .header-nav>', function () {
                                         if (typeof onheaderload === "function") {
                                             onheaderload();
                                         }
@@ -437,7 +437,6 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                         //   window.location = "{{ url('dashboard') }}";
                         //}
                     }
-
                 },
                 failure: function (msg) {
                     $('.overlay_loader').hide();

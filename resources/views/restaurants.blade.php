@@ -80,9 +80,8 @@
     <div class=" bg-success main-bg-image">
         <div class="container" style="margin-top: 0 !important;">
             <div class="row text-md-center " style="padding:0 1rem !important;">
-                <div class="col-md-offset-2 text-xs-center col-md-8 m-b-1" style="">
-                    <h1 class="banner-text-shadow"><span style="font-size: 127%">Meals Delivered From </span><span
-                                style="font-size: 126%"> Hamilton Restaurants</span></h1>
+                <div class="col-md-offset-2 text-xs-center col-md-8" style="">
+                    <h1 class="banner-text-shadow m-b-1"><span style="font-size: 117%">Hamilton Food Delivery</span></h1>
                     <div class="clearfix"></div>
                 </div>
 
@@ -90,6 +89,11 @@
                     @include('common.search_bar')
                 </div>
                 <div class="clearfix"></div>
+
+                <div class="col-md-offset-2 text-xs-center col-md-8" style="">
+                    <h4 class="banner-text-shadow  m-t-1"><span style="">$5 Delivery. No Minimum Order.</span></h4>
+                    <div class="clearfix"></div>
+                </div>
 
                         <!--h5 class="m-t-1 display-5 banner-text-shadow" loc="{{ $loc }}"-->
                         <!--h5 class="m-t-1 display-5 banner-text-shadow">

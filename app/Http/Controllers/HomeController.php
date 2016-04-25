@@ -50,8 +50,8 @@ class HomeController extends Controller {
 
 
     public function index() {
-        $data['title'] = 'Home';
-        $data['keyword'] = 'Didueat,didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
+        $data['title'] = 'Local Food Delivery';
+        $data['keyword'] = 'Didueat,didueat.ca,Online food delivery,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
         $data['cuisine'] = cuisinelist();
         $data['meta_description'] = "Having great local food delivered helps us all keep up with our busy lives. By connecting you to local restaurants, Didueat makes great food more accessible, opening up more possibilities for food lovers and more business for local small business owners. ";
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
@@ -326,7 +326,7 @@ class HomeController extends Controller {
      * @return view
      */
     public function signupRestaurants() {
-        $data['title'] = 'Signup';
+        $data['title'] = 'Restaurant Signup';
         $data['keyword'] = 'Signup, Join Didueat,Register your Restaurant, didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
         $data['cuisine'] = cuisinelist();
         $data['meta_description'] = "Didueat prides itself on its easy ordering system. Helping customers spend less time searching for and ordering their meals! Improving on the emerging trend towards centralized meal ordering apps, Didueat makes the process easier and faster than ever before. Don't miss out on the next big thing in restaurant ordering";
