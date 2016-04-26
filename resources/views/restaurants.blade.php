@@ -432,6 +432,7 @@
         });
 
         function hideresults() {
+            $(".main-bg-image").css("padding", oldpadding);
             $('#restuarant_bar').html("");
             $('#results_show').hide();
             $('#start_up_message').show();

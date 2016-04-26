@@ -99,6 +99,8 @@ function checkout() {
                 } else {
                     return false;
                 }
+            } else if(debugmode) {
+                if (!confirm("Minimum delivery fee not met! Bypass anyway? (DEBUG MODE)")){ return false; }
             } else {
                 alert("Minimum delivery fee not met!");
                 return false;
