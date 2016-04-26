@@ -207,8 +207,8 @@ class CreditCardsController extends Controller
             }//remove the period, make it in cents
 
             // Set secret key: remember to change this to live secret key in production
-            //test   
-            \Stripe\Stripe::setApiKey("BJi8zV1i3D90vmaaBoLKywL84HlstXEg");
+        
+            \Stripe\Stripe::setApiKey("BJi8zV1i3D90vmaaBoLKywL84HlstXEg");     //test   
             //\Stripe\Stripe::setApiKey("3qL9w2o6A0xePqv8C6ufRKbAqkKTDJAW"); //live
 
             // Create the charge on Stripe's servers - this will charge the user's card

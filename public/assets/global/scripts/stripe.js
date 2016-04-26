@@ -1,5 +1,21 @@
-    // This identifies your website in the createToken call below
-    Stripe.setPublishableKey('pk_test_fcMnnEwpoC2fUrTPpOayYUOf');
+   //DONT USE THIS ANYMORE
+   //DONT USE THIS ANYMORE
+   //DONT USE THIS ANYMORE
+   //DONT USE THIS ANYMORE
+   //DONT USE THIS ANYMORE
+   //DONT USE THIS ANYMORE
+   //DONT USE THIS ANYMORE
+   //DONT USE THIS ANYMORE
+   //DONT USE THIS ANYMORE
+   //DONT USE THIS ANYMORE
+   //DONT USE THIS ANYMORE
+
+
+    /// / This identifies your website in the createToken call below
+
+
+
+    Stripe.setPublishableKey('34564763567546745674567');
 
     var stripeResponseHandler = function(status, response) {
       var $form = $('#payment-form');

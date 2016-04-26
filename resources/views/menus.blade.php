@@ -195,16 +195,17 @@ $itemPosnForJS = [];
                 ?>
 
 
-                    <a style="line-height:30px;"
-                       href="#" id="{{ $value->id }}" name="{{ $value->id }}"
-                       data-res-id="{{ $value->restaurant_id }}"
-                       title="{{ $alts["product-pop-up"] }}"
-                       class="card-link" data-toggle="modal"
-                       data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
+                <a style="line-height:30px;"
+                   href="#" id="{{ $value->id }}" name="{{ $value->id }}"
+                   data-res-id="{{ $value->restaurant_id }}"
+                   title="{{ $alts["product-pop-up"] }}"
+                   class="card-link" data-toggle="modal"
+                   data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
 
-                        <div style="padding-top: .5rem !important;padding-bottom: .5rem !important;border-bottom:1px solid #efefef !important;" class="list-group-item parents"
-                             id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
-                            <!-- start of menu item -->
+                    <div style="padding-top: .5rem !important;padding-bottom: .5rem !important;border-bottom:1px solid #efefef !important;"
+                         class="list-group-item parents"
+                         id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
+                        <!-- start of menu item -->
                         <div class="row">
                             <div class="col-md-12"><!-- start div 4 -->
 
@@ -232,76 +233,76 @@ $itemPosnForJS = [];
                                 ?>
 
 
-                                    <div style="width: 100%;float:left;vertical-align: middle;">
+                                <div style="width: 100%;float:left;vertical-align: middle;">
 
-                                        <h5 class="card-title">
+                                    <h5 class="card-title">
 
-                                            @if($has_iconImage)
-                                                <img src="{{ $item_iconImg }}"
-                                                     class="img-circle"
-                                                     style="height:30px;width:30px;float:left;margin-right:.5rem;"
-                                                     alt="{{ $value->menu_item }}"/>
-                                                @else
-                                                        <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
-                                            @endif
+                                        @if($has_iconImage)
+                                            <img src="{{ $item_iconImg }}"
+                                                 class="img-circle"
+                                                 style="height:30px;width:30px;float:left;margin-right:.5rem;"
+                                                 alt="{{ $value->menu_item }}"/>
+                                            @else
+                                                    <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
+                                        @endif
 
-                                            {{ $value->menu_item }}
-                                            <span style="white-space: nowrap">
+                                        {{ $value->menu_item }}
+                                        <span style="white-space: nowrap">
                                                     &ndash;
-                                                @if($main_price>0)
-                                                    ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
-                                                @else
-                                                    ${{number_format($min_p,2)}}+
-                                                @endif
-                                                @if($dis)
-                                                    <strike class="text-muted btn btn-sm btn-link"
-                                                            style="float: right">${{number_format($value->price,2)}}</strike>
-                                                @endif
-                                                @if($dis)
-                                                    <strike class="text-muted btn btn-sm btn-link"
-                                                            style="float: right">${{number_format($value->price,2)}}</strike>
-                                                @endif
+                                            @if($main_price>0)
+                                                ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
+                                            @else
+                                                ${{number_format($min_p,2)}}+
+                                            @endif
+                                            @if($dis)
+                                                <strike class="text-muted btn btn-sm btn-link"
+                                                        style="float: right">${{number_format($value->price,2)}}</strike>
+                                            @endif
+                                            @if($dis)
+                                                <strike class="text-muted btn btn-sm btn-link"
+                                                        style="float: right">${{number_format($value->price,2)}}</strike>
+                                            @endif
                                                 </span>
-                                        </h5>
-                                    </div>
+                                    </h5>
+                                </div>
 
-                                    <div class="clearfix"></div>
+                                <div class="clearfix"></div>
 
 
                                 @if(false)
-                                        <div class="clearfix">
-                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
+                                    <div class="clearfix">
+                                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
                                         <p class="card-text m-a-0">
                                             {{$dis}}
                                         </p>
                                     </div>
 
 
-                                <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
-                                    @if($value->uploaded_on)
-                                        Submitted: {{$value->uploaded_on}}
-                                    @endif
+                                    <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
+                                        @if($value->uploaded_on)
+                                            Submitted: {{$value->uploaded_on}}
+                                        @endif
 
-                                    <?php
-                                    if ($value->uploaded_by) {
-                                        $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
-                                        echo "by: " . $uploaded_by->name . "";
-                                    }
-                                    ?>
-                                </p>
-
-
-                                @if(isset($restaurant->tags) && $restaurant->tags != "")
-                                    <?php
-                                    $tags = $restaurant->tags;
-                                    $tags = explode(',', $tags);
-                                    for ($i = 0; $i < 5; $i++) {
-                                        if (isset($tags[$i])) {
-                                            echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                        <?php
+                                        if ($value->uploaded_by) {
+                                            $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+                                            echo "by: " . $uploaded_by->name . "";
                                         }
-                                    }
-                                    ?>
-                                @endif
+                                        ?>
+                                    </p>
+
+
+                                    @if(isset($restaurant->tags) && $restaurant->tags != "")
+                                        <?php
+                                        $tags = $restaurant->tags;
+                                        $tags = explode(',', $tags);
+                                        for ($i = 0; $i < 5; $i++) {
+                                            if (isset($tags[$i])) {
+                                                echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                            }
+                                        }
+                                        ?>
+                                    @endif
 
 
 
@@ -383,9 +384,10 @@ $itemPosnForJS = [];
                         </div>
 
 
-                    <div class="clearfix"></div>
-                </div></a>
-            <?php
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+                <?php
                 $catMenuCnt++;
                 ?>
                 @include('popups.order_menu_item')

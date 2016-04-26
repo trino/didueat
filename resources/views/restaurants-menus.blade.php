@@ -229,8 +229,15 @@
         function check_val(v) {
         }
 
+
+
+        Stripe.setPublishableKey('pk_rlgl8pX7nDG2JA8O3jwrtqKpaDIVf'); //test
+
       //Stripe.setPublishableKey('pk_vnR0dLVmyF34VAqSegbpBvhfhaLNi'); //live
-       Stripe.setPublishableKey('pk_rlgl8pX7nDG2JA8O3jwrtqKpaDIVf'); //test  
+
+        
+
+
         var stripeResponseHandler = function (status, response) {
             //var $form = $('#payment-form');
             var $form = $('#profiles');
