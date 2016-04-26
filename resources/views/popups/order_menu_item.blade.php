@@ -166,7 +166,7 @@
 
                                                                 <div style="float:left; @if ($sub->sing_mul == '1') width:100%; @else width:72%; @endif">
 
-                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @else  p-l-0 @endif ">
+                                                                    <LABEL class="changemodalP c-input @if($sub->sing_mul =='1') c-radio @else p-l-0 @endif ">
 
                                                                         <input
                                                                                 type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
@@ -180,11 +180,21 @@
 
                                                                         @if($sub->sing_mul =='1')
                                                                             <span class="c-indicator"></span>
+
+
+                                                                            <span class="list-inline-item ver">{{ $mm->menu_item }}
+                                                                                <span class="text-muted"><?php if ($mm->price) echo "+$" . number_format(str_replace('$', '', $mm->price), 2); ?></span></span>
+
                                                                         @endif
 
-                                                                        <span class="list-inline-item ver">{{ $mm->menu_item }}
-                                                                            <span class="text-muted"><?php if ($mm->price) echo "+$" . number_format(str_replace('$', '', $mm->price), 2); ?></span>  </span>
                                                                     </LABEL>
+
+                                                                    @if($sub->sing_mul =='0')
+
+                                                                        <span class="list-inline-item ver">{{ $mm->menu_item }}
+                                                                            <span class="text-muted"><?php if ($mm->price) echo "+$" . number_format(str_replace('$', '', $mm->price), 2); ?></span></span>
+
+                                                                    @endif
                                                                 </div>
 
 

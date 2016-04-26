@@ -428,6 +428,7 @@ $(function(){
                 price = Number(price) + Number(title[2]);
             }
         });
+        
         $('.modalprice'+menu_id).html('$'+price.toFixed(2));
         $('.Mprice'+menu_id).val(price);
         if($('.strikedprice'+menu_id).text()!="") {
