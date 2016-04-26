@@ -140,6 +140,7 @@
                 if ($('#pickup1').hasClass("deliverychecked")) {
                     grandtotal = 0;
                 } else {
+                    df=0;
                     grandtotal = Number(df) + Number(subtotal) + Number(tax);
                 }
 

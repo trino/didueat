@@ -52,6 +52,7 @@ function clearCartItems() {
             $('.grandtotal').text('$0.00');
         } else {
             var d_fee = $('.df input').val();
+            d_fee = 0;
             if(!d_fee){d_fee=Number(0);} else {d_fee = Number(d_fee);}
             $('.grandtotal').val(d_fee);
             $('.grandtotal').text('$'+d_fee.toFixed(2));
@@ -137,6 +138,7 @@ function delivery(t) {
         var grandtotal = 0;
         var subtotal = $('input.subtotal').val();
         grandtotal = Number(grandtotal) + Number(df) + Number(subtotal) + Number(tax);
+        if(subtotal==0){grandtotal = 0;}
         $('.df').val(df);
         $('div .grandtotal').text('$'+grandtotal.toFixed(2));
         $('input .grandtotal').val(grandtotal.toFixed(2));
@@ -208,6 +210,7 @@ $(function(){
         }
         del_fee = parseFloat(del_fee);
         var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
+        if(subtotal==0){gtotal=0;}
         gtotal = gtotal.toFixed(2);
         $('div.grandtotal').text(gtotal);
         $('input.grandtotal').val(gtotal);
@@ -345,6 +348,7 @@ $(function(){
         $('input.tax').val(tax);
 
         var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
+        if(subtotal==0){gtotal=0;}
         gtotal = gtotal.toFixed(2);
         $('div.grandtotal').text('$'+gtotal);
         $('input.grandtotal').val(gtotal);
