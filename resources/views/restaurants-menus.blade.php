@@ -309,6 +309,20 @@
             });
 
             $('#profiles').submit(function (e) {
+                if( $("#cardnumber-error").length ||  $("#cvc-error").length ){
+                    if($("#cardnumber-error").length) {
+                        if($("#cvc-error").length){
+                            $("#cardnumber-error").text("These fields are required.");
+                        }
+                        var tempstr = $("#cardnumber-error")[0];
+                    } else {
+                        var tempstr = $("#cvc-error")[0];
+                    }
+                    $("#cardnumber-error").remove();
+                    $("#cvc-error").remove();
+                    $("#cardcvc").html( tempstr );
+                }
+
                 e.preventDefault();
                 $('#chkOut').attr('disabled','disabled');
                 $('.overlay_loader').show();
