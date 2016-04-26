@@ -1,5 +1,4 @@
 <?php
-    //used for getting the time in the user's time zone
     function offsettime($time, $hours = 0) {
         if ($hours) {
             $time = explode(":", $time);
@@ -15,11 +14,13 @@
         return $time;
     }
 
-    if (isset($data['data'])) {
-        parse_str($data['data']);
-        parse_str($data['data'], $_POST);
+    if(isset($data)){
         if (debugmode()) {
-            var_dump($_POST);
+            var_dump($data);
+        }
+        foreach($data as $key => $value){
+            $$key = $value;
+            $_POST[$key] = $value;
         }
     }
 
@@ -78,8 +79,11 @@
             "loadmore" => "Load more restaurants",
             "loading" => "Loading..."
     );
+
+    echo '</div>';
+    $totalCnt=$count;
 ?>
-</div>
+
 
 <script>
     var totalCnt = <?= $totalCnt . ";

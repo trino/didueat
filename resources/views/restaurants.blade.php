@@ -83,9 +83,6 @@
                 <div class="col-md-offset-2 text-xs-center col-md-8" style="">
                     <h1 class="banner-text-shadow m-b-1"><span style="font-size: 125%;font-weight: 500;">Hamilton Restaurants<br>& Delivery</span></h1>
                     <div class="clearfix"></div>
-
-                    <div class="clearfix"></div>
-
                 </div>
 
                 <div class="col-md-offset-3 col-md-6 text-md-center">
