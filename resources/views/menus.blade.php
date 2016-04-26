@@ -194,10 +194,17 @@ $itemPosnForJS = [];
                 $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
                 ?>
 
-                <div style="padding-bottom: 0 !important; " class="list-group-item parents"
-                     id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
-                    <!-- start of menu item -->
-                    <div>
+
+                    <a style="line-height:30px;"
+                       href="#" id="{{ $value->id }}" name="{{ $value->id }}"
+                       data-res-id="{{ $value->restaurant_id }}"
+                       title="{{ $alts["product-pop-up"] }}"
+                       class="card-link" data-toggle="modal"
+                       data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
+
+                        <div style="padding-top: .5rem !important;padding-bottom: .5rem !important;" class="list-group-item parents"
+                             id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
+                            <!-- start of menu item -->
                         <div class="row">
                             <div class="col-md-12"><!-- start div 4 -->
 
@@ -224,16 +231,10 @@ $itemPosnForJS = [];
                                 }
                                 ?>
 
-                                <h5 class="card-title">
 
                                     <div style="width: 100%;float:left;vertical-align: middle;">
 
-                                        <a style="line-height:30px;"
-                                           href="#" id="{{ $value->id }}" name="{{ $value->id }}"
-                                           data-res-id="{{ $value->restaurant_id }}"
-                                           title="{{ $alts["product-pop-up"] }}"
-                                           class="card-link" data-toggle="modal"
-                                           data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
+                                        <h5 class="card-title">
 
                                             @if($has_iconImage)
                                                 <img src="{{ $item_iconImg }}"
@@ -261,33 +262,20 @@ $itemPosnForJS = [];
                                                             style="float: right">${{number_format($value->price,2)}}</strike>
                                                 @endif
                                                 </span>
-                                        </a>
+                                        </h5>
                                     </div>
 
                                     <div class="clearfix"></div>
-                                </h5>
 
 
-                                <!--div class="clearfix">
+                                @if(false)
+                                        <div class="clearfix">
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
-                                    <p class="card-text m-a-0">
-                                        {{$dis}}
-                                    </p>
-                                </div-->
+                                        <p class="card-text m-a-0">
+                                            {{$dis}}
+                                        </p>
+                                    </div>
 
-
-                                <p class="card-text m-a-0  text-muted">
-                                    <?php
-                                    if (strlen($value->description) > 65) {
-                                        echo substr($value->description, 0, 65) . '...';
-                                    } else {
-                                        echo substr($value->description, 0, 65);
-                                    }
-                                    ?>
-
-                                </p>
-
-                                <? if(false){?>
 
                                 <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
                                     @if($value->uploaded_on)
@@ -303,8 +291,6 @@ $itemPosnForJS = [];
                                 </p>
 
 
-                                <?}?>
-                                @if(false) <!-- no tags yet -->
                                 @if(isset($restaurant->tags) && $restaurant->tags != "")
                                     <?php
                                     $tags = $restaurant->tags;
@@ -316,7 +302,20 @@ $itemPosnForJS = [];
                                     }
                                     ?>
                                 @endif
+
+
+
                                 @endif
+                                <p class="card-text m-a-0  text-muted">
+                                    <?php
+                                    if (strlen($value->description) > 65) {
+                                        echo substr($value->description, 0, 65) . '...';
+                                    } else {
+                                        echo substr($value->description, 0, 65);
+                                    }
+                                    ?>
+
+                                </p>
 
 
                             </div>
@@ -382,11 +381,11 @@ $itemPosnForJS = [];
                             </div>
                             <!-- end div 5 -->
                         </div>
-                    </div>
+
 
                     <div class="clearfix"></div>
-                </div>
-                <?php
+                </div></a>
+            <?php
                 $catMenuCnt++;
                 ?>
                 @include('popups.order_menu_item')

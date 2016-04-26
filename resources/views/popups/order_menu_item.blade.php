@@ -44,7 +44,7 @@
                     <span aria-hidden="true " style="color:white;">&times;</span>
                 </button>
 
-                <h4 class="modal-title banner-text-shadow" id="viewDetailModel">
+                <h4 class="modal-title banner-text-shadow" style="" id="viewDetailModel">
 
                     {{ $value->menu_item }} &ndash;
                     @if($value->price>0)
@@ -118,7 +118,7 @@
                                                            style="display: none;" checked="checked"
                                                            class="chk">
                                                 </div>
-                                                <strong>{{ ucfirst($sub->menu_item) }}</strong><br>
+                                                <strong>{{ ucfirst($sub->menu_item) }}</strong>
 
                                                 <span class="limit-options text-muted">
                                                    <?php
@@ -165,7 +165,7 @@
                                                                  href="javascript:void(0);">
 
 
-                                                                <div style=" @if ($sub->sing_mul == '1')  width:100%; @else  width:65%; @endif float:left;">
+                                                                <div style=" @if ($sub->sing_mul == '1')  width:100%; @else  width:72%; @endif float:left;">
                                                                     <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif
                                                                     @if ($sub->sing_mul == '1')  @else  p-l-0 @endif ">
 
@@ -185,7 +185,7 @@
                                                                 </div>
 
 
-                                                                <div style="width:35%;float:left;   @if ($sub->sing_mul == '1')display:none; @endif"
+                                                                <div style="width:28%;float:left;   @if ($sub->sing_mul == '1')display:none; @endif"
                                                                      class="pull-left p-a-0">
 
                                                                     <a id="addspan_{{ $mm->id }}"
