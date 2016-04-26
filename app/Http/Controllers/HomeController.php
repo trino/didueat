@@ -169,6 +169,9 @@ class HomeController extends Controller {
                 }
 
                 if (!is_null($data['query']) && count($data['query']) > 0){
+                    $data['data'] = $data;
+                    unset($data['data']["data"]);
+                    unset($data['data']["query"]);
                     return view('ajax.search_restaurants', $data);
                 } else {
                     return view('dashboard.restaurant.ajax.noresults', array("SQL" => $SQL));
