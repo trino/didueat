@@ -129,12 +129,12 @@
                                                     }
                                                     if ($sub->req_opt == '0') {
                                                         if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                            echo "Select " . $upto . $sub->exact_upto_qty . " ";
+                                                            echo "select " . $upto . $sub->exact_upto_qty . ", ";
                                                         }
                                                         echo "optional";
                                                     } elseif ($sub->req_opt == '1') {
                                                         if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                            echo "Select " . $upto . $sub->exact_upto_qty . " ";
+                                                            echo "select " . $upto . $sub->exact_upto_qty . ", ";
                                                         }
                                                         echo "required";
                                                     }
@@ -164,28 +164,31 @@
                                                             <div id="buttons_{{ $mm->id }}" class="buttons"
                                                                  href="javascript:void(0);">
 
+                                                                <div style="float:left; @if ($sub->sing_mul == '1') width:100%; @else width:72%; @endif">
 
-                                                                <div style=" @if ($sub->sing_mul == '1')  width:100%; @else  width:72%; @endif float:left;">
-                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif
-                                                                    @if ($sub->sing_mul == '1')  @else  p-l-0 @endif ">
+                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @else  p-l-0 @endif ">
 
-                                                                        <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
-                                                                               id="extra_{{ $mm->id }}"
-                                                                               title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
-                                                                               class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
-                                                                               name="extra_{{ $sub->id }}"
-                                                                               value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
+                                                                        <input
+                                                                                type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
+                                                                                id="extra_{{ $mm->id }}"
+                                                                                title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
+                                                                                class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
+                                                                                name="extra_{{ $sub->id }}"
+                                                                                value="post"
+                                                                                @if ($sub->sing_mul == '0')  style="display:none;" @endif
+                                                                        />
 
                                                                         @if($sub->sing_mul =='1')
                                                                             <span class="c-indicator"></span>
                                                                         @endif
 
-                                                                        <span class="list-inline-item ver">{{ $mm->menu_item }} <?php if ($mm->price) echo "+$" . number_format(str_replace('$', '', $mm->price), 2); ?> </span>
+                                                                        <span class="list-inline-item ver">{{ $mm->menu_item }}
+                                                                            <span class="text-muted"><?php if ($mm->price) echo "+$" . number_format(str_replace('$', '', $mm->price), 2); ?></span>  </span>
                                                                     </LABEL>
                                                                 </div>
 
 
-                                                                <div style="width:28%;float:left;   @if ($sub->sing_mul == '1')display:none; @endif"
+                                                                <div style="width:28%;float:left; @if ($sub->sing_mul == '1')display:none; @endif"
                                                                      class="pull-left p-a-0">
 
                                                                     <a id="addspan_{{ $mm->id }}"
@@ -227,20 +230,21 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="p-t-1 clearfix">
-                    <div class="col-md-4 btn text-muted" style="cursor: default;text-align: left;">
-                        If issue arises?
-                    </div>
-                    <div class="col-md-8">
-                        <SELECT style="padding:.375rem;width:100%;text-align: left;" ID="csr{{ $value->id }}" TITLE="{{ $alts["csr"] }}" CLASS="btn btn-secondary text-muted">
-                            <?php
-                            $Actions = array("Go with restaurant suggestion","Contact me", "Refund this item",  "Cancel entire order");
-                            foreach ($Actions as $Index => $Action) {
-                                echo '<OPTION VALUE="' . $Index . '">' . $Action . '</OPTION>';
-                            }
-                            ?>
-                        </SELECT>
+                        <div class="col-md-4 btn text-muted" style="cursor: default;text-align: left;">
+                            If issue arises?
+                        </div>
+                        <div class="col-md-8">
+                            <SELECT style="padding:.375rem;width:100%;text-align: left;" ID="csr{{ $value->id }}"
+                                    TITLE="{{ $alts["csr"] }}" CLASS="btn btn-secondary text-muted">
+                                <?php
+                                $Actions = array("Go with restaurant suggestion", "Contact me", "Refund this item", "Cancel entire order");
+                                foreach ($Actions as $Index => $Action) {
+                                    echo '<OPTION VALUE="' . $Index . '">' . $Action . '</OPTION>';
+                                }
+                                ?>
+                            </SELECT>
 
-                    </div>
+                        </div>
                         <div class=""></div>
 
                     </div>
@@ -268,7 +272,8 @@
                         $usedropdown = true;
                         ?>
                         <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());"
-                                class="btn btn-secondary p-x-0 text-muted" style=" background: transparent; border:0 !important; @if(!$usedropdown) display:none; @endif ">
+                                class="btn btn-secondary p-x-0 text-muted"
+                                style=" background: transparent; border:0 !important; @if(!$usedropdown) display:none; @endif ">
                             <?php
                             for ($i = 1; $i <= 10; $i++) {
                                 echo '<OPTION';
