@@ -450,6 +450,7 @@
          */
 
         var lastdata = "";
+        var oldpadding = "";
 
         function submitform(e, start, eventname) {
             if (IgnoreOne) {
@@ -513,6 +514,9 @@
 
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
+                oldpadding = $(".main-bg-image").css("padding");
+                $(".main-bg-image").css("padding", "0px");
+
                 $('#restuarant_bar').html('');
                 $('#parentLoadingbar').show();
                 $('#start_up_message').hide();
