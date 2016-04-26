@@ -202,7 +202,7 @@ $itemPosnForJS = [];
                        class="card-link" data-toggle="modal"
                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
 
-                        <div style="padding-top: .5rem !important;padding-bottom: .5rem !important;" class="list-group-item parents"
+                        <div style="padding-top: .5rem !important;padding-bottom: .5rem !important;border-bottom:1px solid #efefef !important;" class="list-group-item parents"
                              id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
                             <!-- start of menu item -->
                         <div class="row">
@@ -390,7 +390,6 @@ $itemPosnForJS = [];
                 ?>
                 @include('popups.order_menu_item')
                 @endwhile
-                <div class="clearfix p-b-1" style="background: white;"></div>
 
             </div> <!-- end of last category -->
 
