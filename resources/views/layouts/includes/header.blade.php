@@ -125,4 +125,17 @@
         }
         alert(text);
     }
+
+    function scrollto(selector) {
+        if(isNaN(selector)) {
+            if (typeof selector == "object"){
+                selector = selector.offset().top;
+            } else {
+                selector = $(selector).offset().top;
+            }
+        }
+        $('html,body').animate({
+            scrollTop: selector + $(".navbar").height()
+        });
+    }
 </script>

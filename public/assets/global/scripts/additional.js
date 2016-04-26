@@ -34,7 +34,7 @@ function check_enabled(id,cat_id,stat,$thi,base_url) {
                 res = res.trim();
                 //alert('0_'+res+'_'+'0');
                 if(res=='0') {
-                    alert2('You can enable up to 25 items only.');
+                    alert2('You can enable up to 25 items only.', "check enabled in additional.js");
                     $thi.prop('checked', false);
                     $('.overlay_loader').hide();
                 }
@@ -304,8 +304,8 @@ for(var i=0;i<catObj.length;i++){
             if($rad.find('.itemno').val()=='') {
                 $rad.find('.itemno').attr('style','border:1px solid red');
                 alert2('Please select number of selection', "additional.js 306");
+                scrollto($rad.find('.itemno'));
                 $('.overlay_loader').hide();
-                $('html,body').animate({scrollTop: $rad.find('.itemno').offset().top}, 'slow');
                 $rad.find('.itemno').focus();
                 mul = 1;
             }
@@ -336,33 +336,36 @@ for(var i=0;i<catObj.length;i++){
         if($_th.find('.ctitle').val() == '') {
            $_th.find('.ctitle').attr('style','border-color:red');
             $_th.find('.ctitle').focus();
-            stop_item = 1;
+            stop_item = $_th.find('.ctitle');
         }
         $_th.find('.cctitle').each(function(){
            if($(this).val()=='') {
             $(this).attr('style','border-color:red');
             $(this).focus();
-            stop_item = 1;
+            stop_item = $(this);
            } 
         });
     })
     
     if(stop_item){//This is to check if Addon name is blank
-        alert2('Addon name cannot be blank');
+        alert2('Addon name cannot be blank', "additional.js 351");
         $('.overlay_loader').hide();
+        scrollto(stop_item);
         return false;
     }
     
     if(stop_id){// If addon is added but inserted nothing is sub addon
-        alert2('One or more of your options are empty');
+        alert2('One or more of your options are empty', "additional.js 357");
         $('.overlay_loader').hide();
+        scrollto(stop_id);
         return false;
     }
 
     var cat_id = $_parent.find('.cat_id').val();
     var cat_name = $_parent.find('.cat_name').val();
     if ((!cat_id || cat_id == '')&& cat_name=='') {
-        alert2('Please select or create a category');
+        alert2('Please select or create a category', "additional.js 365");
+        scrollto($_parent.find('.cat_id'));
         $_parent.find('.cat_id').attr('style', 'border:1px solid red;');
         $_parent.find('.cat_name').attr('style', 'border:1px solid red;');
         $_parent.find('.cat_id').focus();
@@ -373,7 +376,8 @@ for(var i=0;i<catObj.length;i++){
 
     var ptitle = encodeURIComponent($_parent.find('.newtitle').val());
     if (ptitle == '') {
-        alert2('Title cannot be blank');
+        alert2('Title cannot be blank', "additional.js 376");
+        scrollto($_parent.find('.newtitle'));
         $_parent.find('.newtitle').focus();
         $_parent.find('.newtitle').attr('style', 'border:1px solid red;');
         $('.overlay_loader').hide();
@@ -383,7 +387,8 @@ for(var i=0;i<catObj.length;i++){
     var pprice = $_parent.find('.newprice').val();
     if (pprice == '') {
         if(chi==0){
-            alert2('Price must be a number');
+            alert2('Price must be a number', "additional.js 386");
+            scrollto($_parent.find('.newprice'));
             $_parent.find('.newprice').focus();
             $_parent.find('.newprice').attr('style', 'border:1px solid red;');
             $('.overlay_loader').hide();
@@ -408,6 +413,7 @@ for(var i=0;i<catObj.length;i++){
     
     if(!discount_per && $_parent.find('.allow_dis').is(':checked')) {
         alert2('Discount Percentage cannot be empty', "$('.savebtn').live('click', function () {");
+        scrollto($_parent.find('.disc_per'));
         $_parent.find('.disc_per').focus();
         $_parent.find('.disc_per').attr('style', 'border:1px solid red;');
         $('.overlay_loader').hide();
