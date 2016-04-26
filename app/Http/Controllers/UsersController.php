@@ -333,6 +333,7 @@ class UsersController extends Controller
 
                 //$Stage = 3;
                 if (isset($post["reservation_address_dropdown"]) && $post["reservation_address_dropdown"]) {
+                    
                     $Address = select_field("profiles_addresses", "id", $post["reservation_address_dropdown"]);
                     $res['address2'] = $Address->address;
                     $res['city'] = $Address->city;
@@ -340,7 +341,19 @@ class UsersController extends Controller
                     $res['country'] = $Address->country;
                     $res['postal_code'] = $Address->postal_code;
 
-                } else {
+                }
+                elseif(isset($post["reservation_address"]) && $post["reservation_address"]){
+                   
+                    $Address = select_field("profiles_addresses", "id", $post["reservation_address"]);
+                     $res['address2'] = $Address->address;
+                     $res['city'] = $Address->city;
+                     $res['province'] = $Address->province;
+                     $res['country'] = $Address->country;
+                     $res['postal_code'] = $Address->postal_code;
+                    
+                } 
+                else {
+                    
                     if (\Input::has('address')) {
                         $res['address2'] = $post['address'];
                     }

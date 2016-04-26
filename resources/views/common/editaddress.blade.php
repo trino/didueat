@@ -106,7 +106,7 @@
 
             <SPAN @if(!$addresses->count()) id="show-addaddress" style="display:none;" @endif >
                 <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange('editaddress');">
-                    <option value="">Select Address</option>
+                    <option value="" selected="selected">Select Address</option>
                     <?php //address selection dropdown, could use common.addressbar
                         $sec = false;
                         foreach ($addresses as $address) {
