@@ -56,7 +56,8 @@ if(!isset($loaded_from)){ ?>
 
     <div class="row ">
 
-        <div class="col-xs-12 form-group ">
+        <div class="col-xs-12 ">
+        <div class="form-group ">
             <!--label aria-required="true" class="col-xs-3 text-xs-right required" id="card_number">Card #@if(debugmode())<i class="fa fa-credit-card" onclick="$('#cardnumber').val('4242424242424242');" TITLE="Click to use DEBUG MODE card"></i>@endif</label-->
 
             <div class="input-group" style="width:100% !important;">
@@ -70,9 +71,11 @@ if(!isset($loaded_from)){ ?>
                 <SPAN ID="cardcvc"></SPAN>
             </div>
         </div>
+        </div>
 
 
-        <div class=" col-xs-12 form-group ">
+        <div class=" col-xs-12  ">
+        <div class=" form-group ">
             <!--label aria-required="true" class="col-xs-3 text-xs-right required" id="cvc">CVC</label-->
             <!--label aria-required="true" class="col-xs-3 text-xs-right required" id="expiry">Expiry</label-->
 
@@ -103,6 +106,7 @@ if(!isset($loaded_from)){ ?>
                 </SELECT>
 
             </div>
+        </div>
         </div>
     </div>
 
