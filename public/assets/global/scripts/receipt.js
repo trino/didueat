@@ -445,12 +445,6 @@ function updatecart(where){
     }, 1000);
 }
 
-function onlogin(){
-    setTimeout(function() {
-        updatecart("onlogin");
-    }, 1500);
-}
-
 var checkingout = false;
 window.onbeforeunload = function (e) {
     if (total_items && !checkingout && false) { // enable later when were more established
