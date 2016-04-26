@@ -6,10 +6,10 @@ printfile("views/home/stripe.blade.php");
 $orderDesc = DIDUEAT . " order";
 $currencyType = "cad";
 
-$CanSaveCard = false;//set to true to allow saving cards
+$CanSaveCard = true;//set to true to allow saving cards
 $CreditCards = false;
 if ($CanSaveCard) {
-    $CreditCards = select_field_where("credit_cards", array("user_id" => read("id"), "user_type" => "user"), false);
+    //$CreditCards = select_field_where("credit_cards", array("user_id" => read("id"), "user_type" => "user"), false);
 }
 if(read('id'))
 {
@@ -113,7 +113,7 @@ if(!isset($loaded_from)){ ?>
 
 
 
-    <?php if($CreditCards){ ?>
+    <?php /* if($CreditCards){ ?>
     <div class="form-group row editcard">
         <label class="col-xs-4 text-xs-right">
             Saved Card
@@ -137,20 +137,20 @@ if(!isset($loaded_from)){ ?>
             </div>
         </div>
     </div>
-    <? } ?>
+    <? }*/ ?>
 
 
 
 @if($CanSaveCard)
         <div class="form-group row editcard">
-            <label class="col-xs-5 text-xs-right"></label>
+            <label class="col-xs-2 text-xs-right"></label>
 
-            <div class="col-xs-4">
+            <div class="col-xs-10">
                 <div class="input-icon">
                     <label class="radio-inline c-input c-checkbox">
-                        <input type="checkbox" name="savecard">
+                        <input type="checkbox" name="savecard" id="saveCC">
                         <span class="c-indicator"></span>
-                        <strong>Save</strong>
+                        <strong>Save Credit Card</strong>
                     </label>
                 </div>
             </div>
@@ -178,11 +178,18 @@ if(!isset($loaded_from)){ ?>
     $(function(){
         $('.changeCC').live('change',function(){
             var cc_id = $(this).val();
-            var cc = $('#CC'+cc_id).val().split('_');
-            $('#cardnumber').val(cc[0]);
-            $('#exp-month').val(cc[1]);
-            $('#exp-year').val(cc[2]);
-            $('#cvc').val(cc[3]);
+            if(cc_id =='0')
+                $('.editcard').show();
+            else
+            {
+                $('#saveCC').attr('checked', false);
+                $('.editcard').hide();
+                var cc = $('#CC'+cc_id).val().split('_');
+                $('#cardnumber').val(cc[0]);
+                $('#exp-month').val(cc[1]);
+                $('#exp-year').val(cc[2]);
+                $('#cvc').val(cc[3]);
+            }
             
         })
     })
