@@ -557,7 +557,7 @@
         
         
         
-        ////////////////////////////////////////////////////////////////
+        /*
        $(document).ready(function () {
     $(window).on('beforeunload', function () {
         document.cookie = "keepscroll=" + $(window).scrollTop();
@@ -601,7 +601,7 @@
         		}
         	});
         });
-        /////////////////////////////////////////////////////////
+        */////////////////////////////////////////////////////////
 
         $('body').on('click', '.loadMoreRestaurants', function (e) {
             var start = $(this).attr('data-id');
