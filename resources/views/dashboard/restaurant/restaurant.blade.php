@@ -164,9 +164,9 @@ if(!$minimum && isset($restaurant->id)){
 
     function finishclaim(){
         if(!$("#restemail-error").is(":visible") && $("#restemail").val()) {
-            alert("Done");
+            alert2("Done");
         } else {
-            alert("Please enter a valid email address");
+            alert2("Please enter a valid email address");
         }
     }
 

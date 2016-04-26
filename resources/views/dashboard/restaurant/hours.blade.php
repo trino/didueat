@@ -86,7 +86,7 @@ echo newrow($new, "I Offer Pickup",null, false,6,null); ?>
                         url: encodeURIComponent(URL),
                         _token: "{{csrf_token()}}"
                         }, function (result) {
-                            alert(result);
+                            alert2(result, "google");
                         }
                     );
                     return false;

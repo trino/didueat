@@ -460,7 +460,7 @@ $itemPosnForJS = [];
             _token: "{{ csrf_token() }}"
         }, function (result) {
             if (!result) {
-                alert("Unable to enable/disable this item");
+                alert2("Unable to enable/disable this item");
                 $("#check" + id).prop('checked', false);
             }
             $("#enable" + id).show();

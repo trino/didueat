@@ -23,7 +23,7 @@
             var cat = $('.cat_title').val();
             if (cat == '') {
                 $('.overlay_loader').hide();
-                alert('Please enter category title');
+                alert2('Please enter category title', "add_category.blade 1");
                 return false;
             } else {
                 $.ajax({
@@ -32,7 +32,7 @@
                     type: 'post',
                     success: function() {
                         $('.overlay_loader').hide();
-                        alert('Category added successfully');
+                        alert2('Category added successfully', "add_category.blade 2");
                         $('.cat_title').val('');
                     }
                 });

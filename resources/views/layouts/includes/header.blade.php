@@ -115,4 +115,14 @@
             updatecart("header");
         @endif
     });
+
+    function alert2(text, calledfrom){
+        if(debugmode){
+            if(isundefined(calledfrom)){
+                calledfrom = arguments.callee.caller.name;
+            }
+            text = "(CALLED FROM: " + calledfrom + ") " + text;
+        }
+        alert(text);
+    }
 </script>

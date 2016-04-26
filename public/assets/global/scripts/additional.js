@@ -34,7 +34,7 @@ function check_enabled(id,cat_id,stat,$thi,base_url) {
                 res = res.trim();
                 //alert('0_'+res+'_'+'0');
                 if(res=='0') {
-                    alert('You can enable up to 25 items only.');
+                    alert2('You can enable up to 25 items only.');
                     $thi.prop('checked', false);
                     $('.overlay_loader').hide();
                 }
@@ -303,7 +303,7 @@ for(var i=0;i<catObj.length;i++){
         if($(this).is(':checked') && $rad.find('.up_t').val()!='2') {
             if($rad.find('.itemno').val()=='') {
                 $rad.find('.itemno').attr('style','border:1px solid red');
-                alert('Please select number of selection');
+                alert2('Please select number of selection', "additional.js 306");
                 $('.overlay_loader').hide();
                 $('html,body').animate({scrollTop: $rad.find('.itemno').offset().top}, 'slow');
                 $rad.find('.itemno').focus();
@@ -348,13 +348,13 @@ for(var i=0;i<catObj.length;i++){
     })
     
     if(stop_item){//This is to check if Addon name is blank
-        alert('Addon name cannot be blank');
+        alert2('Addon name cannot be blank');
         $('.overlay_loader').hide();
         return false;
     }
     
     if(stop_id){// If addon is added but inserted nothing is sub addon
-        alert('One or more of your options are empty');
+        alert2('One or more of your options are empty');
         $('.overlay_loader').hide();
         return false;
     }
@@ -362,7 +362,7 @@ for(var i=0;i<catObj.length;i++){
     var cat_id = $_parent.find('.cat_id').val();
     var cat_name = $_parent.find('.cat_name').val();
     if ((!cat_id || cat_id == '')&& cat_name=='') {
-        alert('Please select or create a category');
+        alert2('Please select or create a category');
         $_parent.find('.cat_id').attr('style', 'border:1px solid red;');
         $_parent.find('.cat_name').attr('style', 'border:1px solid red;');
         $_parent.find('.cat_id').focus();
@@ -373,7 +373,7 @@ for(var i=0;i<catObj.length;i++){
 
     var ptitle = encodeURIComponent($_parent.find('.newtitle').val());
     if (ptitle == '') {
-        alert('Title cannot be blank');
+        alert2('Title cannot be blank');
         $_parent.find('.newtitle').focus();
         $_parent.find('.newtitle').attr('style', 'border:1px solid red;');
         $('.overlay_loader').hide();
@@ -383,7 +383,7 @@ for(var i=0;i<catObj.length;i++){
     var pprice = $_parent.find('.newprice').val();
     if (pprice == '') {
         if(chi==0){
-            alert('Price must be a number');
+            alert2('Price must be a number');
             $_parent.find('.newprice').focus();
             $_parent.find('.newprice').attr('style', 'border:1px solid red;');
             $('.overlay_loader').hide();
@@ -407,7 +407,7 @@ for(var i=0;i<catObj.length;i++){
     }
     
     if(!discount_per && $_parent.find('.allow_dis').is(':checked')) {
-        alert('Discount Percentage cannot be empty');
+        alert2('Discount Percentage cannot be empty', "$('.savebtn').live('click', function () {");
         $_parent.find('.disc_per').focus();
         $_parent.find('.disc_per').attr('style', 'border:1px solid red;');
         $('.overlay_loader').hide();
@@ -541,7 +541,7 @@ function toggleMore(id,msgIns){
 function chkCBs(cb){
     if(cb){
         if(cbchkd > 2){
-            alert("You may check a maximum of only 3 genres. Please adjust your selection accordingly.");
+            alert2("You may check a maximum of only 3 genres. Please adjust your selection accordingly.");
             return false;
         } else{
             cbchkd++;

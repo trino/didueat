@@ -209,17 +209,17 @@
                                 return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
                             }
                         @endif
-                        alert(message);
+                        alert2(message);
                         return false;
                     } else if (debugmode) {
-                        alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
+                        alert2("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
                     }
                     if(element) {
                         element.trigger("click");
                     }
                     return true;
                 } else if (where == "addresscheck") {
-                    alert("No address specified");
+                    alert2("No address specified");
                     return false;
                 }
             }
@@ -281,7 +281,7 @@
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                         } else {
                             console.log("stripeResponseHandler");
-                            alert( jQuery(msg).text() );
+                            alert2( jQuery(msg).text(), "stripeResponseHandler" );
                         }
                         if(hide){$('.overlay_loader').hide();}
                     }
@@ -365,7 +365,10 @@
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                             } else {
                                 console.log("$('#profiles').submit(function (e)");
-                                alert(  jQuery(msg).text() );
+                                msg = jQuery(msg).text().trim();
+                                if(msg) {
+                                    alert2(jQuery(msg).text(), "$('#profiles').submit(function (e) {");
+                                }
                             }
                             if(hide){$('.overlay_loader').hide();}
                         }

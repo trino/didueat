@@ -87,7 +87,7 @@ function checkout() {
     } else {
         if(Number($('#subtotal1').val()) == 0){
             if(!debugmode){
-                alert('Please make a menu selection before checking out!');
+                alert2('Please make a menu selection before checking out!');
                 return false;
             }
         } else if(subtotal < Number(minimum_delivery)) {
@@ -102,16 +102,16 @@ function checkout() {
             } else if(debugmode) {
                 if (!confirm("Minimum delivery fee not met! Bypass anyway? (DEBUG MODE)")){ return false; }
             } else {
-                alert("Minimum delivery fee not met!");
+                alert2("Minimum delivery fee not met!");
                 return false;
             }
         }
     }
     if (noitems && !debugmode) {
-        alert('No items yet');
+        alert2('No items yet');
     } else {
         if(noitems){
-            alert('No items yet, but bypassing for debug mode');
+            alert2('No items yet, but bypassing for debug mode');
         }
         //$('.receipt_main').hide();
 
@@ -190,7 +190,7 @@ function printDiv(divName) {
 $(function(){
     //seems to be debug code, as it won't do anything but alert text
     $('.modal').on('hidden',function(){
-        alert('blured');
+        alert2('blured', "receipt.js 193");
     })
 
     //appears to recalculate the total when switched from pickup to delivery

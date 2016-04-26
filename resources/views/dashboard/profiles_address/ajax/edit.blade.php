@@ -120,7 +120,7 @@ function geolocate() {
       formatted_address.setBounds(circle.getBounds());
     });
   } else {
-      alert("Your browser does not support geolocation");
+      alert2("Your browser does not support geolocation");
   }
 }
 // [END region_geolocation]

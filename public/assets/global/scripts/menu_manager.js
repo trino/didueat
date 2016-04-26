@@ -180,7 +180,7 @@ function ajaxuploadbtn(button_id, doc) {
             var thisext = ext.toLowerCase();
             var imgTypes = ['jpg','png','gif','jpeg'];
             if(imgTypes.indexOf(thisext) == -1) {
-              alert('Please Upload Only The Following Image Types:\n\njpg, jpeg, png or gif');
+                alert2('Please Upload Only The Following Image Types:\n\njpg, jpeg, png or gif');
               return false;
             }
             button.text('Uploading...');

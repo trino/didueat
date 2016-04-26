@@ -166,7 +166,7 @@
             _token: "{{ csrf_token() }}"
         }, function (result) {
             if(result){
-                alert(result);
+                alert2(result, "promoteuser");
             }
             $("#userplus" + id).show();
             $("#spinner" + id).hide();
