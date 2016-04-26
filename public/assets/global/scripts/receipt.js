@@ -1,4 +1,5 @@
 total_items = 0;
+var allowbypassminumum = false;
 
 //change the quantity of an item
 //id: id of the item
@@ -90,11 +91,16 @@ function checkout() {
                 return false;
             }
         } else if(subtotal < Number(minimum_delivery)) {
-            if (confirm('Minimum delivery fee not met! If you accept the additional charges, your subtotal would be $' + minimum_delivery)) {
-                $('.subtotal').val(minimum_delivery);
-                $('.subtotal').text(minimum_delivery);
-                delivery('show');
+            if (allowbypassminumum) {
+                if (confirm('Minimum delivery fee not met! If you accept the additional charges, your subtotal would be $' + minimum_delivery)) {
+                    $('.subtotal').val(minimum_delivery);
+                    $('.subtotal').text(minimum_delivery);
+                    delivery('show');
+                } else {
+                    return false;
+                }
             } else {
+                alert("Minimum delivery fee not met!");
                 return false;
             }
         }
