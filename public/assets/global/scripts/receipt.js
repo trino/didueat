@@ -135,6 +135,12 @@ function delivery(t) {
                 $(this).attr('required','required');
             }
         });
+
+        $('.not-required').each(function(){
+            $(this).removeAttr('required');
+        });
+        
+
         $('#pickup1').removeClass('deliverychecked');
         $('#df').show();
         $('#df2').show();
