@@ -10,6 +10,7 @@ Route::get('/restaurants',                                          'HomeControl
 Route::get('/home/debugmode',                                       'HomeController@debugmode');
 
 Route::resource('/restaurants/signup',                              'HomeController@signupRestaurants');
+Route::resource('/driver/signup',                              'HomeController@signupDriver');
 Route::get('/restaurants/{searchTerm}',                             'HomeController@searchRestaurants');
 Route::post('/search/restaurants/ajax',                             'HomeController@searchRestaurantsAjax');
 Route::resource('/restaurants/loadmenus/{catid}/{resid}/',          'HomeController@loadmenus');

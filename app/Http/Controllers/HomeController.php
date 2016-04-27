@@ -328,6 +328,61 @@ class HomeController extends Controller {
      * @param null
      * @return view
      */
+    public function signupDriver()
+    {
+     $data['title'] = 'Driver Signup';
+        $data['keyword'] = 'Signup, Join Didueat,Register as a driver, didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
+        $data['cuisine'] = cuisinelist();
+        $data['meta_description'] = "Didueat prides itself on its easy ordering system. Helping customers spend less time searching for and ordering their meals! Improving on the emerging trend towards centralized meal ordering apps, Didueat makes the process easier and faster than ever before. Don't miss out on the next big thing in restaurant ordering";
+        $Redirect = 'driver/signup';
+        $post = \Input::all();
+        $email_verification = false;
+        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
+            
+            if (!isset($post['name']) || empty($post['name'])) {
+                return $this->failure("[Name] field is missing!",$Redirect, true);
+            }
+            if (!isset($post['email']) || empty($post['email'])) {
+                return $this->failure("[Email] field is missing!",$Redirect, true);
+            }
+            $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
+            if ($is_email > 0) {
+                return $this->failure("Email address [".$post['email']."] already exists!",$Redirect, true);
+            }
+
+            if(!isset($post["id"])) {
+                if ((!isset($post['formatted_address']) || empty($post['formatted_address'])) && isset($post['formatted_addressForDB']) && $post['formatted_addressForDB']) {
+                    $post['formatted_address'] = $post["formatted_addressForDB"];
+                }
+                if (!isset($post['formatted_address']) || empty($post['formatted_address'])) {
+                    return $this->failure("[Address] field is missing!", $Redirect, true);
+                }
+                if (!isset($post['city']) || empty($post['city'])) {
+                    return $this->failure("[City] field is missing!", $Redirect, true);
+                }
+                if (!isset($post['province']) || empty($post['province'])) {
+                    return $this->failure("[Province] field is missing!", $Redirect, true);
+                }
+            }
+
+            
+
+            if (!isset($post['password']) || empty($post['password'])) {
+                return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x01)",$Redirect, true);
+            }
+            /* if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
+                return $this->failure( trans('messages.user_confim_pass_field_missing.message'),$Redirect, true);
+            }
+            if ($post['password'] != $post['confirm_password']) {
+                return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
+            }*/
+
+            return app('App\Http\Controllers\RestaurantController')->driverInfo(0,true); // add new restaurant to db and loads restaurant admin pg
+        }else{
+        $data['cuisine_list'] = cuisinelist();
+        return view('driver-signup', $data);   
+        }
+    }
     public function signupRestaurants() {
         $data['title'] = 'Restaurant Signup';
         $data['keyword'] = 'Signup, Join Didueat,Register your Restaurant, didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';

@@ -16,7 +16,7 @@ class Profiles extends BaseModel {
      */
 
     public function populate($data,$addlogo = false) {
-        $cells = array('profile_type', 'restaurant_id', 'name', 'email', 'phone' => 'phone', 'mobile' => 'phone', 'password' => 'password', 'subscribed', 'ip_address', 'browser_name', 'browser_version', 'browser_platform', 'gmt', 'status');
+        $cells = array('profile_type', 'restaurant_id', 'name', 'email', 'phone' => 'phone', 'mobile' => 'phone', 'password' => 'password', 'subscribed', 'ip_address', 'browser_name', 'browser_version', 'browser_platform', 'gmt', 'status','vehicle_type');
         
         if((isset($data["mobile"]) && phonenumber(isset($data["mobile"])) && (!isset($data["phone"]) || !phonenumber($data["phone"]))) ){
             $data["phone"] = $data["mobile"];

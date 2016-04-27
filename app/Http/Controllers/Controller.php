@@ -73,8 +73,10 @@ abstract class Controller extends BaseController {
         if (!$post) {$post = \Input::all();}
         if (!$browser_info) {$browser_info = getBrowser();}
         if ($createdby) {$post['created_by'] = \Session::get('session_id');}
-
+        if($profile_type!=5)
         $profile['restaurant_id'] = $restaurantid;
+        else
+        $profile['driver_id'] = $restaurantid;
         $profile['profile_type'] = $profile_type;  // restaurant
         if (!isset($post['ordered_by'])) {$post['ordered_by'] = 0;}
         $profile['name'] = $post['name'];

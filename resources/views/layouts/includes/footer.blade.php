@@ -26,7 +26,8 @@
                 "allergy" => "Information on allergies",
                 "socmed" => "View us on social media",
                 "home/terms" => "Terms of use",
-                "trinoweb" => "More about the webmasters"
+                "trinoweb" => "More about the webmasters",
+                "driver/signup" => "Sign up as a driver"
         );
         ?>
         <div class="row text-xs-center">
@@ -63,6 +64,13 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "restaurant" || debugmode())) {?>
                     <li class="list-inline-item">
                         <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant
+                            Sign Up</a>
+                    </li>
+                    <?php } 
+                    
+                    if (!$IsOnSignup && (!Session::get('session_type_user') == "driver" || debugmode())) {?>
+                    <li class="list-inline-item">
+                        <a href="{{ url("driver/signup") }}" title="{{ $alts["driver/signup"] }}">Driver
                             Sign Up</a>
                     </li>
                     <?php } ?>

@@ -301,6 +301,73 @@ class RestaurantController extends Controller {
             return view('dashboard.restaurant.info', $data);
         }
     }
+    
+    public function driverInfo($id = 0, $DoProfile = false, $ReturnData = false) {
+        $post = \Input::all();
+        if($ReturnData){$this->statusmode=true;}
+        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
+            if(!isset($post['id'])){$post['id']=$id;}
+            
+
+            try {
+                $update=$post;
+                $addlogo='';
+                $ob = \App\Http\Models\Drivers::findOrNew($post['id']);
+
+
+                //copy fields from post to array being sent to the database
+                $Fields = array("email", "apartment", "city", "country", "postal_code", "province", "address" => "formatted_address", "formatted_address" => "formatted_addressForDB");
+                foreach($Fields as $key => $value){
+                    if(is_numeric($key)){
+                        $key = $value;
+                    }
+                    if(isset($post[$value])) {$update[$key] = $post[$value];}
+                }
+                
+
+                if(isset($update["claim"]) && $update["claim"]){
+                    $update = array_filter($update);//remove empties
+                }
+
+                $ob->populate($update);
+                $ob->save();
+                if($id==0 || $id == "") {
+                    $id = $ob->id;
+                }
+                
+
+                if($DoProfile){//check for missing data
+                    foreach(array("name", "email", "password") as $field){
+                        if(!isset($post[$field]) || !$post[$field]){
+                            $DoProfile=false;
+                        }
+                    }
+                }
+                if($DoProfile){
+                    $update=$post;
+                    $update['vehicle_type'] = $post['vehicle_type'];
+                    $driver_id = $post['id'];
+                    unset($update["id"]);
+                    //$update = \App\Http\Models\Profiles::makenew($update); $update = login($update);
+                    $this->registeruser("RestaurantController@driverInfo", $update, 5, $driver_id, false, read("id"), true);
+                }
+
+                event(new \App\Events\AppEvents($ob, "Driver " . iif($id, "Updated", "Created")));
+                if($ReturnData){return $ob;}
+                return $this->success("Driver ".iif($id, "Updated", "Created")." Successfully", 'user/info');
+            } catch (\Exception $e) {
+                return $this->failure(handleexception($e), 'user/info');
+            }
+            
+        } else {
+// not from submit, so load data
+            $data['title'] = "Resturant Manage";
+            $data['cuisine_list'] = cuisinelist();
+            $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurant_id'));
+            $data["route"] = \Route::getCurrentRoute()->getPath();
+            return view('dashboard.restaurant.info', $data);
+        }
+    }
 
     /**
      * Manu Manager
