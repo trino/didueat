@@ -170,8 +170,8 @@
                                     if(isset($order)){
                                         echo $order->tip . '%';
                                     } else {
-                                        echo '<INPUT TYPE="number" NAME="tip" ID="tip" VALUE="0.00" STEP="0.01" ONBLUR="tipchanged();">';
-                                        makeselect("tip_percent", array("0.05" => "5%","0.10" => "10%", "0.15" => "15%","0.20" => "20%","0.25" => "25%", "other" => "Other"), 15, "", "tipchanged();");
+                                        echo '<INPUT TYPE="HIDDEN" NAME="tip" ID="tip" VALUE="0.00" STEP="0.01" ONBLUR="tipchanged();">';//, "other" => "Other"
+                                        makeselect("tip_percent", array("0.00" => "0%", "0.05" => "5%","0.10" => "10%", "0.15" => "15%","0.20" => "20%","0.25" => "25%"), 15, "", "tipchanged();");
                                     }
                                 ?>
                             </td>

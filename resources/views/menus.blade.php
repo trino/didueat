@@ -1,28 +1,28 @@
 <?php
-    printfile("views/menus.blade.php");
-    $alts = array(
-            "product-pop-up" => "Product info",
-            "up_cat" => "Move Category up",
-            "down_cat" => "Move Category down",
-            "up_parent" => "Move this up",
-            "down_parent" => "Move this down",
-            "deleteMenu" => "Delete this item",
-            "edititem" => "Edit this item"
-    );
+printfile("views/menus.blade.php");
+$alts = array(
+        "product-pop-up" => "Product info",
+        "up_cat" => "Move Category up",
+        "down_cat" => "Move Category down",
+        "up_parent" => "Move this up",
+        "down_parent" => "Move this down",
+        "deleteMenu" => "Delete this item",
+        "edititem" => "Edit this item"
+);
+ 
+$menuTSv = "?i=";
+$menuTS = read('menuTS');
+if ($menuTS) {
+    $menuTSv = "?i=" . $menuTS;
+    Session::forget('session_menuTS');
+}
 
-    $menuTSv = "?i=";
-    $menuTS = read('menuTS');
-    if ($menuTS) {
-        $menuTSv = "?i=" . $menuTS;
-        Session::forget('session_menuTS');
-    }
-
-    $prevCat = "";
-    $catNameStr = [];
-    $parentCnt = [];
-    $thisCatCnt = 0;
-    $itemPosnForJS = [];
-    // $catCnt set in restaurants-menus.blade
+$prevCat = "";
+$catNameStr = [];
+$parentCnt = [];
+$thisCatCnt = 0;
+$itemPosnForJS = [];
+// $catCnt set in restaurants-menus.blade
 ?>
 
 <script>
@@ -74,6 +74,7 @@
             $catIDNum[$cnt2] = $menus_listA[$key]->cat_id;
             $cnt2++;
         }
+
         ?>
 
         @while(list($index,$value) = each($valueA))
@@ -114,6 +115,7 @@
 
 
             if (!read('id')) {
+
                 $thisUpCatSort = 'hidden';
                 $thisDownCatSort = 'hidden';
                 $thisDownMenuVisib = 'hidden';
@@ -158,8 +160,8 @@
                             <div class="col-md-6 pull-right" id="saveMenus{{ $value->cat_id }}"
                                  style="display:none;color:#f00"><input name="saveOrderChng" type="button"
                                                                         value="Save Category Sorting"
-                                                                        onclick="saveMenuOrder({{ $value->cat_id }},false,false)"/>
-                                <span id="saveMenuOrderMsg{{ $value->cat_id }}"></span></div>
+                                                                        onclick="saveMenuOrder({{ $value->cat_id }},false,false)"/><span
+                                        id="saveMenuOrderMsg{{ $value->cat_id }}"></span></div>
 
                         </div>
 
@@ -167,8 +169,8 @@
                 </div>
                 <!-- end of category heading -->
 
-                    <?php
-                    $thisCatCnt++;
+                <?php
+                $thisCatCnt++;
                 }
 
                 //load images, duplicate code
@@ -187,131 +189,136 @@
                 }
 
                 $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
-                if($value->price=='0'){
-                    $min_p = get_price($value->id);
-                }
+                $min_p = get_price($value->id);
 
                 $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
                 ?>
-
-
-                <a
-                   href="#" id="{{ $value->id }}" name="{{ $value->id }}"
-                   data-res-id="{{ $value->restaurant_id }}"
-                   title="{{ $alts["product-pop-up"] }}"
-                   class="card-link" data-toggle="modal"
-                   data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
-
-                    <div style="padding-top: .5rem !important;padding-bottom: .5rem !important;border-bottom:1px solid #efefef !important;"
-                         class="list-group-item parents"
-                         id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
-                        <!-- start of menu item -->
+parent{{ $value->cat_id }}_{{ $value->display_order }}
+                <div style="padding-bottom: 0 !important; " class="list-group-item parents"
+                     id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
+                    <!-- start of menu item -->
+                    <div>
                         <div class="row">
                             <div class="col-md-12"><!-- start div 4 -->
+
                                 <?php
-                                    $main_price = $value->price;
-                                    $dis = '';
-                                    $everyday = '';
-                                    $days = explode(',', $value->days_discount);
-                                    $today = date('D');
-                                    if ($value->has_discount == '1' && in_array($today, $days)) {
-                                        if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
-                                            $everyday = 'everyday';
-                                        } else {
-                                            $everyday = str_replace($today, ',', $value->days_discount);
-                                            $everyday = 'Today and ' . str_replace(',', '/', $everyday);
-                                            $everyday = str_replace('//', '', $everyday);
-                                            $everyday = str_replace(' and /', '', $everyday);
-                                        }
-                                        $discount = $value->discount_per;
-                                        $d = $main_price * $discount / 100;
-                                        $main_price = $main_price - $d;
-                                        $dis = "" . $discount . "% off " . $everyday . "";
+                                $main_price = $value->price;
+                                $dis = '';
+                                $everyday = '';
+                                $days = explode(',', $value->days_discount);
+                                $today = date('D');
+                                if ($value->has_discount == '1' && in_array($today, $days)) {
+                                    if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
+                                        $everyday = 'everyday';
+                                    } else {
+                                        $everyday = str_replace($today, ',', $value->days_discount);
+                                        $everyday = 'Today and ' . str_replace(',', '/', $everyday);
+                                        $everyday = str_replace('//', '', $everyday);
+                                        $everyday = str_replace(' and /', '', $everyday);
                                     }
+                                    $discount = $value->discount_per;
+                                    $d = $main_price * $discount / 100;
+                                    $main_price = $main_price - $d;
+                                    $dis = "" . $discount . "% off " . $everyday . "";
+
+                                }
                                 ?>
 
+                                <h5 class="card-title">
 
-                                <div style="width: 100%;float:left;vertical-align: middle;">
+                                    <div style="width: 100%;float:left;vertical-align: middle;">
 
-                                    <h5 class="card-title">
+                                        <a style="line-height:30px;"
+                                           href="#" id="{{ $value->id }}" name="{{ $value->id }}"
+                                           data-res-id="{{ $value->restaurant_id }}"
+                                           title="{{ $alts["product-pop-up"] }}"
+                                           class="card-link" data-toggle="modal"
+                                           data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
 
-                                        @if($has_iconImage)
-                                            <img src="{{ $item_iconImg }}"
-                                                 class="img-circle"
-                                                 style="height:30px;width:30px;float:left;margin-right:.5rem;"
-                                                 alt="{{ $value->menu_item }}"/>
-                                            @else
-                                                    <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
-                                        @endif
-
-                                        {{ $value->menu_item }}
-                                        <span style="white-space: nowrap">
-                                            &ndash;
-                                            @if($main_price>0)
-                                                ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
-                                            @else
-                                                ${{number_format($min_p,2)}}+
+                                            @if($has_iconImage)
+                                                <img src="{{ $item_iconImg }}"
+                                                     class="img-circle"
+                                                     style="height:30px;width:30px;float:left;margin-right:.5rem;"
+                                                     alt="{{ $value->menu_item }}"/>
+                                                @else
+                                                        <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
                                             @endif
-                                            @if($dis)
-                                                <strike class="text-muted btn btn-sm btn-link"
-                                                        style="float: right">${{number_format($value->price,2)}}</strike>
-                                            @endif
-                                            @if($dis)
-                                                <strike class="text-muted btn btn-sm btn-link"
-                                                        style="float: right">${{number_format($value->price,2)}}</strike>
-                                            @endif
-                                        </span>
-                                    </h5>
-                                </div>
 
-                                <div class="clearfix"></div>
-
-
-                                @if(false)
-                                    <div class="clearfix">
-                                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
-                                        <p class="card-text m-a-0">
-                                            {{$dis}}
-                                        </p>
+                                            {{ $value->menu_item }}
+                                            <span style="white-space: nowrap">
+                                                    &ndash;
+                                                @if($main_price>0)
+                                                    ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
+                                                @else
+                                                    ${{number_format($min_p,2)}}+
+                                                @endif
+                                                @if($dis)
+                                                    <strike class="text-muted btn btn-sm btn-link"
+                                                            style="float: right">${{number_format($value->price,2)}}</strike>
+                                                @endif
+                                                @if($dis)
+                                                    <strike class="text-muted btn btn-sm btn-link"
+                                                            style="float: right">${{number_format($value->price,2)}}</strike>
+                                                @endif
+                                                </span>
+                                        </a>
                                     </div>
 
+                                    <div class="clearfix"></div>
+                                </h5>
 
-                                    <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
-                                        @if($value->uploaded_on)
-                                            Submitted: {{$value->uploaded_on}}
-                                        @endif
 
-                                        <?php
-                                            if ($value->uploaded_by) {
-                                                $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
-                                                echo "by: " . $uploaded_by->name . "";
-                                            }
-                                        ?>
+                                <!--div class="clearfix">
+                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
+                                    <p class="card-text m-a-0">
+                                        {{$dis}}
                                     </p>
+                                </div-->
 
-
-                                    @if(isset($restaurant->tags) && $restaurant->tags != "")
-                                        <?php
-                                            $tags = $restaurant->tags;
-                                            $tags = explode(',', $tags);
-                                            for ($i = 0; $i < 5; $i++) {
-                                                if (isset($tags[$i])) {
-                                                    echo "<span class='tags'>" . $tags[$i] . "</span>";
-                                                }
-                                            }
-                                        ?>
-                                    @endif
-                                @endif
 
                                 <p class="card-text m-a-0  text-muted">
                                     <?php
-                                        if (strlen($value->description) > 65) {
-                                            echo substr($value->description, 0, 65) . '...';
-                                        } else {
-                                            echo substr($value->description, 0, 65);
-                                        }
+                                    if (strlen($value->description) > 65) {
+                                        echo substr($value->description, 0, 65) . '...';
+                                    } else {
+                                        echo substr($value->description, 0, 65);
+                                    }
+                                    ?>
+
+                                </p>
+
+                                <? if(false){?>
+
+                                <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
+                                    @if($value->uploaded_on)
+                                        Submitted: {{$value->uploaded_on}}
+                                    @endif
+
+                                    <?php
+                                    if ($value->uploaded_by) {
+                                        $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+                                        echo "by: " . $uploaded_by->name . "";
+                                    }
                                     ?>
                                 </p>
+
+
+                                <?}?>
+                                @if(false) <!-- no tags yet -->
+                                @if(isset($restaurant->tags) && $restaurant->tags != "")
+                                    <?php
+                                    $tags = $restaurant->tags;
+                                    $tags = explode(',', $tags);
+                                    for ($i = 0; $i < 5; $i++) {
+                                        if (isset($tags[$i])) {
+                                            echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                        }
+                                    }
+                                    ?>
+                                @endif
+                                @endif
+
+
                             </div>
                             <!-- End div 4 -->
 
@@ -322,7 +329,8 @@
                                 @if(read('restaurant_id') == $restaurant->id || $canedit)
 
                                     <div class="btn-group pull-left" role="group" style="vertical-align: middle">
-                                        <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
+                                        <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}"
+                                              style="color:blue; display: none;"></span>
                                         @if($value->uploaded_by)
                                             Uploaded by: <A
                                                     HREF="{{ url("user/uploads/" . $value->uploaded_by) }}">{{ select_field("profiles", "id", $value->uploaded_by, "name" ) }}</A>
@@ -337,7 +345,8 @@
 
 
                                 @if($canedit || $value->uploaded_by ==read("id"))
-
+<span style="color:#FF0000">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+{{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }}</span>
                                     <a href="#"
                                        class="btn btn-sm btn-link pull-right"
                                        title="{{ $alts["deleteMenu"] }}"
@@ -374,16 +383,16 @@
                             </div>
                             <!-- end div 5 -->
                         </div>
-
-
-                        <div class="clearfix"></div>
                     </div>
-                </a>
+
+                    <div class="clearfix"></div>
+                </div>
                 <?php
-                    $catMenuCnt++;
+                $catMenuCnt++;
                 ?>
                 @include('popups.order_menu_item')
                 @endwhile
+                <div class="clearfix p-b-1" style="background: white;"></div>
 
             </div> <!-- end of last category -->
 
@@ -452,7 +461,7 @@
             _token: "{{ csrf_token() }}"
         }, function (result) {
             if (!result) {
-                alert2("Unable to enable/disable this item");
+                alert("Unable to enable/disable this item");
                 $("#check" + id).prop('checked', false);
             }
             $("#enable" + id).show();

@@ -328,7 +328,11 @@
                     $("#cardcvc").html( tempstr );
                 }
 
-                if( $(".error").length ) {return false;}//form validation detected errors
+                var errors = $(".error").filter(":visible").length;
+                if( $(".error").length ) {
+                    console.log("form validation detected " + errors + " errors");
+                    return false;
+                }
 
                 e.preventDefault();
                 $('#chkOut').attr('disabled','disabled');

@@ -247,7 +247,7 @@ function deleteMenuItemFn(catID,menID,bndboxDisplayOrder,fromSaveMenuOrder){
  
  if(confirm('This will delete the menu item. Do you wish to proceed?\n\nOptionally, you can disable the display of this particular menu item by deselecting the Enable Item checkbox on the menu list.\n\nThis will save the menu item for possible use in the future.')){
   
- var thisMenuDisplayOrder = itemPosn[catID][menID];
+ var thisMenuDisplayOrder = itemPosn[catID][menID]; // the index (display order) to be deleted
  var catMenuCnt = Object.keys(itemPosn[catID]).length;
  var thisURL=base_url+'restaurant/deleteMenu';
 
@@ -257,28 +257,63 @@ function deleteMenuItemFn(catID,menID,bndboxDisplayOrder,fromSaveMenuOrder){
             type: 'post',
             success:function(res) {
             // now delete item and update correct values into JavaScript objects and arrays
+            // shift each item up 1 
 
-            document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).innerHTML="";
-            document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).style.display="none";
+//            document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).innerHTML="";
+//            document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).style.display="none";
 
             var itemNewOrder="";
-            var temp_itemPosnObj={};
-												for(var key in itemPosn[catID]){ // [catID]=menuID:displayOrder
-		             if(key == menID){
-		              continue; // this is deleted menu item
-		             }
+            var cnt = 1;
+												for(var key in itemPosn[catID]){ // itemPosn[catID]=menuID:displayOrder
 
-		             if(itemPosn[catID][key] > thisMenuDisplayOrder){
+               if((cnt+1) > catMenuCnt){
+                 
+                 // set last item key order Posn before ending loop and deleting last container
 		               itemNewOrder = (itemPosn[catID][key] - 1);
-		             }
-		             else{
-		               itemNewOrder = itemPosn[catID][key]; // unchanged
-		             }
-											    temp_itemPosnObj[key] = itemNewOrder;  // menuID:displayOrder
-												}
+			              itemPosn[catID][key] = itemNewOrder; // add updated values this catID and key (menID)
+			              itemPosnOrig[catID][key] = itemNewOrder;
+                 
+               // means last item in active list, which will now be set to hidden and empty (ie, deleted)
+                 document.getElementById('parent'+catID+'_'+catMenuCnt).innerHTML="";
+                 document.getElementById('parent'+catID+'_'+catMenuCnt).style.display="none";
+
+                 // clear this posn in the object
+                 delete itemPosn[catID][menID];
+                 delete itemPosnOrig[catID][menID];
+
+                 break;
+               }
+               
+           
+           if(itemPosn[catID][key] >= thisMenuDisplayOrder){
+              var oneHigher = (itemPosn[catID][key]+1);
+
+//alert("Is "+itemPosn[catID][key] +" > "+ thisMenuDisplayOrder + "  --  oneHigher: "+oneHigher)
+            if(document.getElementById('parent'+catID+'_'+oneHigher)){
+              document.getElementById('parent'+catID+'_'+itemPosn[catID][key]).innerHTML = document.getElementById('parent'+catID+'_'+oneHigher).innerHTML;
+            }
+                 
+		               itemNewOrder = (itemPosn[catID][key] - 1);
+                 
+           }
+           else{
+               itemNewOrder = itemPosn[catID][key]; // unchanged
+           }
+//               alert("New item order:  "+itemNewOrder)
+            if(key != menID){
+			            itemPosn[catID][key] = itemNewOrder; // add updated values this catID and key (menID)
+			            itemPosnOrig[catID][key] = itemNewOrder;
+	           }
             
+        cnt++;
+        }
+                    
+/*
             itemPosn[catID] = temp_itemPosnObj; // add updated values back to this catID index
             itemPosnOrig[catID] = temp_itemPosnObj;
+  itemPosn[cat][id2]=currentItemPosn1;
+  itemPosn[cat][id]=currentItemPosn2;
+*/
             
             if(fromSaveMenuOrder){
               menuSortChngs[catID]=false;

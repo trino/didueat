@@ -88,7 +88,7 @@
             <div class="col-xs-12">
                 <div class=" ">
                     @if(!isset($type) || $type != "report")
-                        @include('common.editaddress', array('type'=>'reservation', "mini" => true, "checkCookie" => true))
+                        @include('common.editaddress', array('type'=>'reservation', "mini" => true, "checkCookie" => true, "slim" => true))
                     @endif
                     <div class="clearfix"></div>
                 </div>
@@ -100,7 +100,7 @@
     <DIV>
         <div class="col-xs-12">
             <div class="form-group">
-                <select class="form-control" name="order_till" id="ordered_on_time">
+                <select class="form-control not-required" name="order_till" id="ordered_on_time">
                     <option value="">Order ASAP</option>
                     {{ get_time_interval($restaurant) }}
                 </select>
