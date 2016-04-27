@@ -195,7 +195,7 @@ $itemPosnForJS = [];
                 ?>
 
 
-                <a style="line-height:30px;"
+                <a
                    href="#" id="{{ $value->id }}" name="{{ $value->id }}"
                    data-res-id="{{ $value->restaurant_id }}"
                    title="{{ $alts["product-pop-up"] }}"
