@@ -139,7 +139,7 @@ function delivery(t) {
         $('.not-required').each(function(){
             $(this).removeAttr('required');
         });
-        
+
 
         $('#pickup1').removeClass('deliverychecked');
         $('#df').show();

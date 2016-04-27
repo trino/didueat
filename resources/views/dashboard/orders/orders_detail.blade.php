@@ -39,11 +39,11 @@
                         </h4>
                     </div>
 
-                    <div class="card-block row">
+                    <div class="card-block col-md-12">
 
                         <div class="col-md-6">
                             @include('common.receipt')
-                        </div>
+                        </div></div>
 
                         <div class="col-md-6">
                             <div class="card " style="margin-bottom: 0 !important;">

@@ -40,6 +40,7 @@
             if(!isset($order->prov) || !$order->prov){$order->prov = "ON";}
             $Data['Prov'] = $order->prov;
             $Data['PC'] = $order->postal_code;
+            $Data['Note'] = $order->note;
         }
 
         if ($order->remarks) {

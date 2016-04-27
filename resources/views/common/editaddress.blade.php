@@ -72,7 +72,7 @@
     if(!read("id") && $slim){
         $nodiv = true;
     } else {
-        echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true);
+        if(!$slim){ echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true);}
         if(read('id')){
             ?>
         @if( (Request::path() == '/' || Request::path()=='restaurants/chuck-burger-bar/menu' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu")))
@@ -166,7 +166,7 @@
 @if(!$nodiv)
 </div>
 @endif
-<?= newrow(); ?>
+<?php if(!$slim){ newrow(); } ?>
 
 
 <div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
