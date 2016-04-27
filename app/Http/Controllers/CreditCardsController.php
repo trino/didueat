@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+//use vendor\stripe;
 
-class CreditCardsController extends Controller
-{
+class CreditCardsController extends Controller {
 
     /**
      * Constructor
      * @param null
      * @return redirect
      */
-    public function __construct()
-    {
+    public function __construct() {
         date_default_timezone_set('America/Toronto');
     }
 
@@ -22,8 +21,7 @@ class CreditCardsController extends Controller
      * @param null
      * @return view
      */
-    public function index($type = '')
-    {
+    public function index($type = '') {
         $post = \Input::all();
         //check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
@@ -76,8 +74,7 @@ class CreditCardsController extends Controller
      * Listing Ajax
      * @return Response
      */
-    public function listingAjax($type = '')
-    {
+    public function listingAjax($type = '') {
         $per_page = \Input::get('showEntries');
         $page = \Input::get('page');
         $cur_page = $page;
@@ -116,8 +113,7 @@ class CreditCardsController extends Controller
      * @param $id
      * @return redirect
      */
-    public function creditCardsAction($id = 0, $type = "")
-    {
+    public function creditCardsAction($id = 0, $type = "") {
         if (!isset($id) || empty($id) || $id == 0) {//check for missing data
             return $this->failure("[card Id] is missing!", 'credit-cards/list/' . $type);
         }
@@ -141,8 +137,7 @@ class CreditCardsController extends Controller
      * @param $id
      * @return view
      */
-    public function creditCardFind($id = 0, $type = "restaurant")
-    {
+    public function creditCardFind($id = 0, $type = "restaurant") {
         try {
             $data['credit_cards_list'] = \App\Http\Models\CreditCard::find($id);
             if ($type == "admin") {
@@ -165,8 +160,7 @@ class CreditCardsController extends Controller
     }
 
     //when a credit card was required, this would keep the store status updated when you add/delete cards. No longer used
-    public function updatestore($ID = 0)
-    {
+    public function updatestore($ID = 0) {
         if ($ID && false) {
             $Cards = \App\Http\Models\CreditCard::where(array("user_type" => "restaurant", 'user_id' => $ID))->count();
             if ($Cards) {
@@ -181,18 +175,15 @@ class CreditCardsController extends Controller
      * @param none
      * @return response
      */
-    public function creditCardsSequence()
-    {
+    public function creditCardsSequence() {
         $this->saveSequence('\App\Http\Models\CreditCard');
     }
 
     //pay with stripe.
     //return app('App\Http\Controllers\CreditCardsController')->stripepayment();
-    public function stripepayment($OrderID = false, $StripeToken = false, $description = false, $amount = false, $currency = "cad")
-    {
+    public function stripepayment($OrderID = false, $StripeToken = false, $description = false, $amount = false, $currency = "cad") {
         if (!$OrderID && !$StripeToken && !$description && !$amount) {
             $post = \Input::all();
-
             if (isset($post) && count($post) > 0 && !is_null($post)) {
                 $OrderID = $post['orderID'];
                 $StripeToken = $post['stripeToken'];
@@ -207,11 +198,11 @@ class CreditCardsController extends Controller
             }//remove the period, make it in cents
 
             // Set secret key: remember to change this to live secret key in production
-            if(!islive())
+            if(!islive()) {
                 \Stripe\Stripe::setApiKey("BJi8zV1i3D90vmaaBoLKywL84HlstXEg");     //test  
-            else 
+            } else {
                 \Stripe\Stripe::setApiKey("3qL9w2o6A0xePqv8C6ufRKbAqkKTDJAW"); //live
-
+            }
             // Create the charge on Stripe's servers - this will charge the user's card
             try {
                 $charge = \Stripe\Charge::create(array(

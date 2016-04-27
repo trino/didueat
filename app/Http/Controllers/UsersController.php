@@ -11,8 +11,7 @@ class UsersController extends Controller
      * @param null
      * @return redirect
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->beforeFilter(function () {
             $act = str_replace('user.', '', \Route::currentRouteName());
             $act = str_replace('.store', '', $act);
@@ -25,8 +24,7 @@ class UsersController extends Controller
      * @param null
      * @return view
      */
-    public function index()
-    {
+    public function index() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             //check for missing data
@@ -73,8 +71,7 @@ class UsersController extends Controller
      * Listing Ajax
      * @return Response
      */
-    public function listingAjax()
-    {
+    public function listingAjax() {
         $per_page = \Input::get('showEntries');
         $page = \Input::get('page');
         $cur_page = $page;
@@ -110,8 +107,7 @@ class UsersController extends Controller
      * @param $id
      * @return view
      */
-    public function ajaxEditUserForm($id = 0)
-    {
+    public function ajaxEditUserForm($id = 0) {
         if ($id) {
             $data['user_detail'] = \App\Http\Models\Profiles::find($id);
             $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
@@ -128,8 +124,7 @@ class UsersController extends Controller
      * @param null
      * @return view
      */
-    public function userUpdate()
-    {
+    public function userUpdate() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing or duplicate data
             if (!isset($post['id']) || empty($post['id'])) {
@@ -197,8 +192,7 @@ class UsersController extends Controller
      * @param $id
      * @return redirect
      */
-    public function usersAction($type = '', $id = 0)
-    {
+    public function usersAction($type = '', $id = 0) {
         //check for missing type/id
         if (!isset($type) || empty($type)) {
             return $this->failure("[Type] is missing!", 'users/list');
@@ -234,8 +228,7 @@ class UsersController extends Controller
     }
 
     //handle updating a profile image
-    public function save_profile_image($Keyname = "image", $UserID = false)
-    {
+    public function save_profile_image($Keyname = "image", $UserID = false) {
         if (!$UserID) {
             $UserID = \Session::get('session_id');
         }
@@ -257,8 +250,7 @@ class UsersController extends Controller
      * @param null
      * @return view
      */
-    public function images()
-    {
+    public function images() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if (!isset($post['restaurant_id']) || empty($post['restaurant_id'])) {
@@ -285,8 +277,7 @@ class UsersController extends Controller
     }
 
     //create a new order via AJAX
-    public function ajax_register()
-    {
+    public function ajax_register() {
         $post = \Input::all();
         //echo '<pre>'.print_r($post); die;
         if (isset($post) && count($post) > 0 && !is_null($post)) {
@@ -298,9 +289,7 @@ class UsersController extends Controller
                 if (!isset($post['listid'])) {
                     die("There are no items in your cart");
                 }
-
                 
-
                 //$Stage = 2;
                 $post['name'] = $post['ordered_by'];
                 $res['restaurant_id'] = $post['hidden_rest_id'];
@@ -327,7 +316,6 @@ class UsersController extends Controller
 
                 //$Stage = 3;
                 if (isset($post["reservation_address_dropdown"]) && $post["reservation_address_dropdown"]) {
-                    
                     $Address = select_field("profiles_addresses", "id", $post["reservation_address_dropdown"]);
                     $res['address2'] = $Address->address;
                     $res['city'] = $Address->city;
@@ -335,8 +323,7 @@ class UsersController extends Controller
                     $res['country'] = $Address->country;
                     $res['postal_code'] = $Address->postal_code;
 
-                }
-                elseif(isset($post["reservation_address"]) && $post["reservation_address"]){
+                } else if(isset($post["reservation_address"]) && $post["reservation_address"]){
                    
                     $Address = select_field("profiles_addresses", "id", $post["reservation_address"]);
                      $res['address2'] = $Address->address;
@@ -345,8 +332,7 @@ class UsersController extends Controller
                      $res['country'] = $Address->country;
                      $res['postal_code'] = $Address->postal_code;
                     
-                } 
-                else {
+                } else {
                     
                     if (\Input::has('address')) {
                         $res['address2'] = $post['address'];
@@ -483,8 +469,7 @@ class UsersController extends Controller
     }
 
     //converts the current profile to JSON
-    function json_data()
-    {
+    function json_data() {
         $id = $_POST['id'];
         $user = \App\Http\Models\Profiles::select('profiles.id as user_id', 'profiles.name', 'profiles.email', 'profiles.phone as phone', 'profiles_addresses.address as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province', 'profiles_addresses.notes as notes', "profiles.restaurant_id as restaurant_id")->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
         $user->token = csrf_token();
@@ -498,16 +483,14 @@ class UsersController extends Controller
         return json_encode($user);
     }
 
-    function uploads($UserID = false)
-    {
+    function uploads($UserID = false) {
         if (!$UserID) {
             $UserID = read("id");
         }
         return view('dashboard.user.uploads', array("userid" => $UserID));
     }
 
-    function uploadsajax($UserID = false)
-    {
+    function uploadsajax($UserID = false) {
         if (!$UserID) {
             $UserID = read("id");
         }

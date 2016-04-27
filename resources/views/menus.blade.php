@@ -1,28 +1,28 @@
 <?php
-printfile("views/menus.blade.php");
-$alts = array(
-        "product-pop-up" => "Product info",
-        "up_cat" => "Move Category up",
-        "down_cat" => "Move Category down",
-        "up_parent" => "Move this up",
-        "down_parent" => "Move this down",
-        "deleteMenu" => "Delete this item",
-        "edititem" => "Edit this item"
-);
+    printfile("views/menus.blade.php");
+    $alts = array(
+            "product-pop-up" => "Product info",
+            "up_cat" => "Move Category up",
+            "down_cat" => "Move Category down",
+            "up_parent" => "Move this up",
+            "down_parent" => "Move this down",
+            "deleteMenu" => "Delete this item",
+            "edititem" => "Edit this item"
+    );
 
-$menuTSv = "?i=";
-$menuTS = read('menuTS');
-if ($menuTS) {
-    $menuTSv = "?i=" . $menuTS;
-    Session::forget('session_menuTS');
-}
+    $menuTSv = "?i=";
+    $menuTS = read('menuTS');
+    if ($menuTS) {
+        $menuTSv = "?i=" . $menuTS;
+        Session::forget('session_menuTS');
+    }
 
-$prevCat = "";
-$catNameStr = [];
-$parentCnt = [];
-$thisCatCnt = 0;
-$itemPosnForJS = [];
-// $catCnt set in restaurants-menus.blade
+    $prevCat = "";
+    $catNameStr = [];
+    $parentCnt = [];
+    $thisCatCnt = 0;
+    $itemPosnForJS = [];
+    // $catCnt set in restaurants-menus.blade
 ?>
 
 <script>
@@ -74,7 +74,6 @@ $itemPosnForJS = [];
             $catIDNum[$cnt2] = $menus_listA[$key]->cat_id;
             $cnt2++;
         }
-
         ?>
 
         @while(list($index,$value) = each($valueA))
@@ -115,7 +114,6 @@ $itemPosnForJS = [];
 
 
             if (!read('id')) {
-
                 $thisUpCatSort = 'hidden';
                 $thisDownCatSort = 'hidden';
                 $thisDownMenuVisib = 'hidden';
@@ -160,8 +158,8 @@ $itemPosnForJS = [];
                             <div class="col-md-6 pull-right" id="saveMenus{{ $value->cat_id }}"
                                  style="display:none;color:#f00"><input name="saveOrderChng" type="button"
                                                                         value="Save Category Sorting"
-                                                                        onclick="saveMenuOrder({{ $value->cat_id }},false,false)"/><span
-                                        id="saveMenuOrderMsg{{ $value->cat_id }}"></span></div>
+                                                                        onclick="saveMenuOrder({{ $value->cat_id }},false,false)"/>
+                                <span id="saveMenuOrderMsg{{ $value->cat_id }}"></span></div>
 
                         </div>
 
@@ -169,8 +167,8 @@ $itemPosnForJS = [];
                 </div>
                 <!-- end of category heading -->
 
-                <?php
-                $thisCatCnt++;
+                    <?php
+                    $thisCatCnt++;
                 }
 
                 //load images, duplicate code
@@ -189,8 +187,9 @@ $itemPosnForJS = [];
                 }
 
                 $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
-                if($value->price=='0')
+                if($value->price=='0'){
                     $min_p = get_price($value->id);
+                }
 
                 $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
                 ?>
@@ -209,28 +208,26 @@ $itemPosnForJS = [];
                         <!-- start of menu item -->
                         <div class="row">
                             <div class="col-md-12"><!-- start div 4 -->
-
                                 <?php
-                                $main_price = $value->price;
-                                $dis = '';
-                                $everyday = '';
-                                $days = explode(',', $value->days_discount);
-                                $today = date('D');
-                                if ($value->has_discount == '1' && in_array($today, $days)) {
-                                    if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
-                                        $everyday = 'everyday';
-                                    } else {
-                                        $everyday = str_replace($today, ',', $value->days_discount);
-                                        $everyday = 'Today and ' . str_replace(',', '/', $everyday);
-                                        $everyday = str_replace('//', '', $everyday);
-                                        $everyday = str_replace(' and /', '', $everyday);
+                                    $main_price = $value->price;
+                                    $dis = '';
+                                    $everyday = '';
+                                    $days = explode(',', $value->days_discount);
+                                    $today = date('D');
+                                    if ($value->has_discount == '1' && in_array($today, $days)) {
+                                        if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
+                                            $everyday = 'everyday';
+                                        } else {
+                                            $everyday = str_replace($today, ',', $value->days_discount);
+                                            $everyday = 'Today and ' . str_replace(',', '/', $everyday);
+                                            $everyday = str_replace('//', '', $everyday);
+                                            $everyday = str_replace(' and /', '', $everyday);
+                                        }
+                                        $discount = $value->discount_per;
+                                        $d = $main_price * $discount / 100;
+                                        $main_price = $main_price - $d;
+                                        $dis = "" . $discount . "% off " . $everyday . "";
                                     }
-                                    $discount = $value->discount_per;
-                                    $d = $main_price * $discount / 100;
-                                    $main_price = $main_price - $d;
-                                    $dis = "" . $discount . "% off " . $everyday . "";
-
-                                }
                                 ?>
 
 
@@ -249,7 +246,7 @@ $itemPosnForJS = [];
 
                                         {{ $value->menu_item }}
                                         <span style="white-space: nowrap">
-                                                    &ndash;
+                                            &ndash;
                                             @if($main_price>0)
                                                 ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
                                             @else
@@ -263,7 +260,7 @@ $itemPosnForJS = [];
                                                 <strike class="text-muted btn btn-sm btn-link"
                                                         style="float: right">${{number_format($value->price,2)}}</strike>
                                             @endif
-                                                </span>
+                                        </span>
                                     </h5>
                                 </div>
 
@@ -285,41 +282,36 @@ $itemPosnForJS = [];
                                         @endif
 
                                         <?php
-                                        if ($value->uploaded_by) {
-                                            $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
-                                            echo "by: " . $uploaded_by->name . "";
-                                        }
+                                            if ($value->uploaded_by) {
+                                                $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+                                                echo "by: " . $uploaded_by->name . "";
+                                            }
                                         ?>
                                     </p>
 
 
                                     @if(isset($restaurant->tags) && $restaurant->tags != "")
                                         <?php
-                                        $tags = $restaurant->tags;
-                                        $tags = explode(',', $tags);
-                                        for ($i = 0; $i < 5; $i++) {
-                                            if (isset($tags[$i])) {
-                                                echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                            $tags = $restaurant->tags;
+                                            $tags = explode(',', $tags);
+                                            for ($i = 0; $i < 5; $i++) {
+                                                if (isset($tags[$i])) {
+                                                    echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                                }
                                             }
-                                        }
                                         ?>
                                     @endif
-
-
-
                                 @endif
+
                                 <p class="card-text m-a-0  text-muted">
                                     <?php
-                                    if (strlen($value->description) > 65) {
-                                        echo substr($value->description, 0, 65) . '...';
-                                    } else {
-                                        echo substr($value->description, 0, 65);
-                                    }
+                                        if (strlen($value->description) > 65) {
+                                            echo substr($value->description, 0, 65) . '...';
+                                        } else {
+                                            echo substr($value->description, 0, 65);
+                                        }
                                     ?>
-
                                 </p>
-
-
                             </div>
                             <!-- End div 4 -->
 
@@ -330,8 +322,7 @@ $itemPosnForJS = [];
                                 @if(read('restaurant_id') == $restaurant->id || $canedit)
 
                                     <div class="btn-group pull-left" role="group" style="vertical-align: middle">
-                                        <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}"
-                                              style="color:blue; display: none;"></span>
+                                        <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
                                         @if($value->uploaded_by)
                                             Uploaded by: <A
                                                     HREF="{{ url("user/uploads/" . $value->uploaded_by) }}">{{ select_field("profiles", "id", $value->uploaded_by, "name" ) }}</A>
@@ -389,7 +380,7 @@ $itemPosnForJS = [];
                     </div>
                 </a>
                 <?php
-                $catMenuCnt++;
+                    $catMenuCnt++;
                 ?>
                 @include('popups.order_menu_item')
                 @endwhile

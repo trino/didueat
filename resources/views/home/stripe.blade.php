@@ -180,14 +180,10 @@ if(!isset($loaded_from)){ ?>
             if(cc_id =='0'){
                 $('.editcard').show();
                 $('.cc-input').each(function(){
-                    
                     $(this).val('');
                 })
-            }
-            else
-            {
+            } else {
                 $('#saveCC').attr('checked', false);
-                
                 $('.editcard').hide();
                 var cc = $('#CC'+cc_id).val().split('_');
                 $('#cardnumber').val(cc[0]);
@@ -197,7 +193,8 @@ if(!isset($loaded_from)){ ?>
             }
             
         })
-    })
+    });
+
     function changecard() {
         if ($("#cardid").val()) {
             $(".editcard").hide();
