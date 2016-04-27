@@ -54,7 +54,7 @@ if(!isset($loaded_from)){ ?>
 
 
 
-    <div class="row ">
+    <div class="row editcard">
 
         <div class="col-xs-12 ">
         <div class="form-group ">
@@ -63,9 +63,9 @@ if(!isset($loaded_from)){ ?>
             <div class="input-group" style="width:100% !important;">
                 <!--span class="input-group-addon" id="credit-card-addon"><i class="fa fa-fw fa-credit-card" onclick="$('#cardnumber').val('4242424242424242');" TITLE="Click to use DEBUG MODE card"></i></span-->
                 <input aria-required="true" autocomplete="off" name="cardnumber" placeholder="Card Number"
-                       id="cardnumber" class="form-control" type="text" size="20" data-stripe="number" required
+                       id="cardnumber" class="form-control cc-input" type="text" size="20" data-stripe="number" required
                        aria-describedby="credit-card-addon" style="width:75%;"/>
-                <input aria-required="true" autocomplete="off" placeholder="CVC" name="cardcvc" class="form-control"
+                <input aria-required="true" autocomplete="off" placeholder="CVC" name="cardcvc" class="form-control cc-input"
                        type="text" size="4" data-stripe="cvc" required aria-describedby="cvc-addon"
                        style="border-left:0 !important;width:25%;" id="cvc"/>
                 <SPAN ID="cardcvc"></SPAN>
@@ -177,11 +177,17 @@ if(!isset($loaded_from)){ ?>
     $(function(){
         $('.changeCC').live('change',function(){
             var cc_id = $(this).val();
-            if(cc_id =='0')
+            if(cc_id =='0'){
                 $('.editcard').show();
+                $('.cc-input').each(function(){
+                    
+                    $(this).val('');
+                })
+            }
             else
             {
                 $('#saveCC').attr('checked', false);
+                
                 $('.editcard').hide();
                 var cc = $('#CC'+cc_id).val().split('_');
                 $('#cardnumber').val(cc[0]);

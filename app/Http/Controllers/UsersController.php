@@ -299,13 +299,7 @@ class UsersController extends Controller
                     die("There are no items in your cart");
                 }
 
-                if ((!isset($post["cardid"]) || !$post["cardid"]) && isset($post["savecard"]) && $post["savecard"]) {
-                    $creditinfo = array();
-                    foreach (array("cardnumber" => "card_number", "cardcvc" => "ccv", "cardmonth" => "expiry_month", "cardyear" => "expiry_year") as $source => $destination) {
-                        $creditinfo[$destination] = $post[$source];
-                    }
-                    \App\Http\Models\CreditCard::makenew($creditinfo);
-                }
+                
 
                 //$Stage = 2;
                 $post['name'] = $post['ordered_by'];
@@ -388,6 +382,7 @@ class UsersController extends Controller
 
                     }
                 }
+                
 
                 //$Stage = 5;
                 $ob2 = new \App\Http\Models\Reservations();
@@ -446,6 +441,15 @@ class UsersController extends Controller
                 if ($post['payment_type'] == 'cc') {
                     if (isset($post["stripeToken"]) && $post["stripeToken"]) {
                         if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total'])) {
+                            
+                            if ((!isset($post["cardid"]) || !$post["cardid"]) && isset($post["savecard"]) && $post["savecard"]) {
+                                $creditinfo = array();
+                                foreach (array("cardnumber" => "card_number", "cardcvc" => "ccv", "cardmonth" => "expiry_month", "cardyear" => "expiry_year") as $source => $destination) {
+                                    $creditinfo[$destination] = $post[$source];
+                                }
+                                $creditinfo['user_id']= $res['user_id'];
+                                \App\Http\Models\CreditCard::makenew($creditinfo);
+                            }   
                             echo '6';
                             //$this->success("Your order has been paid.");
                             //$data['order']->paid = 1;

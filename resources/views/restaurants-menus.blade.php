@@ -230,11 +230,13 @@
         }
 
 
-
+    <?php if(!islive()){?>
         Stripe.setPublishableKey('pk_rlgl8pX7nDG2JA8O3jwrtqKpaDIVf'); //test
-
-      //Stripe.setPublishableKey('pk_vnR0dLVmyF34VAqSegbpBvhfhaLNi'); //live
-
+    <?php }
+        else
+        {?>
+      Stripe.setPublishableKey('pk_vnR0dLVmyF34VAqSegbpBvhfhaLNi'); //live
+    <?php }?>
         
 
 
@@ -264,6 +266,7 @@
                     url: '<?php echo url(); ?>/user/ajax_register',
                     data: datas + '&' + order_data + '&_token=' + token,
                     success: function (msg) {
+                        
                         msg = msg.trim();
                         $('#chkOut').removeAttr('disabled');
                         var hide=true;
@@ -280,8 +283,9 @@
                             window.location = "{{url('orders/list/user?flash=2')}}";
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                         } else {
+                            $('.payment-errors').html(msg);
                             console.log("stripeResponseHandler");
-                            alert2( jQuery(msg).text(), "stripeResponseHandler" );
+                            //alert2( msg, "stripeResponseHandler" );
                         }
                         if(hide){$('.overlay_loader').hide();}
                     }
