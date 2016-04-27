@@ -30,6 +30,7 @@
     $aptUnit="Unit/Apt";
     $GUID = "";//guidv4();
     if(!isset($mini)){$mini = false;}
+    if(!isset($slim)){$slim=false;}
     $Commas = false;
 
     $alts = array(
@@ -68,7 +69,7 @@
 
 <?php
     $nodiv=false;
-    if(!read("id") && $mini){
+    if(!read("id") && $slim){
         $nodiv = true;
     } else {
         echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true);
@@ -169,10 +170,19 @@
 
 
 <div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
-@if($mini)
+
+@if($slim)
     <div class="form-group">
         <input type="text" name="apartment" id="apartment" class="form-control " placeholder="{{ $aptUnit }}"/>
     </div>
+@else
+    <?= newrow($new, $aptUnit, "", false, 5); ?>
+        <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
+               value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
+    <?= newrow(); ?>
+@endif
+
+@if($mini)
     <?php echo newrow($new, " ", "", false, 9);
         $WasVisible = false;
         foreach(array("city" => true, "province" => true, "postal_code" => true, "country" => false) as $field => $visible){
@@ -187,11 +197,6 @@
         } ?>
     </DIV>
 @else
-    <?= newrow($new, $aptUnit, "", false, 5); ?>
-        <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
-               value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
-    <?= newrow(); ?>
-
     <?= newrow($new, "City", "", $required, 5); ?>
         <input required <?= $readonly; ?> type="text" id="city" name="city" class="form-control city"
                value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>

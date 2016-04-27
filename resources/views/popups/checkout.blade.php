@@ -88,7 +88,7 @@
             <div class="col-xs-12">
                 <div class=" ">
                     @if(!isset($type) || $type != "report")
-                        @include('common.editaddress', array('type'=>'reservation', "mini" => true, "checkCookie" => true))
+                        @include('common.editaddress', array('type'=>'reservation', "mini" => true, "checkCookie" => true, "slim" => true))
                     @endif
                     <div class="clearfix"></div>
                 </div>
