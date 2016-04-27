@@ -115,4 +115,27 @@
             updatecart("header");
         @endif
     });
+
+    function alert2(text, calledfrom){
+        if(debugmode){
+            if(isundefined(calledfrom)){
+                calledfrom = arguments.callee.caller.name;
+            }
+            text = "(CALLED FROM: " + calledfrom + ") " + text;
+        }
+        alert(text);
+    }
+
+    function scrollto(selector) {
+        if(isNaN(selector)) {
+            if (typeof selector == "object"){
+                selector = selector.offset().top;
+            } else {
+                selector = $(selector).offset().top;
+            }
+        }
+        $('html,body').animate({
+            scrollTop: selector + $(".navbar").height()
+        });
+    }
 </script>

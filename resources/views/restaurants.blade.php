@@ -81,11 +81,8 @@
         <div class="container" style="margin-top: 0 !important;">
             <div class="row text-md-center " style="padding:0 1rem !important;">
                 <div class="col-md-offset-2 text-xs-center col-md-8" style="">
-                    <h1 class="banner-text-shadow m-b-1"><span style="font-size: 117%">Hamilton Restaurants<br>& Delivery</span></h1>
+                    <h1 class="banner-text-shadow m-b-1"><span style="font-size: 125%;font-weight: 500;">Hamilton Restaurants<br>& Delivery</span></h1>
                     <div class="clearfix"></div>
-
-                    <div class="clearfix"></div>
-
                 </div>
 
                 <div class="col-md-offset-3 col-md-6 text-md-center">
@@ -319,7 +316,7 @@
                     deliverytype = "is_delivery"; // the default
                     replacewith = replacewith + "is_delivery";
                     if (!document.getElementById('deliverycb').checked) {
-                        alert("At least Delivery or Pickup must be checked (or both). We are checking Delivery as the default, but you may adjust as you see fit");
+                        alert2("At least Delivery or Pickup must be checked (or both). We are checking Delivery as the default, but you may adjust as you see fit");
                         document.getElementById('deliverycb').checked = "true";
                     }
                 }
@@ -432,6 +429,7 @@
         });
 
         function hideresults() {
+            $(".main-bg-image").css("padding", oldpadding);
             $('#restuarant_bar').html("");
             $('#results_show').hide();
             $('#start_up_message').show();
@@ -450,6 +448,7 @@
          */
 
         var lastdata = "";
+        var oldpadding = "";
 
         function submitform(e, start, eventname) {
             if (IgnoreOne) {
@@ -513,6 +512,9 @@
 
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
+                oldpadding = $(".main-bg-image").css("padding");
+                $(".main-bg-image").css("padding", "0px");
+
                 $('#restuarant_bar').html('');
                 $('#parentLoadingbar').show();
                 $('#start_up_message').hide();
@@ -552,7 +554,7 @@
         
         
         
-        ////////////////////////////////////////////////////////////////
+        /*
        $(document).ready(function () {
     $(window).on('beforeunload', function () {
         document.cookie = "keepscroll=" + $(window).scrollTop();
@@ -596,7 +598,7 @@
         		}
         	});
         });
-        /////////////////////////////////////////////////////////
+        */////////////////////////////////////////////////////////
 
         $('body').on('click', '.loadMoreRestaurants', function (e) {
             var start = $(this).attr('data-id');

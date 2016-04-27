@@ -78,13 +78,13 @@ class Menus extends BaseModel {
         if($submenus->count()> 0){
             $minprice = 10000;
             foreach($submenus as $sub) {
-                   $minmenu_price = \App\Http\Models\Menus::where('parent', $sub->id)->where('price','!=', '0')->min('price');
+                 $minmenu_price = \App\Http\Models\Menus::where('parent', $sub->id)->where('price','!=', '0')->min('price');
                  if(isset($minmenu_price) && $minprice > $minmenu_price) {
                       $minprice = $minmenu_price;
-                      
-                 } else {
-                     $minprice = $minprice;
                  }
+                if($minprice != '10000') {
+                    return $minprice;
+                }
             }
         } else {
             $minprice = 0;

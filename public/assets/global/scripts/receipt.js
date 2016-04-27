@@ -1,4 +1,5 @@
 total_items = 0;
+var allowbypassminumum = false;
 
 //change the quantity of an item
 //id: id of the item
@@ -52,6 +53,7 @@ function clearCartItems() {
             $('.grandtotal').text('$0.00');
         } else {
             var d_fee = $('.df input').val();
+            d_fee = 0;
             if(!d_fee){d_fee=Number(0);} else {d_fee = Number(d_fee);}
             $('.grandtotal').val(d_fee);
             $('.grandtotal').text('$'+d_fee.toFixed(2));
@@ -85,24 +87,31 @@ function checkout() {
     } else {
         if(Number($('#subtotal1').val()) == 0){
             if(!debugmode){
-                alert('Please make a menu selection before checking out!');
+                alert2('Please make a menu selection before checking out!');
                 return false;
             }
         } else if(subtotal < Number(minimum_delivery)) {
-            if (confirm('Minimum delivery fee not met! If you accept the additional charges, your subtotal would be $' + minimum_delivery)) {
-                $('.subtotal').val(minimum_delivery);
-                $('.subtotal').text(minimum_delivery);
-                delivery('show');
+            if (allowbypassminumum) {
+                if (confirm('Minimum delivery fee not met! If you accept the additional charges, your subtotal would be $' + minimum_delivery)) {
+                    $('.subtotal').val(minimum_delivery);
+                    $('.subtotal').text(minimum_delivery);
+                    delivery('show');
+                } else {
+                    return false;
+                }
+            } else if(debugmode) {
+                if (!confirm("Minimum delivery fee not met! Bypass anyway? (DEBUG MODE)")){ return false; }
             } else {
+                alert2("Minimum delivery fee not met!");
                 return false;
             }
         }
     }
     if (noitems && !debugmode) {
-        alert('No items yet');
+        alert2('No items yet');
     } else {
         if(noitems){
-            alert('No items yet, but bypassing for debug mode');
+            alert2('No items yet, but bypassing for debug mode');
         }
         //$('.receipt_main').hide();
 
@@ -137,6 +146,7 @@ function delivery(t) {
         var grandtotal = 0;
         var subtotal = $('input.subtotal').val();
         grandtotal = Number(grandtotal) + Number(df) + Number(subtotal) + Number(tax);
+        if(subtotal==0){grandtotal = 0;}
         $('.df').val(df);
         $('div .grandtotal').text('$'+grandtotal.toFixed(2));
         $('input .grandtotal').val(grandtotal.toFixed(2));
@@ -177,10 +187,26 @@ function printDiv(divName) {
     document.body.innerHTML = originalContents;
 }
 
+function calctip(Subtotal, Tax, DeliveryFee){
+    var tiptype = $("#tip_percent").val();
+    Tax = parseFloat(Subtotal * 0.13);
+    var total = Number(Subtotal) + Number(Tax.toFixed(2));
+    if (tiptype == "other"){
+        var tipvalue = parseFloat($("#tip").val());
+    } else {
+        var tipvalue = parseFloat(tiptype) * total;
+        tipvalue = tipvalue.toFixed(2);
+        $("#tip").val(tipvalue);
+    }
+    tiptype = parseFloat(Number(total) + Number(tipvalue) + Number(DeliveryFee));
+    //alert(Subtotal + " tax: " + Tax + " total (subtotal+tax): " + total + " tip " + tipvalue + " (" + $("#tip_percent").val() + ") del " + DeliveryFee + " GRAND TOTAL: " + tiptype);
+    return tiptype;
+}
+
 $(function(){
     //seems to be debug code, as it won't do anything but alert text
     $('.modal').on('hidden',function(){
-        alert('blured');
+        alert2('blured', "receipt.js 193");
     })
 
     //appears to recalculate the total when switched from pickup to delivery
@@ -207,7 +233,8 @@ $(function(){
             del_fee = $('.df').val();
         }
         del_fee = parseFloat(del_fee);
-        var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
+        var gtotal = calctip(Number(subtotal), Number(tax), Number(del_fee));
+        if(subtotal==0){gtotal=0;}
         gtotal = gtotal.toFixed(2);
         $('div.grandtotal').text(gtotal);
         $('input.grandtotal').val(gtotal);
@@ -228,6 +255,7 @@ $(function(){
         $('.error_'+td_id).fadeOut(2000);
         return false;
     }
+
     function handlespan(tthis, dir){
         var td = $(tthis).parent().parent().closest('td');
         var td_id =td.attr('id');
@@ -296,7 +324,6 @@ $(function(){
         showloader();
     }
 
-
     //handle the +/- buttons on the receipt
     $('.decrease').live('click', function () {
         direction(this, false);
@@ -305,6 +332,7 @@ $(function(){
     $('.increase').live('click', function () {
         direction(this, true);
     });
+
     function direction(tthis, dir){
         var menuid = $(tthis).attr('id');
         var numid = menuid.replace('dec', '').replace('inc', '');
@@ -344,7 +372,8 @@ $(function(){
         $('span.tax').text('$'+tax);
         $('input.tax').val(tax);
 
-        var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
+        var gtotal = calctip(Number(subtotal), Number(tax), Number(del_fee));
+        if(subtotal==0){gtotal=0;}
         gtotal = gtotal.toFixed(2);
         $('div.grandtotal').text('$'+gtotal);
         $('input.grandtotal').val(gtotal);
@@ -416,6 +445,7 @@ $(function(){
                 price = Number(price) + Number(title[2]);
             }
         });
+        
         $('.modalprice'+menu_id).html('$'+price.toFixed(2));
         $('.Mprice'+menu_id).val(price);
         if($('.strikedprice'+menu_id).text()!="") {
@@ -443,12 +473,6 @@ function updatecart(where){
         $(".cart-header-show").show();
         $(".cart-header-gif").hide();
     }, 1000);
-}
-
-function onlogin(){
-    setTimeout(function() {
-        updatecart("onlogin");
-    }, 1500);
 }
 
 var checkingout = false;

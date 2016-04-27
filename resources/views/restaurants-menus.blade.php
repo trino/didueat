@@ -42,12 +42,9 @@
 
             <div class="col-lg-8 col-md-7 col-sm-12 ">
 
-                    @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true, "showtoday" => true))
-
-
+                @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true, "showtoday" => true))
 
                 @if($allowedtoupload)
-
                     <div class="card  m-b-0" style="border-radius:0 !important;">
                         <div class="card-block text-xs-center ">
                             <div class="container" style="margin-top: 0 !important;padding:0 !important;">
@@ -209,17 +206,17 @@
                                 return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
                             }
                         @endif
-                        alert(message);
+                        alert2(message);
                         return false;
                     } else if (debugmode) {
-                        alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
+                        alert2("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
                     }
                     if(element) {
                         element.trigger("click");
                     }
                     return true;
                 } else if (where == "addresscheck") {
-                    alert("No address specified");
+                    alert2("No address specified");
                     return false;
                 }
             }
@@ -229,8 +226,13 @@
         function check_val(v) {
         }
 
-      Stripe.setPublishableKey('pk_vnR0dLVmyF34VAqSegbpBvhfhaLNi'); //live
-      //test   Stripe.setPublishableKey('pk_rlgl8pX7nDG2JA8O3jwrtqKpaDIVf');
+
+    <?php if(!islive()){
+        echo "Stripe.setPublishableKey('pk_rlgl8pX7nDG2JA8O3jwrtqKpaDIVf'); //test";
+    } else {
+        echo "Stripe.setPublishableKey('pk_vnR0dLVmyF34VAqSegbpBvhfhaLNi'); //live";
+    }?>
+
         var stripeResponseHandler = function (status, response) {
             //var $form = $('#payment-form');
             var $form = $('#profiles');
@@ -257,6 +259,7 @@
                     url: '<?php echo url(); ?>/user/ajax_register',
                     data: datas + '&' + order_data + '&_token=' + token,
                     success: function (msg) {
+                        
                         msg = msg.trim();
                         $('#chkOut').removeAttr('disabled');
                         var hide=true;
@@ -273,7 +276,9 @@
                             window.location = "{{url('orders/list/user?flash=2')}}";
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                         } else {
-                            alert(msg);
+                            $('.payment-errors').html(msg);
+                            console.log("stripeResponseHandler");
+                            //alert2( msg, "stripeResponseHandler" );
                         }
                         if(hide){$('.overlay_loader').hide();}
                     }
@@ -307,7 +312,24 @@
                 $('.profiles').hide();
             });
 
+            //submission of order
             $('#profiles').submit(function (e) {
+                if( $("#cardnumber-error").length ||  $("#cvc-error").length ){
+                    if($("#cardnumber-error").length) {
+                        if($("#cvc-error").length){
+                            $("#cardnumber-error").text("These fields are required.");
+                        }
+                        var tempstr = $("#cardnumber-error")[0];
+                    } else {
+                        var tempstr = $("#cvc-error")[0];
+                    }
+                    $("#cardnumber-error").remove();
+                    $("#cvc-error").remove();
+                    $("#cardcvc").html( tempstr );
+                }
+
+                if( $(".error").length ) {return false;}//form validation detected errors
+
                 e.preventDefault();
                 $('#chkOut').attr('disabled','disabled');
                 $('.overlay_loader').show();
@@ -342,7 +364,11 @@
                                 window.location = "{{url('orders/list/user?flash=2')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                             } else {
-                                alert(msg);
+                                console.log("$('#profiles').submit(function (e)");
+                                msg = jQuery(msg).text().trim();
+                                if(msg) {
+                                    alert2(jQuery(msg).text(), "$('#profiles').submit(function (e) {");
+                                }
                             }
                             if(hide){$('.overlay_loader').hide();}
                         }
@@ -626,7 +652,8 @@
                     var del_fee = 0;
                 }
                 del_fee = parseFloat(del_fee);
-                var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
+                var gtotal = calctip(Number(subtotal), Number(tax), Number(del_fee));
+                if(subtotal==0){gtotal=0;}
                 gtotal = gtotal.toFixed(2);
                 $('div.grandtotal').text('$' + gtotal);
                 $('input.grandtotal').val(gtotal);

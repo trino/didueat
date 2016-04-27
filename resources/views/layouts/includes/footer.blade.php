@@ -217,7 +217,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
             var token = $('#subscribe-email input[name=_token]').val();
 
             if ($.trim(email) == "" || email == null) {
-                alert('Please type your email! thanks');
+                alert2('Please type your email! thanks', 'subscribe-email');
                 $('#subscribe-email input[name=email]').focus();
                 return false;
             }
@@ -225,11 +225,11 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
             $.post("{{ url('newsletter/subscribe') }}", {email: email, _token: token}, function (jason) {
                 //var jason = $.parseJSON(result);
                 if (jason.type == "error") {
-                    alert(jason.message);
+                    alert2(jason.message, "newsletter/subscribe");
                     $('#subscribe-email input[name=email]').focus();
                 } else {
                     $('#subscribe-email input[name=email]').val('');
-                    alert(jason.message);
+                    alert2(jason.message, "newsletter/subscribe");
                 }
             });
             e.preventDefault();
@@ -324,7 +324,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
 
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
-                    alert(json.message);
+                    alert2(json.message, "forgot-pass-form");
 //                    $('#forgot-pass-form #error').show();
 //                    $('#forgot-pass-form #error').html(json.message);
                 } else {
@@ -489,7 +489,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
                     $('#register-form .editaddress').show();
-                    alert(json.message);
+                    alert2(json.message, "register-form #actionBtn");
                     //$('#register-form #registration-error').show();
                     //$('#register-form #registration-error').html(json.message);
                 } else {

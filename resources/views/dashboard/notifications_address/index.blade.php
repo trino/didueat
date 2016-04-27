@@ -99,7 +99,7 @@
             data: "type=change_note&id=" + ID + "&value=" + encodeURIComponent(value),
             success: function (msg) {
                 if (msg) {
-                    alert(msg);
+                    alert2(msg);
                 } else {
                     element = document.getElementById('note_' + ID);
                     element.innerHTML = value;
@@ -130,7 +130,7 @@
                 if (msg.trim()) {
                     ignore1 = true;
                     $(element).trigger("click");
-                    alert(msg);
+                    alert2(msg);
                 }
             }
         });
@@ -213,7 +213,7 @@
             _token: token
         }, function (result) {
             if (result) {
-                alert(result);
+                alert2(result, "$('body').on('click', '.up, .down', function () {");
             }
         });
     });

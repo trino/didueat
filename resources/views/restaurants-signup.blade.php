@@ -39,8 +39,7 @@ $alts = array(
                 </div>
 
 
-                <div class="col-md-12 clearfix m-t-1"
-                     style="margin:0px;color:#000;background:#f4f7f8;padding:12px !important;text-align:left">
+                <div class="col-md-12 clearfix m-t-1 bg-success">
 
                     <span class="und bd">How It Works</span>&nbsp; {{ DIDUEAT  }} connects restaurants to customers
                     looking for a handy way to satisfy their cravings. Instead of an exhaustive menu to browse, we do

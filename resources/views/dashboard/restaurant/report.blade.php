@@ -80,7 +80,7 @@
                                     var date1 = $('.date1').val();
                                     var date2 = $('.date2').val();
                                     if (date1 == '' || date2 == '') {
-                                        alert('Date can\'t be blank');
+                                        alert2('Date can\'t be blank');
                                         return false;
                                     } else {
                                         date1 = date1.replace('-', '').replace('-', '');
@@ -90,7 +90,7 @@
                                         date2 = parseFloat(date2);
 
                                         if (date1 > date2) {
-                                            alert('Starting date cannot be greater than end date');
+                                            alert2('Starting date cannot be greater than end date');
                                             return false;
                                         }
                                         return true;
@@ -140,6 +140,7 @@
                 if ($('#pickup1').hasClass("deliverychecked")) {
                     grandtotal = 0;
                 } else {
+                    df=0;
                     grandtotal = Number(df) + Number(subtotal) + Number(tax);
                 }
 
