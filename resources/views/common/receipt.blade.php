@@ -163,7 +163,19 @@
                                 </div>
                             </td>
                         </tr-->
-
+                        <tr>
+                            <td colspan="2"><strong>Tip</strong></td>
+                            <td NOWRAP>
+                                <?php
+                                    if(isset($order)){
+                                        echo $order->tip . '%';
+                                    } else {
+                                        echo '<INPUT TYPE="number" NAME="tip" ID="tip" VALUE="0.00" STEP="0.01" ONBLUR="tipchanged();">';
+                                        makeselect("tip_percent", array("0.05" => "5%","0.10" => "10%", "0.15" => "15%","0.20" => "20%","0.25" => "25%", "other" => "Other"), 15, "", "tipchanged();");
+                                    }
+                                ?>
+                            </td>
+                        </TR>
 
                         <tr>
                             <td colspan="2"><strong>Total</strong></td>
@@ -239,6 +251,26 @@
 
 
 <script>
+    function tipchanged(){
+        var del_fee = 0.00;
+        if ($('#delivery_flag').val() == '1') {
+            del_fee = parseFloat($('.df').val());
+        }
+
+        var subtotal = parseFloat($('input.subtotal').val());
+        var tax = 0.13 * (subtotal + del_fee);
+        tax = tax.toFixed(2);
+
+        var gtotal = calctip(Number(subtotal), Number(tax), Number(del_fee));
+        if(subtotal==0){gtotal=0;}
+
+        gtotal = gtotal.toFixed(2);
+        $('div.grandtotal').text('$'+gtotal);
+        $('input.grandtotal').val(gtotal);
+
+        updatecart("tipchanged");
+    }
+
     function show_header() {
         if ($('#subtotal1').val() == '0.00' || $('#subtotal1').val() == '0') {
             $('.itmQty').hide();

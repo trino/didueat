@@ -187,6 +187,22 @@ function printDiv(divName) {
     document.body.innerHTML = originalContents;
 }
 
+function calctip(Subtotal, Tax, DeliveryFee){
+    var tiptype = $("#tip_percent").val();
+    Tax = parseFloat(Subtotal * 0.13);
+    var total = Number(Subtotal) + Number(Tax.toFixed(2));
+    if (tiptype == "other"){
+        var tipvalue = parseFloat($("#tip").val());
+    } else {
+        var tipvalue = parseFloat(tiptype) * total;
+        tipvalue = tipvalue.toFixed(2);
+        $("#tip").val(tipvalue);
+    }
+    tiptype = parseFloat(Number(total) + Number(tipvalue) + Number(DeliveryFee));
+    //alert(Subtotal + " tax: " + Tax + " total (subtotal+tax): " + total + " tip " + tipvalue + " (" + $("#tip_percent").val() + ") del " + DeliveryFee + " GRAND TOTAL: " + tiptype);
+    return tiptype;
+}
+
 $(function(){
     //seems to be debug code, as it won't do anything but alert text
     $('.modal').on('hidden',function(){
@@ -217,7 +233,7 @@ $(function(){
             del_fee = $('.df').val();
         }
         del_fee = parseFloat(del_fee);
-        var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
+        var gtotal = calctip(Number(subtotal), Number(tax), Number(del_fee));
         if(subtotal==0){gtotal=0;}
         gtotal = gtotal.toFixed(2);
         $('div.grandtotal').text(gtotal);
@@ -239,6 +255,7 @@ $(function(){
         $('.error_'+td_id).fadeOut(2000);
         return false;
     }
+
     function handlespan(tthis, dir){
         var td = $(tthis).parent().parent().closest('td');
         var td_id =td.attr('id');
@@ -307,7 +324,6 @@ $(function(){
         showloader();
     }
 
-
     //handle the +/- buttons on the receipt
     $('.decrease').live('click', function () {
         direction(this, false);
@@ -316,6 +332,7 @@ $(function(){
     $('.increase').live('click', function () {
         direction(this, true);
     });
+
     function direction(tthis, dir){
         var menuid = $(tthis).attr('id');
         var numid = menuid.replace('dec', '').replace('inc', '');
@@ -355,7 +372,7 @@ $(function(){
         $('span.tax').text('$'+tax);
         $('input.tax').val(tax);
 
-        var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
+        var gtotal = calctip(Number(subtotal), Number(tax), Number(del_fee));
         if(subtotal==0){gtotal=0;}
         gtotal = gtotal.toFixed(2);
         $('div.grandtotal').text('$'+gtotal);

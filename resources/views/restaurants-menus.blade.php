@@ -656,7 +656,7 @@
                     var del_fee = 0;
                 }
                 del_fee = parseFloat(del_fee);
-                var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
+                var gtotal = calctip(Number(subtotal), Number(tax), Number(del_fee));
                 if(subtotal==0){gtotal=0;}
                 gtotal = gtotal.toFixed(2);
                 $('div.grandtotal').text('$' + gtotal);
