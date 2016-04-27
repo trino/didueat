@@ -42,12 +42,9 @@
 
             <div class="col-lg-8 col-md-7 col-sm-12 ">
 
-                    @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true, "showtoday" => true))
-
-
+                @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true, "showtoday" => true))
 
                 @if($allowedtoupload)
-
                     <div class="card  m-b-0" style="border-radius:0 !important;">
                         <div class="card-block text-xs-center ">
                             <div class="container" style="margin-top: 0 !important;padding:0 !important;">

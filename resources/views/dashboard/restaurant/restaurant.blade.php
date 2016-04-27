@@ -47,6 +47,11 @@ echo newrow($new, "Restaurant Name", "",true); ?>
     if (isset($restaurant->description)){ echo $restaurant->description; } else { echo old('description');}
     echo '</textarea>' . newrow();
 
+    echo newrow($new, "Notes", "", false, 9);
+    echo '<textarea name="notes" class="form-control"' . $is_disabled . '>';
+    if (isset($restaurant->notes)){ echo $restaurant->notes; } else { echo old('notes');}
+    echo '</textarea>' . newrow();
+
     if($restaurant->is_complete){
         echo newrow($new, "Accept Online Orders", "", false, 9) . '<label class="c-input c-checkbox"><input name="open" type="checkbox" value="1"';
         if($restaurant->open){echo " CHECKED";}
