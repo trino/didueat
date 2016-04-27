@@ -193,7 +193,7 @@ $itemPosnForJS = [];
 
                 $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
                 ?>
-
+parent{{ $value->cat_id }}_{{ $value->display_order }}
                 <div style="padding-bottom: 0 !important; " class="list-group-item parents"
                      id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
                     <!-- start of menu item -->
@@ -345,7 +345,8 @@ $itemPosnForJS = [];
 
 
                                 @if($canedit || $value->uploaded_by ==read("id"))
-
+<span style="color:#FF0000">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+{{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }}</span>
                                     <a href="#"
                                        class="btn btn-sm btn-link pull-right"
                                        title="{{ $alts["deleteMenu"] }}"
