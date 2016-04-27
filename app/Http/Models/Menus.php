@@ -73,24 +73,24 @@ class Menus extends BaseModel {
 
     //I don't understand what this should do
     public static function get_price($id) {
-      
-        $submenus = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order','ASC')->first();
-        //var_dump($submenus);die();
+        $submenus = \App\Http\Models\Menus::where('parent', $id)->get();
         //$minprice = \App\Http\Models\Menus::where('parent', $id)->min('price');
-        //if($submenus->count()> 0){
+        if($submenus->count()> 0){
             $minprice = 10000;
-            //foreach($submenus as $sub) {
-                   $minmenu_price = \App\Http\Models\Menus::where('parent', $submenus->id)->where('price','!=', '0')->min('price');
+            foreach($submenus as $sub) {
+                   $minmenu_price = \App\Http\Models\Menus::where('parent', $sub->id)->where('price','!=', '0')->min('price');
                  if(isset($minmenu_price) && $minprice > $minmenu_price) {
                       $minprice = $minmenu_price;
                       
                  } else {
                      $minprice = $minprice;
                  }
-            //}
-        //} else {
-         //   $minprice = 0;
-        //}
+                if($minprice != '10000')
+                return $minprice;
+            }
+        } else {
+            $minprice = 0;
+        }
         return $minprice;
     }
 }
