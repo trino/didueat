@@ -310,6 +310,9 @@ class UsersController extends Controller
                 $res['restaurant_id'] = $post['res_id'];
                 $res['order_till'] = $post['order_till'];
 
+                $res["status"] = "approved";
+                $res["time"] = $res['order_time'];
+
                 if (isset($post['contact'])) {
                     $res['contact'] = $post['contact'];
                 }
