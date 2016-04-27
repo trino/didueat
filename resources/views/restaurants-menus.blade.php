@@ -227,15 +227,11 @@
         }
 
 
-    <?php if(!islive()){?>
-        Stripe.setPublishableKey('pk_rlgl8pX7nDG2JA8O3jwrtqKpaDIVf'); //test
-    <?php }
-        else
-        {?>
-      Stripe.setPublishableKey('pk_vnR0dLVmyF34VAqSegbpBvhfhaLNi'); //live
-    <?php }?>
-        
-
+    <?php if(!islive()){
+        echo "Stripe.setPublishableKey('pk_rlgl8pX7nDG2JA8O3jwrtqKpaDIVf'); //test";
+    } else {
+        echo "Stripe.setPublishableKey('pk_vnR0dLVmyF34VAqSegbpBvhfhaLNi'); //live";
+    }?>
 
         var stripeResponseHandler = function (status, response) {
             //var $form = $('#payment-form');
@@ -316,6 +312,7 @@
                 $('.profiles').hide();
             });
 
+            //submission of order
             $('#profiles').submit(function (e) {
                 if( $("#cardnumber-error").length ||  $("#cvc-error").length ){
                     if($("#cardnumber-error").length) {
@@ -330,6 +327,8 @@
                     $("#cvc-error").remove();
                     $("#cardcvc").html( tempstr );
                 }
+
+                if( $(".error").length ) {return false;}//form validation detected errors
 
                 e.preventDefault();
                 $('#chkOut').attr('disabled','disabled');
