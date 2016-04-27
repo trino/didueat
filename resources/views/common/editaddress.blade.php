@@ -67,79 +67,83 @@
     @endif
 
 <?php
-    echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true);
-    if(read('id')){
-        ?>
-    @if( (Request::path() == '/' || Request::path()=='restaurants/chuck-burger-bar/menu' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu")))
-
-        <?php
-            $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
-            if(!isset($type)){
-                if($addresses->count()){
-        ?>
-            <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
-            </button>
-            <div class="dropdown-menu dropdown-menu-left">
-                <?php //address dropdown as an A HREF instead of SELECT OPTION
-                    foreach ($addresses as $address) {
-                        if (!$sec) {
-                            $sec = $address->id;
-                        }
-                        if (!trim($address->location)) {
-                            $address->location = "Address: " . $address->id;
-                        }
-                        echo '  <a class="dropdown-item" ';
-                        echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
-                        echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
-                        echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
-                        echo $address->location . ' [' . $address->address . ']';
-                        echo '</a>';
-                    }
-                ?>
-                <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew" title="{{ $alts["add"] }}" class="dropdown-item">Add New Address</a>
-            </div>
-            <?php }
-            }else{
-
+    $nodiv=false;
+    if(!read("id") && $mini){
+        $nodiv = true;
+    } else {
+        echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true);
+        if(read('id')){
             ?>
+        @if( (Request::path() == '/' || Request::path()=='restaurants/chuck-burger-bar/menu' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu")))
 
-            <SPAN @if(!$addresses->count()) id="show-addaddress" style="display:none;" @endif >
-                <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange('editaddress');">
-                    <option value="" selected="selected">Select Address</option>
-                    <?php //address selection dropdown, could use common.addressbar
-                        $sec = false;
+            <?php
+                $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
+                if(!isset($type)){
+                    if($addresses->count()){
+            ?>
+                <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
+                </button>
+                <div class="dropdown-menu dropdown-menu-left">
+                    <?php //address dropdown as an A HREF instead of SELECT OPTION
                         foreach ($addresses as $address) {
                             if (!$sec) {
                                 $sec = $address->id;
                             }
-                            echo '<option class="dropdown-item" REQUIRED';
+                            if (!trim($address->location)) {
+                                $address->location = "Address: " . $address->id;
+                            }
+                            echo '  <a class="dropdown-item" ';
                             echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
-                            echo ' COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" LATITUDE="' . $address->latitude . '" LONGITUDE="' . $address->longitude . '"';
-                            echo ' ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
-                            echo $address->address . '</option>';
+                            echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
+                            echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
+                            echo $address->location . ' [' . $address->address . ']';
+                            echo '</a>';
                         }
                     ?>
+                    <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew" title="{{ $alts["add"] }}" class="dropdown-item">Add New Address</a>
+                </div>
+                <?php }
+                }else{
 
-                </select>
-                or
-            </SPAN>
-        
-            <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class="addNew" title="{{ $alts["add"] }}" data-id='0' value="add_address">Add New Address</a>
-            <?php
-            }
-            ?>
+                ?>
+
+                <SPAN @if(!$addresses->count()) id="show-addaddress" style="display:none;" @endif >
+                    <select class="form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange('editaddress');">
+                        <option value="" selected="selected">Select Address</option>
+                        <?php //address selection dropdown, could use common.addressbar
+                            $sec = false;
+                            foreach ($addresses as $address) {
+                                if (!$sec) {
+                                    $sec = $address->id;
+                                }
+                                echo '<option class="dropdown-item" REQUIRED';
+                                echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
+                                echo ' COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" LATITUDE="' . $address->latitude . '" LONGITUDE="' . $address->longitude . '"';
+                                echo ' ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
+                                echo $address->address . '</option>';
+                            }
+                        ?>
+
+                    </select>
+                    or
+                </SPAN>
+
+                <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class="addNew" title="{{ $alts["add"] }}" data-id='0' value="add_address">Add New Address</a>
+                <?php
+                }
+                ?>
 
 
-    @endif
-<?php }?>
+        @endif
+<?php }} ?>
     <INPUT TYPE="HIDDEN" NAME="GUID" VALUE="{{ $GUID }}">
     @if($is_disabled)
         <input type="text" id="formatted_address" disabled name="formatted_address{{ $GUID }}"
                class="form-control"
                value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" />
     @else
-        <div class="nowrap <?php if (isset($type)) echo '';?>" <?php if (isset($type)&& read('id')) echo "style='display:none'";?>>
+        <div class="nowrap" <?php if (isset($type)&& read('id')) {echo "style='display:none'";} ?> >
             <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address' . $GUID;?>" required
                    id="formatted_address" class="form-control formatted_address"
                    placeholder="Enter your address"
@@ -158,53 +162,58 @@
             ?>"/>
         </div>
     @endif
+@if(!$nodiv)
 </div>
+@endif
 <?= newrow(); ?>
 
 
 <div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
-    <?= newrow($new, $aptUnit, "", false, 5); ?>
-    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
-           value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
-        <?= newrow(); ?>
-
 @if($mini)
+    <div class="form-group">
+        <input type="text" name="apartment" id="apartment" class="form-control " placeholder="{{ $aptUnit }}"/>
+    </div>
     <?php echo newrow($new, " ", "", false, 9);
-    $WasVisible = false;
-    foreach(array("city" => true, "province" => true, "postal_code" => true, "country" => false) as $field => $visible){
-        $Value = (isset($addresse_detail->$field))?$addresse_detail->$field:old($field);
-        if($visible){
-            if ($visible && $WasVisible){echo '<SPAN CLASS="commas">, </SPAN>';}
-            echo '<span class="' . $field . '" value="' . $Value . '">' . $Value . '</SPAN>';
-        }
-        echo '<INPUT TYPE="HIDDEN" VALUE="' . $Value . '" ID="' . $field . '" CLASS="' . $field . '" NAME="' . $field . '">';
-        if($Value){$Commas  = true;}
-        $WasVisible=$visible;
-    } ?>
-    </DIV></DIV>
+        $WasVisible = false;
+        foreach(array("city" => true, "province" => true, "postal_code" => true, "country" => false) as $field => $visible){
+            $Value = (isset($addresse_detail->$field))?$addresse_detail->$field:old($field);
+            if($visible){
+                if ($visible && $WasVisible){echo '<SPAN CLASS="commas">, </SPAN>';}
+                echo '<span class="' . $field . '" value="' . $Value . '">' . $Value . '</SPAN>';
+            }
+            echo '<INPUT TYPE="HIDDEN" VALUE="' . $Value . '" ID="' . $field . '" CLASS="' . $field . '" NAME="' . $field . '">';
+            if($Value){$Commas  = true;}
+            $WasVisible=$visible;
+        } ?>
+    </DIV>
 @else
+    <?= newrow($new, $aptUnit, "", false, 5); ?>
+        <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
+               value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
+    <?= newrow(); ?>
+
     <?= newrow($new, "City", "", $required, 5); ?>
-    <input required <?= $readonly; ?> type="text" id="city" name="city" class="form-control city"
-           value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
+        <input required <?= $readonly; ?> type="text" id="city" name="city" class="form-control city"
+               value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
     </div></div>
 
     <?= newrow($new, "Province", "", $required, 5); ?>
-    <input required <?= $readonly; ?> type="text" id="province" name="province" class="form-control province"
-           onfocus="this.blur();"
-           value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}" {{$required}}>
+        <input required <?= $readonly; ?> type="text" id="province" name="province" class="form-control province"
+               onfocus="this.blur();"
+               value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}" {{$required}}>
     </div></div>
 
     <?= newrow($new, "Postal Code", "", $required, 5); ?>
-    <input <?= $readonly; ?> type="text" name="postal_code" id="postal_code" 
-           class="form-control postal_code" placeholder="" {{$required}}
-           value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
+        <input <?= $readonly; ?> type="text" name="postal_code" id="postal_code"
+               class="form-control postal_code" placeholder="" {{$required}}
+               value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
     </div></div>
     <DIV id="pcNotFnd" style="display:none;margin-top:0px;margin-bottom:10px;color: red" class="col-md-12 pull-right"></div>
 
     <?= newrow($new, "Country", "", $required, 5); ?>
-    <input <?= $readonly; ?> type="text" id="country" name="country" class="form-control"
-           value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}" {{$required}}>
-    </div></div>
+        <input <?= $readonly; ?> type="text" id="country" name="country" class="form-control"
+               value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}" {{$required}}>
+        </div></div>
     </div>
 @endif
 
