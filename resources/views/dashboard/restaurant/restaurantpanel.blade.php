@@ -10,8 +10,7 @@
     if (!function_exists("toseconds")) {
         printfile("dashboard/restaurant/restaurantpanel.blade.php");
         //convert a 24hr time into seconds
-        function toseconds($Time)
-        {
+        function toseconds($Time) {
             if (strpos($Time, ":") !== false) {
                 $Time = explode(":", $Time);
                 return $Time[0] * 3600 + $Time[1] * 60 + $Time[2];
@@ -20,8 +19,7 @@
         }
 
         //get a rough estimate of the difference between 2 times
-        function timediff($Start, $End = false)
-        {//end is the bigger time
+        function timediff($Start, $End = false) {//end is the bigger time
             $Start = toseconds($Start);
             if (!$End) {
                 $End = time();
@@ -29,6 +27,14 @@
             $End = toseconds($End);
             $Diff = abs($End - $Start);
             return durationtotext($Diff, false, ", ");
+        }
+
+        function link_it($text) {
+            $text= preg_replace("/(^|[\n ])([\w]*?)([\w]*?:\/\/[\w]+[^ \,\"\n\r\t<]*)/is", "$1$2<a href=\"$3\" >$3</a>", $text);
+            $text= preg_replace("/(^|[\n ])([\w]*?)((www)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"http://$3\" >$3</a>", $text);
+            $text= preg_replace("/(^|[\n ])([\w]*?)((ftp)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"ftp://$3\" >$3</a>", $text);
+            $text= preg_replace("/(^|[\n ])([a-z0-9&\-_\.]+?)@([\w\-]+\.([\w\-\.]+)+)/i", "$1<a href=\"mailto:$2@$3\">$2@$3</a>", $text);
+            return($text);
         }
     }
 
@@ -100,13 +106,6 @@
         }
     }
 
-    function link_it($text) {
-        $text= preg_replace("/(^|[\n ])([\w]*?)([\w]*?:\/\/[\w]+[^ \,\"\n\r\t<]*)/is", "$1$2<a href=\"$3\" >$3</a>", $text);
-        $text= preg_replace("/(^|[\n ])([\w]*?)((www)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"http://$3\" >$3</a>", $text);
-        $text= preg_replace("/(^|[\n ])([\w]*?)((ftp)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"ftp://$3\" >$3</a>", $text);
-        $text= preg_replace("/(^|[\n ])([a-z0-9&\-_\.]+?)@([\w\-]+\.([\w\-\.]+)+)/i", "$1<a href=\"mailto:$2@$3\">$2@$3</a>", $text);
-        return($text);
-    }
 ?>
 
 <div class="card-header"
