@@ -398,7 +398,7 @@
 
 
 
-                <div class="clearfix p-b-1" style="background: white;"></div>
+                <div class="clearfix"></div>
 
             </div> <!-- end of last category -->
 

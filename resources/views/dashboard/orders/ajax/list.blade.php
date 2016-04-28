@@ -155,14 +155,14 @@
                                         <i class="fa fa-times"></i>
                                     </a-->
                                     <a title="{{ $alts["deleteorder"] }}"
-                                       class="btn btn-secondary-outline btn-sm pull-right"
+                                       class="btn btn-danger-outline  btn-sm pull-right"
                                        onclick="deleteorder({{ $value->id }});">
                                         <i ID="fa{{ $value->id }}" class="fa fa-times"></i>
                                     </a>
                                 @endif
                                 @if($type == "admin" )
-                                    <a class="btn btn-secondary-outline btn-sm pull-right" title="{{ $alts["notifyone"] }}"
-                                       ONCLICK="notifystore(event, {{ $value->id}});">Notify</a>
+                                    <!--a class="btn btn-secondary-outline btn-sm pull-right" title="{{ $alts["notifyone"] }}"
+                                       ONCLICK="notifystore(event, {{ $value->id}});">Notify</a-->
                                 @endif
                             </td>
                         </tr>

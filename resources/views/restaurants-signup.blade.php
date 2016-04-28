@@ -19,7 +19,13 @@ $alts = array(
 ?>
 
 
-<div class="jumbotron jumbotron-fluid  bg-success signup-bg-image">
+<div class="jumbotron jumbotron-fluid   signup-bg-image bg-success" style=" border-bottom: 1px solid #4b80b7;
+    background: #4c88ef;
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #4c88ef), color-stop(100%, #5cb85c));
+    background: -webkit-linear-gradient(-45deg, #4c88ef 0%, #5cb85c 100%);
+    background: -webkit-linear-gradient(315deg, #4c88ef 0%, #5cb85c 100%);
+    background: linear-gradient(135deg, #4c88ef 0%, #5cb85c 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c88ef', endColorstr='#5cb85c', GradientType=1);">
 
     <div class="container " style="padding: 0px !important;margin-top: 0px !important;">
         <div class="p-a-1">
@@ -39,7 +45,7 @@ $alts = array(
                 </div>
 
 
-                <div class="col-md-12 clearfix m-t-1 bg-success">
+                <div class="col-md-12 clearfix m-t-1" style="">
 
                     <span class="und bd">How It Works</span>&nbsp; {{ DIDUEAT  }} connects restaurants to customers
                     looking for a handy way to satisfy their cravings. Instead of an exhaustive menu to browse, we do
