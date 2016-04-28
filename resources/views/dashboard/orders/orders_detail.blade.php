@@ -43,7 +43,7 @@
 
                         <div class="col-md-6">
                             @include('common.receipt')
-                        </div></div>
+                        </div>
 
                         <div class="col-md-6">
                             <div class="card " style="margin-bottom: 0 !important;">
@@ -74,15 +74,16 @@
                                     @endif
 
                                     @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "paid_for"=> $paid_for))
-                                        @if(!$CanApprove)
-                                            @if($order->order_type == 0 && false)
-                                                @include("common.gmaps", array("address" => $restaurant->formatted_address))
-                                            @endif
-                                        @endif
 
-                                        @if($order->order_type > 0 && $CanApprove && false)
+                                    @if(!$CanApprove)
+                                        @if($order->order_type == 0 && false)
                                             @include("common.gmaps", array("address" => $restaurant->formatted_address))
                                         @endif
+                                    @endif
+
+                                    @if($order->order_type > 0 && $CanApprove && false)
+                                        @include("common.gmaps", array("address" => $restaurant->formatted_address))
+                                    @endif
 
                                 </div>
                             </div>
