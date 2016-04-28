@@ -312,7 +312,7 @@ class RestaurantController extends Controller {
             try {
                 $update=$post;
                 $addlogo='';
-                $ob = \App\Http\Models\Drivers::findOrNew($post['id']);
+                
 
 
                 //copy fields from post to array being sent to the database
@@ -328,16 +328,12 @@ class RestaurantController extends Controller {
                 if(isset($update["claim"]) && $update["claim"]){
                     $update = array_filter($update);//remove empties
                 }
-
-                $ob->populate($update);
-                $ob->save();
-                if($id==0 || $id == "") {
-                    $id = $ob->id;
-                }
+                
+                
                 
 
                 if($DoProfile){//check for missing data
-                    foreach(array("name", "email", "password") as $field){
+                    foreach(array("name", "email", "password","vehicle_type") as $field){
                         if(!isset($post[$field]) || !$post[$field]){
                             $DoProfile=false;
                         }
@@ -349,11 +345,11 @@ class RestaurantController extends Controller {
                     $driver_id = $post['id'];
                     unset($update["id"]);
                     //$update = \App\Http\Models\Profiles::makenew($update); $update = login($update);
-                    $this->registeruser("RestaurantController@driverInfo", $update, 5, $driver_id, false, read("id"), true);
+                    $this->registeruser("RestaurantController@driverInfo", $update, 5, 0, false, read("id"), true);
                 }
 
-                event(new \App\Events\AppEvents($ob, "Driver " . iif($id, "Updated", "Created")));
-                if($ReturnData){return $ob;}
+                //event(new \App\Events\AppEvents($ob, "Driver " . iif($id, "Updated", "Created")));
+                //if($ReturnData){return $ob;}
                 return $this->success("Driver ".iif($id, "Updated", "Created")." Successfully", 'user/info');
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'user/info');

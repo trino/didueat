@@ -80,8 +80,7 @@ abstract class Controller extends BaseController {
         if ($createdby) {$post['created_by'] = \Session::get('session_id');}
         if($profile_type!=5)
         $profile['restaurant_id'] = $restaurantid;
-        else
-        $profile['driver_id'] = $restaurantid;
+        
         $profile['profile_type'] = $profile_type;  // restaurant
         if (!isset($post['ordered_by'])) {$post['ordered_by'] = 0;}
         $profile['name'] = $post['name'];
@@ -97,6 +96,7 @@ abstract class Controller extends BaseController {
         $profile['browser_name'] = $browser_info['name'];
         $profile['browser_version'] = $browser_info['version'];
         $profile['browser_platform'] = $browser_info['platform'];
+        $profile['vehicle_type'] = $post['vehicle_type']; 
         if (isset($_POST['gmt'])) {$profile['gmt'] = $post['gmt'];}
         $profile['status'] = 'active';
 
