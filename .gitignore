@@ -94,3 +94,4 @@ resources/views/restaurants-menus2.blade.php
 didueat_db_April19.sql
 public/assets/global/scripts/menu_manager_backupApril25.js
 config/app.php
+*.xml

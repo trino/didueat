@@ -81,7 +81,7 @@
         <div class="container" style="margin-top: 0 !important;">
             <div class="row text-md-center " style="padding:0 1rem !important;">
                 <div class="col-md-offset-2 text-xs-center col-md-8" style="">
-                    <h1 class="banner-text-shadow m-b-1"><span style="font-size: 125%;font-weight: 500;">Hamilton Restaurants<br>& Delivery</span></h1>
+                    <h1 class="banner-text-shadow m-y-1"><span style="font-size: 125%;font-weight: 500;">Hamilton Restaurants<br>& Delivery</span></h1>
                     <div class="clearfix"></div>
                 </div>
 
