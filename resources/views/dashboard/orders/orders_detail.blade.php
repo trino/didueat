@@ -49,29 +49,26 @@
                             <div class="card " style="margin-bottom: 0 !important;">
                                 <div class="card-block">
 
-
-                                    @if(!$CanApprove)
-                                        <table style="width:100%;">
-                                            <tbody>
-                                            <tr class="infolist noprint">
-                                                <td class=""><strong>Restaurant</strong></td>
-                                                <td width="15"></td>
-                                                <td>{{$restaurant->name}}</td>
-                                            </tr>
-                                            <tr class="infolist noprint">
-                                                <td class=""><strong>Phone</strong></td>
-                                                <td width="15"></td>
-                                                <td>{{$restaurant->phone}}</td>
-                                            </tr>
-                                            <tr class="infolist noprint">
-                                                <td class=""><strong>Address</strong></td>
-                                                <td width="15"></td>
-                                                <td>{{$restaurant->address}}, {{$restaurant->city}} {{$restaurant->province}} {{$restaurant->postal_code}}</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-<hr >
-                                    @endif
+                                    <table style="width:100%;">
+                                        <tbody>
+                                        <tr class="infolist noprint">
+                                            <td class=""><strong>Restaurant</strong></td>
+                                            <td width="15"></td>
+                                            <td>{{$restaurant->name}}</td>
+                                        </tr>
+                                        <tr class="infolist noprint">
+                                            <td class=""><strong>Phone</strong></td>
+                                            <td width="15"></td>
+                                            <td>{{$restaurant->phone}}</td>
+                                        </tr>
+                                        <tr class="infolist noprint">
+                                            <td class=""><strong>Address</strong></td>
+                                            <td width="15"></td>
+                                            <td>{{$restaurant->address}}, {{$restaurant->city}} {{$restaurant->province}} {{$restaurant->postal_code}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr >
 
                                     @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "paid_for"=> $paid_for))
 

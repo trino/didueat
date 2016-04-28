@@ -150,6 +150,10 @@ if(!isset($loaded_from)){ ?>
                         <span class="c-indicator"></span>
                         Save Card
                     </label>
+
+                    @if(debugmode())
+                        <button type="button" class="btn btn-primary btn-sm pull-right" onclick="testcard();">Use Test Card</button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -200,5 +204,15 @@ if(!isset($loaded_from)){ ?>
         } else {
             $(".editcard").show();
         }
+    }
+
+    function testcard(){
+        $("#cardnumber").val("4242424242424242");
+        $("#cvc").val("555");
+
+        var date = new Date();
+        var month = date.getMonth()+1;
+        if(month<10){month = "0" + month;}
+        $("#exp-month").val(month);
     }
 </script>

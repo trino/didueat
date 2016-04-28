@@ -1134,4 +1134,8 @@ class RestaurantController extends Controller {
         $data["cities"] = \DB::table('restaurants')->where("is_complete", 1)->groupBy('city')->orderBy('province', 'ASC')->orderBy('city', 'ASC')->get();
         return view('dashboard.restaurant.ajax.cities', $data);
     }
+
+    function catedit($id){
+        return view('popups.catedit', array("id" => $id));
+    }
 }
