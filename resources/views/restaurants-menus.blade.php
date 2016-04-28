@@ -572,6 +572,7 @@
                     }
                 });
                 if (err > 0) {
+                    scrollto( $(".errormsg").filter(":visible").first() );
                     return false;
                 } else {
                     var banner = $(this).parent().parent().parent().find('.bannerz');
