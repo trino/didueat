@@ -232,7 +232,7 @@
                     }
                     return true;
                 } else if (where == "addresscheck") {
-                    alert2("No address specified");
+                    alert2("No Address Specified");
                     return false;
                 }
             }

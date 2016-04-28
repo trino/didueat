@@ -85,13 +85,13 @@ if(!isset($loaded_from)){ ?>
 
                 <SELECT aria-required="true" name="cardmonth" class="form-control" data-stripe="exp-month" id="exp-month">
                     <?php
-                        $Months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+                        $Months = array("(Jan)", "(Feb)", "(Mar)", "(Apr)", "(May)", "(Jun)", "(Jul)", "(Aug)", "(Sep)", "(Oct)", "(Nov)", "(Dec)");
                         foreach ($Months as $Number => $Month) {
                             $Number++;
                             if ($Number < 10) {
                                 $Number = "0" . $Number;
                             }
-                            echo '<OPTION value="' . $Number . '">' . $Month . '</OPTION>';
+                            echo '<OPTION value="' . $Number . '">' .$Number .' '. $Month . '</OPTION>';
                         }
                     ?>
                 </SELECT>
