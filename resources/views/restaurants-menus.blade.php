@@ -162,7 +162,7 @@
                             </div>
                             <div class="modal-body" id="categoryeditor"></div>
                             <div class="modal-footer">
-                                <a id="saveeditor" class="btn btn-primary savebtn" href="javascript:void(0)">Save</a>
+                                <a id="saveeditor" class="btn btn-primary savebtn" onclick="savecat();">Save</a>
                             </div>
                         </div>
                     </div>

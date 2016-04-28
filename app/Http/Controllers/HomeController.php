@@ -648,6 +648,9 @@ class HomeController extends Controller {
                 case "deletecategory":
                     return $this->deletecategory($_POST["id"], $_POST["restaurant"]);
                     break;
+                case "editcategory":
+                    $this->editcategory();
+                    break;
 
                 default:
                     echo $_POST["type"] . " is not handled";
@@ -657,6 +660,20 @@ class HomeController extends Controller {
             echo "type not specified";
         }
         die();
+    }
+
+    function editcategory(){
+        switch( $_POST["action"] ){
+            case "rename":
+                update_database("category", "id", $_POST["id"], array("title" => $_POST["destination"]));
+                update_database("menus", "cat_id", $_POST["id"], array("cat_name" => $_POST["destination"]));
+                break;
+            case "merge":
+                delete_all("category", array("id" => $_POST["id"]));
+                $newcat = select_field("category", "id", $_POST["destination"], "title");
+                update_database("menus", "cat_id", $_POST["id"], array("cat_id" =>  $_POST["destination"], "cat_name" => $newcat));
+                break;
+        }
     }
 
     function deletecategory($ID, $Restaurant){
