@@ -330,8 +330,7 @@ class HomeController extends Controller {
      * @param null
      * @return view
      */
-    public function signupDriver()
-    {
+    public function signupDriver() {
      $data['title'] = 'Driver Signup';
         $data['keyword'] = 'Signup, Join Didueat,Register as a driver, didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
         $data['cuisine'] = cuisinelist();
@@ -367,8 +366,6 @@ class HomeController extends Controller {
                 }
             }
 
-            
-
             if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x01)",$Redirect, true);
             }
@@ -385,6 +382,7 @@ class HomeController extends Controller {
         return view('driver-signup', $data);   
         }
     }
+
     public function signupRestaurants() {
         $data['title'] = 'Restaurant Signup';
         $data['keyword'] = 'Signup, Join Didueat,Register your Restaurant, didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
@@ -511,7 +509,6 @@ class HomeController extends Controller {
         $data['title'] = 'Contact';
         //   $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
         return view('contactus', $data);
-
     }
 
 
@@ -648,6 +645,10 @@ class HomeController extends Controller {
                     update_database("reservations", "id", $_POST["id"], array("csr" => $_POST["action"]));
                     break;
 
+                case "deletecategory":
+                    return $this->deletecategory($_POST["id"], $_POST["restaurant"]);
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
                     if(debugmode()){ echo "\r\n" . var_export($_POST, true);}
@@ -656,6 +657,13 @@ class HomeController extends Controller {
             echo "type not specified";
         }
         die();
+    }
+
+    function deletecategory($ID, $Restaurant){
+        delete_all("category", array("id" => $ID));
+        delete_all("menus", array("cat_id" => $ID));
+        $slug = select_field("restaurants", "id", $Restaurant, "slug");
+        return $this->success("Category deleted", "restaurants/" . $slug . "/menu");
     }
 
     function ismissing($Data, $Fields){
