@@ -183,7 +183,7 @@
     </div>
 
 
-    @if(isset($Restaurant["notes"]) && isset($showtoday))
+    @if(isset($Restaurant["notes"]) && isset($showtoday) && false)
         {!! link_it($Restaurant["notes"]) !!}
     @endif
     <div class="clearfix"></div>
