@@ -19,13 +19,15 @@ $alts = array(
 ?>
 
 
-<div class="jumbotron jumbotron-fluid   signup-bg-image bg-success" style=" border-bottom: 1px solid #4b80b7;
+<div class="jumbotron jumbotron-fluid   signup-bg-image bg-success" style=" /*border-bottom: 1px solid #4b80b7;
     background: #4c88ef;
     background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #4c88ef), color-stop(100%, #5cb85c));
     background: -webkit-linear-gradient(-45deg, #4c88ef 0%, #5cb85c 100%);
     background: -webkit-linear-gradient(315deg, #4c88ef 0%, #5cb85c 100%);
     background: linear-gradient(135deg, #4c88ef 0%, #5cb85c 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c88ef', endColorstr='#5cb85c', GradientType=1);">
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c88ef', endColorstr='#5cb85c', GradientType=1);
+    */
+    ">
 
     <div class="container " style="padding: 0px !important;margin-top: 0px !important;">
         <div class="p-a-1">
@@ -70,7 +72,7 @@ $alts = array(
                     
                 <span class="und bd" style="">A Limited Time Offer!</span>&nbsp; <a HREF="#"
                                                                                     onclick="toggleMore(1,'Learn');return false"
-                                                                                    style="text-decoration:none;color:#00f"><span
+                                                                                    style=""><span
                                 id="readmore1" style="">Learn More</span></a><br/>
                  <span id="moreInfo1" class="p-t-0" style="display:none">
                     <div class="smBR"></div>
@@ -140,7 +142,7 @@ $alts = array(
             <div class="smBR"><br/></div>
 
             <span class="bd">Your best choice is to accept customer payment through {{ DIDUEAT  }}, instead of collecting from the customer yourself.</span>&nbsp;<a
-                    HREF="#" onclick="toggleMore(2,'Learn');return false" style="text-decoration:none;color:#00f"><span
+                    HREF="#" onclick="toggleMore(2,'Learn');return false" style=""><span
                         id="readmore2" style="">Learn More</span></a><br/>
             <div class="smBR"><br/></div>
 
