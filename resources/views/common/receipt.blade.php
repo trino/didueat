@@ -85,8 +85,8 @@
 
             <div class="receipt_main">
                 @if(!isset($order))
-                    <table style="<?php if(!isset($em)){?>width:100%;<?php }else{?>width:100%;padding:22px 0<?php }?>">
-                    <tr>
+                    <table style="display:none;<?php if(!isset($em)){?>width:100%;<?php }else{?>width:100%;padding:0px;<?php }?>">
+                    <tr style="">
                         <td colspan="2">
                             @if(isset($restaurant->is_delivery) && $restaurant->is_delivery == 1)
                                 <label class="radio-inline c-input c-radio">
@@ -164,14 +164,14 @@
                             </td>
                         </tr-->
                         <tr>
-                            <td colspan="2"><strong>Tip</strong></td>
-                            <td NOWRAP>
+                            <td colspan="2"><strong>Tip Driver</strong></td>
+                            <td class="pull-right">
                                 <?php
                                     if(isset($order)){
                                         echo '<SPAN STYLE="float:right;">' . $order->tip . '%</SPAN>';
                                     } else {
                                         echo '<INPUT TYPE="HIDDEN" NAME="tip" ID="tip" VALUE="0.00" STEP="0.01" ONBLUR="tipchanged();">';//, "other" => "Other"
-                                        makeselect("tip_percent", array("0.00" => "0%", "0.05" => "5%","0.10" => "10%", "0.15" => "15%","0.20" => "20%","0.25" => "25%"), 15, "", "tipchanged();");
+                                        makeselect("tip_percent", array("0.00" => "0%", "0.05" => "5%","0.10" => "10%", "0.15" => "15%","0.20" => "20%","0.25" => "25%"), 15, "width:auto;border:0 !important;padding:0rem !important;", "tipchanged();");
                                     }
                                 ?>
                             </td>
@@ -209,8 +209,8 @@
             @if(!isset($email))
                 <div class="profiles p-t-1" style="display: none;">
 
-                    <div class="form-group">
-                        <h4 style="padding-top: 60px; margin-top: -60px;" class="profile_delevery_type"></h4>
+                    <div class="">
+                        <h4 style="padding-top: 60px; margin-top: -60px;margin-bottom: 0 !important;" class="profile_delevery_type"></h4>
                     </div>
 
                     <!--div class="form-group ">

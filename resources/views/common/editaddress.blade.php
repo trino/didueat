@@ -127,10 +127,11 @@
                         ?>
 
                     </select>
-                    or
-                </SPAN>
 
-                <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class="addNew" title="{{ $alts["add"] }}" data-id='0' value="add_address">Add New Address</a>
+                </SPAN>
+<div class=" form-group pull-right">
+                <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class="addNew" title="{{ $alts["add"] }}" data-id='0' value="add_address">New Address</a>
+    </div>
                 <?php
                 }
                 ?>
@@ -167,6 +168,7 @@
 </div>
 </div>
 
+@if(!isset($type))
 <?php if(!$slim){ newrow(); } ?>
 
 @if($slim)
@@ -178,6 +180,7 @@
         <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
                value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
     <?= newrow(); ?>
+@endif
 @endif
 
 <div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >

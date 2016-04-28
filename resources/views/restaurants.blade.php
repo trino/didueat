@@ -94,8 +94,8 @@
                     <h4 class="banner-text-shadow  m-t-1"><span style="">$5 Delivery. No Minimum Order.</span></h4>
                     <div class="clearfix"></div>
 
-                    <a class="btn btn-lg btn-link btn-responsive "
-                       href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}" style="color: white;"><h5 class="banner-text-shadow">Restaurant Sign Up</h5></a>
+                    <!--a class="btn btn-lg btn-link btn-responsive "
+                       href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}" style="color: white;"><h5 class="banner-text-shadow">Restaurant Sign Up</h5></a-->
 
 
                 </div>
@@ -513,7 +513,7 @@
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
                 oldpadding = $(".main-bg-image").css("padding");
-                $(".main-bg-image").css("padding", "0px");
+                $(".main-bg-image").css("padding", ".5rem");
 
                 $('#restuarant_bar').html('');
                 $('#parentLoadingbar').show();

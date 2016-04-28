@@ -101,7 +101,7 @@
         } else if (closedCnt == totalCnt) {
             //closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can view the restaurants, and place your order when they are open";
         }
-        document.getElementById('openClosed').innerHTML = spBR + "" + openCntMsg + closedCntMsg + "";
+       // document.getElementById('openClosed').innerHTML = spBR + "" + openCntMsg + closedCntMsg + "";
         totalCnt = totalCnt + Number($("#countRows").text());
         $("#countRows").text(totalCnt);
         if (totalCnt) {

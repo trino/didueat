@@ -12,7 +12,7 @@
             $alts = array(
                     "csr" => "What to do if something is wrong with the order"
             );
-            $Actions = array("Go with merchant recommendation", "Refund this item", "Contact me", "Cancel entire order");
+            $Actions = array("Go with merchant suggestion", "Refund this item", "Contact me", "Cancel entire order");
 
             if(isset($order)){
                 $menu_ids = $order->menu_ids;
@@ -48,7 +48,7 @@
                                     <?php
                                         if($showCSR){
                                             if(!isset($csr_actions[$k])){$csr_actions[$k] = 0;}
-                                            echo "<br/><b>".$Actions[$csr_actions[$k]].'</b>';
+                                            echo "<br/><i class='text-muted'>".$Actions[$csr_actions[$k]].'</i>';
                                         }
                                     ?>
                             </td>

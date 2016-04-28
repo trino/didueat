@@ -15,7 +15,7 @@ if ($CanSaveCard) {
 if(read('id')) {
     $cc = \App\Http\Models\CreditCard::where('user_id',read('id'))->get();
     if($cc->count()>0) {
-        echo '<div class="col-xs-12 form-group ">';
+        echo '<div class="col-xs-12"><div class=" form-group "> ';
         foreach($cc as $c) {
             $CardNumber = (\Crypt::decrypt($c->card_number));
             $Month = \Crypt::decrypt($c->expiry_month);
@@ -24,7 +24,7 @@ if(read('id')) {
             echo '<input type="hidden" id="CC'.$c->id.'" value="'.$CardNumber.'_'.$Month.'_'.$Year.'_'.$cvc.'" />';
         }
         echo "<select class='changeCC form-control'>";
-        echo "<option value='0'>Choose Credit Card</option>";
+        echo "<option value='0'>Select Card</option>";
         foreach($cc as $c) {
             $CardNumber = obfuscate(\Crypt::decrypt($c->card_number));
             $Month = \Crypt::decrypt($c->expiry_month);
@@ -34,7 +34,7 @@ if(read('id')) {
                 echo '<option value="' . $c->id . '">' . $CardNumber . '('.$c->first_name.' '.substr($c->last_name,0,1).'.)</option>';
             }
         }
-        echo "</select> </div>";
+        echo "</select> </div> </div>";
     }
 }
 
@@ -142,14 +142,13 @@ if(!isset($loaded_from)){ ?>
 
 @if($CanSaveCard)
         <div class="form-group row editcard">
-            <label class="col-xs-2 text-xs-right"></label>
 
-            <div class="col-xs-10">
+            <div class="col-xs-12">
                 <div class="input-icon">
                     <label class="radio-inline c-input c-checkbox">
                         <input type="checkbox" name="savecard" id="saveCC">
                         <span class="c-indicator"></span>
-                        <strong>Save Credit Card</strong>
+                        Save Card
                     </label>
                 </div>
             </div>

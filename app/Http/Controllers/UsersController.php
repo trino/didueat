@@ -444,7 +444,7 @@ class UsersController extends Controller
                             //$data['order']->paid = 1;
                         } else {
                             //$this->failure("Your order has <B>NOT</B> been paid.");
-                            echo "There was an issue processing your Card. Please try again or select Pay by Cash on Delivery";
+                            echo "There was an issue processing your Card. Please try again or select Cash payment.";
 
                         }
                     }
