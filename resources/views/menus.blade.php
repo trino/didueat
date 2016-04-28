@@ -123,7 +123,11 @@
             $thisDownMenuVisib = 'hidden';
             $thisUpMenuVisib = 'hidden';
         }
-    ?>
+
+            $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
+
+
+            ?>
 
     <DIV class="list-group m-b-1" id="c{{ $thisCatCnt }}"><!-- start of this category -->
     <div class="list-group-item parents" style="background: #f5f5f5;"><!-- start of category heading -->
@@ -134,8 +138,9 @@
                     <h4 class="card-title"><?= $value->cat_name;?></h4>
                 </div>
 
-
                 <div class="col-xs-4">
+                    @if($canedit)
+
                     <div class="pull-right" aria-label="Basic example">
                         @if($categories>1)
                             <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right" onclick="deletecategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
@@ -161,7 +166,7 @@
                             <i class="fa fa-arrow-down"></i>
                         </a>
                     </div>
-
+@endif
                 </div>
 
                 <div class="col-md-6" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
@@ -198,7 +203,6 @@
     $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
     $min_p = get_price($value->id);
 
-    $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
 ?>
     <div style="border-bottom:1px solid #efefef !important;    padding-top:  .5rem !important;
     padding-bottom:  .5rem !important;" class="list-group-item parents"
