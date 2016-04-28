@@ -42,7 +42,7 @@
                                 echo '</a>';
                             }
                         ?>
-                        <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" title="{{ $alts["add"] }}" id="addNew" class="dropdown-item">Add New Address</a>
+                        <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" title="{{ $alts["add"] }}" id="addNew" class="dropdown-item">New Address</a>
                     </div>
 
                     <?php } ?>
