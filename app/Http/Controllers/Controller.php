@@ -129,7 +129,10 @@ abstract class Controller extends BaseController {
         $userArray = $user->toArray();
         $userArray['mail_subject'] = 'Thank you for your registration at ' . DIDUEAT;
         $userArray['idd'] = '4';//why?
+        if($profile_type!=5)
         $this->sendEMail("emails.registration_welcome", array_merge($profile, $userArray));
+        else
+        $this->sendEMail("emails.drivers_welcome", array_merge($profile, $userArray));
         \DB::commit();
 
         return $user;
