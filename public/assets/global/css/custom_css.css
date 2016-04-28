@@ -1,4 +1,8 @@
+.no_text_break{
 
+white-space: nowrap
+
+}
 .list-group, .card {
 
     margin-bottom: 1rem !important;
@@ -13,7 +17,7 @@
 
 .card-header, .list-group-item,.card-footer {
     padding:  1rem !important;
-
+     margin-bottom: 0 !important;
 
 }
 
@@ -163,7 +167,7 @@ label {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    padding: 6rem 0 6rem 0;
+    padding: 8rem 0 8rem 0;
 }
 
 .signup-bg-image {

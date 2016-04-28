@@ -102,7 +102,7 @@ function checkout() {
             } else if(debugmode) {
                 if (!confirm("Minimum delivery fee not met! Bypass anyway? (DEBUG MODE)")){ return false; }
             } else {
-                alert2("Minimum delivery fee not met!");
+                alert2("Subtotal must be $"+minimum_delivery+" for delivery!");
                 return false;
             }
         }
@@ -139,12 +139,12 @@ function delivery(t) {
         $('.not-required').each(function(){
             $(this).removeAttr('required');
         });
-        
+
 
         $('#pickup1').removeClass('deliverychecked');
         $('#df').show();
         $('#df2').show();
-        $('.profile_delevery_type').text('Delivery');
+        $('.profile_delevery_type').text('Delivery Details');
         $('.profile_delivery_detail').show();
         createCookieValue('delivery_type', 'is_delivery');
         var tax = $('.maintax').val();

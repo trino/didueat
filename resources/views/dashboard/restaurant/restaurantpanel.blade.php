@@ -30,11 +30,11 @@
         }
 
         function link_it($text) {
-            $text= preg_replace("/(^|[\n ])([\w]*?)([\w]*?:\/\/[\w]+[^ \,\"\n\r\t<]*)/is", "$1$2<a href=\"$3\" >$3</a>", $text);
-            $text= preg_replace("/(^|[\n ])([\w]*?)((www)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"http://$3\" >$3</a>", $text);
-            $text= preg_replace("/(^|[\n ])([\w]*?)((ftp)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"ftp://$3\" >$3</a>", $text);
-            $text= preg_replace("/(^|[\n ])([a-z0-9&\-_\.]+?)@([\w\-]+\.([\w\-\.]+)+)/i", "$1<a href=\"mailto:$2@$3\">$2@$3</a>", $text);
-            return($text);
+            $text = preg_replace("/(^|[\n ])([\w]*?)([\w]*?:\/\/[\w]+[^ \,\"\n\r\t<]*)/is", "$1$2<a href=\"$3\" >$3</a>", $text);
+            $text = preg_replace("/(^|[\n ])([\w]*?)((www)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"http://$3\" >$3</a>", $text);
+            $text = preg_replace("/(^|[\n ])([\w]*?)((ftp)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"ftp://$3\" >$3</a>", $text);
+            $text = preg_replace("/(^|[\n ])([a-z0-9&\-_\.]+?)@([\w\-]+\.([\w\-\.]+)+)/i", "$1<a href=\"mailto:$2@$3\">$2@$3</a>", $text);
+            return ($text);
         }
     }
 
@@ -97,6 +97,7 @@
                     }
                     if ($allowbreak) {
                         $MoreTime .= " at " . converttime($open);
+                        $MoreTime = '<FONT COLOR="RED">' . $MoreTime . '</FONT>';
                         break;
                     }
                 }
@@ -105,95 +106,84 @@
             // $MoreTime = "Not accepting orders";
         }
     }
-
 ?>
 
-<div class="card-header"
-     style=" @if(!isset($order)) background: white !important; margin-bottom:1rem !important;    box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
+<div class="card-header" style=" @if(!isset($order)) background: white !important; margin-bottom:1rem !important;    box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
      @endif ">
-
     <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1">
-
             @if(isset($details) && $details)
                 <img style="max-width:100%;" class="img-circle" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
-                <div class="clearfix"></div>
             @else
                 <a href="{{ url('restaurants/' . $Restaurant['slug'] . '/menu') }}?delivery_type={{ $delivery_type }}"
                    class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
                     <img style="max-width:100%;" class="img-circle" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
-
-                    <div class="clearfix"></div>
                 </a>
             @endif
-
         </div>
-        <div class="clearfix"></div>
     </div>
 
     <div class="col-md-10 p-a-0 ">
+
+        @if(isset($order))
+            <a class="card-link restaurant-url"
+               href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}"
+               title="{{ $alts["restaurants/menu"] }}">
+        @endif
         <h3 style="margin-bottom: .2rem !important;">
-            @if(isset($order))
-                <a class="card-link restaurant-url"
-                   href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}"
-                   title="{{ $alts["restaurants/menu"] }}">
-                    {{ printfile("(ID: " . $Restaurant["id"] . ") ") . $Restaurant['name'] }}
-                </a>
-                <!--div class="pull-right">
-                    <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
-                       class="restaurant-url btn @if($Message=='View Menu') btn-secondary @else btn-primary @endif hidden-sm-down"
-                       title="{{ $alts[$Message] }}">{{ $Message }}</a>
-                </div-->
-
-            @else
-                {{ $Restaurant['name'] }}
-
-            @endif
-
+            {{ printfile("(ID: " . $Restaurant["id"] . ") ") . $Restaurant['name'] }}
         </h3>
-        <div class=" text-muted">
+
+        @if(isset($order))
+            </a>
+        @endif
+
+        <span class="text-muted">
 
             @if($MoreTime)
-                <div class="smallT" style="">{{ $MoreTime }}</div>
+                <div class="smallT" style="">{!! $MoreTime !!}</div>
             @endif
             {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}
             @if($Restaurant["cuisine"])
                 <span class="list-inline-item"> {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
             @endif
 
-            <!--span class="list-inline-item"> {{ $Restaurant['phone'] }} </span> <span class="list-inline-item">{{ $Restaurant['address'] }}, {{ $Restaurant['city'] }} </span>
-            <div class="clearfix"></div-->
-
             @if(isset($latitude) && $radius && $Restaurant['distance'] && false)
                 <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
-            @endif
+                @endif
 
-            @if(isset($details) && $details)
+                @if(isset($details) && $details)
                 @if(false)
-                    @if($Restaurant["is_delivery"])
-                        @if(!$Restaurant["is_pickup"])
-                            <!--span class="list-inline-item"><strong>Delivery only</strong></span-->
-                        @endif
-                        <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
-                        <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
-                    @elseif($Restaurant["is_pickup"])
-                        <!--span class="list-inline-item"><strong>Pickup only</strong></span-->
-                    @endif
-                @endif
-
-
-                <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal"
-                   data-target="#viewMapModel"
-                   title="{{ $alts["moredetails"] }}">More Details</a>
-
-                @if(read("profiletype") == 1)
-                    <A HREF="{{ url("restaurant/info/" . $Restaurant["id"]) }}">Edit</A>
-                @endif
+                @if($Restaurant["is_delivery"])
+                @if(!$Restaurant["is_pickup"])
+                        <!--span class="list-inline-item"><strong>Delivery only</strong></span-->
+            @endif
+            <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
+                    <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
+            @elseif($Restaurant["is_pickup"])
+                    <!--span class="list-inline-item"><strong>Pickup only</strong></span-->
+            @endif
             @endif
 
-        </div>
+
+            <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal"
+               data-target="#viewMapModel"
+               title="{{ $alts["moredetails"] }}">More Details</a>
+
+            @if(read("profiletype") == 1)
+                <A HREF="{{ url("restaurant/info/" . $Restaurant["id"]) }}">Edit</A>
+            @endif
+            @endif
+
+
+
+                </span>
+
+
     </div>
-    @if($Restaurant["notes"] && isset($showtoday))
+
+
+    @if(isset($Restaurant["notes"]) && isset($showtoday))
         {!! link_it($Restaurant["notes"]) !!}
     @endif
     <div class="clearfix"></div>
@@ -201,40 +191,41 @@
 
 
 <?php if (isset($is_menu)) { ?>
-    <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" style="text-decoration:none;">
-        <?php
-            $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
-            if ($menuitems) {
-                echo '<div class="list-group-item" style="padding-top: 0rem !important; "></div>';
-                $i = 0;
-                foreach ($menuitems as $menuitem) {
-                    echo '<div class="list-group-item" style="padding-top: .25rem !important;padding-bottom: .25rem !important; ">';
-                    $filename = file_exists("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg");
-                    if (($filename == 1)) {
-                        $filename = asset("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg") . ' ';
-                        echo '<IMG style="width: 34px; height: 34px;" class="img-circle" SRC="' . $filename . '">';
-                    }
-                    echo ' ' . $menuitem->menu_item . '';
-                    echo '<span style="white-space: nowrap;"> &ndash; ';
-
-
-                    $min_p = get_price($menuitem->id);
-                    if ($menuitem->price > 0) {
-                        echo "$" . number_format(($menuitem->price > 0) ? $menuitem->price : $min_p, 2);
-                    } else {
-                        echo "$" . number_format($min_p, 2), "+";
-                    }
-
-                    echo '</span><div class="clearfix " style="margin-bottom:.1rem;"></div></div>';
-
-                    $i++;
-                    if ($i == 5) {
-                        break;
-                    }
-                }
+<a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
+   style="text-decoration:none;">
+    <?php
+    $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
+    if ($menuitems) {
+        echo '<div class="list-group-item" style="padding-top: 0rem !important; "></div>';
+        $i = 0;
+        foreach ($menuitems as $menuitem) {
+            echo '<div class="list-group-item" style="padding-top: .25rem !important;padding-bottom: .25rem !important; ">';
+            $filename = file_exists("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg");
+            if (($filename == 1)) {
+                $filename = asset("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg") . ' ';
+                echo '<IMG style="width: 34px; height: 34px;" class="img-circle" SRC="' . $filename . '">';
             }
-            echo '<div class="list-group-item" style="padding-top: 0rem !important; "></div>';
-        ?>
-    </a>
-    <div class="clearfix"></div>
+            echo ' ' . $menuitem->menu_item . '';
+            echo '<span style="white-space: nowrap;"> &ndash; ';
+
+
+            $min_p = get_price($menuitem->id);
+            if ($menuitem->price > 0) {
+                echo "$" . number_format(($menuitem->price > 0) ? $menuitem->price : $min_p, 2);
+            } else {
+                echo "$" . number_format($min_p, 2), "+";
+            }
+
+            echo '</span><div class="clearfix " style="margin-bottom:.1rem;"></div></div>';
+
+            $i++;
+            if ($i == 5) {
+                break;
+            }
+        }
+    }
+    echo '<div class="list-group-item" style="padding-top: 0rem !important; "></div>';
+    ?>
+</a>
+<div class="clearfix"></div>
 <?php } ?>

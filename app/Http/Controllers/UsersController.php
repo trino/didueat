@@ -309,51 +309,38 @@ class UsersController extends Controller
                 $res['csr'] = implode(',', $post['csr']);
                 $res['restaurant_id'] = $post['res_id'];
                 $res['order_till'] = $post['order_till'];
+                $res["remarks"] = $post["remarks"];
+
+                $res["status"] = "approved";
+                $res["time"] = $res['order_time'];
 
                 if (isset($post['contact'])) {
                     $res['contact'] = $post['contact'];
                 }
 
                 //$Stage = 3;
+                $copyaddress=0;
                 if (isset($post["reservation_address_dropdown"]) && $post["reservation_address_dropdown"]) {
-                    $Address = select_field("profiles_addresses", "id", $post["reservation_address_dropdown"]);
+                    $copyaddress = $post["reservation_address_dropdown"];
+                } else if(isset($post["reservation_address"]) && $post["reservation_address"]){
+                    $copyaddress = $post["reservation_address"];
+                } else {
+                    foreach(array('address' => 'address2', 'added_address' => 'address2', 'city', 'province', 'country', 'postal_code') as $source => $destination){
+                        if(is_numeric($source)){$source = $destination;}
+                        if (\Input::has($source)) {
+                            $res[$destination] = $post[$source];
+                        }
+                    }
+                }
+                if($copyaddress) {
+                    $Address = select_field("profiles_addresses", "id", $copyaddress);
                     $res['address2'] = $Address->address;
                     $res['city'] = $Address->city;
                     $res['province'] = $Address->province;
                     $res['country'] = $Address->country;
                     $res['postal_code'] = $Address->postal_code;
-
-                } else if(isset($post["reservation_address"]) && $post["reservation_address"]){
-                   
-                    $Address = select_field("profiles_addresses", "id", $post["reservation_address"]);
-                     $res['address2'] = $Address->address;
-                     $res['city'] = $Address->city;
-                     $res['province'] = $Address->province;
-                     $res['country'] = $Address->country;
-                     $res['postal_code'] = $Address->postal_code;
-                    
-                } else {
-                    
-                    if (\Input::has('address')) {
-                        $res['address2'] = $post['address'];
-                    }
-                    if ($post['added_address'] != '') {
-                        $res['address2'] = $post['added_address'];
-                    }
-                    if (\Input::has('city')) {
-                        $res['city'] = $post['city'];
-                    }
-                    if (\Input::has('province')) {
-                        $res['province'] = $post['province'];
-                    }
-                    if (\Input::has('country')) {
-                        $res['country'] = $post['country'];
-                    }
-                    if (\Input::has('postal_code')) {
-                        $res['postal_code'] = $post['postal_code'];
-                    }
+                    $res['note'] = $Address->notes;
                 }
-
                 //$Stage = 4;
                 $res['name'] = trim($post['ordered_by']);
 
@@ -441,7 +428,7 @@ class UsersController extends Controller
                             //$data['order']->paid = 1;
                         } else {
                             //$this->failure("Your order has <B>NOT</B> been paid.");
-                            echo "There was an issue processing your Card. Please try again or select Pay by Cash on Delivery";
+                            echo "There was an issue processing your Card. Please try again or select Cash payment.";
 
                         }
                     }

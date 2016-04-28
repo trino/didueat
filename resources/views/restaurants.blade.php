@@ -81,7 +81,7 @@
         <div class="container" style="margin-top: 0 !important;">
             <div class="row text-md-center " style="padding:0 1rem !important;">
                 <div class="col-md-offset-2 text-xs-center col-md-8" style="">
-                    <h1 class="banner-text-shadow m-b-1"><span style="font-size: 125%;font-weight: 500;">Hamilton Restaurants<br>& Delivery</span></h1>
+                    <h1 class="banner-text-shadow m-y-1"><span style="font-size: 125%;font-weight: 500;">Hamilton Restaurants<br>& Delivery</span></h1>
                     <div class="clearfix"></div>
                 </div>
 
@@ -94,8 +94,8 @@
                     <h4 class="banner-text-shadow  m-t-1"><span style="">$5 Delivery. No Minimum Order.</span></h4>
                     <div class="clearfix"></div>
 
-                    <a class="btn btn-lg btn-link btn-responsive "
-                       href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}" style="color: white;"><h5 class="banner-text-shadow">Restaurant Sign Up</h5></a>
+                    <!--a class="btn btn-lg btn-link btn-responsive "
+                       href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}" style="color: white;"><h5 class="banner-text-shadow">Restaurant Sign Up</h5></a-->
 
 
                 </div>
@@ -513,7 +513,7 @@
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
                 oldpadding = $(".main-bg-image").css("padding");
-                $(".main-bg-image").css("padding", "0px");
+                $(".main-bg-image").css("padding", ".5rem");
 
                 $('#restuarant_bar').html('');
                 $('#parentLoadingbar').show();

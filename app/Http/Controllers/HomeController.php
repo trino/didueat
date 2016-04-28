@@ -149,13 +149,15 @@ class HomeController extends Controller {
                 if (debugmode()) {$SQL = "SQL=" . $data['sql'] . "<BR>" . str_replace("&", "<BR>", print_r($post["data"], true));}
 
                 if(read("id")) {
-                    $hasaddress = true;
+                    $hasaddress = false;
                     foreach (array("latitude", "longitude", "formatted_address", "city", "province", "postal_code", "country") as $field) {
                         if (!isset($data) || empty($data[$field])) {
-                            $hasaddress = false;
+                            $hasaddress .= $data;
                         }
                     }
                     if ($hasaddress) {
+                        debugprint("Skipped saving due to lack of " . $hasaddress);
+                    } else {
                         $searchname = "Last search";
                         $ID = select_field_where("profiles_addresses", array("user_id" => read("id"), "location" => $searchname));
                         if(!$ID){$ID = 0;} else {$ID = $ID->id;}
@@ -328,8 +330,7 @@ class HomeController extends Controller {
      * @param null
      * @return view
      */
-    public function signupDriver()
-    {
+    public function signupDriver() {
      $data['title'] = 'Driver Signup';
         $data['keyword'] = 'Signup, Join Didueat,Register as a driver, didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
         $data['cuisine'] = cuisinelist();
@@ -365,8 +366,6 @@ class HomeController extends Controller {
                 }
             }
 
-            
-
             if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x01)",$Redirect, true);
             }
@@ -383,6 +382,7 @@ class HomeController extends Controller {
         return view('driver-signup', $data);   
         }
     }
+
     public function signupRestaurants() {
         $data['title'] = 'Restaurant Signup';
         $data['keyword'] = 'Signup, Join Didueat,Register your Restaurant, didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
@@ -509,7 +509,6 @@ class HomeController extends Controller {
         $data['title'] = 'Contact';
         //   $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
         return view('contactus', $data);
-
     }
 
 
@@ -646,6 +645,13 @@ class HomeController extends Controller {
                     update_database("reservations", "id", $_POST["id"], array("csr" => $_POST["action"]));
                     break;
 
+                case "deletecategory":
+                    return $this->deletecategory($_POST["id"], $_POST["restaurant"]);
+                    break;
+                case "editcategory":
+                    $this->editcategory();
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
                     if(debugmode()){ echo "\r\n" . var_export($_POST, true);}
@@ -654,6 +660,27 @@ class HomeController extends Controller {
             echo "type not specified";
         }
         die();
+    }
+
+    function editcategory(){
+        switch( $_POST["action"] ){
+            case "rename":
+                update_database("category", "id", $_POST["id"], array("title" => $_POST["destination"]));
+                update_database("menus", "cat_id", $_POST["id"], array("cat_name" => $_POST["destination"]));
+                break;
+            case "merge":
+                delete_all("category", array("id" => $_POST["id"]));
+                $newcat = select_field("category", "id", $_POST["destination"], "title");
+                update_database("menus", "cat_id", $_POST["id"], array("cat_id" =>  $_POST["destination"], "cat_name" => $newcat));
+                break;
+        }
+    }
+
+    function deletecategory($ID, $Restaurant){
+        delete_all("category", array("id" => $ID));
+        delete_all("menus", array("cat_id" => $ID));
+        $slug = select_field("restaurants", "id", $Restaurant, "slug");
+        return $this->success("Category deleted", "restaurants/" . $slug . "/menu");
     }
 
     function ismissing($Data, $Fields){

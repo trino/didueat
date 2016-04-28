@@ -72,7 +72,7 @@
     if(!read("id") && $slim){
         $nodiv = true;
     } else {
-        echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true);
+        if(!$slim){ echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true);}
         if(read('id')){
             ?>
         @if( (Request::path() == '/' || Request::path()=='restaurants/chuck-burger-bar/menu' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu")))
@@ -102,7 +102,7 @@
                             echo '</a>';
                         }
                     ?>
-                    <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew" title="{{ $alts["add"] }}" class="dropdown-item">Add New Address</a>
+                    <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew" title="{{ $alts["add"] }}" class="dropdown-item">New Address</a>
                 </div>
                 <?php }
                 }else{
@@ -127,10 +127,11 @@
                         ?>
 
                     </select>
-                    or
-                </SPAN>
 
-                <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class="addNew" title="{{ $alts["add"] }}" data-id='0' value="add_address">Add New Address</a>
+                </SPAN>
+<div class=" form-group pull-right">
+                <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class="addNew" title="{{ $alts["add"] }}" data-id='0' value="add_address">New Address</a>
+    </div>
                 <?php
                 }
                 ?>
@@ -163,24 +164,26 @@
             ?>"/>
         </div>
     @endif
-@if(!$nodiv)
+
 </div>
-@endif
-<?= newrow(); ?>
+</div>
 
-
-<div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
+@if(!isset($type))
+<?php if(!$slim){ newrow(); } ?>
 
 @if($slim)
-    <div class="form-group">
+    <div class="form-group slim">
         <input type="text" name="apartment" id="apartment" class="form-control " placeholder="{{ $aptUnit }}"/>
     </div>
 @else
-    <?= newrow($new, $aptUnit, "", false, 5); ?>
+    <?= newrow($new, $aptUnit, "", false, 9); ?>
         <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
                value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
     <?= newrow(); ?>
 @endif
+@endif
+
+<div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
 
 @if($mini)
     <?php echo newrow($new, " ", "", false, 9);
@@ -233,7 +236,7 @@
 }
 
 if($isUser){
-    echo newrow($new, "Notes", "", false, 9); ?>
+    echo '</div>' . newrow($new, "Notes", "", false, 9); ?>
         <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
     </div></div>
 <?php }
