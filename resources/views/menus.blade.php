@@ -77,6 +77,7 @@
         $cnt2++;
     }
 
+    $categories = select_field("category", "res_id", $restaurant->id, "COUNT()");
 ?>
 
 @while(list($index,$value) = each($valueA))
@@ -136,11 +137,13 @@
 
                 <div class="col-xs-4">
                     <div class="pull-right" aria-label="Basic example">
-                        <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right" onclick="deletecategory({{ $thisCatCnt . ", '" . addslashes($value->cat_name) . "'"}});">
-                            <i class="fa fa-times"></i>
-                        </A>
+                        @if($categories>1)
+                            <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right" onclick="deletecategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
+                                <i class="fa fa-times"></i>
+                            </A>
+                        @endif
                         <A title="{{ $alts["editcat"] }}" class="btn btn-sm btn-link pull-right" data-toggle="modal"
-                           data-target="#editCatModel" data-target-id="{{ $thisCatCnt }}" onclick="editcategory({{ $thisCatCnt . ", '" . addslashes($value->cat_name) . "'"}});">
+                           data-target="#editCatModel" data-target-id="{{ $thisCatCnt }}" onclick="editcategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
                             Edit
                         </A>
 
@@ -473,10 +476,11 @@
         if (confirm("Are you sure you want to delete '" + Name + "' and every item in that category?")){
             $.post("{{ url('ajax') }}", {
                 type: "deletecategory",
+                restaurant: "{{ $restaurant->id }}",
                 id: ID,
                 _token: "{{ csrf_token() }}"
             }, function (result) {
-                alert(result);
+                window.location.reload();
             });
         }
     }
