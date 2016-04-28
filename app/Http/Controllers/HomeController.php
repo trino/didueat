@@ -149,13 +149,15 @@ class HomeController extends Controller {
                 if (debugmode()) {$SQL = "SQL=" . $data['sql'] . "<BR>" . str_replace("&", "<BR>", print_r($post["data"], true));}
 
                 if(read("id")) {
-                    $hasaddress = true;
+                    $hasaddress = false;
                     foreach (array("latitude", "longitude", "formatted_address", "city", "province", "postal_code", "country") as $field) {
                         if (!isset($data) || empty($data[$field])) {
-                            $hasaddress = false;
+                            $hasaddress .= $data;
                         }
                     }
                     if ($hasaddress) {
+                        debugprint("Skipped saving due to lack of " . $hasaddress);
+                    } else {
                         $searchname = "Last search";
                         $ID = select_field_where("profiles_addresses", array("user_id" => read("id"), "location" => $searchname));
                         if(!$ID){$ID = 0;} else {$ID = $ID->id;}
