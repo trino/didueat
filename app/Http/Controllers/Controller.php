@@ -30,9 +30,14 @@ abstract class Controller extends BaseController {
                 $this->sendEMail($template_name, $array);
             }
         } else if($array['email']) {
-            \Mail::send($template_name, $array, function ($messages) use ($array) {
-                $messages->to($array['email'])->subject($array['mail_subject']);
-            });
+            try {
+                \Mail::send($template_name, $array, function ($messages) use ($array) {
+                    $messages->to($array['email'])->subject($array['mail_subject']);
+                });
+            } catch (\Swift_TransportException $e) {
+                debugprint("SWIFTMAILER ERROR: " . $e->getMessage());
+                return false;
+            }
 
             $NeedsCC = array("emails.receipt");
             $CCto = "info@trinoweb.com";
