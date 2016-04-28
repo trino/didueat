@@ -7,7 +7,9 @@
             "up_parent" => "Move this up",
             "down_parent" => "Move this down",
             "deleteMenu" => "Delete this item",
-            "edititem" => "Edit this item"
+            "edititem" => "Edit this item",
+            "editcat" => "Edit this category",
+            "deletecat" => "Delete this category"
     );
 
     $menuTSv = "?i=";
@@ -134,6 +136,14 @@
 
                 <div class="col-xs-4">
                     <div class="pull-right" aria-label="Basic example">
+                        <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right" onclick="deletecategory({{ $thisCatCnt . ", '" . addslashes($value->cat_name) . "'"}});">
+                            <i class="fa fa-times"></i>
+                        </A>
+                        <A title="{{ $alts["editcat"] }}" class="btn btn-sm btn-link pull-right" data-toggle="modal"
+                           data-target="#editCatModel" data-target-id="{{ $thisCatCnt }}" onclick="editcategory({{ $thisCatCnt . ", '" . addslashes($value->cat_name) . "'"}});">
+                            Edit
+                        </A>
+
                         <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
                            id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
                            href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
@@ -168,7 +178,7 @@
     </div>
     <!-- end of category heading -->
 
-        <?php
+<?php
         $thisCatCnt++;
     }
     //load images, duplicate code
@@ -186,7 +196,7 @@
     $min_p = get_price($value->id);
 
     $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
-    ?>
+?>
     <div style="border-bottom:1px solid #efefef !important;    padding-top:  .5rem !important;
     padding-bottom:  .5rem !important;" class="list-group-item parents"
          id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
@@ -229,7 +239,6 @@
                     <h5 class="card-title">
 
                         <div style="width: 100%;float:left;vertical-align: middle;">
-
                                 @if($has_iconImage)
                                     <img src="{{ $item_iconImg }}"
                                          class="img-circle"
@@ -272,39 +281,37 @@
 
 
                     @if(false) <!-- no tags yet -->
-                    @if(isset($restaurant->tags) && $restaurant->tags != "")
-                    <?php
-                        $tags = $restaurant->tags;
-                        $tags = explode(',', $tags);
-                        for ($i = 0; $i < 5; $i++) {
-                            if (isset($tags[$i])) {
-                                echo "<span class='tags'>" . $tags[$i] . "</span>";
-                            }
-                        }
-                    ?>
-                    @endif
-
-                            <!--div class="clearfix">
-                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
-                            <p class="card-text m-a-0">
-                                {{$dis}}
-                            </p>
-                        </div-->
-
-                    <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
-                        @if($value->uploaded_on)
-                            Submitted: {{$value->uploaded_on}}
+                        @if(isset($restaurant->tags) && $restaurant->tags != "")
+                            <?php
+                                $tags = $restaurant->tags;
+                                $tags = explode(',', $tags);
+                                for ($i = 0; $i < 5; $i++) {
+                                    if (isset($tags[$i])) {
+                                        echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                    }
+                                }
+                            ?>
                         @endif
 
-                        <?php
-                        if ($value->uploaded_by) {
-                            $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
-                            echo "by: " . $uploaded_by->name . "";
-                        }
-                        ?>
-                    </p>
+                                <!--div class="clearfix">
+                            {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
+                                <p class="card-text m-a-0">
+                                    {{$dis}}
+                                </p>
+                            </div-->
 
+                        <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
+                            @if($value->uploaded_on)
+                                Submitted: {{$value->uploaded_on}}
+                            @endif
 
+                            <?php
+                                if ($value->uploaded_by) {
+                                    $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+                                    echo "by: " . $uploaded_by->name . "";
+                                }
+                            ?>
+                        </p>
                     @endif
 
 
@@ -316,8 +323,7 @@
                     @if(read('restaurant_id') == $restaurant->id || $canedit)
 
                         <div class="btn-group pull-left" role="group" style="vertical-align: middle">
-                            <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}"
-                                  style="color:blue; display: none;"></span>
+                            <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
                             @if($value->uploaded_by)
                                 Uploaded by: <A
                                         HREF="{{ url("user/uploads/" . $value->uploaded_by) }}">{{ select_field("profiles", "id", $value->uploaded_by, "name" ) }}</A>
@@ -325,7 +331,6 @@
                                     on {{ date("M j 'y", strtotime($value->uploaded_on)) }}
                                 @endif
                             @endif
-
                         </div>
                     @endif
 
@@ -392,38 +397,35 @@
 
 
             <?php
+                $catIDforJS = array_keys($catNameStr);
+                $catIDforJS_Str = implode(",", $catIDforJS);
+                $catNameStrJS = implode("','", $catNameStr);
 
-            $catIDforJS = array_keys($catNameStr);
-            $catIDforJS_Str = implode(",", $catIDforJS);
-            $catNameStrJS = implode("','", $catNameStr);
-
-            $objComma = "";
-            $itemPosnForJSStr = "";
-            foreach ($itemPosnForJS as $key => $row) { // $key is cat id
-                $objStrJS = "";
-                foreach ($itemPosnForJS[$key] as $key2 => $row2) {
-                    $objComma = ", ";
-                    if ($objStrJS == "") {
-                        $objComma = "";
+                $objComma = "";
+                $itemPosnForJSStr = "";
+                foreach ($itemPosnForJS as $key => $row) { // $key is cat id
+                    $objStrJS = "";
+                    foreach ($itemPosnForJS[$key] as $key2 => $row2) {
+                        $objComma = ", ";
+                        if ($objStrJS == "") {
+                            $objComma = "";
+                        }
+                        $objStrJS .= $objComma . $key2 . ":" . $row2;
                     }
-                    $objStrJS .= $objComma . $key2 . ":" . $row2;
+                    $itemPosnForJSStr .= "\n itemPosn[" . $key . "]={" . $objStrJS . "};"; // [catID]={menuID:displayOrder}
                 }
-                $itemPosnForJSStr .= "\n itemPosn[" . $key . "]={" . $objStrJS . "};"; // [catID]={menuID:displayOrder}
-            }
-
-
             ?>
 
 
-            @if(!isset($_GET['page']))
-    </div>
+@if(!isset($_GET['page']))
+        </div>
     </div>
 @endif
 
 <div class="clearfix"></div>
 
 <SCRIPT>
-            <?php echo $itemPosnForJSStr;?>
+    <?php echo $itemPosnForJSStr;?>
     var itemPosnOrig = itemPosn;
     var menuSortChngs = [];
     var catOrigPosns = [<?php echo $catIDforJS_Str;?>]; // as original cat posns as indexes, with the values being the db cat_id
@@ -461,5 +463,21 @@
             $("#enable" + id).show();
             $("#spinner" + id).hide();
         });
+    }
+
+    function editcategory(ID, Name){
+        $("#editCatModelLabel").text(Name);
+        $("#categoryeditor").load("{{ url("restaurant/cateditor") }}/" + ID);
+    }
+    function deletecategory(ID, Name){
+        if (confirm("Are you sure you want to delete '" + Name + "' and every item in that category?")){
+            $.post("{{ url('ajax') }}", {
+                type: "deletecategory",
+                id: ID,
+                _token: "{{ csrf_token() }}"
+            }, function (result) {
+                alert(result);
+            });
+        }
     }
 </SCRIPT>

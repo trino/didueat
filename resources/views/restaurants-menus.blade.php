@@ -151,6 +151,22 @@
                     </div>
                 </div>
 
+                <div class="modal clearfix" id="editCatModel" tabindex="-1" role="dialog" aria-labelledby="editCatModelLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="editCatModelLabel">Edit Category</h4>
+                            </div>
+                            <div class="modal-body" id="categoryeditor"></div>
+                            <div class="modal-footer">
+                                <a id="saveeditor" class="btn btn-primary savebtn" href="javascript:void(0)">Save</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
           </div>
@@ -328,8 +344,8 @@
                     $("#cardcvc").html( tempstr );
                 }
 
-                var errors = $(".error").filter(":visible").length;
-                if( $(".error").length ) {
+                var errors = $("label.error[for!='cardnumber'][for!='cvc']").filter(":visible").length;
+                if(errors) {
                     console.log("form validation detected " + errors + " errors");
                     return false;
                 }

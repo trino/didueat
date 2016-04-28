@@ -158,6 +158,7 @@ Route::get('user/uploads',                                          'UsersContro
 Route::get('user/uploads/{UserID}',                                 'UsersController@uploads');
 Route::post('user/uploads/ajax/{UserID}',                           'UsersController@uploadsajax');
 
+Route::get('restaurant/cateditor/{id}',                             'RestaurantController@catedit');
 Route::get('restaurant/menu_form/{id}',                             'RestaurantController@menu_form');
 Route::get('restaurant/menu_form/{id}/{rid}',                       'RestaurantController@menu_form');
 Route::get('restaurant/additional',                                 'RestaurantController@additional');
