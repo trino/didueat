@@ -120,7 +120,7 @@
                                                 </div>
                                                 <strong>{{ ucfirst($sub->menu_item) }}</strong>
 
-                                                <span class="limit-options text-muted">
+                                                <span class="limit-options no_text_break">
                                                    <?php
                                                     if ($sub->exact_upto == 0) {
                                                         $upto = "up to ";
@@ -129,14 +129,14 @@
                                                     }
                                                     if ($sub->req_opt == '0') {
                                                         if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                            echo "select " . $upto . $sub->exact_upto_qty . ", ";
+                                                            echo "Select " . $upto . $sub->exact_upto_qty . " ";
                                                         }
-                                                        echo "optional";
+                                                        echo "<span style='color:#5cb85c!important;'>Optional</span>";
                                                     } elseif ($sub->req_opt == '1') {
                                                         if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                            echo "select " . $upto . $sub->exact_upto_qty . ", ";
+                                                            echo "Select " . $upto . $sub->exact_upto_qty . " ";
                                                         }
-                                                        echo "required";
+                                                        echo "<span style='color:#5cb85c!important;'>Required</span>";
                                                     }
                                                     ?>
                                                 </span>
@@ -260,7 +260,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer" style="border-radius: 0 !important;">
                 <div class="">
                     <div class=" pull-left">
                         <button type="button" class="btn btn-link text-muted hidden-md-up p-x-0 m-x-" title="Close"
