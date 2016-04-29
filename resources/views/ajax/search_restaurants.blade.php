@@ -113,10 +113,14 @@
 <div id="loadMoreBtnContainer">
     @if($hasMorePage > 0)
         <div class="row">
-            <div class="col-md-12 ">
-                <button style="border-radius: 0px !important;" id="loadingbutton" data-id="{{ $start }}" align="center"
-                        class="loadMoreRestaurants btn btn-secondary-outline btn-lg btn-block m-b-1"
-                        title="{{ $alts["loadmore"] }}">Load More ...
+            <div class="col-md-12 text-xs-center">
+                <button style="width: 120px;
+  height: 120px;
+  line-height:120px; /* adjust line height to align vertically*/
+  padding:0;
+  border-radius: 50%;" id="loadingbutton" data-id="{{ $start }}" align="center"
+                        class="loadMoreRestaurants btn btn-secondary btn-lg m-b-1"
+                        title="{{ $alts["loadmore"] }}">Load More
                 </button>
                 <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" alt="{{ $alts["loading"] }}"/>
             </div>
