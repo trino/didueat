@@ -262,8 +262,11 @@ function deleteMenuItemFn(catID,menID,bndboxDisplayOrder,fromSaveMenuOrder){
 //            document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).innerHTML="";
 //            document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).style.display="none";
 
+
+
             var itemNewOrder="";
             var cnt = 1;
+            
 												for(var key in itemPosn[catID]){ // itemPosn[catID]=menuID:displayOrder
 
                if((cnt+1) > catMenuCnt){
@@ -284,13 +287,22 @@ function deleteMenuItemFn(catID,menID,bndboxDisplayOrder,fromSaveMenuOrder){
                  break;
                }
                
-           
+//           alert("cnt:  "+cnt+"  --  "+itemPosn[catID][key] +"  --  "+ thisMenuDisplayOrder)
            if(itemPosn[catID][key] >= thisMenuDisplayOrder){
               var oneHigher = (itemPosn[catID][key]+1);
 
 //alert("Is "+itemPosn[catID][key] +" > "+ thisMenuDisplayOrder + "  --  oneHigher: "+oneHigher)
             if(document.getElementById('parent'+catID+'_'+oneHigher)){
               document.getElementById('parent'+catID+'_'+itemPosn[catID][key]).innerHTML = document.getElementById('parent'+catID+'_'+oneHigher).innerHTML;
+            }
+            
+            if((cnt+1) == catMenuCnt){
+              // meaning last one to display, so remove down array
+              document.getElementById('down_parent_'+key+"_"+catID).style.visibility="hidden";
+            }
+            if(cnt == thisMenuDisplayOrder && document.getElementById('up_parent_'+key+"_"+catID)){
+            // means this is the first posn, and previous item was deleted, so remove up arrow
+              document.getElementById('up_parent_'+key+"_"+catID).style.visibility="hidden";
             }
                  
 		               itemNewOrder = (itemPosn[catID][key] - 1);
@@ -337,8 +349,8 @@ function deleteMenuItemFn(catID,menID,bndboxDisplayOrder,fromSaveMenuOrder){
 
 
 function hideMenuOrderMsg(indx){
- document.getElementById('saveMenuOrderMsg'+indx).innerHTML="";
- document.getElementById('saveMenus'+indx).style.display="none";
+ if(document.getElementById('saveMenuOrderMsg'+indx)){document.getElementById('saveMenuOrderMsg'+indx).innerHTML="";}
+ if(document.getElementById('saveMenus'+indx)){document.getElementById('saveMenus'+indx).style.display="none"};
  clearTimeout(timer2);
 ////
 }
@@ -353,6 +365,83 @@ function hideCatOrderMsg(indx){
  clearTimeout(timer1);
 ////
 }
+
+
+
+function dump(v, howDisplay, recursionLevel) {
+    howDisplay = (typeof howDisplay === 'undefined') ? "alert" : howDisplay;
+    recursionLevel = (typeof recursionLevel !== 'number') ? 0 : recursionLevel;
+
+
+    var vType = typeof v;
+    var out = vType;
+
+    switch (vType) {
+        case "number":
+            /* there is absolutely no way in JS to distinguish 2 from 2.0
+            so 'number' is the best that you can do. The following doesn't work:
+            var er = /^[0-9]+$/;
+            if (!isNaN(v) && v % 1 === 0 && er.test(3.0))
+                out = 'int';*/
+        case "boolean":
+            out += ": " + v;
+            break;
+        case "string":
+            out += "(" + v.length + '): "' + v + '"';
+            break;
+        case "object":
+            //check if null
+            if (v === null) {
+                out = "null";
+
+            }
+            //If using jQuery: if ($.isArray(v))
+            //If using IE: if (isArray(v))
+            //this should work for all browsers according to the ECMAScript standard:
+            else if (Object.prototype.toString.call(v) === '[object Array]') {  
+                out = 'array(' + v.length + '): {\n';
+                for (var i = 0; i < v.length; i++) {
+                    out += repeatString('   ', recursionLevel) + "   [" + i + "]:  " + 
+                        dump(v[i], "none", recursionLevel + 1) + "\n";
+                }
+                out += repeatString('   ', recursionLevel) + "}";
+            }
+            else { //if object    
+                sContents = "{\n";
+                cnt = 0;
+                for (var member in v) {
+                    //No way to know the original data type of member, since JS
+                    //always converts it to a string and no other way to parse objects.
+                    sContents += repeatString('   ', recursionLevel) + "   " + member +
+                        ":  " + dump(v[member], "none", recursionLevel + 1) + "\n";
+                    cnt++;
+                }
+                sContents += repeatString('   ', recursionLevel) + "}";
+                out += "(" + cnt + "): " + sContents;
+            }
+            break;
+    }
+
+    if (howDisplay == 'body') {
+        var pre = document.createElement('pre');
+        pre.innerHTML = out;
+        document.body.appendChild(pre)
+    }
+    else if (howDisplay == 'alert') {
+        alert(out);
+    }
+
+    return out;
+}
+
+function repeatString(str, num) {
+    out = '';
+    for (var i = 0; i < num; i++) {
+        out += str; 
+    }
+    return out;
+}
+
 
 
 timer2="";
@@ -387,6 +476,7 @@ function saveMenuOrder(catID,menID,bndboxDisplayOrder){
 
 										    document.getElementById('saveMenus'+catID).style.display="none";
               document.getElementById('saveMenuOrderMsg'+catID).innerHTML=" <br/>Your menu sort order has been saved for "+catName;
+
 
               if(menID != false){
               // on successfully updating menus, we can now delete the item that called this fn:
@@ -427,6 +517,7 @@ function saveCatOrderChngs(indx){
               else{
                 document.getElementById('saveCatOrderMsg').innerHTML=" <br/>Your category sort order has been saved";
               }
+              
               timer1 = setTimeout("hideCatOrderMsg("+indx+")",250);
 
               catSortChngs=false;
@@ -438,7 +529,7 @@ function saveCatOrderChngs(indx){
 
 // menuSortChngs array set on menus.blade page
 function menuItemSort(id, cat, displayOrder, direction, catMenuCnt){
-//  alert(id +"  --  "+ cat+"  --  "+ displayOrder+"  --  "+ direction+"  --  "+catMenuCnt)
+  alert(id +"  --  "+ cat+"  --  "+ displayOrder+"  --  "+ direction+"  --  "+catMenuCnt)
 
    currentItemPosn1 = itemPosn[cat][id];
 
@@ -475,6 +566,7 @@ function menuItemSort(id, cat, displayOrder, direction, catMenuCnt){
     document.getElementById('saveMenus'+cat).style.display="block";
 
     menuSortChngs[cat]=true;
+
    
 ////
 }

@@ -22,6 +22,7 @@ $catNameStr = [];
 $parentCnt = [];
 $thisCatCnt = 0;
 $itemPosnForJS = [];
+$itemPosn=[]; // to decide if js index needs a new array declared
 // $catCnt set in restaurants-menus.blade
 ?>
 
@@ -338,7 +339,12 @@ $itemPosnForJS = [];
                                     </div>
                                 @endif
 
-
+<script>
+function showItem(c,m){
+ return c+"  --  "+m+"  --  "+itemPosn[c][m];
+////
+}
+</script>
 
                                 @if($canedit || $value->uploaded_by ==read("id"))
 
@@ -368,6 +374,7 @@ $itemPosnForJS = [];
                                        class="btn btn-sm btn-link pull-right sorting_parent"
                                        href="javascript:void(0);"
                                        onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'up', {{ $catMenuCnt }});return false"
+                                       onmouseover="this.title=showItem({{ $value->cat_id }},{{ $value->id }});"
                                        style="visibility:{{ $thisUpMenuVisib }} !important">
                                         <i class="fa fa-arrow-up"></i></a>
 
@@ -424,16 +431,16 @@ $itemPosnForJS = [];
 
             $objComma = "";
             $itemPosnForJSStr = "";
+            $objStrJS="";
             foreach ($itemPosnForJS as $key => $row) { // $key is cat id
-                $objStrJS = "";
                 foreach ($itemPosnForJS[$key] as $key2 => $row2) {
-                    $objComma = ", ";
-                    if ($objStrJS == "") {
-                        $objComma = "";
+                    if(!isset($itemPosn[$key])){
+                      $itemPosnForJSStr.="itemPosn[" . $key . "]=[];\n";
+                      $itemPosn[$key]=true;
                     }
-                    $objStrJS .= $objComma . $key2 . ":" . $row2;
+                    $objComma = "\n";
+                    $itemPosnForJSStr .= $objComma."itemPosn[" . $key . "][" . $key2 . "]=".$row2.";\n";
                 }
-                $itemPosnForJSStr .= "\n itemPosn[" . $key . "]={" . $objStrJS . "};"; // [catID]={menuID:displayOrder}
             }
 
 
@@ -449,6 +456,7 @@ $itemPosnForJS = [];
 
 <SCRIPT>
             <?php echo $itemPosnForJSStr;?>
+            
     var itemPosnOrig = itemPosn;
     var menuSortChngs = [];
     var catOrigPosns = [<?php echo $catIDforJS_Str;?>]; // as original cat posns as indexes, with the values being the db cat_id
