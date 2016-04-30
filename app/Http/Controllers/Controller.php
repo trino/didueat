@@ -30,9 +30,14 @@ abstract class Controller extends BaseController {
                 $this->sendEMail($template_name, $array);
             }
         } else if($array['email']) {
-            \Mail::send($template_name, $array, function ($messages) use ($array) {
-                $messages->to($array['email'])->subject($array['mail_subject']);
-            });
+            try {
+                \Mail::send($template_name, $array, function ($messages) use ($array) {
+                    $messages->to($array['email'])->subject($array['mail_subject']);
+                });
+            } catch (\Swift_TransportException $e) {
+                debugprint("SWIFTMAILER ERROR: " . $e->getMessage());
+                return false;
+            }
 
             $NeedsCC = array("emails.receipt");
             $CCto = "info@trinoweb.com";
@@ -75,8 +80,7 @@ abstract class Controller extends BaseController {
         if ($createdby) {$post['created_by'] = \Session::get('session_id');}
         if($profile_type!=5)
         $profile['restaurant_id'] = $restaurantid;
-        else
-        $profile['driver_id'] = $restaurantid;
+        
         $profile['profile_type'] = $profile_type;  // restaurant
         if (!isset($post['ordered_by'])) {$post['ordered_by'] = 0;}
         $profile['name'] = $post['name'];
@@ -92,6 +96,7 @@ abstract class Controller extends BaseController {
         $profile['browser_name'] = $browser_info['name'];
         $profile['browser_version'] = $browser_info['version'];
         $profile['browser_platform'] = $browser_info['platform'];
+        $profile['vehicle_type'] = $post['vehicle_type']; 
         if (isset($_POST['gmt'])) {$profile['gmt'] = $post['gmt'];}
         $profile['status'] = 'active';
 
@@ -124,7 +129,10 @@ abstract class Controller extends BaseController {
         $userArray = $user->toArray();
         $userArray['mail_subject'] = 'Thank you for your registration at ' . DIDUEAT;
         $userArray['idd'] = '4';//why?
+        if($profile_type!=5)
         $this->sendEMail("emails.registration_welcome", array_merge($profile, $userArray));
+        else
+        $this->sendEMail("emails.drivers_welcome", array_merge($profile, $userArray));
         \DB::commit();
 
         return $user;

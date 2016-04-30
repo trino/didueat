@@ -23,11 +23,9 @@
                 $csr_actions = explode(',', $order->csr);
 
                 foreach ($arr_menu as $k => $me) {
+                    $extz = "";
                     if ($order->extras != "") {
-                        $extz = str_replace(array("% ", ':'), array(" ", ': '), $arr_extras[$k]);
-                        $extz = str_replace("%", ",", $extz);
-                    } else {
-                        $extz = "";
+                        $extz = str_replace(array('%', ':', ' :'), array(',', ': ', ':'), $arr_extras[$k]);
                     }
                     if (is_numeric($me)) {
                         $m = \App\Http\Models\Menus::where('id', $me)->first();
@@ -44,13 +42,16 @@
 
                             <td @if(isset($order)) style='width:55%;' @endif>
                                 <input type="hidden" class="count" name="qtys[]" value="{{ $arr_qty[$k] }}"/>
-                                <span class='menu_bold'>{{ $tt }}</span><?php if ($extz != '') echo ":";?> {{ str_replace('<br/>', '', $extz) }}
-                                    <?php
-                                        if($showCSR){
-                                            if(!isset($csr_actions[$k])){$csr_actions[$k] = 0;}
-                                            echo "<br/><i class='text-muted'>".$Actions[$csr_actions[$k]].'</i>';
-                                        }
-                                    ?>
+                                <span class='menu_bold'>{{ $tt }}</span>
+                                <?php
+                                    if ($extz != '') echo ":";
+                                    //$extz = str_replace("<br/>", ", ", trim($extz, "<br/>"));
+                                    echo $extz;
+                                    if($showCSR){
+                                        if(!isset($csr_actions[$k])){$csr_actions[$k] = 0;}
+                                        echo "<br/><i class='text-muted'>".$Actions[$csr_actions[$k]].'</i>';
+                                    }
+                                ?>
                             </td>
 
                             <td valign="top" class="total text-xs-right" @if(isset($order)) style='width:25%;' @endif>${{number_format($arr_prs[$k],2)}}</td>

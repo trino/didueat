@@ -72,6 +72,7 @@
                             @endif
                         </th>
                         <th>Ordered On</th>
+                        <TH>Type</TH>
                         <th>Status</th>
                         @if (Session::get('session_type_user') == "super" || $type=='restaurant')
 
@@ -107,7 +108,7 @@
                                     $dateformat = str_replace("D M d,", "", $dateformat);
                                 }
                                 echo date($dateformat, $date);
-                                echo '<span class="m-a-0 text-muted no_text_break"> For ' . iif($value->order_type, "Delivery", "Pickup") . iif($value->order_till, ' later') . '</span>';
+                                echo '</TD><TD><span class="m-a-0 text-muted no_text_break"> For ' . iif($value->order_type, "Delivery", "Pickup") . iif($value->order_till, ' later') . '</span>';
                                 echo '</td>';
 
                                 echo '<TD><FONT COLOR="' . statuscolor($value->status, true) . '">' . ucfirst($value->status) . '</FONT></td>';
@@ -154,14 +155,14 @@
                                         <i class="fa fa-times"></i>
                                     </a-->
                                     <a title="{{ $alts["deleteorder"] }}"
-                                       class="btn btn-secondary-outline btn-sm pull-right"
+                                       class="btn btn-danger-outline  btn-sm pull-right"
                                        onclick="deleteorder({{ $value->id }});">
                                         <i ID="fa{{ $value->id }}" class="fa fa-times"></i>
                                     </a>
                                 @endif
                                 @if($type == "admin" )
-                                    <a class="btn btn-secondary-outline btn-sm pull-right" title="{{ $alts["notifyone"] }}"
-                                       ONCLICK="notifystore(event, {{ $value->id}});">Notify</a>
+                                    <!--a class="btn btn-secondary-outline btn-sm pull-right" title="{{ $alts["notifyone"] }}"
+                                       ONCLICK="notifystore(event, {{ $value->id}});">Notify</a-->
                                 @endif
                             </td>
                         </tr>
