@@ -41,7 +41,7 @@
                  class=" bg-inverse card-header @if ($has_bigImage) fronttext @else bg-success @endif">
                 <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" title="Close"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
-                    <span aria-hidden="true " style="color:white;">&times;</span>
+                    <span aria-hidden="true " style="  @if ($has_bigImage) text-shadow: 1px 1px 9px rgba(0, 0, 0, 2);color:white !important; opacity: .8 !important; @endif">&times;</span>
                 </button>
 
                 <h4 class="modal-title banner-text-shadow" style="" id="viewDetailModel">

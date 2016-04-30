@@ -34,7 +34,7 @@
             <div class="col-lg-12 ">
 
 
-                <ul class="list-inline">
+                <ul class="list-inline text-muted">
                     <li class="list-inline-item"><a href="{{ url("home/about") }}" title="{{ $alts["home/about"] }}">About</a>
                     </li>
                     <li class="list-inline-item"><a href="{{ url("home/faq") }}" title="{{ $alts["home/faq"] }}">FAQ</a>
