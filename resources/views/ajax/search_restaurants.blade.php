@@ -76,9 +76,9 @@
     $totalCnt=$count;
 ?>
 
-@if(isset($data) && $data["start"] < 20)
+@if(isset($data["start"]) && $data["start"] < 20)
 <script>
-    var totalCnt = <?= $totalCnt . ";
+    <?= "var totalCnt = " . $data["count"] . ";
          var openCnt = " . $openCnt . ";
          var closedCnt = " . $closedCnt . ";";
     ?>
