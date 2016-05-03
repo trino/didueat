@@ -131,7 +131,7 @@
                title="{{ $alts["restaurants/menu"] }}">
         @endif
         <h3 style="margin-bottom: .2rem !important;">
-            {{ printfile("(ID: " . $Restaurant["id"] . "-" . $Restaurant["openedRest"] . ") ") . $Restaurant['name'] }}
+            {{ printfile("(ID: " . $Restaurant["id"] . ") ") . $Restaurant['name'] }}
         </h3>
 
         @if(isset($order))
