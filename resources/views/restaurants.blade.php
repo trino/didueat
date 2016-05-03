@@ -521,9 +521,11 @@
                // $('#icons_show').hide();
                 $('#results_show').show();
                 $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data: data, start: start}, function (result) {
-                    var quantity = 0;
                     $('#parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);
+
+                    /*
+                    var quantity = 0;
                     $('#countRowsS').text('s');
                     if (result.trim() != "") {
                         quantity = $('#countTotalResult').val();
@@ -534,6 +536,7 @@
                     } else {
                         $('#countRows').text(0);
                     }
+                    */
                 });
             } else {
                 $('.loadingbar').show();
