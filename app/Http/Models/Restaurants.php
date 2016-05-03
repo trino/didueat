@@ -159,7 +159,7 @@ class Restaurants extends BaseModel {
      * @return response
      */
     public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false, &$count = 0) {
-        $order = " ORDER BY openedRest desc, views desc";//" ORDER BY openedRest desc, distance";
+        $order = " ORDER BY openedRest desc";//, views desc";//" ORDER BY openedRest desc, distance";
         $limit = " LIMIT $start, $per_page";
         $where = "WHERE is_complete = '1'";// AND status = '1'";
         if (isset($data['minimum']) && $data['minimum'] != "") {
@@ -231,8 +231,8 @@ class Restaurants extends BaseModel {
 
         if(!$ReturnSQL) {$count = iterator_count(select_query($SQL));}//get total count
 
-        $asopenedRest2 = $asopenedRest . ', (SELECT COUNT(*) as views FROM `page_views` WHERE page_views.type = "restaurant" AND page_views.target_id= restaurants.id) as views';
-        $SQL = str_replace($asopenedRest, $asopenedRest2, $SQL);
+        //$asopenedRest2 = $asopenedRest . ', (SELECT COUNT(*) as views FROM `page_views` WHERE page_views.type = "restaurant" AND page_views.target_id= restaurants.id) as views';
+        //$SQL = str_replace($asopenedRest, $asopenedRest2, $SQL);
 
         //assemble the final query, with a comment showing which date was used
         $SQL .= $order . $limit . " -- Using date: " . $data['date'];
