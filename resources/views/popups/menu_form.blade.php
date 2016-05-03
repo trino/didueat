@@ -1,13 +1,13 @@
 <div class="newmenu ignore" id="newmenu{{ $menu_id }}">
     <?php
-        printfile("views/popups/menu_form.blade.php");
-        $browseBtnTxt="Upload Image";
-        $imgType="";
-        $alts = array(
-                "delete" => "Delete image",
-                "imgPre" => ""
-        );
-        $cats_order=[];
+    printfile("views/popups/menu_form.blade.php");
+    $browseBtnTxt="Upload Image";
+    $imgType="";
+    $alts = array(
+            "delete" => "Delete image",
+            "imgPre" => ""
+    );
+    $cats_order=[];
     ?>
 
     <div class="ignore row">
@@ -36,20 +36,20 @@
                     @if(isset($model) || true)
                         <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="min-height:0;">
                             <?php
-                                if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
-                                
-                                    $browseBtnTxt="Browse";
+                            if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
 
-                                    $menuTSv2="";
-                                    if(isset($menuTSv)){
-                                      $menuTSv2=$menuTSv;
-                                    }
+                                $browseBtnTxt="Browse";
 
-                                    echo '<span id="zoomMsg">Click Image to Zoom In</span><br/><img id="menuImage" class="ignore" alt="'.$alts["imgPre"].'" src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'" style="position:relative;cursor:zoom-in;padding-bottom:3px" onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.$menuTSv2.'\')" />';
-
-                                } else{
-                                   echo '<span id="zoomMsg"></span><img id="menuImage" class="ignore" src="'.asset('assets/images/spacer.gif').'" />';
+                                $menuTSv2="";
+                                if(isset($menuTSv)){
+                                    $menuTSv2=$menuTSv;
                                 }
+
+                                echo '<span id="zoomMsg">Click Image to Zoom In</span><br/><img id="menuImage" class="ignore" alt="'.$alts["imgPre"].'" src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'" style="position:relative;cursor:zoom-in;padding-bottom:3px" onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.$menuTSv2.'\')" />';
+
+                            } else{
+                                echo '<span id="zoomMsg"></span><img id="menuImage" class="ignore" src="'.asset('assets/images/spacer.gif').'" />';
+                            }
                             ?>
                             <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
                             <input name="imgName" type="hidden" id="imgName" />
@@ -59,12 +59,9 @@
 
                         <?php
 
-							if(isset($_COOKIE['pvrbck'])){
-							   echo '<span class="btn btn-sm btn-file btn-success blue newbrowse ignore" id="menuImgUp">
+                        echo '<span class="btn btn-sm btn-file btn-success blue newbrowse ignore" id="menuImgUp">
 							        <span>'.$browseBtnTxt.'</span><input type="file" onchange="reduceFile(\'photoUpload\')" name="photoUpload" id="photoUpload"></span>';
-							} else{
-                                echo '<a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse'. $menu_id.'_1">'.$browseBtnTxt.'</a>';
-							}
+
 
                         ?>
 
@@ -75,32 +72,32 @@
                     @else
                         Save the item before uploading an image
                     @endif
-                    
+
                 </div>
             </div>
 
             <div class="col-md-9 ">
                 <div class="form-group">
                     <input class="form-control newtitle ignore" type="text" placeholder="Name" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/></div>
-                </div>
+            </div>
 
-                <div class="col-md-3 ">
-                    <div class="form-group">
-                        <input class="form-control newprice pricechk ignore" min="0" type="number" placeholder="Price" value="{{ (isset($model->price))? $model->price : "" }}"/>
-                    </div>
+            <div class="col-md-3 ">
+                <div class="form-group">
+                    <input class="form-control newprice pricechk ignore" min="0" type="number" placeholder="Price" value="{{ (isset($model->price))? $model->price : "" }}"/>
                 </div>
+            </div>
 
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <textarea class="form-control newdesc ignore" placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>
-                    </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <textarea class="form-control newdesc ignore" placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>
                 </div>
+            </div>
 
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input type="hidden" id="res_slug" value="{{ $res_slug }}"/>
-                    </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="hidden" id="res_slug" value="{{ $res_slug }}"/>
                 </div>
+            </div>
         </div>
 
         <div class="clearfix ignore"></div>
@@ -110,31 +107,31 @@
         @include('popups.show_discount')
         <div class="col-md-12">
             <div class="additional additional{{ $menu_id }} ignore" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
-            <?php
+                <?php
                 $k = 0;
                 if(isset($cmodel)){
-                    if (isset($_GET['menu_id'])) {
-                         $menu_id = $_GET['menu_id'];
-                    }
-                    foreach($cmodel as $child){
-                        $k++;
-                        if ($k == 1){
-                            echo "<div class='ignore subcat' id='subcat" . $menu_id . "'>";
-                        }
-                        ?>
-                            @include('popups.additional')
-                        <?php
-                    }
-                    if ($k > 0){
-                        echo "</div>";
-                    }
+                if (isset($_GET['menu_id'])) {
+                    $menu_id = $_GET['menu_id'];
                 }
-            ?>
-    </div>
+                foreach($cmodel as $child){
+                $k++;
+                if ($k == 1){
+                    echo "<div class='ignore subcat' id='subcat" . $menu_id . "'>";
+                }
+                ?>
+                @include('popups.additional')
+                <?php
+                }
+                if ($k > 0){
+                    echo "</div>";
+                }
+                }
+                ?>
+            </div>
 
+        </div>
     </div>
-    </div>
-<div class="clearfix ignore"></div>
+    <div class="clearfix ignore"></div>
 
 
 </div>

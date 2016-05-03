@@ -29,7 +29,7 @@ class RestaurantController extends Controller {
         $data['title'] = 'Restaurants List';
         return view('dashboard.restaurant.index', $data);
     }
-    
+
     /**
      * Listing Ajax
      * @return Response
@@ -60,15 +60,15 @@ class RestaurantController extends Controller {
         if(isset($_GET["incomplete"])){
             $data["incomplete"] = true;
         }
-        
+
         $Query = \App\Http\Models\Restaurants::listing($data, "list", $recCount)->get();
         $no_of_paginations = ceil($recCount / $per_page);
-        
+
         $data['Query'] = $Query;
         $data['recCount'] = $recCount;
         $data['Pagination'] = getPagination($recCount, $no_of_paginations, $cur_page, TRUE, TRUE, TRUE, TRUE);
         $data["_GET"] = $_GET;
-        
+
         \Session::flash('message', \Input::get('message'));
         return view('dashboard.restaurant.ajax.list', $data);
     }
@@ -86,7 +86,7 @@ class RestaurantController extends Controller {
         try {
             $ob = \App\Http\Models\Restaurants::find($id);
             $ob->delete();
-            
+
             event(new \App\Events\AppEvents($ob, "Restaurant Deleted"));
 
             //delete its menus
@@ -144,7 +144,7 @@ class RestaurantController extends Controller {
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate(array(),false);
                 $ob->save();
-                
+
                 $this->restaurantInfo($ob->id, read("id"));
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
@@ -181,31 +181,31 @@ class RestaurantController extends Controller {
                     $im = explode('.', urldecode($post['logo']));
                     $ext = strtolower(end($im));
                     $newName=$ob->slug.".".$ext;
-    
+
                     $destinationPath = public_path('assets/images/restaurants/'.urldecode($post['id']));
                     //$imgVs=getimagesize($destinationPath."/".$post['logo']);
-    
+
                     if (!file_exists($destinationPath)) {
                         mkdir('assets/images/restaurants/' . $post['id'], 0777, true);
                     } else{
                         // rename existing images with timestamp, if they exist,
                         $oldImgExpl=explode(".",$ob->logo);
                         $todaytime = date("Ymdhis");
-                        foreach(array("/icon-", "/small-", "/big-") as $file){ 
-                              if(file_exists($destinationPath.$file.$ob->logo)){
-                                    rename($destinationPath.$file.$ob->logo, $destinationPath.$file.$oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
-                              }
+                        foreach(array("/icon-", "/small-", "/big-") as $file){
+                            if(file_exists($destinationPath.$file.$ob->logo)){
+                                rename($destinationPath.$file.$ob->logo, $destinationPath.$file.$oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                            }
                         }
-                       if(file_exists($destinationPath.$file.$ob->logo)){ // for original file with no prefix
-                         rename($destinationPath."/".$ob->logo, $destinationPath."/".$oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
-                       }
+                        if(file_exists($destinationPath.$file.$ob->logo)){ // for original file with no prefix
+                            rename($destinationPath."/".$ob->logo, $destinationPath."/".$oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                        }
                     }
-                    
+
 
                     $filename = $destinationPath . "/" . $newName;
                     // use for copying and saving (can't use move_uploaded_file() because jQuery uploads it before php is called)
                     $thisresult=copy($post['restLogoTemp'],$destinationPath.'/'.$newName);
-                    
+
                     $sizes = ['assets/images/restaurants/' . urldecode($post['id']) . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/small-' => MED_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/big-' => BIG_SQ];
 
 
@@ -250,8 +250,8 @@ class RestaurantController extends Controller {
                 }
                 if(!$post['id']){
                     $post['id'] = $ob->id;
-	 	                // add first category
- 		                $this->saveCat($ob->id, "Main", 1); // default category is Main
+                    // add first category
+                    $this->saveCat($ob->id, "Main", 1); // default category is Main
                 }
 
 
@@ -260,7 +260,7 @@ class RestaurantController extends Controller {
                 foreach ($restCuisine_ids as $c) {
                     \App\Http\Models\Cuisines::where('id', $c->id)->delete();
                 }
-                
+
                 // add cuisines separately to table, with foreign key restID
                 $cuisinesExpl = explode(",",$post['cuisines']);
                 $cuisinesExplCnt=count($cuisinesExpl);
@@ -286,12 +286,12 @@ class RestaurantController extends Controller {
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
                 if($ReturnData){return $ob;}
                 if(isset($_FILES['import_csv']) && $_FILES['import_csv']['name'])
-                $this->import_csv($id,$_FILES['import_csv']);
+                    $this->import_csv($id,$_FILES['import_csv']);
                 return $this->success(iif($isnowopen, "Your restaurant is now open", "Restaurant Profile Has Been Updated"), 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
             }
-            
+
         } else {
 // not from submit, so load data
             $data['title'] = "Resturant Manage";
@@ -301,18 +301,18 @@ class RestaurantController extends Controller {
             return view('dashboard.restaurant.info', $data);
         }
     }
-    
+
     public function driverInfo($id = 0, $DoProfile = false, $ReturnData = false) {
         $post = \Input::all();
         if($ReturnData){$this->statusmode=true;}
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if(!isset($post['id'])){$post['id']=$id;}
-            
+
 
             try {
                 $update=$post;
                 $addlogo='';
-                
+
 
 
                 //copy fields from post to array being sent to the database
@@ -323,14 +323,14 @@ class RestaurantController extends Controller {
                     }
                     if(isset($post[$value])) {$update[$key] = $post[$value];}
                 }
-                
+
 
                 if(isset($update["claim"]) && $update["claim"]){
                     $update = array_filter($update);//remove empties
                 }
-                
-                
-                
+
+
+
 
                 if($DoProfile){//check for missing data
                     foreach(array("name", "email", "password","vehicle_type") as $field){
@@ -354,7 +354,7 @@ class RestaurantController extends Controller {
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'user/info');
             }
-            
+
         } else {
 // not from submit, so load data
             $data['title'] = "Resturant Manage";
@@ -370,7 +370,7 @@ class RestaurantController extends Controller {
      * @param null
      * @return view
      */
-     
+
     public function menuManager() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
@@ -389,7 +389,7 @@ class RestaurantController extends Controller {
             }
 
             try {
-                
+
                 if (\Input::hasFile('menu_image')) {//handle uploading of image
                     $image = \Input::file('menu_image');
                     $ext = strtolower($image->getClientOriginalExtension());
@@ -519,7 +519,7 @@ class RestaurantController extends Controller {
 
         return view('popups.menu_form', $data);
     }
-    
+
     public function loadPrevious($addonid) {
         if(!isset($addonid)) {
             $lastid =  \App\Http\Models\Menus::where('parent','<>','0')->orderBy('id', 'DESC')->first();
@@ -532,7 +532,7 @@ class RestaurantController extends Controller {
     public function alladdons($resid) {
         $data['menus'] = \App\Http\Models\Menus::where('restaurant_id',$resid)->where('parent','0')->get();
         return view('popups.all_addons',$data);
-        
+
     }
 
     //get more menu items
@@ -547,21 +547,21 @@ class RestaurantController extends Controller {
     //handle image uploading and thumbnail generation
     public function uploadimg($type = '', $setSize = true) {
         //echo "test";die();
-        
+
         if(isset($_REQUEST['setSize']) && $_REQUEST['setSize'] == "No"){
-           $setSize=false;
+            $setSize=false;
         }
 
-        
+
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             $name = $_FILES['myfile']['name'];
             $arr = explode('.', $name);
             $ext = strtolower(end($arr));
             $file = date('YmdHis') . '.' . $ext;
             $MakeCornerTransparent = false;
-            
+
             ($setSize)? $sizes=true : $sizes=false; // use false if thumbs will be created when page is saved
-            
+
             if ($type == 'restaurant') {
                 $RestaurantID = read("restaurant_id");
                 $path = 'assets/images/restaurants/' . $RestaurantID;
@@ -586,15 +586,15 @@ class RestaurantController extends Controller {
         }
         die();
     }
-    
+
     //add or edit a menu item
     public function menuadd() {
         \Session::flash('message', \Input::get('message'));
         $arr['uploaded_by'] = \Session::get('session_ID');
-        
+
         //copy these keys to the $arr (do not include image, so that it is added/updated in db only if it is present in post)
         $Copy = array('menu_item', 'price', 'description', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id','has_discount','days_discount','discount_per','is_active','restaurant_id','cat_name');
-             
+
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
@@ -611,7 +611,7 @@ class RestaurantController extends Controller {
             $arrs['title'] = $arr['cat_name'];
             $arrs['res_id'] = $rest_id;
             if(isset($_POST['highestCatOrder'])){
-               $arrs['display_order'] = ($_POST['highestCatOrder'] + 1);
+                $arrs['display_order'] = ($_POST['highestCatOrder'] + 1);
             }
             $ob2 = new \App\Http\Models\Category();
             $ob2->populate($arrs);
@@ -621,16 +621,16 @@ class RestaurantController extends Controller {
         } else{ // category from the dropdown, delimited with ~~
             $catidnameExp = explode("~~",$arr['cat_id']);
             if(count($catidnameExp)>1){
-            $arr['cat_id'] = $catidnameExp[0];
-            $arr['cat_name'] = $catidnameExp[1];}
+                $arr['cat_id'] = $catidnameExp[0];
+                $arr['cat_name'] = $catidnameExp[1];}
         }
 
 
         if (isset($_GET['id']) && $_GET['id']) { // modifying existing menu item with possibility of new image
             $id = $_GET['id'];
-            
+
             $existingImg=\App\Http\Models\Menus::where('id', $id)->pluck('image');
-                        
+
             \App\Http\Models\Menus::where('id', $id)->update($arr);
 
             //delete all child items
@@ -644,7 +644,7 @@ class RestaurantController extends Controller {
             $this->handleimageupload($id, $existingImg);
         } else { // new menu item (which may include image upload)
             $arr['uploaded_on'] = date('Y-m-d H:i:s');
-            
+
             if($newCatID){
                 $arr['display_order']=1;
             } else{
@@ -660,46 +660,38 @@ class RestaurantController extends Controller {
             $ob2 = new \App\Http\Models\Menus();
             $ob2->populate($arr);
             $ob2->save();//save changes
-            
+
             $this->handleimageupload($ob2->id);
         }
     }
 
     //handles image uploading for menu items
     public function handleimageupload($id, $existingImg = ""){
-       echo $id;
-       $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
+        echo $id;
+        $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
 
-       $todaytime = date("Ymdhis");
-       $success=false;
-       $thisresult=false;
-    
+        $todaytime = date("Ymdhis");
+        $success=false;
+        $thisresult=false;
+
 
         if ($mns->parent == '0') {//handle image uploading and thumbnail generation
 
             if (isset($_POST['image']) && $_POST['image'] != '') {
                 // means image is being uploaded, not just changes to the menu text and options
                 $restID = $mns->restaurant_id;//\Session::get('session_restaurant_id');
-        
+
                 $destinationPathMenu = public_path('assets/images/restaurants/' . $restID . '/menus/' . $id); // where actual menu imgs end up
-				                            
-                if(!isset($_COOKIE['pvrbck'])){
 
-                // regular file upload with enctype="multipart/form-data"
-                    $uploadedImgExpl = explode('.', $_POST['image']);
-                    $ext = strtolower(end($uploadedImgExpl));
-
-                    $destinationPath = public_path('assets/images/products'); //a temp path for file upload
-                } else{
                 // means just using pre-upload resize
-                    $ext="jpg"; // uploading from phone requires jpg for all
-                }
+                $ext="jpg"; // uploading from phone requires jpg for all
+
                 $newName = $id . '.' . $ext;//handle image saving
 
 
                 if (!file_exists($destinationPathMenu)) {
                     mkdir('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id, 0777, true);
-                 }
+                }
 
                 $filename = $destinationPathMenu . '/' . $newName;
 
@@ -716,26 +708,20 @@ class RestaurantController extends Controller {
 
                 }
 
-                if(!isset($_COOKIE['pvrbck'])){
-                    $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// for copying & saving original file
-                } else{
-                    $img = $_POST['image'];
-                    $img = str_replace('data:image/jpeg;base64,', '', $img); //data:image/jpeg;base64,
-                    $img = str_replace(' ', '+', $img);
-                    $data = base64_decode($img);
-                    $success = file_put_contents($filename, $data);
-                }
+                $img = $_POST['image'];
+                $img = str_replace('data:image/jpeg;base64,', '', $img); //data:image/jpeg;base64,
+                $img = str_replace(' ', '+', $img);
+                $data = base64_decode($img);
+                $success = file_put_contents($filename, $data);
 
-                if($success || $thisresult){
+
+                if($success){
                     $imgVs=getimagesize($filename);
                     $bigDimensions="600x".$imgVs[1]/$imgVs[0]*600;
 
                     $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => $bigDimensions];
 
                     copyimages($sizes, $filename, $newName, true);
-                    if(!isset($_COOKIE['pvrbck'])){
-                        @unlink($destinationPath . '/' . $_POST['image']); // delete temp upload image
-                    }
 
                     $men = new \App\Http\Models\Menus();
                     // as with logo upload, this step should be incorporated with the rest of the db call in this fn, so as not to overuse db
@@ -758,7 +744,7 @@ class RestaurantController extends Controller {
         } else{
             $thisSlug = select_field("restaurants", "id", \Session::get('session_restaurant_id'), "slug"); // don't do db call for slug unless needed
         }
-        
+
 //        $res = \App\Http\Models\Restaurants::where('id', \Session::get('session_restaurant_id'))->get()[0];
         //echo $res->id;die();
         $cats = \App\Http\Models\Category::where('res_id', \Session::get('session_restaurant_id'))->orderBy('display_order', 'ASC')->get();
@@ -769,7 +755,7 @@ class RestaurantController extends Controller {
                 $key = $k;
             }
             $arr[] = $c->id;
-            
+
         }
         //die();
         if($key != ""){
@@ -786,7 +772,7 @@ class RestaurantController extends Controller {
                 $arr[$key] = $temp;
             }
         }
-        
+
         foreach($arr as $k=>$a) {
             \App\Http\Models\Category::where('id', $a)->update(array('display_order' => ($k + 1)));
         }
@@ -812,7 +798,7 @@ class RestaurantController extends Controller {
         }
         die();*/
     }
-    
+
     public function orderCat($cid, $sort) {
         $_POST['ids'] = explode(',', $_POST['ids']);
         $key = array_search($cid, $_POST['ids']);
@@ -842,13 +828,13 @@ class RestaurantController extends Controller {
     //otherwise return to the menu-manager
     public function deleteMenu($id = '', $slug = '') {
         if($id == "" && isset($_POST['id'])){
-          $id=$_POST['id'];
+            $id=$_POST['id'];
         }
         if($slug == "" && isset($_POST['slug'])){
-          $slug=$_POST['slug'];
+            $slug=$_POST['slug'];
         }
         $res_id = \App\Http\Models\Menus::where('id', $id)->get()[0]->restaurant_id;
-            //  $catID = '', $thisMenuDisplayOrder = '', $catMenuCnt = ''
+        //  $catID = '', $thisMenuDisplayOrder = '', $catMenuCnt = ''
 
         if(isset($_POST['catID'])){
             \App\Http\Models\Menus::where('id', $id)->delete();
@@ -868,13 +854,13 @@ class RestaurantController extends Controller {
 
             $menuOrderLimit="";
             if($_POST['catMenuCnt'] != ""){
-              $menuOrderLimit=($_POST['catMenuCnt']-$_POST['thisMenuDisplayOrder']);
+                $menuOrderLimit=($_POST['catMenuCnt']-$_POST['thisMenuDisplayOrder']);
             }
-			        
-    	   // update menus set display_order=(display_order-1) where cat_id=7 AND display_order>$thisDisplayOrder $menuOrderLimit
-           \App\Http\Models\Menus::where('cat_id', $_POST['catID'])->where('parent', 0)->where('display_order', '>', $_POST['thisMenuDisplayOrder'])->take($menuOrderLimit)->decrement('display_order', 1);
-                      
-           if(!isset($_POST['id'])){  // done with AJAX now
+
+            // update menus set display_order=(display_order-1) where cat_id=7 AND display_order>$thisDisplayOrder $menuOrderLimit
+            \App\Http\Models\Menus::where('cat_id', $_POST['catID'])->where('parent', 0)->where('display_order', '>', $_POST['thisMenuDisplayOrder'])->take($menuOrderLimit)->decrement('display_order', 1);
+
+            if(!isset($_POST['id'])){  // done with AJAX now
                 \Session::flash('message', 'Item deleted successfully');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', '');
@@ -883,9 +869,9 @@ class RestaurantController extends Controller {
                 }else {
                     return $this->success('Item has been deleted successfully!', 'restaurants/' . $slug . '/menu');
                 }
-           } else{
+            } else{
                 die();
-           }
+            }
         }
     }
 
@@ -960,7 +946,7 @@ class RestaurantController extends Controller {
             return view('dashboard.restaurant.load_child', $data);
         }
     }
-    
+
     public function menuOrderSort(){ // save order within one category
         if(isset($_POST['newMenuOrder'])){
             $newMenuOrderExpl=explode(",",$_POST['newMenuOrder']);
@@ -971,9 +957,9 @@ class RestaurantController extends Controller {
         } else{
             return false;
         }
-    ////
+        ////
     }
-    
+
     public function menuCatSort(){
         if(isset($_POST['newCatOrder'])){
             $newCatOrderExpl=explode(",",$_POST['newCatOrder']);
@@ -990,14 +976,14 @@ class RestaurantController extends Controller {
     // this is currently only used for adding a default category on a new restaurant, but it should eventually be used for all category additions
     public function saveCat($newRestID = '', $newCatTitle = '', $catDispOrder = 1) {
         if($newRestID != ''){
-		        $arr['title'] = $newCatTitle;
-		        $arr['res_id'] = $newRestID;
-                $arr['display_order'] = $catDispOrder;
+            $arr['title'] = $newCatTitle;
+            $arr['res_id'] = $newRestID;
+            $arr['display_order'] = $catDispOrder;
         } else {
-		        $arr['title'] = $_POST['title'];
-		        $arr['res_id'] = $_POST['res_id'];
+            $arr['title'] = $_POST['title'];
+            $arr['res_id'] = $_POST['res_id'];
         }
-        
+
         $ob2 = new \App\Http\Models\Category();
         $ob2->populate($arr);
         $ob2->save();
@@ -1042,7 +1028,7 @@ class RestaurantController extends Controller {
         $dir = public_path('assets/images/restaurants/' . $restaurant_id . "/menus/" . $id);
         $this->deleteDir($dir);
         if(isset(\Session::get('_previous')['url'])){
-		    $thisSlugA=explode("/",\Session::get('_previous')['url'],-1); // this is much faster than db call
+            $thisSlugA=explode("/",\Session::get('_previous')['url'],-1); // this is much faster than db call
             $thisSlug=end($thisSlugA);
         } else{
             $thisSlug = select_field("restaurants", "id", $restaurant_id, "slug"); // don't do db call for slug unless needed
@@ -1050,7 +1036,7 @@ class RestaurantController extends Controller {
         update_database("menus", "id", $id, array("image" => "")); // delete image from menus tbl
         return $this->success("Menu image deleted", "restaurants/" . $thisSlug . "/menu");
     }
-    
+
     public function import_csv($id,$file) {
         $name = explode('.',$file['name']);
         $ext = end($name);
