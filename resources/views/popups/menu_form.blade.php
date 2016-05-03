@@ -1,13 +1,13 @@
 <div class="newmenu ignore" id="newmenu{{ $menu_id }}">
     <?php
-    printfile("views/popups/menu_form.blade.php");
-    $browseBtnTxt="Upload Image";
-    $imgType="";
-    $alts = array(
-            "delete" => "Delete image",
-            "imgPre" => ""
-    );
-    $cats_order=[];
+        printfile("views/popups/menu_form.blade.php");
+        $browseBtnTxt="Upload Image";
+        $imgType="";
+        $alts = array(
+                "delete" => "Delete image",
+                "imgPre" => ""
+        );
+        $cats_order=[];
     ?>
 
     <div class="ignore row">
@@ -17,10 +17,20 @@
                 <div class="col-sm-6">
                     <select class="cat_id form-control form-group" id="catList">
                         <option value="">Select Category</option>
-                        @foreach($category as $cat)
-                            <?php $cats_order[]=$cat->display_order;?>
-                            <option value="{{ $cat->id }}~~{{ $cat->title }}" <?php if(isset($model) && $model->cat_id==$cat->id){?>selected="selected"<?php }?>>{{ $cat->title }}</option>
-                        @endforeach
+                            <?php
+                                $index = 0;
+                                $HasSelected = false;
+                                foreach($category as $cat){
+                                    $index++;
+                                    $cats_order[]=$cat->display_order;
+                                    echo '<option value="' . $cat->id . '~~' . $cat->title . '"';
+                                    $Selected = false;
+                                    if( (isset($model) && $model->cat_id==$cat->id) ){$Selected=true;$HasSelected=true;}
+                                    if(!$HasSelected && $index == iterator_count($category)){$Selected = true;}
+                                    if($Selected){echo ' selected="selected"'; }
+                                    echo '>' . $cat->title . '</option>';
+                                }
+                            ?>
                     </select>
                 </div>
 

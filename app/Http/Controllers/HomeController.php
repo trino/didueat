@@ -150,9 +150,9 @@ class HomeController extends Controller {
 
                 if(read("id")) {
                     $hasaddress = false;
-                    foreach (array("latitude", "longitude", "formatted_address", "city", "province", "postal_code", "country") as $field) {
+                    foreach (array("latitude", "longitude", "formatted_address", "city", "province", "country") as $field) {
                         if (!isset($data) || empty($data[$field])) {
-                            $hasaddress .= $data[$field] . ", ";
+                            $hasaddress .= $field . ", ";
                         }
                     }
                     if ($hasaddress) {

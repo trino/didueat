@@ -16,6 +16,7 @@
 
     if(isset($data)){
         if (debugmode()) {
+            echo "Debugging here: ";
             var_dump($data);
         }
         foreach($data as $key => $value){
@@ -53,27 +54,18 @@
                 $thisrestaurant = '<div class="list-group">' . view("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "is_menu" => isset($is_menu))) . '</div>';
                 if ($is_open) {
                     $openStr .= $thisrestaurant;
-                } else {
-                    $closedStr .= $thisrestaurant;
-                }
-                $totalCnt++;
-                if (isset($is_open) && $is_open == 1) {
                     $openCnt++;
                 } else {
+                    $closedStr .= $thisrestaurant;
                     $closedCnt++;
                 }
+                $totalCnt++;
             }
         }
     }
 
-    if ($openStr) {
-        echo $openStr;
-    }
-    if ($openStr && $closedStr) {
-        echo $closedStr;
-    } else if ($closedStr) {
-        echo $closedStr;
-    }
+    if ($openStr) {echo '<div class="open-stores">' . $openStr . '</div>';}
+    if ($closedStr) {echo '<div class="closed-stores">' . $closedStr . '</div>';}
 
     $alts = array(
             "loadmore" => "Load more restaurants",
@@ -84,7 +76,7 @@
     $totalCnt=$count;
 ?>
 
-
+@if(isset($data) && $data["start"] < 20)
 <script>
     var totalCnt = <?= $totalCnt . ";
          var openCnt = " . $openCnt . ";
@@ -101,14 +93,17 @@
         } else if (closedCnt == totalCnt) {
             //closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can view the restaurants, and place your order when they are open";
         }
-       // document.getElementById('openClosed').innerHTML = spBR + "" + openCntMsg + closedCntMsg + "";
-        totalCnt = totalCnt + Number($("#countRows").text());
+        document.getElementById('openClosed').innerHTML = spBR + "" + openCntMsg + closedCntMsg + "";
+        var original = $("#countRows").text();
+        if(isNaN(original)){original = 0;}
+        totalCnt = totalCnt + Number(original);
         $("#countRows").text(totalCnt);
         if (totalCnt) {
             $("#countRowsS").text("s");
         }
     }
 </script>
+@endif
 
 <div id="loadMoreBtnContainer">
     @if($hasMorePage > 0)
