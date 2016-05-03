@@ -51,9 +51,9 @@
                                            id="fullname" value="{{ (isset($profile))? $profile->name : '' }}"
                                            required="" @if (isset($profile)) readonly @endif
 
-                                    @if (isset($profile))
-                                        style="display: none;"
-                                        @endif
+                                           @if (isset($profile))
+                                           style="display: none;"
+                                            @endif
                                     />
                                 </div>
                             </div>
@@ -120,6 +120,8 @@
                                 <div class="form-group">
                                     <textarea placeholder="Additional Notes" id="ordered_notes"
                                               class="form-control resetme" name="remarks"></textarea>
+                                    <input type="hidden" name="vehicle_type" id=""
+                                           value="Car"/>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>

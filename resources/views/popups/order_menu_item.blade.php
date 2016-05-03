@@ -116,7 +116,7 @@
                                                            style="display: none;" checked="checked"
                                                            class="chk">
                                                 </div>
-                                                <h4 style="float:left;">{{ ucfirst($sub->menu_item) }}</h4>
+                                                <h5 style="float:left;margin-bottom:0 !important;">{{ ucfirst($sub->menu_item) }}</h5>
 
                                                 <span style="float:left;" class="limit-options no_text_break" style="">
                                                     &nbsp;

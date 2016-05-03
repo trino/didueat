@@ -152,8 +152,10 @@ body.modal-open {
 .close {
     font-size: 2rem !important;
     font-weight: normal;
+    /*
     opacity: .6 !important;
     color:white !important;
+    */
 }
 
 .container-fluid {

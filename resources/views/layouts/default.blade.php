@@ -169,12 +169,12 @@
 
 <body>
 
-<div class="container-fluid bg-success" style="margin-bottom: 45px;">
+<div class="container-fluid bg-success" style="margin-bottom: 46px;">
     @include('layouts.includes.header')
 </div>
 
 
-<div class="container-fluid" style="padding-top: 3px;">
+<div class="container-fluid">
     @include('common.alert_messages')
 </div>
 
