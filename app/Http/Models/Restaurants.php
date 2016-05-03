@@ -159,7 +159,7 @@ class Restaurants extends BaseModel {
      * @return response
      */
     public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false, &$count = 0) {
-        $order = " ORDER BY openedRest desc";//, views desc";//" ORDER BY openedRest desc, distance";
+        $order = " ORDER BY openedRest desc, views desc";//" ORDER BY openedRest desc, distance";
         $limit = " LIMIT $start, $per_page";
         $where = "WHERE is_complete = '1'";// AND status = '1'";
         if (isset($data['minimum']) && $data['minimum'] != "") {
@@ -214,8 +214,8 @@ class Restaurants extends BaseModel {
         $DeliveryHours = isset($data['delivery_type']) && $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
         $close = "close" . iif($DeliveryHours, "_del");
-        $hours = " (today_open != today_close AND (today_close > today_open AND today_open < now AND today_close > now) OR (today_close < today_open AND today_open < now)) ";
-        $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close != yesterday_open)";
+        $hours = " (today_close > today_open AND today_open < now AND today_close > now) OR (today_close < today_open AND today_open < now)";
+        $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close < yesterday_open)";
         $openedRestCondn = str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
         $asopenedRest = "IF(".$openedRestCondn.",1,0) as openedRest";
 
@@ -231,8 +231,8 @@ class Restaurants extends BaseModel {
 
         if(!$ReturnSQL) {$count = iterator_count(select_query($SQL));}//get total count
 
-        //$asopenedRest2 = $asopenedRest . ', (SELECT COUNT(*) as views FROM `page_views` WHERE page_views.type = "restaurant" AND page_views.target_id= restaurants.id) as views';
-        //$SQL = str_replace($asopenedRest, $asopenedRest2, $SQL);
+        $asopenedRest2 = $asopenedRest . ', (SELECT COUNT(*) as views FROM `page_views` WHERE page_views.type = "restaurant" AND page_views.target_id= restaurants.id) as views';
+        $SQL = str_replace($asopenedRest, $asopenedRest2, $SQL);
 
         //assemble the final query, with a comment showing which date was used
         $SQL .= $order . $limit . " -- Using date: " . $data['date'];
