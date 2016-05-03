@@ -41,7 +41,8 @@
                  class=" bg-inverse card-header @if ($has_bigImage) fronttext @else bg-success @endif">
                 <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" title="Close"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
-                    <span aria-hidden="true " style="  @if ($has_bigImage) text-shadow: 1px 1px 9px rgba(0, 0, 0, 2);color:white !important; opacity: .8 !important; @endif">&times;</span>
+                    <span aria-hidden="true "
+                          style="  @if ($has_bigImage) text-shadow: 1px 1px 9px rgba(0, 0, 0, 2);color:white !important; opacity: .8 !important; @endif">&times;</span>
                 </button>
 
                 <h4 class="modal-title banner-text-shadow" style="" id="viewDetailModel">
@@ -116,10 +117,10 @@
                                                            style="display: none;" checked="checked"
                                                            class="chk">
                                                 </div>
-                                                <h5 style="float:left;margin-bottom:0 !important;">{{ ucfirst($sub->menu_item) }}</h5>
+                                                <h4 style="float:left;">{{ ucfirst($sub->menu_item) }} &nbsp;</h4>
 
                                                 <span style="float:left;" class="limit-options no_text_break" style="">
-                                                    &nbsp;
+
                                                    <?php
                                                     if ($sub->exact_upto == 0) {
                                                         $upto = "up to ";
@@ -159,76 +160,76 @@
                                                         ?>
 
 
-                                                            <div class="" id="buttons_{{ $mm->id }}" valign="" style=""
-                                                                 href="javascript:void(0);">
+                                                        <div class="" id="buttons_{{ $mm->id }}" valign="" style=""
+                                                             href="javascript:void(0);">
 
-                                                                <div class="col-sm-10 col-xs-8 " style="display: inline-block;
+                                                            <div class="col-sm-10 col-xs-8 " style="display: inline-block;
 @if ($sub->sing_mul == '1') @else  @endif">
 
 
-                                                                    <LABEL class="changemodalP c-input @if($sub->sing_mul =='1') c-radio @else p-l-0 @endif ">
+                                                                <LABEL class="changemodalP c-input @if($sub->sing_mul =='1') c-radio @else p-l-0 @endif ">
 
-                                                                        <input
-                                                                                type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
-                                                                                id="extra_{{ $mm->id }}"
-                                                                                title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
-                                                                                class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
-                                                                                name="extra_{{ $sub->id }}"
-                                                                                value="post"
-                                                                                @if ($sub->sing_mul == '0')  style="display:none;" @endif
-                                                                        />
+                                                                    <input
+                                                                            type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
+                                                                            id="extra_{{ $mm->id }}"
+                                                                            title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
+                                                                            class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
+                                                                            name="extra_{{ $sub->id }}"
+                                                                            value="post"
+                                                                            @if ($sub->sing_mul == '0')  style="display:none;" @endif
+                                                                    />
 
-                                                                        @if($sub->sing_mul =='1')
-                                                                            <span class="c-indicator"></span>
+                                                                    @if($sub->sing_mul =='1')
+                                                                        <span class="c-indicator"></span>
 
-
-                                                                            <span class="list-inline-item ver">{{ $mm->menu_item }}
-                                                                                <span class="text-muted"><?php if ($mm->price) echo "+$" . number_format(str_replace('$', '', $mm->price), 2); ?></span></span>
-
-                                                                        @endif
-
-                                                                    </LABEL>
-
-                                                                    @if($sub->sing_mul =='0')
 
                                                                         <span class="list-inline-item ver">{{ $mm->menu_item }}
                                                                             <span class="text-muted"><?php if ($mm->price) echo "+$" . number_format(str_replace('$', '', $mm->price), 2); ?></span></span>
 
                                                                     @endif
 
-                                                                </div>
+                                                                </LABEL>
 
-                                                                <div style="display: inline-block; @if ($sub->sing_mul == '1')display:none; @endif"
-                                                                     class="col-sm-2 col-xs-4 p-a-0">
+                                                                @if($sub->sing_mul =='0')
 
-                                                                    <a id="addspan_{{ $mm->id }}"
-                                                                       title="{{ $alts["addspan"] }}"
-                                                                       class="addspan btn  pull-right"
-                                                                       href="javascript:;"><strong><i
-                                                                                    class="fa fa-plus"></i></strong></a>
+                                                                    <span class="list-inline-item ver">{{ $mm->menu_item }}
+                                                                        <span class="text-muted"><?php if ($mm->price) echo "+$" . number_format(str_replace('$', '', $mm->price), 2); ?></span></span>
 
-                                                                    <a id="sprice_{{$mm->price}}"
-                                                                       style="margin-top:6px;"
-                                                                       class=" btn pull-right p-a-0 span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</a>
-
-                                                                    <a id="remspan_{{ $mm->id }}"
-                                                                       title="{{ $alts["remspan"] }}"
-                                                                       class="remspan btn pull-right  p-l-0 "
-                                                                       href="javascript:;"><i style="color: #dadada"
-                                                                                              class="fa fa-minus"></i></a>
-                                                                </div>
-
+                                                                @endif
 
                                                             </div>
+
+                                                            <div style="display: inline-block; @if ($sub->sing_mul == '1')display:none; @endif"
+                                                                 class="col-sm-2 col-xs-4 p-a-0">
+
+                                                                <a id="addspan_{{ $mm->id }}"
+                                                                   title="{{ $alts["addspan"] }}"
+                                                                   class="addspan btn  mobile-p-r-0 pull-right"
+                                                                   href="javascript:;"><i
+                                                                            class="fa fa-plus"></i></a>
+
+                                                                <a id="sprice_{{$mm->price}}"
+                                                                   style="margin-top:6px;"
+                                                                   class=" btn pull-right p-a-0 span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</a>
+
+                                                                <a id="remspan_{{ $mm->id }}"
+                                                                   title="{{ $alts["remspan"] }}"
+                                                                   class="remspan btn pull-right  p-l-0 "
+                                                                   href="javascript:;"><i style="color: #dadada"
+                                                                                          class="fa fa-minus"></i></a>
+                                                            </div>
+
+
+                                                        </div>
 
 
                                                         <?php
                                                         if (!($a & 1)) {
-                                                          //  echo '<div class="clearfix" ></div>';
+                                                            //  echo '<div class="clearfix" ></div>';
                                                         }
-                                                            echo '<div class="clearfix" ></div>';
+                                                        echo '<div class="clearfix" ></div>';
 
-                                                            ?>
+                                                        ?>
 
 
                                                     @endforeach

@@ -169,7 +169,7 @@
 
 <body>
 
-<div class="container-fluid bg-success" style="margin-bottom: 46px;">
+<div class="container-fluid bg-success" style="margin-bottom: 45px;">
     @include('layouts.includes.header')
 </div>
 

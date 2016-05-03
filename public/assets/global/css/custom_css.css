@@ -917,6 +917,10 @@ fieldset[disabled] .btn-primary.focus {
         margin-top: 0px !important
     }
 
+    .mobile-p-r-0
+    {
+        padding-right:0px !important;
+    }
 }
 
 @media screen and (max-width: 768px) {

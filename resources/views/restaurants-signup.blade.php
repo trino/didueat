@@ -2,8 +2,8 @@
 @section('content')
 
         <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
+<link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
 <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
 <?php
@@ -19,15 +19,8 @@ $alts = array(
 ?>
 
 
-<div class="jumbotron jumbotron-fluid   signup-bg-image bg-success" style=" /*border-bottom: 1px solid #4b80b7;
-    background: #4c88ef;
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #4c88ef), color-stop(100%, #5cb85c));
-    background: -webkit-linear-gradient(-45deg, #4c88ef 0%, #5cb85c 100%);
-    background: -webkit-linear-gradient(315deg, #4c88ef 0%, #5cb85c 100%);
-    background: linear-gradient(135deg, #4c88ef 0%, #5cb85c 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c88ef', endColorstr='#5cb85c', GradientType=1);
-    */
-    ">
+<div class="jumbotron jumbotron-fluid   signup-bg-image bg-success p-b-0" style="
+">
 
     <div class="container " style="padding: 0px !important;margin-top: 0px !important;">
         <div class="p-a-1">
@@ -38,151 +31,105 @@ $alts = array(
                     </h1>
                 </div>
 
-                <div class="clearfix"></div>
 
-                <div class="col-md-12 clearfix">
-                    <h4 class="p-t-0 p-b-0 banner-text-shadow">Put your menu online. Average revenue increase of 15-25%
+                <div class="col-md-12">
+                    <h4 class="p-t-0 p-b-0 banner-text-shadow">Put your menu online. An average revenue increase of
+                        15-25%
                         a year!</h4>
 
                 </div>
 
+                <div class="col-md-12 m-t-1 text-xs-left" style="">
 
-                <div class="col-md-12 clearfix m-t-1" style="">
-
-                    <span class="und bd">How It Works</span>&nbsp; {{ DIDUEAT  }} connects restaurants to customers
-                    looking for a handy way to satisfy their cravings. Instead of an exhaustive menu to browse, we do
-                    things a bit differently -- our restaurants each feature a Meal of the Day. Using a cellphone or
-                    computer, it is a quick and easy process for customers to order -- simply select a food category,
-                    and then choose an appetizing meal. Customers can then either pick up the meal, or have it
-                    delivered. If a restaurant accepts customer payment through {{ DIDUEAT  }}'s secure checkout*, then
-                    the customer can pay for the meal on the same page. It's that simple -- simple for the customer, and
-                    simple for the restaurant! &nbsp;<a HREF="#" onclick="toggleMore(0,'Read');return false"><span
+                    <strong class="und bd">How It Works</strong>: To satisfy the refined taste of its customers, DiduEat
+                    works exclusively with high quality restaurants.
+                    Partnering restaurants avoid the costs and logistics of employing their own drivers while
+                    simultaneously gaining access to a much larger customer base and benefitting from higher revenues.
+                    &nbsp;<a HREF="#" onclick="toggleMore(0,'Read');return false"><span
                                 id="readmore0"
                                 style="">Read More</span></a><br/><br/>
-                    <div class="smT">* If a restaurant does not enable payment through {{ DIDUEAT  }}'s secure checkout,
-                        then the customer is provided with the restaurant's phone number in order to pay the 'old
-                        fashioned' way.
-                    </div>
-
-                
-                <span id="moreInfo0" class="p-t-0" style="display:none">
-                    <div class="smBR"><br/></div>{{ DIDUEAT  }} prides itself on its easy ordering system -- helping customers spend less time searching for and ordering their meals! Improving on the emerging trend towards centralized meal ordering apps, {{ DIDUEAT  }}
-                    makes the process easier and faster than ever before. Don't miss out on the next big thing in restaurant ordering! Book an appointment with one of our sales reps, and we'll be happy to describe {{ DIDUEAT  }}
-                    in further detail.<div class="smBR"><br/></div>
-                    
-                <span class="und bd" style="">A Limited Time Offer!</span>&nbsp; <a HREF="#"
-                                                                                    onclick="toggleMore(1,'Learn');return false"
-                                                                                    style=""><span
-                                id="readmore1" style="">Learn More</span></a><br/>
-                 <span id="moreInfo1" class="p-t-0" style="display:none">
-                    <div class="smBR"></div>
-                    There will never be a better time to sign up with {{ DIDUEAT  }}! For a limited time, {{ DIDUEAT  }}
-                     is offering its premium sign-up package for free, helping you every step of the way so you can start getting more business as quickly as possible. {{ DIDUEAT  }}
-                     will complete your registration, offer first-hand instruction to familiarize you with the system, and will even work with you on your image portfolio (including your logo and photos of your menu items).</span>
-
-<br/>       
-        <div class="col-sm-3" style="text-align:left">
-            <img class="p-b-1 worksImg" src="{{ asset('assets/images/click.png') }}" alt="{{ $alts["click"] }}">
-
-            <h4>Free Sign Up</h4>
-
-            <p class="bigBlt">Sign up online, or <a href="mailto:info@didueat.ca" title="{{ $alts["contactus"] }}">contact
-                    us</a> to book an appointment</p>
-        </div>
-
-        <div class="col-sm-3" style="text-align:left">
-            <img class="p-b-1 worksImg" src="{{ asset('assets/images/clip.png') }}" alt="{{ $alts["clip"] }}">
-
-            <h4>Create Menu</h4>
-
-            <p class="bigBlt">Do it yourself menu creation; update anytime</p>
-        </div>
-
-        <div class="col-sm-3" style="text-align:left">
-            <img class="p-b-1 worksImg" style="padding-bottom:10px !important"
-                 src="{{ asset('assets/images/box.png') }}" title="{{ $alts["box"] }}">
-
-            <h4>Receive Orders</h4>
-
-            <p class="bigBlt" style="margin-bottom:3px !important">Get started in as little as 10 minutes!<br/><span
-                        class="bd und">Payment Options</span></p>
-            <p style="margin-top:0px;line-height:120% !important">1. {{ DIDUEAT  }} secure payment<br/>2. Collect from
-                customer</p>
-        </div>
-
-        <div class="col-sm-3" style="text-align:left">
-            <div class="pricing-head pricing-head-active">
-                <h4>Pricing <span>Plan</span></h4>
-
-            </div>
-            <ul class="pricing-content list-unstyled">
-                <li><i class="fa fa-tags"></i> 10% Processing Fee*</li>
-                <li><i class="fa fa-tags"></i> Monthly Payouts*</li>
-                <li><i class="fa fa-tags"></i> No Contract</li>
-                <li><i class="fa fa-tags"></i> Unsubscribe at Anytime</li>
-            </ul>
-            <div class="smT up7">* There is no processing fee or monthly payout if you do not choose to accept customer
-                payment through the {{ DIDUEAT  }} secure payment system.
-            </div>
-            <div class="smBR"><br/></div>
-        </div> 
-        
-
-        <div class="col-sm-12">
-            <span class="bd">A huge increase in your customer base is within reach!</span> Using {{ DIDUEAT  }}'s simple
-            set-up, you customize your presentation, and create your own menus and pricing. When customers place orders
-            from you, {{ DIDUEAT  }} processes the transactions on its secure payment system*. Seconds later you receive
-            notification, with precise details of the order.<br/>
-            <div class="smT">* If you do not accept payment through {{ DIDUEAT  }}, the customer will be presented your
-                phone number when ready to check out, and you can take the order and payment the 'old fashioned' way.
-                <div class="smBR"><br/></div>
-            </div>
-
-            <span class="bd">Sign up now, risk free, and let the {{ DIDUEAT  }} team bring customers to YOU!</span>
-            <div class="smBR"><br/></div>
-
-            <span class="bd">Your best choice is to accept customer payment through {{ DIDUEAT  }}, instead of collecting from the customer yourself.</span>&nbsp;<a
-                    HREF="#" onclick="toggleMore(2,'Learn');return false" style=""><span
-                        id="readmore2" style="">Learn More</span></a><br/>
-            <div class="smBR"><br/></div>
 
 
-                <span id="moreInfo2" class="p-t-0" style="display:none">
-                <ul style="">
-                    <li>Saves you time, because the customers make their entire order choices without talking to you.
-                    </li>
-                    <li>Accuracy and accountability, because the exact details of the order are specified during the
-                        online process, which the customer approves before paying.
-                    </li>
-                    <li>No problems from your employees making mistakes in taking the orders, because the {{ DIDUEAT  }}
-                        ordering system assembles orders exactly as you have specified, which means any errors are the
-                        responsibility of the customer.
-                    </li>
-                    <li>100% secure payment system with {{ DIDUEAT  }}.</li>
-                    <li>No hastles collecting payments from customers. {{ DIDUEAT  }} will have collected full payment
-                        for you before sending you the order notification and details.
-                    </li>
-                    <li>Satisfies customer preferences to complete their orders in one step, instead of having to call
-                        you to read out their order details, and then make a separate payment with you.
-                    </li>
-                    <li>All order details are stored electronically for your easy, private access.</li>
-                    <li>{{ DIDUEAT  }}'s customer support line and chat service filter out nuisance calls from customers
-                        so that you deal only with legitimate issues.
-                    </li>
-                    <li>You will be 'future ready' by preparing yourself for the emerging trend in the restaurant
-                        ordering process.
-                    </li>
-                </ul>
-                
-                </span>
+<span id="moreInfo0" class="p-t-0" style="display:none">
 
-            <span class="smT">For full details, please refer to {{ DIDUEAT  }}'s <a HREF="{{ asset('home/terms') }}"
-                                                                                    title="{{ $alts["home/terms"] }}"
-                                                                                    class="lnk smT">Terms of Use</a> page.</span>
 
-        </div>
-        
-            </span>
+<div>
+    <h4>How It works</h4>
+
+    <h6>ORDER</h6>
+    <p>Customers find nearby high quality restaurants on DiduEat.ca and order their favourite
+        meal.</p>
+
+    <h6>PREPARE</h6>
+    <p>Once the order is submitted, the restaurant prepares the food.</p>
+
+    <h6>DELIVERY</h6>
+    <p>A driver picks up the order and delivers it as quickly as possible to the customer.</p>
+
+
+</div>
+<br>
+<div>
+    <h4>Main advantages of being a partner restaurant</h4>
+
+    <p> To satisfy the refined taste of its customers, {{ DIDUEAT  }} works exclusively with high quality restaurants.
+        Partnering restaurants avoid the costs and logistics of employing their own drivers while simultaneously gaining
+        access to a much larger customer base and benefitting from higher revenues.
+
+    </p>
+    <br>
+    <h4>Still not convinced?</h4>
+
+    <p> {{ DIDUEAT  }} prides itself on its easy ordering system, helping customers spend less time searching for and
+        ordering their meals. Improving on the emerging trend towards centralized meal ordering apps, {{ DIDUEAT  }}
+        makes the process easier and faster than ever before. The main advantages include:</p>
+
+    <p> 1. Larger customer base, use the power of the internet to bring your business to the 21st century! Exposing your
+        cuisine to a whole new customer base</p>
+
+    <p> 2. Easy integration, we set up your entire online store</p>
+
+    <p> 3. Personalized delivery fleet, drivers are deployed to pick up the order on a timely manner</p>
+
+
+</div>
+
+<br>
+<div>
+    <h4>The fine print</h4>
+
+    <p> Your restaurant will receive a phone call when an order is placed. You’ll need to log in via phone/tablet or
+        computer to view and prepare the order. If for any reason you can not fulfil the order, simply click Decline
+        and we will contact the customer.</p>
+    <ul>
+        <li>       {{ DIDUEAT  }} is 100% responsible for inputting, marketing and delivering your food. We don’t get
+            paid
+            unless you get an order
+        </li>
+
+        <li>       {{ DIDUEAT  }} retains a 10% Commission for every order we bring to your business</li>
+
+        <li> The commission is flexible, for example: we can add 5% on top of your price and only take 5% commission
+        </li>
+
+        <li> A $5 delivery fee will be added on top of the total</li>
+
+        <li>   {{ DIDUEAT  }} drivers gets to keep 100% of the tip</li>
+
+        <li> Customer will check out with our secure online payment or can pay Cash on Delivery</li>
+
+        <li> Bi-monthly payouts on 1st and 15th of every month via cheque or bank transfer</li>
+
+        <li> Obligatory window sticker and marketing material will be sent to your establishment</li>
+
+        <li> Fake orders will be reviewed on an individual basis</li>
+
+        <li> Unsubscribe at any time, no cancellation fee</li>
+    </ul>
+</div>
+
+
+</span>
                 </div>
             </div>
 
@@ -208,6 +155,7 @@ $alts = array(
         {!! Form::close() !!}
 
 
+    </div>
     </div>
 
     <script type="text/javascript">
@@ -238,7 +186,7 @@ $alts = array(
              */
 
             @if(old('city'))
-                $(document).ready(function () {
+            $(document).ready(function () {
                 cities("{{ url('ajax') }}", "{{ old('city') }}");
             });
             @endif
@@ -252,7 +200,7 @@ $alts = array(
                 }
             });
 
-            //handle uploading of an image
+//handle uploading of an image
             function ajaxuploadbtn(button_id) {
                 var button = $('#' + button_id), interval;
                 act = base_url + 'uploadimg/restaurant';

@@ -22,7 +22,7 @@ $catNameStr = [];
 $parentCnt = [];
 $thisCatCnt = 0;
 $itemPosnForJS = [];
-$itemPosn=[]; // to decide if js index needs a new array declared
+$itemPosn = []; // to decide if js index needs a new array declared
 // $catCnt set in restaurants-menus.blade
 ?>
 
@@ -189,49 +189,50 @@ $itemPosn=[]; // to decide if js index needs a new array declared
 
                 $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
                 ?>
-                <div style="border-bottom:1px solid #efefef !important;    padding-top:  .5rem !important;
-    padding-bottom:  .5rem !important;" class="list-group-item parents"
-                     id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
-                    <!-- start of menu item -->
 
-                    <a
-                       href="#" id="{{ $value->id }}" name="{{ $value->id }}"
-                       data-res-id="{{ $value->restaurant_id }}"
-                       title="{{ $alts["product-pop-up"] }}"
-                       class="card-link" data-toggle="modal"
-                       data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
+                <a
+                        href="#" id="{{ $value->id }}" name="{{ $value->id }}"
+                        data-res-id="{{ $value->restaurant_id }}"
+                        title="{{ $alts["product-pop-up"] }}"
+                        class="card-link" data-toggle="modal"
+                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
+
+                    <div style="border-bottom:1px solid #efefef !important; padding-top: .5rem !important; padding-bottom: .5rem !important;"
+                         class="list-group-item parents"
+                         id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
+                        <!-- start of menu item -->
 
 
-                    <div>
-                        <div class="row">
-                            <div class="col-md-12"><!-- start div 4 -->
+                        <div>
+                            <div class="row">
+                                <div class="col-md-12"><!-- start div 4 -->
 
-                                <?php
-                                $main_price = $value->price;
-                                $dis = '';
-                                $everyday = '';
-                                $days = explode(',', $value->days_discount);
-                                $today = date('D');
-                                if ($value->has_discount == '1' && in_array($today, $days)) {
-                                    if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
-                                        $everyday = 'everyday';
-                                    } else {
-                                        $everyday = str_replace($today, ',', $value->days_discount);
-                                        $everyday = 'Today and ' . str_replace(',', '/', $everyday);
-                                        $everyday = str_replace('//', '', $everyday);
-                                        $everyday = str_replace(' and /', '', $everyday);
+                                    <?php
+                                    $main_price = $value->price;
+                                    $dis = '';
+                                    $everyday = '';
+                                    $days = explode(',', $value->days_discount);
+                                    $today = date('D');
+                                    if ($value->has_discount == '1' && in_array($today, $days)) {
+                                        if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
+                                            $everyday = 'everyday';
+                                        } else {
+                                            $everyday = str_replace($today, ',', $value->days_discount);
+                                            $everyday = 'Today and ' . str_replace(',', '/', $everyday);
+                                            $everyday = str_replace('//', '', $everyday);
+                                            $everyday = str_replace(' and /', '', $everyday);
+                                        }
+                                        $discount = $value->discount_per;
+                                        $d = $main_price * $discount / 100;
+                                        $main_price = $main_price - $d;
+                                        $dis = "" . $discount . "% off " . $everyday . "";
+
                                     }
-                                    $discount = $value->discount_per;
-                                    $d = $main_price * $discount / 100;
-                                    $main_price = $main_price - $d;
-                                    $dis = "" . $discount . "% off " . $everyday . "";
+                                    ?>
 
-                                }
-                                ?>
+                                    <h5 class="card-title">
 
-                                <h5 class="card-title">
-
-                                    <div style="width: 100%;float:left;vertical-align: middle;">
+                                        <div style="width: 100%;float:left;vertical-align: middle;">
 
 
                                             @if($has_iconImage)
@@ -261,151 +262,145 @@ $itemPosn=[]; // to decide if js index needs a new array declared
                                                 @endif
                                                 </span>
 
-                                    </div>
+                                        </div>
 
-                                    <div class="clearfix"></div>
-                                </h5>
+                                        <div class="clearfix"></div>
+                                    </h5>
 
 
-                                <p class="card-text m-a-0  text-muted">
+                                    <p class="card-text m-a-0  text-muted">
+                                        <?php
+                                        if (strlen($value->description) > 65) {
+                                            echo substr($value->description, 0, 65) . '...';
+                                        } else {
+                                            echo substr($value->description, 0, 65);
+                                        }
+                                        ?>
+
+                                    </p>
+
+
+                                    @if(false) <!-- no tags yet -->
+                                    @if(isset($restaurant->tags) && $restaurant->tags != "")
                                     <?php
-                                    if (strlen($value->description) > 65) {
-                                        echo substr($value->description, 0, 65) . '...';
-                                    } else {
-                                        echo substr($value->description, 0, 65);
+                                    $tags = $restaurant->tags;
+                                    $tags = explode(',', $tags);
+                                    for ($i = 0; $i < 5; $i++) {
+                                        if (isset($tags[$i])) {
+                                            echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                        }
                                     }
                                     ?>
-
-                                </p>
-
-
-                                @if(false) <!-- no tags yet -->
-                                @if(isset($restaurant->tags) && $restaurant->tags != "")
-                                <?php
-                                $tags = $restaurant->tags;
-                                $tags = explode(',', $tags);
-                                for ($i = 0; $i < 5; $i++) {
-                                    if (isset($tags[$i])) {
-                                        echo "<span class='tags'>" . $tags[$i] . "</span>";
-                                    }
-                                }
-                                ?>
-                                @endif
-
-                                        <!--div class="clearfix">
-                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
-                                        <p class="card-text m-a-0">
-                                            {{$dis}}
-                                        </p>
-                                    </div-->
-
-                                <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
-                                    @if($value->uploaded_on)
-                                        Submitted: {{$value->uploaded_on}}
                                     @endif
 
-                                    <?php
-                                    if ($value->uploaded_by) {
-                                        $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
-                                        echo "by: " . $uploaded_by->name . "";
-                                    }
-                                    ?>
-                                </p>
+                                            <!--div class="clearfix">
+                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
+                                            <p class="card-text m-a-0">
+                                                {{$dis}}
+                                            </p>
+                                        </div-->
 
-
-                                @endif
-
-
-                            </div>
-                            <!-- End div 4 -->
-
-
-                            <div class="col-md-12"><!-- start div 5 0000-00-00 00:00:00 -->
-
-
-                                @if(read('restaurant_id') == $restaurant->id || $canedit)
-
-                                    <div class="btn-group pull-left" role="group" style="vertical-align: middle">
-                                        <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}"
-                                              style="color:blue; display: none;"></span>
-                                        @if($value->uploaded_by)
-                                            Uploaded by: <A
-                                                    HREF="{{ url("user/uploads/" . $value->uploaded_by) }}">{{ select_field("profiles", "id", $value->uploaded_by, "name" ) }}</A>
-                                            @if($value->uploaded_on != "0000-00-00 00:00:00")
-                                                on {{ date("M j 'y", strtotime($value->uploaded_on)) }}
-                                            @endif
+                                    <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
+                                        @if($value->uploaded_on)
+                                            Submitted: {{$value->uploaded_on}}
                                         @endif
 
-                                    </div>
-                                @endif
+                                        <?php
+                                        if ($value->uploaded_by) {
+                                            $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+                                            echo "by: " . $uploaded_by->name . "";
+                                        }
+                                        ?>
+                                    </p>
 
-<script>
-function showItem(c,m){
- return c+"  --  "+m+"  --  "+itemPosn[c][m];
+
+                                    @endif
+
+
+                                </div>
+                                <!-- End div 4 -->
+
+
+                                <div class="col-md-12"><!-- start div 5 0000-00-00 00:00:00 -->
+
+
+                                    @if(read('restaurant_id') == $restaurant->id || $canedit)
+
+                                        <div class="btn-group pull-left" role="group" style="vertical-align: middle">
+                                        <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}"
+                                              style="color:blue; display: none;"></span>
+                                            @if($value->uploaded_by)
+                                                Uploaded by: <A
+                                                        HREF="{{ url("user/uploads/" . $value->uploaded_by) }}">{{ select_field("profiles", "id", $value->uploaded_by, "name" ) }}</A>
+                                                @if($value->uploaded_on != "0000-00-00 00:00:00")
+                                                    on {{ date("M j 'y", strtotime($value->uploaded_on)) }}
+                                                @endif
+                                            @endif
+
+                                        </div>
+                                    @endif
+
+                                    <script>
+                                        function showItem(c, m) {
+                                            return c + "  --  " + m + "  --  " + itemPosn[c][m];
 ////
-}
-</script>
+                                        }
+                                    </script>
 
-                                @if($canedit || $value->uploaded_by ==read("id"))
-
-
-                                    parent{{ $value->cat_id }}_{{ $value->display_order }}
+                                    @if($canedit || $value->uploaded_by ==read("id"))
 
 
-                                    <span style="color:#FF0000">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                        {{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}
-                                        , 'down', {{ $catMenuCnt }}</span>
-                                    <a href="#"
-                                       class="btn btn-sm btn-link pull-right"
-                                       title="{{ $alts["deleteMenu"] }}"
-                                       onclick="deleteMenuItem(<?php echo $value->cat_id . ', ' . $value->id . ', ' . $value->display_order;?>);return false"><i
-                                                class="fa fa-times"></i></a>
-
-                                    <a id="add_item{{ $value->id }}" type="button" title="{{ $alts["edititem"] }}"
-                                       class="btn btn-sm btn-link additem pull-right"
-                                       data-toggle="modal"
-                                       data-target="#addMenuModel"><strong>Edit</strong>
-                                    </a>
+                                        parent{{ $value->cat_id }}_{{ $value->display_order }}
 
 
+                                        <span style="color:#FF0000">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                            {{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}
+                                            , 'down', {{ $catMenuCnt }}</span>
+                                        <a href="#"
+                                           class="btn btn-sm btn-link pull-right"
+                                           title="{{ $alts["deleteMenu"] }}"
+                                           onclick="deleteMenuItem(<?php echo $value->cat_id . ', ' . $value->id . ', ' . $value->display_order;?>);return false"><i
+                                                    class="fa fa-times"></i></a>
 
-                                    <a id="up_parent_{{ $value->id.'_'.$value->cat_id }}"
-                                       title="{{ $alts["up_parent"] }}"
-                                       class="btn btn-sm btn-link pull-right sorting_parent"
-                                       href="javascript:void(0);"
-                                       onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'up', {{ $catMenuCnt }});return false"
-                                       onmouseover="this.title=showItem({{ $value->cat_id }},{{ $value->id }});"
-                                       style="visibility:{{ $thisUpMenuVisib }} !important">
-                                        <i class="fa fa-arrow-up"></i></a>
-
-                                    <a id="down_parent_{{ $value->id.'_'.$value->cat_id }}"
-                                       title="{{ $alts["down_parent"] }}"
-                                       class="btn btn-sm btn-link pull-right sorting_parent"
-                                       href="javascript:void(0);"
-                                       onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }});return false"
-                                       style="visibility:{{ $thisDownMenuVisib }} !important">
-                                        <i class="fa fa-arrow-down"></i></a>
-
-                                @endif
+                                        <a id="add_item{{ $value->id }}" type="button" title="{{ $alts["edititem"] }}"
+                                           class="btn btn-sm btn-link additem pull-right"
+                                           data-toggle="modal"
+                                           data-target="#addMenuModel"><strong>Edit</strong>
+                                        </a>
 
 
+
+                                        <a id="up_parent_{{ $value->id.'_'.$value->cat_id }}"
+                                           title="{{ $alts["up_parent"] }}"
+                                           class="btn btn-sm btn-link pull-right sorting_parent"
+                                           href="javascript:void(0);"
+                                           onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'up', {{ $catMenuCnt }});return false"
+                                           onmouseover="this.title=showItem({{ $value->cat_id }},{{ $value->id }});"
+                                           style="visibility:{{ $thisUpMenuVisib }} !important">
+                                            <i class="fa fa-arrow-up"></i></a>
+
+                                        <a id="down_parent_{{ $value->id.'_'.$value->cat_id }}"
+                                           title="{{ $alts["down_parent"] }}"
+                                           class="btn btn-sm btn-link pull-right sorting_parent"
+                                           href="javascript:void(0);"
+                                           onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }});return false"
+                                           style="visibility:{{ $thisDownMenuVisib }} !important">
+                                            <i class="fa fa-arrow-down"></i></a>
+
+                                    @endif
+
+
+                                </div>
+                                <!-- end div 5 -->
                             </div>
-                            <!-- end div 5 -->
                         </div>
+
+
+                        <div class="clearfix"></div>
                     </div>
 
 
-
-                    </a>
-
-
-
-
-
-                    <div class="clearfix"></div>
-                </div>
-
-
+                </a>
 
 
                 <?php
@@ -413,9 +408,6 @@ function showItem(c,m){
                 ?>
                 @include('popups.order_menu_item')
                 @endwhile
-
-
-
 
 
                 <div class="clearfix p-b-1" style="background: white;"></div>
@@ -431,15 +423,15 @@ function showItem(c,m){
 
             $objComma = "";
             $itemPosnForJSStr = "";
-            $objStrJS="";
+            $objStrJS = "";
             foreach ($itemPosnForJS as $key => $row) { // $key is cat id
                 foreach ($itemPosnForJS[$key] as $key2 => $row2) {
-                    if(!isset($itemPosn[$key])){
-                      $itemPosnForJSStr.="itemPosn[" . $key . "]=[];\n";
-                      $itemPosn[$key]=true;
+                    if (!isset($itemPosn[$key])) {
+                        $itemPosnForJSStr .= "itemPosn[" . $key . "]=[];\n";
+                        $itemPosn[$key] = true;
                     }
                     $objComma = "\n";
-                    $itemPosnForJSStr .= $objComma."itemPosn[" . $key . "][" . $key2 . "]=".$row2.";\n";
+                    $itemPosnForJSStr .= $objComma . "itemPosn[" . $key . "][" . $key2 . "]=" . $row2 . ";\n";
                 }
             }
 
@@ -456,7 +448,7 @@ function showItem(c,m){
 
 <SCRIPT>
             <?php echo $itemPosnForJSStr;?>
-            
+
     var itemPosnOrig = itemPosn;
     var menuSortChngs = [];
     var catOrigPosns = [<?php echo $catIDforJS_Str;?>]; // as original cat posns as indexes, with the values being the db cat_id
