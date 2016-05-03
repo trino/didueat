@@ -134,8 +134,14 @@
                 selector = $(selector).offset().top;
             }
         }
-        $('html,body').animate({
-            scrollTop: selector + $(".navbar").height()
-        });
+        if($(".modal-dialog:visible" ).length){
+            $(".modal:visible").animate({scrollTop: selector}, 800, 'swing');
+            return "Modal " + selector;
+        } else {
+            $('html,body').animate({
+                scrollTop: selector + $(".navbar").height()
+            });
+            return "Body " + selector;
+        }
     }
 </script>
