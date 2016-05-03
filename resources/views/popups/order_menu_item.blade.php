@@ -69,8 +69,6 @@
                     @endif
 
                     <span class="fa fa-spinner fa-spin cart-addon-gif" style="color:#0275d8; display: none;"></span>
-
-
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                     <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                 </h4>
@@ -118,9 +116,10 @@
                                                            style="display: none;" checked="checked"
                                                            class="chk">
                                                 </div>
-                                                <strong>{{ ucfirst($sub->menu_item) }}</strong>
+                                                <h4 style="float:left;">{{ ucfirst($sub->menu_item) }}</h4>
 
-                                                <span class="limit-options no_text_break">
+                                                <span style="float:left;" class="limit-options no_text_break" style="">
+                                                    &nbsp;
                                                    <?php
                                                     if ($sub->exact_upto == 0) {
                                                         $upto = "up to ";
@@ -144,7 +143,7 @@
                                                 <div class="clearfix"></div>
                                                 <span class="error_{{ $sub->id }} errormsg"></span>
 
-                                                <div class="list clearfix row  m-t-1">
+                                                <div class="list clearfix row m-t-1" style="">
                                                     <?php
                                                     $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get();
                                                     $a = 0;
@@ -159,12 +158,13 @@
                                                         }
                                                         ?>
 
-                                                        <div class="col-xs-12 col-sm-6 form-group"
-                                                             style="margin-bottom: 0 !important">
-                                                            <div id="buttons_{{ $mm->id }}" class="buttons"
+
+                                                            <div class="" id="buttons_{{ $mm->id }}" valign="" style=""
                                                                  href="javascript:void(0);">
 
-                                                                <div style="float:left; @if ($sub->sing_mul == '1') width:100%; @else width:72%; @endif">
+                                                                <div class="col-sm-10 col-xs-8 " style="display: inline-block;
+@if ($sub->sing_mul == '1') @else  @endif">
+
 
                                                                     <LABEL class="changemodalP c-input @if($sub->sing_mul =='1') c-radio @else p-l-0 @endif ">
 
@@ -195,25 +195,25 @@
                                                                             <span class="text-muted"><?php if ($mm->price) echo "+$" . number_format(str_replace('$', '', $mm->price), 2); ?></span></span>
 
                                                                     @endif
+
                                                                 </div>
 
-
-                                                                <div style="width:28%;float:left; @if ($sub->sing_mul == '1')display:none; @endif"
-                                                                     class="pull-left p-a-0">
+                                                                <div style="display: inline-block; @if ($sub->sing_mul == '1')display:none; @endif"
+                                                                     class="col-sm-2 col-xs-4 p-a-0">
 
                                                                     <a id="addspan_{{ $mm->id }}"
                                                                        title="{{ $alts["addspan"] }}"
-                                                                       class="addspan btn btn-sm  pull-right p-r-0"
+                                                                       class="addspan btn  pull-right"
                                                                        href="javascript:;"><strong><i
                                                                                     class="fa fa-plus"></i></strong></a>
 
                                                                     <a id="sprice_{{$mm->price}}"
-                                                                       style="margin-top:2px;"
+                                                                       style="margin-top:6px;"
                                                                        class=" btn pull-right p-a-0 span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</a>
 
                                                                     <a id="remspan_{{ $mm->id }}"
                                                                        title="{{ $alts["remspan"] }}"
-                                                                       class="remspan btn pull-right btn-sm "
+                                                                       class="remspan btn pull-right  p-l-0 "
                                                                        href="javascript:;"><i style="color: #dadada"
                                                                                               class="fa fa-minus"></i></a>
                                                                 </div>
@@ -221,12 +221,16 @@
 
                                                             </div>
 
-                                                        </div>
+
                                                         <?php
                                                         if (!($a & 1)) {
-                                                            echo '<div class="clearfix" ></div>';
+                                                          //  echo '<div class="clearfix" ></div>';
                                                         }
-                                                        ?>
+                                                            echo '<div class="clearfix" ></div>';
+
+                                                            ?>
+
+
                                                     @endforeach
                                                     <input type="hidden" value="" class="chars_{{ $sub->id }}">
                                                 </div>
