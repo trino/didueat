@@ -152,7 +152,7 @@ class HomeController extends Controller {
                     $hasaddress = false;
                     foreach (array("latitude", "longitude", "formatted_address", "city", "province", "postal_code", "country") as $field) {
                         if (!isset($data) || empty($data[$field])) {
-                            $hasaddress .= $data;
+                            $hasaddress .= $data[$field] . ", ";
                         }
                     }
                     if ($hasaddress) {
