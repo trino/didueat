@@ -1863,7 +1863,7 @@ function popup($Success, $Message, $Title = "", $ID = "", $Margin = 0) {
         $Message = right($Message, strlen($Message) - 8);
         switch ($Message) {
             case "nostores":
-                $Message = '<span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Deliver To You<span id="openClosed" class="smRd"></span>';
+                $Message = '<span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Deliver To You';
                 $Success = "card";
                 break;
             case "menuadd":
