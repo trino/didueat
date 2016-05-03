@@ -67,7 +67,7 @@
 
     $Day = current_day_of_week();
     if ($is_open) {
-        if (isset($showtoday)) {
+        if (isset($showtoday) || debugmode()) {
             $open = converttime($Restaurant[$is_open . "_open" . $key]);
             $close = converttime($Restaurant[$is_open . "_close" . $key]);
             $MoreTime = "Open " . $open . " to " . $close;
