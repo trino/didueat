@@ -156,6 +156,7 @@ class HomeController extends Controller {
                         }
                     }
                     if ($hasaddress) {
+                        $data["missingdata"] = $hasaddress;
                         debugprint("Skipped saving due to lack of " . $hasaddress);
                     } else {
                         $searchname = "Last search";

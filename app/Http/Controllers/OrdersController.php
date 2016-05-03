@@ -175,6 +175,10 @@
                         $userArray['mail_subject'] = $subject;
                         $userArray['note'] = $post['note'];
                         $this->sendEMail($email, $userArray);
+
+                        if($userArray["mobile"] && !$userArray["phone"]){$userArray["phone"] = $userArray["mobile"];}
+                        if($post['note']) { $subject .= " The reason specifed was: " . $post['note']; }
+                        $this->sendSMS( $userArray["phone"], $subject);
                     }
 
                     return $this->success($flash, $URL);
