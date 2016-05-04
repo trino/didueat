@@ -59,14 +59,12 @@
                     @endif
 
                     @if($type == "driver")
-                        @if($driver->available_at <= $eighthoursago)
-                            <a href="{{ url("user/driverstatus/1") }}" class="btn btn-primary btn-sm pull-right" title="{{ $alts["available"] }}">Available</a>
-                        @else
-                            <a href="{{ url("user/driverstatus/0") }}" class="btn btn-danger btn-sm pull-right" title="{{ $alts["unavailable"] }}">Unavailable</a>
-                        @endif
+                        <SPAN CLASS="pull-right">Availability:</SPAN>
                     @endif
                 </h4>
-
+            </div>
+            <div class="col-lg-3" TITLE="{{ $alts["available"] }}">
+                <input type="checkbox" class="toggle" @if($driver->available_at > $eighthoursago) checked @endif >
             </div>
             @if(false)
                 @include('common.table_controls')
@@ -91,7 +89,7 @@
                         <th>Ordered On</th>
                         <TH>Type</TH>
                         <th>Status</th>
-                        @if (Session::get('session_type_user') == "super" || $type=='restaurant')
+                        @if (Session::get('session_type_user') == "super" || $type=='restaurant'  || $type=='driver')
                             <TH>Response Time</TH>
                         @endif
                         <th></th>
@@ -134,12 +132,12 @@
                                     echo '<TD><FONT COLOR="' . statuscolor($value->status, true) . '">' . ucfirst($value->status) . '</FONT></td>';
 
                                     echo '<TD>';
-                                    if (Session::get('session_type_user') == "super" || $type=='restaurant'){
+                                    if (Session::get('session_type_user') == "super" || $type=='restaurant' || $type=='driver'){
                                         if ($value->time) {
                                             $class = ' CLASS="timedisplay"';
                                             if(isset($waiting)){
                                                 $delay = (now(true) - strtotime($value->assigned_at));
-                                            } else if($value->status != "pending"){
+                                            } else if($value->status == "pending"){
                                                 $delay = (now(true) - strtotime($value->order_time));
                                             } else {
                                                 $delay = (strtotime($value->time) - strtotime($value->order_time));
@@ -209,6 +207,11 @@
     @endif
 
 </div>
+
+@if($type == "driver")
+    <link href="{{ asset('assets/global/css/bootstrap-switch.css') }}" rel="stylesheet">
+    <script src="{{ asset('assets/global/scripts/bootstrap-switch.js') }}"></script>
+@endif
 
 <SCRIPT>
     var Orders = "{{ iterator_count($Query) }}";
@@ -281,4 +284,16 @@
             $( self ).text(text);
         });
     }, 1000);
+
+    @if($type == "driver")
+        $( document ).ready(function() {
+            $(".toggle").bootstrapSwitch();
+        });
+
+        $('.toggle').on('switchChange.bootstrapSwitch', function (event, state) {
+            var value = 0;
+            if(state){value = 1;}
+            $.post("{{ url('user/driverstatus') }}/" + value, {_token: token});
+        });
+    @endif
 </SCRIPT>

@@ -236,7 +236,8 @@ class UsersController extends Controller
             $message = "unavailable";
         }
         update_database("profiles", "id", read("id"), array("available_at" => $status));
-        return $this->success("You have been set to " . $message, "orders/list/driver");
+        return $message;
+        //return $this->success("You have been set to " . $message, "orders/list/driver");
     }
 
     //handle updating a profile image
