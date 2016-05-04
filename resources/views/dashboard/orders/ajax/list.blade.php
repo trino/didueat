@@ -63,9 +63,11 @@
                     @endif
                 </h4>
             </div>
-            <div class="col-lg-3" TITLE="{{ $alts["available"] }}">
-                <input type="checkbox" class="toggle" @if($driver->available_at > $eighthoursago) checked @endif >
-            </div>
+            @if($type=='driver')
+                <div class="col-lg-3" TITLE="{{ $alts["available"] }}">
+                    <input type="checkbox" class="toggle" @if($driver->available_at > $eighthoursago) checked @endif >
+                </div>
+            @endif
             @if(false)
                 @include('common.table_controls')
             @endif
