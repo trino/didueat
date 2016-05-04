@@ -664,14 +664,16 @@ function validateCanadaZip($PostalCode) {//function by Roshan Bhattara(http://ro
 }
 
 //write text to royslog.txt
-function debugprint($text) {
+function debugprint($text, $path = "royslog.txt") {
     $todaytime = date("Y-m-d") . " " . date("h:i:s a");
-    $path = "royslog.txt";
     $dashes = "----------------------------------------------------------------------------------------------\r\n";
     if (is_array($text)) {
         $text = print_r($text, true);
     }
-    file_put_contents($path, $dashes . $todaytime . "  --  " . str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n", $text)) . "\r\n", FILE_APPEND);
+    if(is_numeric($path)){$path = public_path('assets/logs/' . $path . '.txt');}
+    $dir = getdirectory($path);
+    if (!is_dir($dir )){mkdir($dir, 0777, true);}
+    file_put_contents($path, $dashes . $todaytime . ' (USER: ' . read("id") . ": " . read("name") .  ")  --  " . str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n", $text)) . "\r\n", FILE_APPEND);
 }
 
 //implodes uusing both the key and value
