@@ -22,7 +22,8 @@
                     "approve" => "Accept this order",
                     "decline" => "Decline this order",
                     "cantdecline" => "Unable to decline this order",
-                    "assign" => "Assign this order to this driver"
+                    "assign" => "Assign this order to this driver",
+                    "pass" => "Decline delivering this order"
             );
             $showCSR = true;
 
@@ -146,11 +147,9 @@
                         </div>
                     @endif
                     <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
-                    @if($CanApprove)
-
+                    @if($CanApprove || $type == "driver")
                         <div class="card-footer text-xs-right">
-
-                            @if($order->status != "cancelled")
+                            @if($CanApprove && $order->status != "cancelled")
                                 @if($order->status == "waiting")
                                     <a class="btn btn-secondary" title="{{ $alts["cantdecline"] }}">Can't Decline</a>
                                 @else
@@ -161,6 +160,9 @@
                                 @endif
                             @endif
                             @if($order->status == "pending" || $order->status == "waiting")
+                                @if($type == "driver")
+                                    <a class="btn btn-warning" HREF="{{ url("orders/order_pass/" . $ID) }}" title="{{ $alts["pass"] }}">Pass</a>
+                                @endif
                                 <a href="#approve-popup-dialog"
                                    class="btn btn-primary orderApproveModal " data-toggle="modal"
                                    data-target="#orderApproveModal"

@@ -114,8 +114,10 @@ Route::group(['middleware' => ['logged', 'role:restaurant']], function() {
     Route::resource('restaurant/menu-manager',                      'RestaurantController@menuManager');
     Route::get('restaurant/deletemenuimage/{id}',                   'RestaurantController@deletemenuimage');
     Route::get('restaurant/bringonline',                            'RestaurantController@bringonline');
-    Route::get('orders/order_assign/{id}/type}/{driver}',           'OrdersController@order_assign')->where('id', '[0-9]+');
+    Route::get('orders/order_assign/{id}/{type}/{driver}',          'OrdersController@order_assign')->where('id', '[0-9]+');
 });
+
+Route::get('orders/order_pass/{id}',                                'OrdersController@order_pass')->where('id', '[0-9]+');
 
 // Routes After Logged in and Role Admin Check
 Route::group(['middleware' => ['logged', 'role:super']], function() {

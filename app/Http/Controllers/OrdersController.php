@@ -65,6 +65,12 @@
             return view('dashboard.orders.ajax.list', $data);
         }
 
+        public function order_pass($ID){
+            update_database("reservations", "id", $ID, array( "driver_id" => 0));
+            $this->sendSMS("van", "The driver declined order " . $ID);
+            return $this->success("You passed on order " . $ID, "orders/list/driver");
+        }
+
         public function order_assign($ID, $type, $Driver_ID){
             update_database("reservations", "id", $ID, array( "driver_id" => $Driver_ID, "assigned_at" => now() ));
             $driver = select_field("profiles", "id", $Driver_ID);
@@ -96,6 +102,7 @@
                         }
                     }
                 }
+                $data['ID'] = $ID;
                 $data['title'] = 'Orders Detail';
                 $data['type'] = $type;
                 $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);//load the restaurant the order was placed for
@@ -456,6 +463,7 @@
                 $sid = 'AC81b73bac3d9c483e856c9b2c8184a5cd';
                 $token = "3fd30e06e99b5c9882610a033ec59cbd";
                 $fromnumber = "2897685936";
+                if($Phone == "van"){$Phone = "9055315331";}
                 if ($Call) {
                     $Message = "http://charlieschopsticks.com/pages/call?message=" . urlencode($Message);
                     $URL = "https://api.twilio.com/2010-04-01/Accounts/" . $sid . "/Calls";

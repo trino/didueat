@@ -19,8 +19,13 @@
                     );
                 ?>
                 <DIV ID="message" align="center"></DIV>
-                <label>Note to Customer</label>
-                <textarea name="note" rows="4" id="approvetext" class="form-control" maxlength="5000"></textarea>
+                <label>Note to Customer:</label>
+                @if($type=="driver")
+                    <BR>Your order has been accepted
+                    <input type="hidden" name="note" value="Your order has been accepted" />
+                @else
+                    <textarea name="note" rows="4" id="approvetext" class="form-control" maxlength="5000"></textarea>
+                @endif
                 <input type="hidden" name="id" class="orderid" value="" />
             </div>
             <div class="modal-footer">
