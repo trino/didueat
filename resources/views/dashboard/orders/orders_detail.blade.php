@@ -21,9 +21,24 @@
             $alts=array(
                     "approve" => "Accept this order",
                     "decline" => "Decline this order",
-                    "cantdecline" => "Unable to decline this order"
+                    "cantdecline" => "Unable to decline this order",
+                    "assign" => "Assign this order to this driver"
             );
             $showCSR = true;
+
+            function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo){
+                // convert from degrees to radians
+                $latFrom = deg2rad($latitudeFrom);
+                $lonFrom = deg2rad($longitudeFrom);
+                $latTo = deg2rad($latitudeTo);
+                $lonTo = deg2rad($longitudeTo);
+
+                $latDelta = $latTo - $latFrom;
+                $lonDelta = $lonTo - $lonFrom;
+
+                $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+                return $angle * 6371000;
+            }
         ?>
         <div class="row">
 
@@ -88,6 +103,43 @@
                     </div>
                     <div class="clearfix"></div>
 
+                    @if(read("profiletype") == 1)
+                        <DIV CLASS="col-md-12">
+                            <table class="table table-responsive m-b-0">
+                                <thead>
+                                    <tr>
+                                        <TD>ID</TD>
+                                        <TD>Name</TD>
+                                        <TD>Distance</TD>
+                                        <TD></TD>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $drivers = enum_all("profiles", array("profile_type" => 5));
+                                        foreach($drivers as $driver){
+                                            echo '<TR><TD>' . $driver->id . '</TD><TD>' . $driver->name . '</TD><TD>';
+
+                                            $address = select_field("profiles_addresses", "user_id", $driver->id);
+                                            if($address){
+                                                echo distance($address->latitude, $address->longitude,  $order->latitude,$order->longitude) . ' km';
+                                            } else {
+                                                echo 'Unknown';
+                                            }
+
+                                            echo '</TD><TD>';
+                                            if($order->driver_id == $driver->id){
+                                                echo 'Assigned';
+                                            } else {
+                                                echo '<a href="' . url('orders/order_assign/' . $order->id . '/' . $type . '/' . $driver->id) . '" class="btn btn-primary btn-sm" title="' . $alts["assign"] . '">Assign</a>';
+                                            }
+                                            echo '</TR>';
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
                     <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
                     @if($CanApprove)
 

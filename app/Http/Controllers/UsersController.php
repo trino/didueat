@@ -311,8 +311,10 @@ class UsersController extends Controller
                 $res['order_till'] = $post['order_till'];
                 $res["remarks"] = $post["remarks"];
 
+                /*
                 $res["status"] = "approved";
                 $res["time"] = $res['order_time'];
+                */
 
                 if (isset($post['contact'])) {
                     $res['contact'] = $post['contact'];
@@ -325,7 +327,7 @@ class UsersController extends Controller
                 } else if(isset($post["reservation_address"]) && $post["reservation_address"]){
                     $copyaddress = $post["reservation_address"];
                 } else {
-                    foreach(array('address' => 'address2', 'added_address' => 'address2', 'city', 'province', 'country', 'postal_code') as $source => $destination){
+                    foreach(array('address' => 'address2', 'added_address' => 'address2', 'city', 'province', 'country', 'postal_code', 'latitude', 'longitude') as $source => $destination){
                         if(is_numeric($source)){$source = $destination;}
                         if (\Input::has($source)) {
                             $res[$destination] = $post[$source];
@@ -340,6 +342,8 @@ class UsersController extends Controller
                     $res['country'] = $Address->country;
                     $res['postal_code'] = $Address->postal_code;
                     $res['note'] = $Address->notes;
+                    $res['latitude'] = $Address->latitude;
+                    $res['longitude'] = $Address->longitude;
                 }
                 //$Stage = 4;
                 $res['name'] = trim($post['ordered_by']);

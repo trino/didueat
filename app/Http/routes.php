@@ -10,7 +10,7 @@ Route::get('/restaurants',                                          'HomeControl
 Route::get('/home/debugmode',                                       'HomeController@debugmode');
 
 Route::resource('/restaurants/signup',                              'HomeController@signupRestaurants');
-Route::resource('/driver/signup',                              'HomeController@signupDriver');
+Route::resource('/driver/signup',                                   'HomeController@signupDriver');
 Route::get('/restaurants/{searchTerm}',                             'HomeController@searchRestaurants');
 Route::post('/search/restaurants/ajax',                             'HomeController@searchRestaurantsAjax');
 Route::resource('/restaurants/loadmenus/{catid}/{resid}/',          'HomeController@loadmenus');
@@ -114,6 +114,7 @@ Route::group(['middleware' => ['logged', 'role:restaurant']], function() {
     Route::resource('restaurant/menu-manager',                      'RestaurantController@menuManager');
     Route::get('restaurant/deletemenuimage/{id}',                   'RestaurantController@deletemenuimage');
     Route::get('restaurant/bringonline',                            'RestaurantController@bringonline');
+    Route::get('orders/order_assign/{id}/type}/{driver}',           'OrdersController@order_assign')->where('id', '[0-9]+');
 });
 
 // Routes After Logged in and Role Admin Check
@@ -143,6 +144,7 @@ Route::group(['middleware' => ['logged', 'role:super']], function() {
     Route::post('subscribers/send',                                 'SubscribersController@send');
     
     Route::resource('restaurant/newsletter',                        'AdministratorController@newsletter');
+    Route::get('orders/order_assign/{id}/{type}/{driver}',          'OrdersController@order_assign')->where('id', '[0-9]+');
 });
 
 Route::resource('user/reviews',                                     'UserReviewsController@index');

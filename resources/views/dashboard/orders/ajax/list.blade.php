@@ -75,8 +75,7 @@
                         <TH>Type</TH>
                         <th>Status</th>
                         @if (Session::get('session_type_user') == "super" || $type=='restaurant')
-
-                        <TH>Response Time</TH>
+                            <TH>Response Time</TH>
                         @endif
                         <th></th>
                     </tr>
@@ -111,13 +110,25 @@
                                 echo '</TD><TD><span class="m-a-0 text-muted no_text_break"> For ' . iif($value->order_type, "Delivery", "Pickup") . iif($value->order_till, ' later') . '</span>';
                                 echo '</td>';
 
+                                if($value->status == "pending" && $value->driver_id){
+                                    $value->status = "Waiting for driver to accept";
+                                    $waiting=true;
+                                }
                                 echo '<TD><FONT COLOR="' . statuscolor($value->status, true) . '">' . ucfirst($value->status) . '</FONT></td>';
 
                                 echo '<TD>';
                                     if (Session::get('session_type_user') == "super" || $type=='restaurant'){
-                                        if ($value->time && $value->status != "pending") {
-                                            echo '<FONT COLOR="';
-                                            $delay = (strtotime($value->time) - strtotime($value->order_time));
+                                        if ($value->time) {
+                                            $class = ' CLASS="timedisplay"';
+                                            if(isset($waiting)){
+                                                $delay = (now(true) - strtotime($value->assigned_at));
+                                            } else if($value->status != "pending"){
+                                                $delay = (now(true) - strtotime($value->order_time));
+                                            } else {
+                                                $delay = (strtotime($value->time) - strtotime($value->order_time));
+                                                $class = "";
+                                            }
+                                            echo '<FONT' . $class . ' SECONDS="' . $delay . '" COLOR="';
                                             if ($delay < 60) {
                                                 echo 'GREEN">';
                                             } else if ($delay < 300) {
@@ -139,8 +150,6 @@
                                                 $total[] = $delay[$secondsTitle] . " " . $secondsTitle;// . iif($delay[$secondsTitle] != 1, "s");
                                             }
                                             echo implode(" ", $total) . '</FONT>';
-                                        } else {
-                                            echo "Pending...";
                                         }
                                     }
                                 ?>
@@ -222,4 +231,37 @@
             }
         })
     }
+
+    var OneDay = Number('{{ $secondsper["day"] }}');
+    var OneHr = Number('{{ $secondsper["hr"] }}');
+    var OneMin = Number('{{ $secondsper["min"] }}');
+
+    setInterval(function(){
+        $(".timedisplay").each(function(){
+            var self = this; //use $( self )
+            var Seconds = Number($( self).attr("seconds"))+1;
+            $( self ).attr("seconds", Seconds);
+
+            if (Seconds < 60) {
+                $( self ).attr("color", 'GREEN');
+            } else if (Seconds < 300) {
+                $( self ).attr("color", 'ORANGE');
+            } else {
+                $( self ).attr("color", 'RED');
+            }
+
+            var Days = Math.floor(Seconds / OneDay);
+            Seconds = Seconds % OneDay;
+            var Hours = Math.floor(Seconds / OneHr);
+            Seconds = Seconds % OneHr;
+            var Minutes = Math.floor(Seconds / OneMin);
+            Seconds = Seconds % OneMin;
+
+            var text = Minutes + " min " + Seconds + " sec";
+            if(Hours > 0){text = Hours + " hr " + text;}
+            if(Days > 0){text = Days + " days " + text;}
+
+            $( self ).text(text);
+        });
+    }, 1000);
 </SCRIPT>

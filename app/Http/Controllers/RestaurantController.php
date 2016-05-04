@@ -307,13 +307,9 @@ class RestaurantController extends Controller {
         if($ReturnData){$this->statusmode=true;}
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if(!isset($post['id'])){$post['id']=$id;}
-
-
             try {
                 $update=$post;
                 $addlogo='';
-
-
 
                 //copy fields from post to array being sent to the database
                 $Fields = array("email", "apartment", "city", "country", "postal_code", "province", "address" => "formatted_address", "formatted_address" => "formatted_addressForDB");
@@ -324,12 +320,9 @@ class RestaurantController extends Controller {
                     if(isset($post[$value])) {$update[$key] = $post[$value];}
                 }
 
-
                 if(isset($update["claim"]) && $update["claim"]){
                     $update = array_filter($update);//remove empties
                 }
-
-
 
 
                 if($DoProfile){//check for missing data
@@ -339,6 +332,7 @@ class RestaurantController extends Controller {
                         }
                     }
                 }
+
                 if($DoProfile){
                     $update=$post;
                     $update['vehicle_type'] = $post['vehicle_type'];
@@ -356,7 +350,7 @@ class RestaurantController extends Controller {
             }
 
         } else {
-// not from submit, so load data
+            // not from submit, so load data
             $data['title'] = "Resturant Manage";
             $data['cuisine_list'] = cuisinelist();
             $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurant_id'));

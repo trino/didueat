@@ -377,7 +377,7 @@ class HomeController extends Controller {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
             }*/
 
-            return app('App\Http\Controllers\RestaurantController')->driverInfo(0,true); // add new restaurant to db and loads restaurant admin pg
+            return app('App\Http\Controllers\RestaurantController')->driverInfo(0,true); // add new driver to db and loads restaurant admin pg
         }else{
         $data['cuisine_list'] = cuisinelist();
         return view('driver-signup', $data);   
