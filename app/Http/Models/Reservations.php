@@ -55,6 +55,9 @@ class Reservations extends BaseModel {
                     if($query_type == 'restaurant'){
                         $query->where('restaurant_id', $restaurantid);
                     }
+                    if($query_type == 'driver'){
+                        $query->where('driver_id', $userid);
+                    }
                 })
                 ->Where(function($query) use ($searchResults) {
                     if($searchResults != ""){

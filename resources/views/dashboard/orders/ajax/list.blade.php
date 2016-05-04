@@ -100,23 +100,23 @@
 
                             <td>
                                 <?php
-                                $dateformat = get_date_format();//D M d, g:j A
-                                $date = strtotime($value->order_time);
-                                if (date("dmY", $date) == date("dmY")) {
-                                    echo '<FONT COLOR="">Today, </FONT>';
-                                    $dateformat = str_replace("D M d,", "", $dateformat);
-                                }
-                                echo date($dateformat, $date);
-                                echo '</TD><TD><span class="m-a-0 text-muted no_text_break"> For ' . iif($value->order_type, "Delivery", "Pickup") . iif($value->order_till, ' later') . '</span>';
-                                echo '</td>';
+                                    $dateformat = get_date_format();//D M d, g:j A
+                                    $date = strtotime($value->order_time);
+                                    if (date("dmY", $date) == date("dmY")) {
+                                        echo '<FONT COLOR="">Today, </FONT>';
+                                        $dateformat = str_replace("D M d,", "", $dateformat);
+                                    }
+                                    echo date($dateformat, $date);
+                                    echo '</TD><TD><span class="m-a-0 text-muted no_text_break"> For ' . iif($value->order_type, "Delivery", "Pickup") . iif($value->order_till, ' later') . '</span>';
+                                    echo '</td>';
 
-                                if($value->status == "pending" && $value->driver_id){
-                                    $value->status = "Waiting for driver to accept";
-                                    $waiting=true;
-                                }
-                                echo '<TD><FONT COLOR="' . statuscolor($value->status, true) . '">' . ucfirst($value->status) . '</FONT></td>';
+                                    if($value->status == "pending" && $value->driver_id){
+                                        $value->status = "Waiting for driver to accept";
+                                        $waiting=true;
+                                    }
+                                    echo '<TD><FONT COLOR="' . statuscolor($value->status, true) . '">' . ucfirst($value->status) . '</FONT></td>';
 
-                                echo '<TD>';
+                                    echo '<TD>';
                                     if (Session::get('session_type_user') == "super" || $type=='restaurant'){
                                         if ($value->time) {
                                             $class = ' CLASS="timedisplay"';
@@ -168,8 +168,7 @@
                                        onclick="deleteorder({{ $value->id }});">
                                         <i ID="fa{{ $value->id }}" class="fa fa-times"></i>
                                     </a>
-                                @endif
-                                @if($type == "admin" )
+
                                     <!--a class="btn btn-secondary-outline btn-sm pull-right" title="{{ $alts["notifyone"] }}"
                                        ONCLICK="notifystore(event, {{ $value->id}});">Notify</a-->
                                 @endif

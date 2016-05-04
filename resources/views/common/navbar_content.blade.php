@@ -74,6 +74,10 @@
 
             $profiletype = Session::get('session_profiletype');
             $data = array();
+            if($profiletype==5){
+                $data["orders/list/user"] = "My Deliveries";
+            }
+
             if (!\Session::get('session_restaurant_id') || $profiletype == 1) {
                 $data["orders/list/user"] = "Orders";
                 $data["user/addresses"] = "Address";

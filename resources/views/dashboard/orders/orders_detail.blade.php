@@ -133,7 +133,8 @@
                                             } else {
                                                 echo '<a href="' . url('orders/order_assign/' . $order->id . '/' . $type . '/' . $driver->id) . '" class="btn btn-primary btn-sm" title="' . $alts["assign"] . '">Assign</a>';
                                             }
-                                            echo '</TR>';
+
+                                            echo ' <A HREF="' . url('users/action/user_possess/' . $driver->id ) . '" class="btn btn-primary btn-sm">Possess</A></TR>';
                                         }
                                     ?>
                                 </tbody>

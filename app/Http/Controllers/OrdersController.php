@@ -67,6 +67,11 @@
 
         public function order_assign($ID, $type, $Driver_ID){
             update_database("reservations", "id", $ID, array( "driver_id" => $Driver_ID, "assigned_at" => now() ));
+            $driver = select_field("profiles", "id", $Driver_ID);
+            $driver->mail_subject = 'You have an order pending';
+            $driver->message = '<A HREF="' . url('orders/list/driver') . '">' . $driver->mail_subject . '. Click here to view it</A>';
+            $this->sendSMS($driver->phone, $driver->message);
+            $this->sendEMail("emails.newsletter", object_to_array($driver));
             return $this->success("Order " . $ID . " assigned to driver " . $Driver_ID, "orders/order_detail/" . $ID . '/' . $type);
         }
 
