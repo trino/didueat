@@ -160,6 +160,13 @@
                         <DIV CLASS="clearfix"></DIV>
                     @endif
 
+                    @if(read("profiletype") == 1)
+                        <DIV CLASS="col-md-12">
+                            Events:
+                            <PRE><?= file_get_contents(public_path('assets/logs/' . $ID . '.txt')); ?></PRE>
+                        </div>
+                    @endif
+
                     <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
                     @if($CanApprove || $type == "driver")
                         <div class="card-footer text-xs-right">
