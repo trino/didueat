@@ -91,12 +91,18 @@
                 <div class="clearfix"></div>
 
                 <div class="col-md-offset-2 text-xs-center col-md-8" style="">
-                    <h4 class="banner-text-shadow  m-t-1"><span style="">$5 Delivery. No Minimum Order.</span></h4>
+
+                    <!--a class="btn btn-lg btn-link btn-responsive "
+                       href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}" style="color: white;"><h5 class="banner-text-shadow">Restaurant Sign Up</h5></a-->
+                    <h4 class="m-t-1 display-5 banner-text-shadow">
+                        or show me <a style="cursor:pointer;text-decoration: underline; color:white"
+                                      class="search-city" onclick="submitform(event, 0);return false;"
+                                      city="{{ $City }}" province="{{ $Province }}" title="{{ $alts["city"] }}"
+                                      country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
+                    </h4>
                     <div class="clearfix"></div>
 
-                    <a class="btn btn-lg btn-link btn-responsive "
-                       href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}" style="color: white;"><h5 class="banner-text-shadow">Restaurant Sign Up</h5></a>
-
+                    <h5 class="banner-text-shadow  m-t-1"><span style="">$5 Delivery. No Minimum Order.</span></h5>
 
                 </div>
 

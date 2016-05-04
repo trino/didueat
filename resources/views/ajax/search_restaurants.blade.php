@@ -114,7 +114,7 @@
   line-height:120px; /* adjust line height to align vertically*/
   padding:0;
   border-radius: 50%;" id="loadingbutton" data-id="{{ $start }}" align="center"
-                        class="loadMoreRestaurants btn btn-secondary btn-lg m-b-1"
+                        class="loadMoreRestaurants btn btn-success btn-lg m-b-1"
                         title="{{ $alts["loadmore"] }}">Load More
                 </button>
                 <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" alt="{{ $alts["loading"] }}"/>
