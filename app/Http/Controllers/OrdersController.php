@@ -68,13 +68,13 @@
         public function order_pass($ID){
             update_database("reservations", "id", $ID, array( "driver_id" => 0));
             $this->sendSMS("van", "The driver declined order " . $ID);
-            debugprint("Driver: " . read("id") . " passed on the order", $ID);
+            debugprint("Passed on the order", $ID);
             return $this->success("You passed on order " . $ID, "orders/list/driver");
         }
 
         public function order_assign($ID, $type, $Driver_ID){
             update_database("reservations", "id", $ID, array( "driver_id" => $Driver_ID, "assigned_at" => now() ));
-            debugprint("User: " . read("id") . " assigned driver: " . $Driver_ID . " to the order", $ID);
+            debugprint("Assigned driver: " . $Driver_ID . " to the order", $ID);
             $driver = select_field("profiles", "id", $Driver_ID);
             $driver->mail_subject = 'You have an order pending';
             $driver->message = '<A HREF="' . url('orders/list/driver') . '">' . $driver->mail_subject . '. Click here to view it</A>';
@@ -184,7 +184,7 @@
 
                     $ob->populate(array('status' => $status, 'note' => $post['note'], 'time' => now()));
                     $ob->save();
-                    debugprint("User: " . read("id") . " set order status to " . $status, $OrderID);
+                    debugprint("Set order status to " . $status, $OrderID);
 
                     if ($ob->user_id && $subject && $email) {
                         $userArray = \App\Http\Models\Profiles::find($ob->user_id)->toArray();

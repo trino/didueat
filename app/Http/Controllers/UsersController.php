@@ -379,6 +379,8 @@ class UsersController extends Controller
                 $ob2->populate($res, "guid");
                 $ob2->save();
                 $oid = $ob2->id;
+
+                debugprint("Order placed", $oid);
                 //$Stage = 6;
 
                 /*

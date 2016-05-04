@@ -673,7 +673,7 @@ function debugprint($text, $path = "royslog.txt") {
     if(is_numeric($path)){$path = public_path('assets/logs/' . $path . '.txt');}
     $dir = getdirectory($path);
     if (!is_dir($dir )){mkdir($dir, 0777, true);}
-    file_put_contents($path, $dashes . $todaytime . "  --  " . str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n", $text)) . "\r\n", FILE_APPEND);
+    file_put_contents($path, $dashes . $todaytime . ' (USER: ' . read("id") . ": " . read("name") .  ")  --  " . str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n", $text)) . "\r\n", FILE_APPEND);
 }
 
 //implodes uusing both the key and value
