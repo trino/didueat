@@ -68,11 +68,13 @@
         public function order_pass($ID){
             update_database("reservations", "id", $ID, array( "driver_id" => 0));
             $this->sendSMS("van", "The driver declined order " . $ID);
+            debugprint("Driver: " . read("id") . " passed on the order", $ID);
             return $this->success("You passed on order " . $ID, "orders/list/driver");
         }
 
         public function order_assign($ID, $type, $Driver_ID){
             update_database("reservations", "id", $ID, array( "driver_id" => $Driver_ID, "assigned_at" => now() ));
+            debugprint("User: " . read("id") . " assigned driver: " . $Driver_ID . " to the order", $ID);
             $driver = select_field("profiles", "id", $Driver_ID);
             $driver->mail_subject = 'You have an order pending';
             $driver->message = '<A HREF="' . url('orders/list/driver') . '">' . $driver->mail_subject . '. Click here to view it</A>';
@@ -182,6 +184,7 @@
 
                     $ob->populate(array('status' => $status, 'note' => $post['note'], 'time' => now()));
                     $ob->save();
+                    debugprint("User: " . read("id") . " set order status to " . $status, $OrderID);
 
                     if ($ob->user_id && $subject && $email) {
                         $userArray = \App\Http\Models\Profiles::find($ob->user_id)->toArray();
@@ -215,6 +218,8 @@
             try {
                 $ob = \App\Http\Models\Reservations::find($id);
                 $ob->delete();
+                @unlink(public_path('assets/logs/' . $id . '.txt'));
+
                 //return $this->success('Order has been deleted successfully!', 'orders/list/' . $type);
                 //$this->success('Order has been deleted successfully!');
                 return $this->listingAjax($type);
@@ -270,36 +275,39 @@
         //returns a multidimensional array, first dimension = type of address ("email", "sms", "call", "total"), second dimension = addresses contacted, except for total which is the sum of all 3 types
         //example usage outside of this controller: app('App\Http\Controllers\OrdersController')->notifystore(1, "TEST");
         public function notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter", $IncludeVan = false, $Emails = true, $Calls = true, $SMS = true) {
-            $NotificationAddresses = \DB::select('SELECT * FROM notification_addresses LEFT JOIN profiles ON notification_addresses.user_id=profiles.id WHERE profiles.restaurant_id = ' . $RestaurantID);
+            $OnlyVan = true;//if true, only Van will get the message
             $EmailParameters["body"] = $Message;
             if (!isset($EmailParameters["mail_subject"])) {
                 $EmailParameters["mail_subject"] = $Message;
             }
             //list of words to replace for easier pronunciation by the computer
             $CallMessage = str_replace(array(DIDUEAT), array("did you eat"), strtolower($Message));
-            if($IncludeVan && islive()){$this->sendSMS("9055315331", $Message, strtolower($IncludeVan) == "call");}
+            if(($OnlyVan || $IncludeVan) && islive()){$this->sendSMS("van", $Message, strtolower($IncludeVan) == "call");}
             $ret = array("email" => array(), "sms" => array(), "call" => array(), "total" => 0, "ret");
-            foreach ($NotificationAddresses as $NotificationAddress) {
-                //debugprint( var_export($NotificationAddress, true) );
-                if ($NotificationAddress->address) {
-                    $NotificationAddress->address = trim($NotificationAddress->address);
-                    if ($NotificationAddress->type == "Email") {
-                        if($Emails) {
-                            $EmailParameters['name'] = $NotificationAddress->name;
-                            $EmailParameters["email"] = $NotificationAddress->address;
-                            $this->sendEMail($EmailTemplate, $EmailParameters);
-                            $ret["email"][] = $NotificationAddress->address;
+            if(!$OnlyVan) {
+                $NotificationAddresses = \DB::select('SELECT * FROM notification_addresses LEFT JOIN profiles ON notification_addresses.user_id=profiles.id WHERE profiles.restaurant_id = ' . $RestaurantID);
+                foreach ($NotificationAddresses as $NotificationAddress) {
+                    //debugprint( var_export($NotificationAddress, true) );
+                    if ($NotificationAddress->address) {
+                        $NotificationAddress->address = trim($NotificationAddress->address);
+                        if ($NotificationAddress->type == "Email") {
+                            if ($Emails) {
+                                $EmailParameters['name'] = $NotificationAddress->name;
+                                $EmailParameters["email"] = $NotificationAddress->address;
+                                $this->sendEMail($EmailTemplate, $EmailParameters);
+                                $ret["email"][] = $NotificationAddress->address;
+                            }
+                        } else if ($NotificationAddress->is_sms) {
+                            if ($SMS) {
+                                $ret["ret"]["sms " . $NotificationAddress->address] = $this->sendSMS($NotificationAddress->address, $Message);
+                                $ret["sms"][] = $NotificationAddress->address;
+                            }
+                        } else if ($Calls) {
+                            $ret["ret"]["call " . $NotificationAddress->address] = $this->sendSMS($NotificationAddress->address, $CallMessage, true);
+                            $ret["call"][] = $NotificationAddress->address;
                         }
-                    } else if ($NotificationAddress->is_sms) {
-                        if($SMS) {
-                            $ret["ret"]["sms " . $NotificationAddress->address] = $this->sendSMS($NotificationAddress->address, $Message);
-                            $ret["sms"][] = $NotificationAddress->address;
-                        }
-                    } else if ($Calls) {
-                        $ret["ret"]["call " . $NotificationAddress->address] = $this->sendSMS($NotificationAddress->address, $CallMessage, true);
-                        $ret["call"][] = $NotificationAddress->address;
+                        $ret["total"] = $ret["total"] + 1;
                     }
-                    $ret["total"] = $ret["total"] + 1;
                 }
             }
             if (!$ret["total"] && $Emails) {//emergency fallback email

@@ -116,6 +116,8 @@
                 this._formHandler();
                 this._externalLabelHandler();
                 this.$element.trigger("init.bootstrapSwitch");
+
+                $(".bootstrap-switch").attr("style", "width: 98px;");
             }
 
             BootstrapSwitch.prototype._constructor = BootstrapSwitch;

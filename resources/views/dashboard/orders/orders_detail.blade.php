@@ -23,7 +23,8 @@
                     "decline" => "Decline this order",
                     "cantdecline" => "Unable to decline this order",
                     "assign" => "Assign this order to this driver",
-                    "pass" => "Decline delivering this order"
+                    "pass" => "Decline delivering this order",
+                    "submit" => "Save your note"
             );
             $showCSR = true;
 
@@ -146,6 +147,19 @@
                             </table>
                         </div>
                     @endif
+
+                    @if($type == "driver")
+                        <DIV CLASS="driver">
+                            <DIV CLASS="col-md-9">
+                                <TEXTAREA PLACEHOLDER="Add a note" ID="driver_note" STYLE="width:100%">{{ $order->driver_note }}</TEXTAREA>
+                            </DIV>
+                            <DIV CLASS="col-md-3">
+                                <a class="btn btn-warning" title="{{ $alts["submit"] }}" onclick="savenote();">Save</a>
+                            </div>
+                        </div>
+                        <DIV CLASS="clearfix"></DIV>
+                    @endif
+
                     <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
                     @if($CanApprove || $type == "driver")
                         <div class="card-footer text-xs-right">
@@ -212,6 +226,13 @@
             document.body.innerHTML = printContents;
             window.print();
             document.body.innerHTML = originalContents;
+        }
+
+        function savenote(){
+            var note = encodeURIComponent( $("#driver_note").val() );
+            $.post("{{ url('ajax') }}", {_token: token, type: "savenote", orderid: "{{$ID}}", note: note}, function (result) {
+                $(".driver").html(result);
+            });
         }
     </script>
 @stop

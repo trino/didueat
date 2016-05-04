@@ -653,6 +653,12 @@ class HomeController extends Controller {
                     $this->editcategory();
                     break;
 
+                case "savenote":
+                    update_database("reservations", "id", $_POST["orderid"], array("driver_note" => $_POST["note"]));
+                    debugprint("Driver " . read("id") . " set the note to: " . $_POST["note"], $_POST["orderid"]);
+                    echo "Note saved";
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
                     if(debugmode()){ echo "\r\n" . var_export($_POST, true);}
