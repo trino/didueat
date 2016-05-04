@@ -21,8 +21,15 @@
             "notifyone" => "Notify the store for this order",
             "order_detail" => "View the order",
             "restaurants/menu" => "View the restaurant",
-            "deleteorder" => "Delete this order"
+            "deleteorder" => "Delete this order",
+            "available" => "Mark yourself as available for the next 8 hours",
+            "unavailable" => "Mark yourself as unavailable"
     );
+
+    if($type == "driver"){
+        $eighthoursago = now(false, strtotime("-8 hour") );
+        $driver = select_field("profiles", "id", read("id"));
+    }
 ?>
 
 @if(\Session::has('message'))
@@ -36,17 +43,27 @@
                 <h4 class="card-title">
                     @if($type=='user')
                         My
+                    @elseif($type=='driver')
+                        Delivery
                     @else
                         Restaurant
                     @endif
                     Orders
 
                     @if (Session::get('session_type_user') == "super" || $type=='restaurant')
-                        <a class="btn btn-secondary btn-sm" title="{{ $alts["print"] }}" href="{{ url('orders/report') }}">Print Report</a>
+                        <a class="btn btn-secondary btn-sm pull-right" title="{{ $alts["print"] }}" href="{{ url('orders/report') }}">Print Report</a>
                     @endif
 
                     @if($type == "admin" && false)
-                        <a class="btn btn-primary btn-sm" title="{{ $alts["notifyall"] }}" ONCLICK="notifystore(event, 0);">Notify All</a>
+                        <a class="btn btn-primary btn-sm pull-right" title="{{ $alts["notifyall"] }}" ONCLICK="notifystore(event, 0);">Notify All</a>
+                    @endif
+
+                    @if($type == "driver")
+                        @if($driver->available_at <= $eighthoursago)
+                            <a href="{{ url("user/driverstatus/1") }}" class="btn btn-primary btn-sm pull-right" title="{{ $alts["available"] }}">Available</a>
+                        @else
+                            <a href="{{ url("user/driverstatus/0") }}" class="btn btn-danger btn-sm pull-right" title="{{ $alts["unavailable"] }}">Unavailable</a>
+                        @endif
                     @endif
                 </h4>
 
@@ -168,7 +185,8 @@
                                        onclick="deleteorder({{ $value->id }});">
                                         <i ID="fa{{ $value->id }}" class="fa fa-times"></i>
                                     </a>
-
+                                @endif
+                                @if($type == "admin" )
                                     <!--a class="btn btn-secondary-outline btn-sm pull-right" title="{{ $alts["notifyone"] }}"
                                        ONCLICK="notifystore(event, {{ $value->id}});">Notify</a-->
                                 @endif

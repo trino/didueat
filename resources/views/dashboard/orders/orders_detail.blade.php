@@ -116,25 +116,29 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        $drivers = enum_all("profiles", array("profile_type" => 5));
-                                        foreach($drivers as $driver){
-                                            echo '<TR><TD>' . $driver->id . '</TD><TD>' . $driver->name . '</TD><TD>';
+                                        $drivers = enum_all("profiles", array("profile_type" => 5, "available_at > '" . now(false, strtotime("-8 hour") ) . "'" ));
+                                        if($drivers){
+                                            foreach($drivers as $driver){
+                                                echo '<TR><TD>' . $driver->id . '</TD><TD>' . $driver->name . '</TD><TD>';
 
-                                            $address = select_field("profiles_addresses", "user_id", $driver->id);
-                                            if($address){
-                                                echo distance($address->latitude, $address->longitude,  $order->latitude,$order->longitude) . ' km';
-                                            } else {
-                                                echo 'Unknown';
+                                                $address = select_field("profiles_addresses", "user_id", $driver->id);
+                                                if($address){
+                                                    echo distance($address->latitude, $address->longitude,  $order->latitude,$order->longitude) . ' km';
+                                                } else {
+                                                    echo 'Unknown';
+                                                }
+
+                                                echo '</TD><TD>';
+                                                if($order->driver_id == $driver->id){
+                                                    echo 'Assigned';
+                                                } else {
+                                                    echo '<a href="' . url('orders/order_assign/' . $order->id . '/' . $type . '/' . $driver->id) . '" class="btn btn-primary btn-sm" title="' . $alts["assign"] . '">Assign</a>';
+                                                }
+
+                                                echo ' <A HREF="' . url('users/action/user_possess/' . $driver->id ) . '" class="btn btn-primary btn-sm">Possess</A></TR>';
                                             }
-
-                                            echo '</TD><TD>';
-                                            if($order->driver_id == $driver->id){
-                                                echo 'Assigned';
-                                            } else {
-                                                echo '<a href="' . url('orders/order_assign/' . $order->id . '/' . $type . '/' . $driver->id) . '" class="btn btn-primary btn-sm" title="' . $alts["assign"] . '">Assign</a>';
-                                            }
-
-                                            echo ' <A HREF="' . url('users/action/user_possess/' . $driver->id ) . '" class="btn btn-primary btn-sm">Possess</A></TR>';
+                                        } else {
+                                            echo '<TR><TD COLSPAN="4">No drivers are available</TD></TR>';
                                         }
                                     ?>
                                 </tbody>

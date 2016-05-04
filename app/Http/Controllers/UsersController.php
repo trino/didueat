@@ -227,6 +227,18 @@ class UsersController extends Controller
         }
     }
 
+    public function driverstatus($status){
+        if($status){
+            $status = now();
+            $message = "available";
+        } else {
+            $status = "0000-00-00 00:00:00";
+            $message = "unavailable";
+        }
+        update_database("profiles", "id", read("id"), array("available_at" => $status));
+        return $this->success("You have been set to " . $message, "orders/list/driver");
+    }
+
     //handle updating a profile image
     public function save_profile_image($Keyname = "image", $UserID = false) {
         if (!$UserID) {
@@ -311,10 +323,10 @@ class UsersController extends Controller
                 $res['order_till'] = $post['order_till'];
                 $res["remarks"] = $post["remarks"];
 
-                /*
-                $res["status"] = "approved";
-                $res["time"] = $res['order_time'];
-                */
+                if($res['order_type'] == 0) {
+                    $res["status"] = "approved";
+                    $res["time"] = $res['order_time'];
+                }
 
                 if (isset($post['contact'])) {
                     $res['contact'] = $post['contact'];

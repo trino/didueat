@@ -156,6 +156,8 @@ Route::get('user/reviews/edit/{id}',                                'UserReviews
 Route::get('restaurant/list',                                       'RestaurantController@index');
 Route::post('restaurant/list/ajax',                                 'RestaurantController@listingAjax');
 
+Route::get('user/driverstatus/{status}',                            'UsersController@driverstatus');
+
 Route::get('user/uploads',                                          'UsersController@uploads');
 Route::get('user/uploads/{UserID}',                                 'UsersController@uploads');
 Route::post('user/uploads/ajax/{UserID}',                           'UsersController@uploadsajax');
