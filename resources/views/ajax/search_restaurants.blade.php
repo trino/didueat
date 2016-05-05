@@ -51,12 +51,12 @@
             if(!isset($restaurants[$value["id"]])){
                 $restaurants[$value["id"]] = true;
                 $is_open = \App\Http\Models\Restaurants::getbusinessday($value);
-                $thisrestaurant = '<div class="list-group">' . view("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "is_menu" => isset($is_menu))) . '</div>';
+                echo '<div class="list-group">' . view("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "is_menu" => isset($is_menu))) . '</div>';
                 if ($is_open) {
-                    $openStr .= $thisrestaurant;
+                    //$openStr .= $thisrestaurant;
                     $openCnt++;
                 } else {
-                    $closedStr .= $thisrestaurant;
+                    //$closedStr .= $thisrestaurant;
                     $closedCnt++;
                 }
                 $totalCnt++;
@@ -64,8 +64,9 @@
         }
     }
 
-    if ($openStr) {echo '<div class="open-stores">' . $openStr . '</div>';}
-    if ($closedStr) {echo '<div class="closed-stores">' . $closedStr . '</div>';}
+    //the SQL should already be sorted, or it'll be out of order when you click "load more"
+    //if ($openStr) {echo '<div class="open-stores">' . $openStr . '</div>';}
+    //if ($closedStr) {echo '<div class="closed-stores">' . $closedStr . '</div>';}
 
     $alts = array(
             "loadmore" => "Load more restaurants",
