@@ -12,6 +12,11 @@
     {!! message_show("Message!", \Session::get('message')) !!}
 @endif
 
+<STYLE>
+    .text-blue{
+        color: blue;
+    }
+</STYLE>
 <div class="card">
 
     <div class="card-header ">
@@ -30,19 +35,19 @@
         <table class="table table-responsive m-b-0 ">
             @if($recCount > 0)
                 <thead>
-                    <tr>  <th></th>
+                    <tr>
                         <th>
                             <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i class="fa fa-caret-down"></i></a>
                             ID
                             <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i class="fa fa-caret-up"></i></a>
                         </th>
-                        <th >
+                        <th>
                             <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
                             Name
                             <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
                         </th>                        <TH>Type</TH>
 
-                        <th >
+                        <th>
                             <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
                             Restaurant
                             <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
@@ -83,26 +88,28 @@
                     ?>
 
                     <tr id="user{{ $value->id }}">
-                        <td>
+                        <td NOWRAP>
                             <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">Edit</a-->
                             @if($value->id != \Session::get('session_id'))
-                             <div class="">
+                                <a href="{{ url('users/action/user_possess/'.$value->id) }}" title="{{ $alts["possess"] }}" class="btn btn-xs btn-secondary-outline text-blue"
+                                   onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');"><i class="fa fa-snapchat-ghost"></i></a>
 
-                                <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="" title="{{ $alts["possess"] }}"
-                                   onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
-
-                                <!--a href="{{ url('users/action/user_fire/'.$value->id) }}" class=""
+                                <!--a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-xs btn-secondary-outline"
                                    onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
 
-                                <a href="{{ url('user/uploads/'.$value->id) }}" class="">Uploads</a>
+                                <a href="{{ url('user/uploads/'.$value->id) }}" class="btn btn-xs btn-secondary-outline text-blue"><i class="fa fa-upload"></i></a>
 
-                                <a class="" id="delete{{$value->id}}" title="{{ $alts["delete"] }}"
-                                   onclick="deleteuser('{{$value->id}}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
-                            </div>
+                                <a id="delete{{$value->id}}" title="{{ $alts["delete"] }}" class="btn btn-xs btn-secondary-outline btn-danger-outline"
+                                   onclick="deleteuser('{{$value->id}}', '{{ addslashes("'" . $value->name . "'") }}');"><i class="fa fa-times"></i></a>
+
+                                <BR>
                             @endif
-                        </td>
 
-                        <td>{{ $value->id }}</TD>                        <td>{{ $value->name }}</td>
+                            <CENTER>{{ $value->id }}</CENTER>
+
+                        </TD>
+
+                        <td>{{ $value->name }}</td>
 
                         <TD nowrap>
                             @if(!$value->restaurant_id && $value->profile_type != 1)
@@ -117,8 +124,8 @@
                         <!--td>{{ $value->email }}</td-->
                         <td><A HREF="{{ url("restaurants/" . $restaurant_slug . "/menu") }}">{{ $restaurant }}</A></td>
                         <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
-                        <td nowrap>{{ phonenumber($value->phone, true) }}</td>
-                        <td>{{ $value->email }}</td>
+                        <td nowrap>{!! '<A HREF="tel:' . $value->phone . '">' . phonenumber($value->phone, true) . '</A>' !!}</td>
+                        <td>{!! str_replace("@", "<BR>@", $value->email) !!}</td>
 
                     </tr>
                 @endforeach
