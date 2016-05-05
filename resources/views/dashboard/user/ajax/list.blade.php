@@ -3,6 +3,7 @@
     $restaurants = enum_all("restaurants");
     $alts = array(
             "possess" => "Log in as this user",
+            "uploads" => "View items uploaded by this user",
             "delete" => "Delete this user",
             "plus" => "If checked, this user can upload menus"
     );
@@ -45,8 +46,8 @@
                             <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
                             Name
                             <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
-                        </th>                        <TH>Type</TH>
-
+                        </th>
+                        <TH>Type</TH>
                         <th>
                             <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
                             Restaurant
@@ -67,7 +68,6 @@
 
 
                 @foreach($Query as $key => $value)
-
                     <?php
                         $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
                         foreach($Addresses as $Address){
@@ -97,7 +97,7 @@
                                 <!--a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-xs btn-secondary-outline"
                                    onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
 
-                                <a href="{{ url('user/uploads/'.$value->id) }}" class="btn btn-xs btn-secondary-outline text-blue"><i class="fa fa-upload"></i></a>
+                                <a href="{{ url('user/uploads/'.$value->id) }}" title="{{ $alts["uploads"] }}" class="btn btn-xs btn-secondary-outline text-blue"><i class="fa fa-upload"></i></a>
 
                                 <a id="delete{{$value->id}}" title="{{ $alts["delete"] }}" class="btn btn-xs btn-secondary-outline btn-danger-outline"
                                    onclick="deleteuser('{{$value->id}}', '{{ addslashes("'" . $value->name . "'") }}');"><i class="fa fa-times"></i></a>

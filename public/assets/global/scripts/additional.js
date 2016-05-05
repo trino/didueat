@@ -8,8 +8,8 @@ function overlay_loader_hide(){
     var text = "Loading took: " + (Date.now() - shownat) + " ms";
     if (debugmode) {
         $("#p-footer").append(text);
+        console.log(text);
     }
-    console.log(text);
 }
 
 //duplicate of check_enabled

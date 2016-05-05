@@ -1,4 +1,6 @@
 <?php
+    printfile("views/common/driver.blade.php");
+
     //restaurant signup page
     if (!isset($restaurant)) {
         $restaurant = "";
@@ -22,9 +24,8 @@
     // means they are logged in and have already registered as a restaurant
     if(Session::get('session_type_user') != "restaurant"){ ?>
         <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
-        <?php printfile("views/common/driver.blade.php"); ?>
 
-        <div class="col-md-8  col-md-offset-2">
+        <div class="col-md-8 col-md-offset-2">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Your Address</h4>
@@ -40,11 +41,11 @@
                     <h4 class="card-title">Your Vehicle</h4>
                 </div>
 
-                <div class="card-block " ID="common_editaddress">
+                <div class="card-block" ID="common_editaddress">
                     <label id="unit/apt_label" class="col-md-3 text-md-right">Vehicle Type</label>
                     <div class="col-md-5">
                         <select class="form-control" name="vehicle_type">
-                            <option value="Car">Car</option>
+                            <option value="Car">Car/Van/Truck</option>
                             <option value="Motorcycle">Motorcycle</option>
                             <option value="Bicycle">Bicycle</option>
                         </select>
@@ -54,13 +55,13 @@
             </div>
 
             <div class="card">
-                <div class="card-header ">
+                <div class="card-header">
                     <h4 class="card-title">Your Profile</h4>
                 </div>
-                <div class="card-block ">
+                <div class="card-block">
                     @include("common.contactinfo", array("new"=>false, "ismobile" => true))
                 </div>
-                <div class="card-block p-t-0 ">
+                <div class="card-block p-t-0">
                     <p class="text-muted  "  align="center" >
                         By signing up, you agree to the <a href="#" title="{{ $alts["terms"] }}" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>.
                     </p>
