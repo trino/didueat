@@ -54,11 +54,11 @@ $('body').on('keyup', '#searchResult', function(e){
 
 function loading_show(){
     //$('#loadPageData #ajaxloader').fadeIn('fast');
-    $('.overlay_loader').show();
+    overlay_loader_show();
 }
 function loading_hide(){
     //$('#loadPageData #ajaxloader').fadeOut('fast');
-    $('.overlay_loader').hide();
+    overlay_loader_hide();
 }
 
 function block_show(){
@@ -76,12 +76,12 @@ function block_show(){
             color: '#fff'
         }
     });*/
-    $('.overlay_loader').show();
+    overlay_loader_show();
 }
 
 function block_hide(){
     //$('#loadPageData #ajaxBlock').unblock();
-    $('.overlay_loader').hide(); 
+    overlay_loader_hide();
 }
 
 function reloadData(page, meta, order, showEntries, searchResults, message){ 

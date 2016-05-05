@@ -62,10 +62,10 @@
                 id = 0;
                 $('#editLabel').text('Add Address');
             }
-            $('.overlay_loader').show();
+            overlay_loader_show();
             $('#editModel #contents').html('');
             $.get("{{ url('users/edit') }}/" + id, {}, function (result) {
-                $('.overlay_loader').hide();
+                overlay_loader_hide();
                 try {
                     if (jQuery.parseJSON(result).type == "error") {
                         var json = jQuery.parseJSON(result);

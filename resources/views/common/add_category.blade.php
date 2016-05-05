@@ -19,10 +19,10 @@
     //adds a new category
     $(function() {
         $('#save_cat').click(function() {
-            $('.overlay_loader').show();
+            overlay_loader_show();
             var cat = $('.cat_title').val();
             if (cat == '') {
-                $('.overlay_loader').hide();
+                overlay_loader_hide();
                 alert2('Please enter category title', "add_category.blade 1");
                 return false;
             } else {
@@ -31,7 +31,7 @@
                     data: 'title=' + cat + "&_token={{ csrf_token() }}&res_id={{ $restaurant->id }}",
                     type: 'post',
                     success: function() {
-                        $('.overlay_loader').hide();
+                        overlay_loader_hide();
                         alert2('Category added successfully', "add_category.blade 2");
                         $('.cat_title').val('');
                     }

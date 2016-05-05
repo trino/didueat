@@ -1,3 +1,17 @@
+function overlay_loader_show(){
+    shownat = Date.now();
+    $('.overlay_loader').show();
+}
+
+function overlay_loader_hide(){
+    $('.overlay_loader').hide();
+    var text = "Loading took: " + (Date.now() - shownat) + " ms";
+    if (debugmode) {
+        $("#p-footer").append(text);
+    }
+    console.log(text);
+}
+
 //duplicate of check_enabled
 $('.is_active').live('change',function(){
     var stat = 0;
@@ -36,7 +50,7 @@ function check_enabled(id,cat_id,stat,$thi,base_url) {
                 if(res=='0') {
                     alert2('You can enable up to 25 items only.', "check enabled in additional.js");
                     $thi.prop('checked', false);
-                    $('.overlay_loader').hide();
+                    overlay_loader_hide();
                 }
             },
             async: false
@@ -290,7 +304,7 @@ for(var i=0;i<catObj.length;i++){
 }
 
 }
-    $('.overlay_loader').show();
+    overlay_loader_show();
     var id = $(this).attr('id').replace('save', '');
     $_parent = $(this).closest('.modal-content').find('.newmenu');
     var subber_html = '';
@@ -305,7 +319,7 @@ for(var i=0;i<catObj.length;i++){
                 $rad.find('.itemno').attr('style','border:1px solid red');
                 alert2('Please select number of selection', "additional.js 306");
                 scrollto($rad.find('.itemno'));
-                $('.overlay_loader').hide();
+                overlay_loader_hide();
                 $rad.find('.itemno').focus();
                 mul = 1;
             }
@@ -349,14 +363,14 @@ for(var i=0;i<catObj.length;i++){
     
     if(stop_item){//This is to check if Addon name is blank
         alert2('Addon name cannot be blank', "additional.js 351");
-        $('.overlay_loader').hide();
+        overlay_loader_hide();
         scrollto(stop_item);
         return false;
     }
     
     if(stop_id){// If addon is added but inserted nothing is sub addon
         alert2('One or more of your options are empty', "additional.js 357");
-        $('.overlay_loader').hide();
+        overlay_loader_hide();
         scrollto(stop_id);
         return false;
     }
@@ -369,7 +383,7 @@ for(var i=0;i<catObj.length;i++){
         $_parent.find('.cat_id').attr('style', 'border:1px solid red;');
         $_parent.find('.cat_name').attr('style', 'border:1px solid red;');
         $_parent.find('.cat_id').focus();
-        $('.overlay_loader').hide();
+        overlay_loader_hide();
         return false;
     }
     var highestCatOrder = $_parent.find('#highestCatOrder').val();
@@ -380,7 +394,7 @@ for(var i=0;i<catObj.length;i++){
         scrollto($_parent.find('.newtitle'));
         $_parent.find('.newtitle').focus();
         $_parent.find('.newtitle').attr('style', 'border:1px solid red;');
-        $('.overlay_loader').hide();
+        overlay_loader_hide();
         return false;
     }
 
@@ -391,7 +405,7 @@ for(var i=0;i<catObj.length;i++){
             scrollto($_parent.find('.newprice'));
             $_parent.find('.newprice').focus();
             $_parent.find('.newprice').attr('style', 'border:1px solid red;');
-            $('.overlay_loader').hide();
+            overlay_loader_hide();
             return false;
         }
     }
@@ -416,7 +430,7 @@ for(var i=0;i<catObj.length;i++){
         scrollto($_parent.find('.disc_per'));
         $_parent.find('.disc_per').focus();
         $_parent.find('.disc_per').attr('style', 'border:1px solid red;');
-        $('.overlay_loader').hide();
+        overlay_loader_hide();
         return false;
     } else {
         if(!$_parent.find('.allow_dis').is(':checked')) {
@@ -454,7 +468,7 @@ for(var i=0;i<catObj.length;i++){
     });
 
     if (checkprc) {
-        $('.overlay_loader').hide();
+        overlay_loader_hide();
         return false;
     }
 

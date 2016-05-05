@@ -154,6 +154,8 @@
             }
             base_url = base_url + 'didueat.ca/';
         }
+
+        var shownat = Date.now();
     </SCRIPT>
 
 
@@ -197,10 +199,8 @@
 
 
 <script>
-
-
     $(window).load(function () {
-        $('.overlay_loader').hide();
+        overlay_loader_hide();
     });
 
     (function (i, s, o, g, r, a, m) {

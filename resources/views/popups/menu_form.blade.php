@@ -149,10 +149,10 @@
 <script>
     $(function () {
         $('#save_cat').live('click', function () {
-            $('.overlay_loader').show();
+            overlay_loader_show();
             var cat = $('.cat_title').val();
             if (cat == '') {
-                $('.overlay_loader').hide();
+                overlay_loader_hide();
                 alert2('Please enter category title', "save_cat");
                 return false;
             } else {
@@ -161,7 +161,7 @@
                     data: 'title=' + cat + "&_token={{ csrf_token() }}&res_id={{ (isset($restaurant->id))? $restaurant->id : $res_id }}",
                     type: 'post',
                     success: function (res) {
-                        $('.overlay_loader').hide();
+                        overlay_loader_hide();
                         alert2('Category added successfully', "save_cat");
                         $('.cat_id').append('<option value="' + res + '" selected="selected">' + cat + '</option>');
                         $('.cat_title').val('');

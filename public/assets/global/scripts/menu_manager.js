@@ -27,11 +27,11 @@ $('.additem').live('click', function () {
         var res_id = $("#res_id").val();
     }
     if (id == 0) {
-        $('.overlay_loader').show();
+        overlay_loader_show();
     }
 
     $('#menumanager2').load(base_url + 'restaurant/menu_form/' + id + '/' + res_id, function () {
-        $('.overlay_loader').hide();
+        overlay_loader_hide();
         ajaxuploadbtn('newbrowse' + id + '_1');
        
         $.ajax({

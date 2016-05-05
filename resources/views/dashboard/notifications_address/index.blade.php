@@ -144,10 +144,10 @@
             $('#editLabel').text('Add Address');
         }
         toast("");
-        $('.overlay_loader').show();
+        overlay_loader_show();
         $('#editModel #contents').html('');
         $.get("{{ url('notification/addresses/edit') }}/" + id, {}, function (result) {
-            $('.overlay_loader').hide();
+            overlay_loader_hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
                 var json = jQuery.parseJSON(result);

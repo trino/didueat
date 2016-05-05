@@ -110,7 +110,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
             </div>
 
             <div class="col-lg-12 " style="font-size: 90%;">
-                <p>
+                <p ID="p-footer">
                     Designed and built with all the <i class="fa fa-heart" style="color:#d9534f!important"></i> in
                     the world by
                     <a href="http://trinoweb.com/" target="_blank" title="{{ $alts["trinoweb"] }}">
@@ -325,10 +325,10 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
             var token = $("#forgot-pass-form input[name=_token]").val();
             var email = $("#forgot-pass-form input[name=email]").val();
             $("#forgot-pass-form #lostPWregButton").hide();
-            $('.overlay_loader').show();
+            overlay_loader_show();
             $.post("{{ url('auth/forgot-password/ajax') }}", {_token: token, email: email}, function (result) {
                 $("#forgot-pass-form #lostPWregButton").show();
-                $('.overlay_loader').hide();
+                overlay_loader_hide();
 
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
@@ -355,7 +355,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
             var reserv = $(this).attr('data-route');
             var token = $('#login-ajax-form input[name=_token]').val();
             $('#invalid').hide();
-            $('.overlay_loader').show();
+            overlay_loader_show();
             $.ajax({
                 //data retrieved from userscontroller@json_data
                 url: "{{ url('auth/login/ajax') }}",
@@ -364,7 +364,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                 success: function (msg) {
 
                     if (isNaN(Number(msg))) {
-                        $('.overlay_loader').hide();
+                        overlay_loader_hide();
                         if (checkUrl(msg)) {
                             window.location = msg;
                         } else {
@@ -380,7 +380,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                             data: "id=" + msg + '&_token={{csrf_token()}}',
                             dataType: "json",
                             success: function (arr) {
-                                $('.overlay_loader').hide();
+                                overlay_loader_hide();
                                 reserv = "{{ Route::getCurrentRoute()->getActionName() }}";
                                 var directtorest = arr.restaurant_id && reserv != 'App\Http\Controllers\HomeController@menusRestaurants';
                                 if (debugmode && directtorest) {
@@ -447,7 +447,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                     }
                 },
                 failure: function (msg) {
-                    $('.overlay_loader').hide();
+                    overlay_loader_hide();
                     $('#invalid').text("ERROR: " + msg);
                     $('#invalid').fadeIn(1000);
                 }
@@ -481,7 +481,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
             }
 
             $("#register-form #actionBtn").hide();
-            $('.overlay_loader').show();
+            overlay_loader_show();
             $.post("{{ url('auth/register/ajax') }}", {
                 _token: token,
                 <?php
@@ -492,7 +492,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                 subscribed: subscribed
             }, function (result) {
                 $("#register-form #actionBtn").show();
-                $('.overlay_loader').hide();
+                overlay_loader_hide();
 
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
@@ -532,7 +532,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
 
         //handles the "Load more" button on the restaurant search page, and should really be moved to where it's actually used
         $('.loadmore').click(function () {
-            $('.overlay_loader').show();
+            overlay_loader_show();
             ur = $('.next a').attr('href');
             if (ur != '') {
                 url1 = ur.replace('/?', '?');
@@ -542,7 +542,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                         if (html) {
                             $('.nxtpage').remove();
                             $("#postswrapper").append(html);
-                            $('.overlay_loader').hide();
+                            overlay_loader_hide();
                         } else {
                             $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
                         }

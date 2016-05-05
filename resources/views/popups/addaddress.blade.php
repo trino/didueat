@@ -46,10 +46,10 @@
             $('#editLabel').text('Add/Edit Address');
         }
         oldID=id;
-        $('.overlay_loader').show();
+        overlay_loader_show();
         $('#editModel #contents').html('');
         $.get("{{ url('user/addresses/edit') }}/" + id+route, {}, function (result) {
-           $('.overlay_loader').hide();
+           overlay_loader_hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
                     var json = jQuery.parseJSON(result);

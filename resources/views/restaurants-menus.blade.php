@@ -256,7 +256,7 @@
                 // Show the errors on the form
                 $form.find('.payment-errors').text(response.error.message);
                 $form.find('button').prop('disabled', false);
-                $('.overlay_loader').hide();
+                overlay_loader_hide();
                 $('#chkOut').removeAttr('disabled');
             } else {
                 // token contains id, last4, and card type
@@ -296,7 +296,7 @@
                             console.log("stripeResponseHandler");
                             //alert2( msg, "stripeResponseHandler" );
                         }
-                        if(hide){$('.overlay_loader').hide();}
+                        if(hide){overlay_loader_hide();}
                     }
                 })
 
@@ -352,7 +352,7 @@
 
                 e.preventDefault();
                 $('#chkOut').attr('disabled','disabled');
-                $('.overlay_loader').show();
+                overlay_loader_show();
                 if ($('.CC').is(':visible')) {
                     Stripe.card.createToken($('#profiles'), stripeResponseHandler);
                 } else {
@@ -390,7 +390,7 @@
                                     alert2(jQuery(msg).text(), "$('#profiles').submit(function (e) {");
                                 }
                             }
-                            if(hide){$('.overlay_loader').hide();}
+                            if(hide){overlay_loader_hide();}
                         }
                     })
                 }
@@ -740,7 +740,7 @@
 
             $(document).on('click', '.loadmore', function () {
                 var catid = $(this).attr('title');
-                $('.overlay_loader').show();
+                overlay_loader_show();
                 ur = $('.next_' + catid + ' a').attr('href');
                 if (ur != '') {
                     url1 = ur.replace('/?', '?');
@@ -751,7 +751,7 @@
                             if (html) {
                                 $('.nxtpage_' + catid).remove();
                                 $("#loadmenus_" + catid).append(html);
-                                $('.overlay_loader').hide();
+                                overlay_loader_hide();
                             } else {
                                 $('div#loadmoreajaxloader_' + catid).html('<center>No more menus to show.</center>');
                             }
@@ -768,7 +768,7 @@
             $(".sorting_parent").live('click', function () {
                 var path = window.location.pathname + '?sorted';
                 //alert(path);
-                $('.overlay_loader').show();
+                overlay_loader_show();
                 var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');
                 var arr_pid = pid.split('_');
                 pid = arr_pid[0];
