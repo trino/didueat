@@ -70,7 +70,7 @@
         if (isset($showtoday) || debugmode()) {
             $open = converttime($Restaurant[$is_open . "_open" . $key]);
             $close = converttime($Restaurant[$is_open . "_close" . $key]);
-            $MoreTime = "Open " . $open . " to " . $close;
+            $MoreTime = "Open to " . $close;
         }
     } else {
         $MoreTime = "Currently closed";
@@ -190,7 +190,7 @@
 </div>
 
 
-<?php if (isset($is_menu)) { ?>
+<?php if (isset($is_menu) && false) { ?>
 <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
    style="text-decoration:none;">
     <?php

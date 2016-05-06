@@ -168,9 +168,9 @@
 
 </head>
 
-<body>
+<body style="margin-top:50px;">
 
-<div class="container-fluid bg-success" style="margin-bottom: 45px;">
+<div class="container-fluid">
     @include('layouts.includes.header')
 </div>
 
@@ -179,7 +179,7 @@
     @include('common.alert_messages')
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid ">
     @yield('content')
 </div>
 

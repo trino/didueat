@@ -1,7 +1,7 @@
 <div class="newmenu ignore" id="newmenu{{ $menu_id }}">
     <?php
         printfile("views/popups/menu_form.blade.php");
-        $browseBtnTxt="Upload Image";
+        $browseBtnTxt="Upload image ";
         $imgType="";
         $alts = array(
                 "delete" => "Delete image",
@@ -69,7 +69,7 @@
 
                         <?php
 
-                        echo '<span class="btn btn-sm btn-file btn-success blue newbrowse ignore" id="menuImgUp">
+                        echo '<span class="btn btn-sm btn-file blue newbrowse ignore" id="menuImgUp">
 							        <span>'.$browseBtnTxt.'</span><input type="file" onchange="reduceFile(\'photoUpload\')" name="photoUpload" id="photoUpload"></span>';
 
 
