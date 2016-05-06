@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h4 class="card-title">
-                        Menu Items Uploaded by {{ $ProfileName }}
+                        Uploadeds by {{ $ProfileName }}
                     </h4>
                 </div>
             </div>

@@ -227,7 +227,7 @@ td {
 }
 
 .overlay_reservation {
-    background-color: rgba(0, 0, 0,.3);
+    background-color: rgba(0, 0, 0,.8);
     z-index: 99999;
     left: 0px;
     top: 0px;
@@ -265,8 +265,7 @@ td {
 }
 
 .subber {
-    padding: 20px;
-    border: 1px solid #dadada;
+
 }
 
 .clearfix {

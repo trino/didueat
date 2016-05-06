@@ -159,16 +159,22 @@
     </SCRIPT>
 
 
-    <div class="overlay_loader">
-        <div class="overlay">
-            <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
-        </div>
-    </div>
 
 
 </head>
 
 <body style="margin-top:50px;">
+
+
+
+
+<div class="overlay_loader">
+    <div class="overlay">
+        <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/>
+    </div>
+</div>
+
+
 
 <div class="container-fluid">
     @include('layouts.includes.header')

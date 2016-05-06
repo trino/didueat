@@ -108,7 +108,7 @@
     }
 ?>
 
-<div class="card" style="    padding: 1rem !important;">
+<div class="card" onclick="window.location.href=''" style="    padding: 1rem !important;">
 
     @if(isset($order))
         <a class="card-link restaurant-url"

@@ -45,23 +45,15 @@
                 @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true, "showtoday" => true))
 
                 @if($allowedtoupload)
-                    <div class="card  m-b-0" style="border-radius:0 !important;">
-                        <div class="card-block text-xs-center ">
-                            <div class="container" style="margin-top: 0 !important;padding:0 !important;">
 
-                                <div class="col-md-4 col-md-offset-4 ">
-                                    <a href="#" id="add_item0" type="button"
-                                       class="btn btn-success btn-lg additem  btn-block"
-                                       data-toggle="modal"
-                                       title="{{ $alts["add_item"] }}"
-                                       data-target="#addMenuModel">
-                                        Upload Menu Item
-                                    </a>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </div>
+                        <a href="#" id="add_item0" type="button"
+                           class="btn btn-success btn-lg additem  btn-block m-b-1"
+                           data-toggle="modal"
+                           title="{{ $alts["add_item"] }}"
+                           data-target="#addMenuModel">
+                            Upload Menu Item
+                        </a>
+
                 @endif
 
 
@@ -104,26 +96,17 @@
 
                         @if($allowedtoupload)
 
-                                <div class="card  m-b-0" style="border-radius:0 !important;">
-                                    <div class="card-block text-xs-center ">
-                                        <div class="container" style="margin-top: 0 !important;padding:0 !important;">
+                                <a href="#" id="add_item0" type="button"
+                                   class="btn btn-success btn-lg additem  btn-block m-b-1"
+                                   data-toggle="modal"
+                                   title="{{ $alts["add_item"] }}"
+                                   data-target="#addMenuModel">
+                                    Upload Menu Item
+                                </a>
 
-                                            <div class="col-md-4 col-md-offset-4 ">
-                                                <a href="#" id="add_item0" type="button"
-                                                   class="btn btn-success btn-lg additem  btn-block"
-                                                   data-toggle="modal"
-                                                   title="{{ $alts["add_item"] }}"
-                                                   data-target="#addMenuModel">
-                                                    Upload Menu Item
-                                                </a>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                        @endif
+                                @endif
 
-                        <!--input type="file" accept="image/*;capture=camera"-->
+                                <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
 
 

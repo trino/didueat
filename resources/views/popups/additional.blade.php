@@ -1,4 +1,4 @@
-<div class="row  menuwrapper subber" style=" border:0 !important;"
+<div class="subber  menuwrapper " style=" border:0 !important;"
      id="sub{{ (isset($child))? $child->id : 0 }}">
     <?php
     printfile("views/popups/additional.blade.php");
@@ -23,7 +23,7 @@
                 <div class="clearfix"></div>
             </div>
 
-            <div class="card-block">
+            <div class="card-block" style="border-left:1px solid #f5f5f5 !important;border-right:1px solid #f5f5f5 !important;">
                 <div class="row">
                     <div class="form-group" style="display: none;">
                         <textarea class="form-control cdescription" style="display: none;"

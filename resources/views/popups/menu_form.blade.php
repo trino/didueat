@@ -87,7 +87,12 @@
                                     $menuTSv2=$menuTSv;
                                 }
 
-                                echo '<span id="zoomMsg">Click Image to Zoom In</span><br/><img id="menuImage" class="ignore" alt="'.$alts["imgPre"].'" src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'" style="position:relative;cursor:zoom-in;padding-bottom:3px" onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.$menuTSv2.'\')" />';
+                                echo '<span id="zoomMsg">Click Image to Zoom In</span><br/><img id="menuImage" class="ignore" alt="'.$alts["imgPre"].'"
+                                src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'"
+                                style=""
+                                onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.$menuTSv2.'\')" />
+
+                                ';
 
                             } else{
                                 echo '<span id="zoomMsg"></span><img id="menuImage" class="ignore" src="'.asset('assets/images/spacer.gif').'" />';
@@ -97,6 +102,10 @@
                             <input name="imgName" type="hidden" id="imgName" />
                             <input name="highestCatOrder" id="highestCatOrder" type="hidden" value='{{ (isset($highestCatOrder))? $highestCatOrder:'' }}' />
                             <img src="{{ asset('assets/images/spacer.gif') }}" id="imgPre" style="z-index:0">
+
+
+
+
                         </div>
 
                         @if(isset($model) && $model->image)
@@ -124,7 +133,6 @@
 
         </div>
 
-        <div class="clearfix ignore"></div>
     </div>
 
     <div class="row">

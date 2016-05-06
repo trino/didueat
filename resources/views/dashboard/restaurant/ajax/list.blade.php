@@ -27,7 +27,7 @@
             <div class="col-lg-9">
                 <h4 class="card-title">
                     Restaurants {{ $note }}
-                    @if(debugmode() && !$note)
+                    @if(debugmode() && !$note && false)
                         <A HREF="?fixmenus" STYLE="float:right;" class="" title="{{ $alts["fixmenus"] }}">Fix menus</A>
                     @endif
                 </h4>
@@ -39,7 +39,7 @@
     <div class="card-block p-a-0">
         <table class="table table-responsive m-b-0">
             <?php
-                TH(array( "" => array("sort" => false),"id" => "ID", 'logo' => array("sort" => false), "name", "rating", "status"));
+                TH(array( "" => array("sort" => false),"id" => "ID", 'logo' => array("sort" => false), "name","status"));
             ?>
             <tbody>
                 @if($recCount > 0)
@@ -64,7 +64,7 @@
                             <td>{{ $value->id }}</td>
                             <td><img class="img-circle" src="{{ $logo }}" width="90" alt="{{ $alts["logo"] }}"/></td>
                             <td>{{ $value->name }}</td>
-                            <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value->id, true, 'update-rating', false) !!}</td>
+                            <!--td >{!! rating_initialize("static-rating", "restaurant", $value->id, true, 'update-rating', false) !!}</td-->
                             <td>
                             <div class="">
                                 @if(!$value->is_complete)

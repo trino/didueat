@@ -181,7 +181,7 @@
                                         <i class="fa fa-times"></i>
                                     </a-->
                                     <a title="{{ $alts["deleteorder"] }}"
-                                       class="btn btn-danger-outline  btn-sm pull-right"
+                                       class=" pull-right"
                                        onclick="deleteorder({{ $value->id }});">
                                         <i ID="fa{{ $value->id }}" class="fa fa-times"></i>
                                     </a>
