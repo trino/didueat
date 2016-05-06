@@ -1,4 +1,4 @@
-<div class="row  menuwrapper subber" style="padding: 0 !important; border:0 !important;"
+<div class="row  menuwrapper subber" style=" border:0 !important;"
      id="sub{{ (isset($child))? $child->id : 0 }}">
     <?php
     printfile("views/popups/additional.blade.php");

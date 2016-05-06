@@ -134,7 +134,7 @@ if(cntr1 == 0){
            if(document.getElementById('deleteMenuImg')){
               document.getElementById('deleteMenuImg').style.display="none";
            }
-           document.getElementById('browseMsg').innerHTML="<img src='"+base_url+"assets/images/uploaded-checkbox.png' border='0' />&nbsp;<span class='instruct bd'>Click Save to Finish Uploading</span>";
+           document.getElementById('browseMsg').innerHTML="<span class='instruct bd'>Click Save to Finish Uploading</span>";
            document.getElementById('zoomMsg').style.display="none";
 cntr1++;
 return;

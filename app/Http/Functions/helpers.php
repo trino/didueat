@@ -1663,13 +1663,13 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $T
         $html .= '</div> &nbsp;';
 
         if ($add_rate_brn) {// == true && \Session::has('session_id')) {
-            $html .= '<SPAN><a href="#" style="';
+            $html .= '<SPAN window.location.href="#"style="';
             if ($Color) {
                 $html .= 'color: ' . $Color . ';';
             }
             $html .= '" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ';
             $html .= $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount';
-            $html .= $target_id . '">Reviews (' . $count_rating . ')</a></SPAN>';
+            $html .= $target_id . '">Reviews (' . $count_rating . ') </SPAN>';
         }
     }
     $html .= '</div>';

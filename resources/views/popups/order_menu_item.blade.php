@@ -45,31 +45,33 @@
                           style="  @if ($has_bigImage) text-shadow: 1px 1px 9px rgba(0, 0, 0, 2);color:white !important; opacity: .8 !important; @endif">&times;</span>
                 </button>
 
-                <h4 class="modal-title banner-text-shadow" style="" id="viewDetailModel">
+                <h4 class="modal-title " style="" id="viewDetailModel">
+<span class="bg-success">
+           {{ $value->menu_item }} &ndash; @if($value->price>0)
 
-                    {{ $value->menu_item }} &ndash;
-                    @if($value->price>0)
 
-
-                    @if($dis)
-                            <!--span class=''>{{$dis}}</span-->
+    @if($dis)
+            <!--span class=''>{{$dis}}</span-->
                     <strike class="text-muted strikedprice{{$value->id}}">${{$dis_price=number_format($value->price,2)}}</strike>
                     <input type="hidden" class="mainPrice{{$value->id}}" value="{{$dis_price}}"/>
                             <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
                                 ${{number_format($dis_price=$main_price,2)}}
                             </span>
-                    @else
-                        <span class="pricetitle modalprice<?php echo $value->id; ?>">
+    @else
+        <span class="pricetitle modalprice<?php echo $value->id; ?>">
                                     ${{$dis_price=number_format($value->price,2)}}
                             </span>
-                    @endif
-                    @else
-                        <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
+    @endif
+    @else
+        <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
                             ${{$dis_price=number_format($min_p,2)}}+
                         </span>
-                    @endif
+    @endif
 
-                    <span class="fa fa-spinner fa-spin cart-addon-gif" style="color:#0275d8; display: none;"></span>
+    <span class="fa fa-spinner fa-spin cart-addon-gif" style="color:#0275d8; display: none;"></span>
+
+    </span>
+
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                     <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                 </h4>

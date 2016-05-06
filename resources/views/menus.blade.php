@@ -348,14 +348,17 @@ $itemPosn = []; // to decide if js index needs a new array declared
                                     </script>
 
                                     @if($canedit || $value->uploaded_by ==read("id"))
+                                        <div class="clearfix"></div>
 
 
                                         parent{{ $value->cat_id }}_{{ $value->display_order }}
 
 
-                                        <span style="color:#FF0000">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <span style="color:#FF0000">
                                             {{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}
                                             , 'down', {{ $catMenuCnt }}</span>
+
+                                    <div class="clearfix"></div>
                                         <a href="#"
                                            class="btn btn-sm btn-link pull-right"
                                            title="{{ $alts["deleteMenu"] }}"
@@ -365,7 +368,8 @@ $itemPosn = []; // to decide if js index needs a new array declared
                                         <a id="add_item{{ $value->id }}" type="button" title="{{ $alts["edititem"] }}"
                                            class="btn btn-sm btn-link additem pull-right"
                                            data-toggle="modal"
-                                           data-target="#addMenuModel"><strong>Edit</strong>
+                                           data-target="#addMenuModel"><i
+                                                    class="fa fa-pencil"></i>
                                         </a>
 
 

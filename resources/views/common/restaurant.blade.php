@@ -27,7 +27,7 @@
         <div class="col-md-8  col-md-offset-2">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Your Restaurant</h4>
+                    <h4 class="card-title">SIGN UP NOW</h4>
                 </div>
 
                 <div class="card-block">
@@ -36,17 +36,20 @@
                     </div>
                 </div>
 
-            </div>
-                <div class="card-block " ID="common_editaddress">
+
+                <div class=" " ID="common_editaddress">
                     @include("common.editaddress", array("new" => false, "required" => true, "restSignUp" => true))
                 </div>
 
-
-            <div class="card m-t-1">
-                <div class="card-header ">
-                    <h4 class="card-title">Your Profile</h4>
+                <hr />
                 </div>
-                <div class="card-block ">
+
+
+
+            <div class="">
+
+                <div class="card-block  p-t-2">
+
                     @include("common.contactinfo", array("new"=>false, "ismobile" => true))
                 </div>
                 <div class="card-block p-t-0 ">

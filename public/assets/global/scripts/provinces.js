@@ -151,7 +151,7 @@ function fillInAddress1() {
 
     if(!pcFnd){
       document.getElementById('postal_code').readOnly=false;
-      document.getElementById('pcNotFnd').innerHTML="Sorry, we are unable to locate a postal code for this address. Please enter it manually.";
+      document.getElementById('pcNotFnd').innerHTML="Please enter your Postal Code.";
       document.getElementById('pcNotFnd').style.display="block";
       document.getElementById('postal_code').focus();
       return place;

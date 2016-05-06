@@ -108,35 +108,35 @@
     }
 ?>
 
-<div class="card-header" style=" @if(!isset($order)) background: white !important; margin-bottom:1rem !important;    box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
-     @endif ">
+<div class="card" style="    padding: 1rem !important;">
+
+    @if(isset($order))
+        <a class="card-link restaurant-url"
+           href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}"
+           title="{{ $alts["restaurants/menu"] }}">
+            @endif
+
+
     <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1">
             @if(isset($details) && $details)
                 <img style="max-width:100%;" class="img-circle" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
             @else
-                <a href="{{ url('restaurants/' . $Restaurant['slug'] . '/menu') }}?delivery_type={{ $delivery_type }}"
-                   class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
+
                     <img style="max-width:100%;" class="img-circle" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
-                </a>
+
             @endif
         </div>
     </div>
 
     <div class="col-md-10 p-a-0 ">
 
-        @if(isset($order))
-            <a class="card-link restaurant-url"
-               href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}"
-               title="{{ $alts["restaurants/menu"] }}">
-        @endif
+
         <h3 style="margin-bottom: .2rem !important;">
             {{ printfile("(ID: " . $Restaurant["id"] . ") ") . $Restaurant['name'] }}
         </h3>
 
-        @if(isset($order))
-            </a>
-        @endif
+
 
         <span class="text-muted">
 
@@ -179,7 +179,6 @@
 
                 </span>
 
-
     </div>
 
 
@@ -187,7 +186,13 @@
         {!! link_it($Restaurant["notes"]) !!}
     @endif
     <div class="clearfix"></div>
+
+            @if(isset($order))
+        </a>
+    @endif
+
 </div>
+
 
 
 <?php if (isset($is_menu) && false) { ?>

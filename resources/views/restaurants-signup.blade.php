@@ -144,11 +144,6 @@ $alts = array(
     <div class="row ">
 
 
-        <div class="col-sm-12">
-            <h1 align="center">SIGN UP NOW</h1>
-        </div>
-
-
         {!! Form::open(array('url' => '/restaurants/signup', 'onsubmit'=>'return validateFn(this)', 'id'=>'signupForm', 'class'=>'form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
 
         @include('common.restaurant', array("hours" => false, "cols" => 2, "minimum" => true))

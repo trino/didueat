@@ -15,7 +15,7 @@
             <input type="hidden" class="rest_id" value="<?php if(isset($rest_id)){echo $rest_id;};?>" />
             <div>
                 <div class="col-sm-6">
-                    <select class="cat_id form-control form-group" id="catList">
+                    <select class="cat_id form-control form-group" id="catList" style="    padding: .45rem .75rem !important;">
                         <option value="">Select Category</option>
                             <?php
                                 $index = 0;
@@ -41,50 +41,7 @@
 
             </div>
 
-            <div class=" ignore col-md-12" style="margin-bottom:3px; ">
-                <div class="form-group">
-                    @if(isset($model) || true)
-                        <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="min-height:0;">
-                            <?php
-                            if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
 
-                                $browseBtnTxt="Browse";
-
-                                $menuTSv2="";
-                                if(isset($menuTSv)){
-                                    $menuTSv2=$menuTSv;
-                                }
-
-                                echo '<span id="zoomMsg">Click Image to Zoom In</span><br/><img id="menuImage" class="ignore" alt="'.$alts["imgPre"].'" src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'" style="position:relative;cursor:zoom-in;padding-bottom:3px" onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.$menuTSv2.'\')" />';
-
-                            } else{
-                                echo '<span id="zoomMsg"></span><img id="menuImage" class="ignore" src="'.asset('assets/images/spacer.gif').'" />';
-                            }
-                            ?>
-                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
-                            <input name="imgName" type="hidden" id="imgName" />
-                            <input name="highestCatOrder" id="highestCatOrder" type="hidden" value='{{ (isset($highestCatOrder))? $highestCatOrder:'' }}' />
-                            <img src="{{ asset('assets/images/spacer.gif') }}" id="imgPre" style="z-index:0">
-                        </div>
-
-                        <?php
-
-                        echo '<span class="btn btn-sm btn-file blue newbrowse ignore" id="menuImgUp">
-							        <span>'.$browseBtnTxt.'</span><input type="file" onchange="reduceFile(\'photoUpload\')" name="photoUpload" id="photoUpload"></span>';
-
-
-                        ?>
-
-                        @if(isset($model) && $model->image)
-                            <a href="{{ url("restaurant/deletemenuimage/" . $menu_id) }}" id="deleteMenuImg" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');" title="{{ $alts["delete"] }}">Delete image</a>
-                        @endif
-                        <div id="browseMsg" class="label  text-muted" > (Min. 600x600px)</div>
-                    @else
-                        Save the item before uploading an image
-                    @endif
-
-                </div>
-            </div>
 
             <div class="col-md-9 ">
                 <div class="form-group">
@@ -108,6 +65,63 @@
                     <input type="hidden" id="res_slug" value="{{ $res_slug }}"/>
                 </div>
             </div>
+
+
+
+
+
+            <div class=" ignore col-md-12" style="">
+                <div class="form-group">
+                    @if(isset($model) || true)
+
+
+
+                        <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="height:1px;">
+                            <?php
+                            if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
+
+                                $browseBtnTxt="Update image ";
+
+                                $menuTSv2="";
+                                if(isset($menuTSv)){
+                                    $menuTSv2=$menuTSv;
+                                }
+
+                                echo '<span id="zoomMsg">Click Image to Zoom In</span><br/><img id="menuImage" class="ignore" alt="'.$alts["imgPre"].'" src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'" style="position:relative;cursor:zoom-in;padding-bottom:3px" onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.$menuTSv2.'\')" />';
+
+                            } else{
+                                echo '<span id="zoomMsg"></span><img id="menuImage" class="ignore" src="'.asset('assets/images/spacer.gif').'" />';
+                            }
+                            ?>
+                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
+                            <input name="imgName" type="hidden" id="imgName" />
+                            <input name="highestCatOrder" id="highestCatOrder" type="hidden" value='{{ (isset($highestCatOrder))? $highestCatOrder:'' }}' />
+                            <img src="{{ asset('assets/images/spacer.gif') }}" id="imgPre" style="z-index:0">
+                        </div>
+
+                        @if(isset($model) && $model->image)
+                            <a href="{{ url("restaurant/deletemenuimage/" . $menu_id) }}" id="deleteMenuImg" class=" btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');" title="{{ $alts["delete"] }}">Delete image</a>
+                        @endif
+
+                        <?php
+
+                        echo '<span class="text-muted btn-file blue newbrowse ignore" id="menuImgUp">
+							        <span>'.$browseBtnTxt.'</span><input type="file" onchange="reduceFile(\'photoUpload\')" name="photoUpload" id="photoUpload"></span>';
+
+
+                        ?>
+
+
+                        <div id="browseMsg" class="text-muted" ></div>
+                    @else
+                        Save the item before uploading an image
+                    @endif
+
+                </div>
+            </div>
+
+
+
         </div>
 
         <div class="clearfix ignore"></div>

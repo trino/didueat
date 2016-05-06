@@ -47,9 +47,9 @@
 
 
 
+<hr />
 
-
-
+<div class="card-block">
 
 
 <input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
@@ -60,12 +60,12 @@
 
 
 
-<div class="<?php if (!isset($type)) echo "";?> addressdropdown">
+<div class="<?php if (!isset($type)) echo "";?> addressdropdown ">
 
     @if(isset($GLOBALS['thisIdentity']))
         <div class="form-group">
-            <div class="col-sm-12">
-                <p class="">If the restaurant's address needs changing, please <a href="mailto:info@didueat.ca?subject=Address%20Change%20On%20Didu%20Eat&amp;body=Please Update the Address as Follows:%0A%0A
+            <div class="">
+                <p class="pull-right"><a href="mailto:info@didueat.ca?subject=Address%20Change%20On%20Didu%20Eat&amp;body=Please Update the Address as Follows:%0A%0A
 {{ $GLOBALS['thisIdentity'] }}
                             %0A%0A
                             Full Updated Address:
@@ -78,10 +78,11 @@
                             %3A%0A%0A
                             Contact Number:
                             %3A%0A%0A
-                            Thank you" style="text-decoration:underline" title="{{ $alts["contactus"] }}">Email Support</a></p>
+                            Thank you" style="text-decoration:underline" title="{{ $alts["contactus"] }}">Update restaurant address</a></p>
 
             </div>
         </div>
+        <div class="clearfix"></div>
     @endif
 
 
@@ -268,7 +269,7 @@
                class="form-control postal_code" placeholder="" {{$required}}
                value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
     </div></div>
-    <DIV id="pcNotFnd" style="display:none;margin-top:0px;margin-bottom:10px;color: red" class="col-md-12 pull-right"></div>
+    <DIV id="pcNotFnd" style="display:none;margin-top:0px;margin-bottom:0px;color: red" class="col-md-12 text-xs-center"></div>
 
     <?= newrow($new, "Country", "", $required, 5); ?>
         <input <?= $readonly; ?> type="text" id="country" name="country" class="form-control"
@@ -355,16 +356,11 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
 
 
 
-
-
 <DIV id="error-message" style="color: red" class="col-md-12"></div>
 
 
 
-
-
-
-
+</div>
 
 
 
