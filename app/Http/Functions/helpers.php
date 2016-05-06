@@ -1,6 +1,6 @@
 <?php
 ini_set('session.gc_maxlifetime', 86400);//force long session
-define("MAX_DELIVERY_DISTANCE", 5);
+define("MAX_DELIVERY_DISTANCE", 1);
 define("TINY_THUMB", '150x150');
 define("MED_THUMB", '250x250');
 define("BIG_SQ", '600x600');

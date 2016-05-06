@@ -96,7 +96,7 @@ abstract class Controller extends BaseController {
         $profile['browser_name'] = $browser_info['name'];
         $profile['browser_version'] = $browser_info['version'];
         $profile['browser_platform'] = $browser_info['platform'];
-        $profile['vehicle_type'] = $post['vehicle_type']; 
+        $profile['vehicle_type'] = isset($post['vehicle_type']) ? $post['vehicle_type'] : 'Car';
         if (isset($_POST['gmt'])) {$profile['gmt'] = $post['gmt'];}
         $profile['status'] = 'active';
 

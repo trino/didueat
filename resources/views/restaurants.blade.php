@@ -102,7 +102,7 @@
                     </h4>
                     <div class="clearfix"></div>
 
-                    <h5 class="banner-text-shadow  m-t-1"><span style="">$5 Delivery. No Minimum Order.</span></h5>
+                    <!--h5 class="banner-text-shadow  m-t-1"><span style="">$5 Delivery. No Minimum Order.</span></h5-->
 
                 </div>
 

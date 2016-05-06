@@ -23,6 +23,8 @@
             </div>
 
             {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
+
+
                 <div class="modal-body" id="signupModalBody">
                     <?php printfile("views/popups/signup.blade.php"); ?>
                     <div class="editaddress">
