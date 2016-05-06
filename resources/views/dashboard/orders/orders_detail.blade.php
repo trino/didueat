@@ -56,7 +56,7 @@
                         </h4>
                     </div>
 
-                    <div class="card-block col-md-12">
+                    <div class="card-block col-md-12 p-x-0" style="background: #fafafa">
 
                         <div class="col-md-6">
                             @include('common.receipt')

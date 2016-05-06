@@ -70,9 +70,10 @@ h1 {
     font-family: 'Roboto Slab', serif !important;
 }
 
-hr {
-    border-top: 1px solid #ddd !important;
-    border-bottom: 1px solid #fff !important;
+hr {/*
+    border-top: 1px solid #ddd !important; */
+    border-bottom: 1px solid #e8e8e8 !important;
+
 }
 
 .label {
@@ -928,7 +929,7 @@ fieldset[disabled] .btn-primary.focus {
 
 @media screen and (max-width: 768px) {
 
-
+body{margin-top: 45px !important;}
     h1 {
         font-size: 1.3rem !important;
     }

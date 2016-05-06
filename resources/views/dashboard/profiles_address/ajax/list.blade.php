@@ -67,18 +67,17 @@
                         </td>
 
                         <td>
-                            <div class="btn-group">
-                            <button data-id="{{ $value->id }}" data-user_id="{{ $value->user_id }}" data-addOrEdit="edit" class="btn btn-secondary-outline editRow btn-sm" data-toggle="modal"
-                               data-target="#editModel" title="{{ $alts["edit"] }}"><strong>Edit</strong></button>
+                            <a data-id="{{ $value->id }}" data-user_id="{{ $value->user_id }}" data-addOrEdit="edit" class=" editRow m-r-1 " data-toggle="modal"
+                               data-target="#editModel" title="{{ $alts["edit"] }}"><i class="fa fa-pencil"></i></a>
                             <!--A href="{{ url('user/addresses/delete/' . $value->id) }}"
                                class="btn btn-secondary-outline btn-sm"
                                onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }}?');"><i class="fa fa-times"></i></A>
                             </div-->
-                                <A class="btn btn-secondary-outline btn-sm" title="{{ $alts["delete"] }}"
+                                <a class="" title="{{ $alts["delete"] }}"
                                    onclick="deleteaddress('{{ $value->id }}', '{{ addslashes($value->address) }}');">
                                     <i id="delete{{ $value->id }}" class="fa fa-times"></i>
-                                </A>
-                            </div>
+                                </a>
+
                         </td>
 
                     </tr>

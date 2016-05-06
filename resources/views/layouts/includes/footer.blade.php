@@ -66,8 +66,8 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                         <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant
                             Sign Up</a>
                     </li>
-                    <?php } 
-                    
+                    <?php }
+
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "driver" || debugmode()) && !islive()) {?>
                     <li class="list-inline-item">
                         <a href="{{ url("driver/signup") }}" title="{{ $alts["driver/signup"] }}">Driver

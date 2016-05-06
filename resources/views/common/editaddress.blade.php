@@ -39,9 +39,26 @@
     );
 ?>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 <input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
 <input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
+
+
+
+
 
 <div class="<?php if (!isset($type)) echo "";?> addressdropdown">
 
@@ -66,6 +83,12 @@
             </div>
         </div>
     @endif
+
+
+
+
+
+
 
 <?php
     $nodiv=false;
@@ -138,7 +161,15 @@
 
 
         @endif
+
+
+
+
 <?php }} ?>
+
+
+
+
     <INPUT TYPE="HIDDEN" NAME="GUID" VALUE="{{ $GUID }}">
     @if($is_disabled)
         <input type="text" id="formatted_address" disabled name="formatted_address{{ $GUID }}"
@@ -150,7 +181,7 @@
                    id="formatted_address" class="form-control formatted_address"
                    placeholder="Enter your address"
                    autocomplete="off"
-                   onclick="$(this).attr('autocomplete', 'false');"  
+                   onclick="$(this).attr('autocomplete', 'false');"
                    value="<?php
             $checkCookie = true;
             if (old('formatted_address')) {
@@ -168,6 +199,16 @@
 </div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
 @if(!isset($type))
 <?php if(!$slim){ newrow(); } ?>
 
@@ -183,7 +224,18 @@
 @endif
 @endif
 
+
+
+
+
+
 <div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
+
+
+
+
+
+
 
 @if($mini)
     <?php echo newrow($new, " ", "", false, 9);
@@ -225,21 +277,42 @@
     </div>
 @endif
 
+
+
+
+
 <?php if(isset($restSignUp)){ ?>
+
+
+
+
+
+
 <div id="verifyAddress" style="display:none">
     <?= newrow($new, "Important", "", true, 10, true); ?>
     <div class="instruct">Please Ensure Address was Correctly Filled Out</div>
 </div>
 
+
+
+
 <?php
     echo newrow();
 }
+
+
+
 
 if($isUser){
     echo '</div>' . newrow($new, "Notes", "", false, 9); ?>
         <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
     </div></div>
 <?php }
+
+
+
+
+
 
 similar_text(\Request::path(),'user/addresses/edit', $per);
 
@@ -269,8 +342,44 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
 @endif
 <?php }?>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <DIV id="error-message" style="color: red" class="col-md-12"></div>
-<DIV CLASS="clearfix"></DIV>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <SCRIPT>
     //check if the address is complete
     function isaddress_incomplete(){

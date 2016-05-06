@@ -16,7 +16,7 @@
     } else {
         $searchcode = ' ONKEYUP="restsearch(event);"';
     }
-    
+
     if(isset($restaurant->name)){
          $GLOBALS['thisIdentity']="Restaurant%20Name:%20%20%20".$restaurant->name."%20%20(Restaurant ID:%20".Session::get('session_restaurant_id').",%20Profile ID:%20".Session::get('session_ID').")";
     }
@@ -109,7 +109,7 @@ if(!$minimum && isset($restaurant->id)){
             <input type="file" name="import_csv" class="form-control" />
         </div>
     </div>
- 
+
     <?= newrow($new, "", "", "", 12, true);?>
         <hr class="m-y-1" align="center"/>
         <input name="restLogoTemp" type="hidden" id="restLogoTemp"/>
@@ -147,7 +147,7 @@ if(!$minimum && isset($restaurant->id)){
         if (noneChkd) {
             $("#cousine-error").show();
             f.description.focus(); // bring user to cuisine list
-            
+
             return false;
         }
     }
@@ -244,7 +244,7 @@ if(!$minimum && isset($restaurant->id)){
                 var resp = response.split('___');
                 var path = resp[0];
                 var img = resp[1];
-                
+
                 document.getElementById('restLogoTemp').value = path;
                 window.clearInterval(interval);
                         document.getElementById(button_id).style.display="none";

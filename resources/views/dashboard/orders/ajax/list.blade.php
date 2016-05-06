@@ -124,7 +124,7 @@
                                         $dateformat = str_replace("D M d,", "", $dateformat);
                                     }
                                     echo date($dateformat, $date);
-                                    echo '</TD><TD><span class="m-a-0 text-muted no_text_break"> For ' . iif($value->order_type, "Delivery", "Pickup") . iif($value->order_till, ' later') . '</span>';
+                                    echo '</TD><TD><span class="m-a-0 text-muted no_text_break">' . iif($value->order_type, "Delivery", "Pickup") . iif($value->order_till, ' later') . '</span>';
                                     echo '</td>';
 
                                     if($value->status == "pending" && $value->driver_id){

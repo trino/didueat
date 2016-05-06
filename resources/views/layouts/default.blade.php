@@ -200,7 +200,7 @@
 
 <script>
     $(window).load(function () {
-        overlay_loader_hide();
+      overlay_loader_hide();
     });
 
     (function (i, s, o, g, r, a, m) {

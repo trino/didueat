@@ -36,14 +36,13 @@
                     </div>
                 </div>
 
-                <hr class="m-a-0" />
-
+            </div>
                 <div class="card-block " ID="common_editaddress">
                     @include("common.editaddress", array("new" => false, "required" => true, "restSignUp" => true))
                 </div>
-            </div>
 
-            <div class="card">
+
+            <div class="card m-t-1">
                 <div class="card-header ">
                     <h4 class="card-title">Your Profile</h4>
                 </div>
