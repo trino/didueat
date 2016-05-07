@@ -27,7 +27,7 @@
             <div class="col-lg-9">
                 <h4 class="card-title">
                     Restaurants {{ $note }}
-                    @if(debugmode() && !$note && false)
+                    @if(debugmode() && !$note)
                         <A HREF="?fixmenus" STYLE="float:right;" class="" title="{{ $alts["fixmenus"] }}">Fix menus</A>
                     @endif
                 </h4>

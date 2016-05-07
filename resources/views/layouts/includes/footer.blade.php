@@ -76,10 +76,10 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                     <?php } ?>
 
 
-                    <li class="list-inline-item">
+                    <!--li class="list-inline-item">
                         <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy"
                            title="{{ $alts["allergy"] }}" class="simplemodal">Allergy</a>
-                    </li>
+                    </li-->
 
                     @if(!islive())
                         <li class="list-inline-item">
