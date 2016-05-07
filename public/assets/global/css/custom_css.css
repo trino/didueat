@@ -1,12 +1,12 @@
-center{
+center {
     text-align: center;
 }
 
-.btn-xs{
-    padding:.125rem .35rem;
-    font-size:.875rem;
-    line-height:1.5;
-    border-radius:.2rem
+.btn-xs {
+    padding: .125rem .35rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem
 }
 
 .row-eq-height, .row-eq-height > div[class*='col-'] {
@@ -15,17 +15,17 @@ center{
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    flex:1 0 auto;
+    flex: 1 0 auto;
 }
 
-.no_text_break{
+.no_text_break {
     white-space: nowrap
 }
 
 .list-group, .card {
     margin-bottom: 1rem !important;
-  /*  border: 1px solid #edeeee !important; */
-    box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
+    /*  border: 1px solid #edeeee !important; */
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1) !important;
 }
 
 .card-title {
@@ -33,9 +33,9 @@ center{
     margin-bottom: 0.1rem !important;
 }
 
-.card-header, .list-group-item,.card-footer {
-    padding:  1rem !important;
-     margin-bottom: 0 !important;
+.card-header, .list-group-item, .card-footer {
+    padding: 1rem !important;
+    margin-bottom: 0 !important;
 }
 
 .list-inline-item {
@@ -63,15 +63,17 @@ a {
 }
 
 .navbar {
-    padding: .20rem 1rem;    box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
+    padding: .20rem 1rem;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1) !important;
 }
 
 h1 {
     font-family: 'Roboto Slab', serif !important;
 }
 
-hr {/*
-    border-top: 1px solid #ddd !important; */
+hr {
+    /*
+        border-top: 1px solid #ddd !important; */
     border-bottom: 1px solid #e8e8e8 !important;
 
 }
@@ -227,7 +229,7 @@ td {
 }
 
 .overlay_reservation {
-    background-color: rgba(0, 0, 0,.8);
+    background-color: rgba(0, 0, 0, .8);
     z-index: 99999;
     left: 0px;
     top: 0px;
@@ -527,7 +529,6 @@ body {
     margin-bottom: 5px;
 }
 
-
 /*
 
 
@@ -794,8 +795,6 @@ fieldset[disabled] .btn-primary.focus {
 }
 */
 
-
-
 /*
 @media (max-width: 768px) {
     .btn-responsive {
@@ -879,16 +878,16 @@ fieldset[disabled] .btn-primary.focus {
 */
 
 @media screen and (max-width: 400px) {
-    .modal-dialog{
+    .modal-dialog {
         margin: 0 !important;
     }
+
     .main-bg-image {
 
         padding: 2rem 0 3rem 0 !important;
     }
 
-
-    .pading-left-mobile{
+    .pading-left-mobile {
         padding-left: .9rem !important;
     }
 
@@ -920,15 +919,17 @@ fieldset[disabled] .btn-primary.focus {
         margin-top: 0px !important
     }
 
-    .mobile-p-r-0
-    {
-        padding-right:0px !important;
+    .mobile-p-r-0 {
+        padding-right: 0px !important;
     }
 }
 
 @media screen and (max-width: 768px) {
 
-body{margin-top: 45px !important;}
+    body {
+        margin-top: 45px !important;
+    }
+
     h1 {
         font-size: 1.3rem !important;
     }
