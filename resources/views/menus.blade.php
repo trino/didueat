@@ -122,6 +122,11 @@ $itemPosn = []; // to decide if js index needs a new array declared
                 $thisDownMenuVisib = 'hidden';
                 $thisUpMenuVisib = 'hidden';
             }
+
+            $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
+
+
+
             ?>
 
             <DIV class="list-group m-b-1" id="c{{ $thisCatCnt }}"><!-- start of this category -->
@@ -135,22 +140,25 @@ $itemPosn = []; // to decide if js index needs a new array declared
 
 
                             <div class="col-xs-4">
-                                <div class="pull-right" aria-label="Basic example">
-                                    <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
-                                       id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
-                                       href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
-                                        <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
-                                        <i class="fa fa-arrow-up"></i>
-                                    </a>
 
-                                    <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-link"
-                                       id="down{{ $thisCatCnt }}" style="visibility:{{ $thisDownCatSort }} !important"
-                                       href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
-                                        <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/down");?>"> -->
-                                        <i class="fa fa-arrow-down"></i>
-                                    </a>
-                                </div>
+                                @if($canedit)
+                                    <div class="pull-right" aria-label="Basic example">
+                                        <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
+                                           id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
+                                           href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
+                                            <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
+                                            <i class="fa fa-arrow-up"></i>
+                                        </a>
 
+                                        <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-link"
+                                           id="down{{ $thisCatCnt }}"
+                                           style="visibility:{{ $thisDownCatSort }} !important"
+                                           href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
+                                            <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/down");?>"> -->
+                                            <i class="fa fa-arrow-down"></i>
+                                        </a>
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="col-md-6" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
@@ -187,7 +195,6 @@ $itemPosn = []; // to decide if js index needs a new array declared
                 $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
                 $min_p = get_price($value->id);
 
-                $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
                 ?>
 
                 <a
@@ -358,7 +365,7 @@ $itemPosn = []; // to decide if js index needs a new array declared
                                             {{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}
                                             , 'down', {{ $catMenuCnt }}</span>
 
-                                    <div class="clearfix"></div>
+                                        <div class="clearfix"></div>
                                         <a href="#"
                                            class="btn btn-sm btn-link pull-right"
                                            title="{{ $alts["deleteMenu"] }}"
@@ -414,7 +421,7 @@ $itemPosn = []; // to decide if js index needs a new array declared
                 @endwhile
 
 
-                <div class="clearfix"  ></div>
+                <div class="clearfix"></div>
 
             </div> <!-- end of last category -->
 

@@ -1813,14 +1813,16 @@ function ViewsCountsType($id = 0, $type = "") {
 
 //hard-coded cuisine list
 function cuisinelist() {
+    /*
     return array("American", "Asian", "BBQ", "Breakfast", "Burgers", "Cafe", "Canadian", "Chinese", "Fast Food",
         "French",'Health Food', "Indian", "Italian", "Japanese","Juice", "Korean", "Latin", "Mediterranean", "Mexican", "Middle Eastern",
         "Pizza", "Polish", "Sandwiches", "Steakhouse", "Thai", "Vietnamese");
-    //return array('American','Asian','Bagels','BBQ','Breakfast','Burgers','Cafe','Canadian','Caribbean','Chicken',
-    //'Chinese','Creole','Deli','Desserts','English','Ethiopian','Fast Food','Filipino','Fish and Chips','French',
-    //'Game/Exotic','German','Greek','Halal','Health Food','Ice Cream','Indian','Irish','Italian','Jamaican','Japanese',
-    //'Korean','Latin','Malaysian','Mediterranean','Mexican','Middle Eastern','Persian','Pita','Pizza','Polish','Portuguese',
-    //'Pub','Sandwiches','Seafood','Southern','South Western','Steakhouse','Sushi','Thai','Vegan','Vietnamese','Wings');
+    */
+    return array('American','Asian','Bagels','BBQ','Breakfast','Burgers','Cafe','Canadian','Caribbean','Chicken',
+    'Chinese','Creole','Deli','Desserts','English','Ethiopian','Fast Food','Filipino','Fish and Chips','French',
+    'Game/Exotic','German','Greek','Grill House','Halal','Health Food','Ice Cream','Indian','Irish','Italian','Jamaican','Japanese',
+    'Korean','Latin','Malaysian','Mediterranean','Mexican','Middle Eastern','Persian','Pita','Pizza','Polish','Portuguese',
+    'Pub','Sandwiches','Seafood','Southern','South Western','Steakhouse','Subs','Sushi','Thai','Vegan','Vietnamese','Wings');
 }
 
 //table headers
