@@ -119,7 +119,7 @@
                                                            style="display: none;" checked="checked"
                                                            class="chk">
                                                 </div>
-                                                <h4 style="float:left;">{{ ucfirst($sub->menu_item) }} &nbsp;</h4>
+                                                <strong style="float:left;">{{ ucfirst($sub->menu_item) }} &nbsp;</strong>
 
                                                 <span style="float:left;" class="limit-options no_text_break" style="">
 

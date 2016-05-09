@@ -151,10 +151,10 @@
                     @if($type == "driver")
                         <DIV CLASS="driver">
                             <DIV CLASS="col-md-9">
-                                <TEXTAREA PLACEHOLDER="Add a note" ID="driver_note" STYLE="width:100%">{{ $order->driver_note }}</TEXTAREA>
+                                <TEXTAREA PLACEHOLDER="Add a note " ID="driver_note" STYLE="width:100%">{{ $order->driver_note }}</TEXTAREA>
                             </DIV>
                             <DIV CLASS="col-md-3">
-                                <a class="btn btn-warning" title="{{ $alts["submit"] }}" onclick="savenote();">Save</a>
+                                <a class="btn btn-warning" title="{{ $alts["submit"] }}" onclick="savenote();">Delivered</a>
                             </div>
                         </div>
                         <DIV CLASS="clearfix"></DIV>

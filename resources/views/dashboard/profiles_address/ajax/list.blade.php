@@ -47,12 +47,12 @@
             @if($recCount > 0)
                 @foreach($Query as $key => $value)
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}" id="address{{ $value->id }}">
-                        @if($recCount > 1)
+                        @if($recCount > 1 && false)
                             <td style="">#{{ $key+1 }}
-                                <!--div class="btn-group-vertical">
+                                <div class="btn-group-vertical">
                                     <a class="btn btn-secondary-outline up btn-sm" title="{{ $alts["moveup"] }}"><i class="fa fa-arrow-up"></i></a>
                                     <a class="btn btn-secondary-outline down btn-sm" title="{{ $alts["movedown"] }}"><i class="fa fa-arrow-down"></i></a>
-                                </div-->
+                                </div>
                             </td>
                         @endif
 
