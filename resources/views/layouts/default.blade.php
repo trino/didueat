@@ -166,7 +166,7 @@
 
 <body style="margin-top:50px;">
 
-
+@include("popups.alert")
 
 
 <div class="overlay_loader">
