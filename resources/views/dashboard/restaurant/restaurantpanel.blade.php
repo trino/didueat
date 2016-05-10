@@ -115,7 +115,7 @@ if ($is_open) {
             @if(isset($details) && $details)
                 <img style="max-width:100%;" class="img-circle" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
             @else
-                <a href="{{ url('restaurants/' . $Restaurant['slug'] . '/menu') }}?delivery_type={{ $delivery_type }}"
+                <a href="{{ url('restaurants/' . $Restaurant['slug'] . '/menu') }}" oldurl="?delivery_type={{ $delivery_type }}"
                    class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
                     <img style="max-width:100%;" class="img-circle" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
                 </a>
@@ -191,8 +191,7 @@ if ($is_open) {
 
 
 <?php if (isset($is_menu) && false) { ?>
-<a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}"
-   style="text-decoration:none;">
+<a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}" oldurl="?delivery_type={{ $delivery_type }}" style="text-decoration:none;">
     <?php
     $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
     if ($menuitems) {
