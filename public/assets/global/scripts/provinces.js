@@ -98,7 +98,11 @@ function fillInAddress1() {
     $('#postal_code').val('');
     //provinces('{{ addslashes(url("ajax")) }}', '');
     $(".commas").show();
-    
+
+    $('span.country').text("[Missing Country]");
+    $('span.city').text("[Missing City]");
+    $('span.postal_code').text("[Missing Postal Code]");
+
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
 
@@ -149,14 +153,14 @@ function fillInAddress1() {
         }
     }
 
+    /*
     if(!pcFnd){
       document.getElementById('postal_code').readOnly=false;
       document.getElementById('pcNotFnd').innerHTML="Please enter your Postal Code.";
       document.getElementById('pcNotFnd').style.display="block";
       document.getElementById('postal_code').focus();
       return place;
-    }
-    else{
+    } else{
     // reset msg above in case user enters new address in field
       document.getElementById('postal_code').readOnly=true;
       document.getElementById('pcNotFnd').innerHTML="";
@@ -164,6 +168,7 @@ function fillInAddress1() {
       isaddress_incomplete();
       return place;
     }
+    */
 }
 
 function fillInAddress() {
