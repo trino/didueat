@@ -247,7 +247,6 @@
 @endif
 
 </div>
-</div>
 
 
 <script>

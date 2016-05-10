@@ -1,34 +1,34 @@
 <?php
-    printfile("views/menus.blade.php");
-    $alts = array(
-            "product-pop-up" => "Product info",
-            "up_cat" => "Move Category up",
-            "down_cat" => "Move Category down",
-            "up_parent" => "Move this up",
-            "down_parent" => "Move this down",
-            "deleteMenu" => "Delete this item",
-            "edititem" => "Edit this item",
-            "editcat" => "Edit this category",
-            "deletecat" => "Delete this category"
-    );
+printfile("views/menus.blade.php");
+$alts = array(
+        "product-pop-up" => "Product info",
+        "up_cat" => "Move Category up",
+        "down_cat" => "Move Category down",
+        "up_parent" => "Move this up",
+        "down_parent" => "Move this down",
+        "deleteMenu" => "Delete this item",
+        "edititem" => "Edit this item",
+        "editcat" => "Edit this category",
+        "deletecat" => "Delete this category"
+);
 
-    $menuTSv = "?i=";
-    $menuTS = read('menuTS');
-    if ($menuTS) {
-        $menuTSv = "?i=" . $menuTS;
-        Session::forget('session_menuTS');
-    }
+$menuTSv = "?i=";
+$menuTS = read('menuTS');
+if ($menuTS) {
+    $menuTSv = "?i=" . $menuTS;
+    Session::forget('session_menuTS');
+}
 
-    $menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
-    $categories = enum_all("category", array("res_id" => $menu_id));
+$menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
+$categories = enum_all("category", array("res_id" => $menu_id));
 
-    $prevCat = "";
-    $catNameStr = [];
-    $parentCnt = [];
-    $thisCatCnt = 0;
-    $itemPosnForJS = [];
-    $itemPosn = []; // to decide if js index needs a new array declared
-    // $catCnt set in restaurants-menus.blade
+$prevCat = "";
+$catNameStr = [];
+$parentCnt = [];
+$thisCatCnt = 0;
+$itemPosnForJS = [];
+$itemPosn = []; // to decide if js index needs a new array declared
+// $catCnt set in restaurants-menus.blade
 ?>
 
 <script>
@@ -158,13 +158,16 @@
                                             <i class="fa fa-arrow-down"></i>
                                         </a>
 
-                                        <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right" onclick="deletecategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
+                                        <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right"
+                                           onclick="deletecategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
                                             <i class="fa fa-times"></i>
                                         </A>
 
-                                        <A title="{{ $alts["editcat"] }}" class="btn btn-sm btn-link pull-right" data-toggle="modal"
-                                               data-target="#editCatModel" data-target-id="{{ $value->cat_id }}" onclick="editcategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
-                                                Edit
+                                        <A title="{{ $alts["editcat"] }}" class="btn btn-sm btn-link pull-right"
+                                           data-toggle="modal"
+                                           data-target="#editCatModel" data-target-id="{{ $value->cat_id }}"
+                                           onclick="editcategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
+                                            Edit
                                         </A>
                                     @endif
                                 </div>
@@ -203,7 +206,7 @@
                 }
                 $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
                 $min_p = get_price($value->id);
-
+                if ($min_p = '10000' ? 0 : $min_p) ;
                 ?>
 
                 <a
@@ -266,7 +269,10 @@
                                                 @if($main_price>0)
                                                     ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
                                                 @else
-                                                    ${{number_format($min_p,2)}}+
+
+
+                                                        ${{number_format($min_p,2)}}+
+
                                                 @endif
                                                 @if($dis)
                                                     <strike class="text-muted btn btn-sm btn-link"
@@ -508,16 +514,16 @@
         });
     }
 
-    function editcategory(ID, Name){
+    function editcategory(ID, Name) {
         $("#editCatModelLabel").text(Name);
         $("#categoryeditor").load("{{ url("restaurant/cateditor") }}/" + ID);
     }
-    function deletecategory(ID, Name){
-        if (confirm("Are you sure you want to delete '" + Name + "' and every item in that category?")){
+    function deletecategory(ID, Name) {
+        if (confirm("Are you sure you want to delete '" + Name + "' and every item in that category?")) {
             $.post("{{ url('ajax') }}", {
-                        type: "deletecategory",
-                        id: ID,
-                        _token: "{{ csrf_token() }}"
+                type: "deletecategory",
+                id: ID,
+                _token: "{{ csrf_token() }}"
             }, function (result) {
                 alert(result);
             });

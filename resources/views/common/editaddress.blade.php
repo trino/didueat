@@ -312,8 +312,8 @@
 
 
 
-
-if($isUser){
+//if($isUser){
+if(true){
     echo '</div>' . newrow($new, "Notes", "", false, 9); ?>
         <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
     </div></div>
