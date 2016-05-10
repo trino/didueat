@@ -369,6 +369,18 @@
 
             });
 
+            function ordererror(err, catid, td_index, td_temp, text){
+                err++;
+                td_index = $('#td_' + catid).index();
+                if (td_temp >= td_index) {
+                    td_temp = td_index;
+                } else {
+                    td_temp = td_temp;
+                }
+                $('.error_' + catid).html(text);
+                return err;
+            }
+
             $('.modal').on('shown.bs.modal', function () {
                 $('input:text:visible:first', this).focus();
             });
@@ -434,8 +446,9 @@
                             catarray.push(catid);
                             var is_required = $('#required_' + catid).val();
                             var extra_no = $('#extra_no_' + catid).val();
-                            if (extra_no == 0)
+                            if (extra_no == 0) {
                                 extra_no = 1;
+                            }
                             var multiples = $('#multiple_' + catid).val();
                             var upto = $('#upto_' + catid).val();
                             var ary_qty = "";
@@ -453,82 +466,26 @@
                                 }
                             });
 
-                            if (is_required == '1') {
-                                if (upto == 0) {
-                                    if (cnn == 0) {
-                                        err++;
-                                        td_index = $('#td_' + catid).index();
-                                        if (td_temp >= td_index) {
-                                            td_temp = td_index;
-                                        } else {
-                                            td_temp = td_temp;
-                                        }
-                                        $('.error_' + catid).html("Options are required");
-                                    } else if (multiples == 0 && cnn > extra_no) {
-                                        err++;
-                                        td_index = $('#td_' + catid).index();
-                                        if (td_temp >= td_index) {
-                                            td_temp = td_index;
-                                        } else {
-                                            td_temp = td_temp;
-                                        }
-                                        $('.error_' + catid).html("Select up to " + extra_no + " Options");
-                                    } else {
-                                        $('.error_' + catid).html("");
-                                    }
-                                } else if(upto == '1'){
-                                    if (cnn == 0) {
-                                        err++;
-                                        td_index = $('#td_' + catid).index();
-                                        if (td_temp >= td_index) {
-                                            td_temp = td_index;
-                                        } else {
-                                            td_temp = td_temp;
-                                        }
-                                        $('.error_' + catid).html("Options are required");
-                                    } else if (multiples == 0 && cnn != extra_no) {
-                                        err++;
-                                        td_index = $('#td_' + catid).index();
-                                        if (td_temp >= td_index) {
-                                            td_temp = td_index;
-                                        } else {
-                                            td_temp = td_temp;
-                                        }
-                                        $('.error_' + catid).html("Select " + extra_no + " Options");
-                                    } else {
-                                        $('.error_' + catid).html("");
-                                    }
+                            //cnn = how many are selected
+                            //is_required: 1 if required, 0 if not
+                            //extra_no: quantity limit
+                            //upto: 0 if up to extra_no, 1 if exactly extra_no, 2 if unlimited
+                            //multiples: 1 if can only select a single item, 0 if multiple items are allowed
+                            //alert("is_required " + is_required + " upto " + upto + " multiples " + multiples + " cnn " + cnn + " extra_no " + extra_no);
+
+                            $('.error_' + catid).html("");
+                            if (is_required == '1') {//if items are required
+                                if (cnn == 0) {//no items are selected
+                                    err = ordererror(err, catid, td_index, td_temp, "Options are required");
+                                } else if (multiples == 0 && cnn > extra_no && upto <2) {//multiple items are allowed, selected is above the limit, limit is not unlimited
+                                    err = ordererror(err, catid, td_index, td_temp, "Select up to " + extra_no + " Options");
                                 }
-                            } else {
-                                if (upto == 0) {
-                                    if (multiples == 0 && cnn > 0 && cnn > extra_no) {
-                                        err++;
-                                        td_index = $('#td_' + catid).index();
-                                        if (td_temp >= td_index) {
-                                            td_temp = td_index;
-                                        } else {
-                                            td_temp = td_temp;
-                                        }
-                                        $('.error_' + catid).html("Select up to " + extra_no + " Options");
-                                    } else {
-                                        $('.error_' + catid).html("");
-                                    }
-                                } else if(upto == '1'){
-                                    if (multiples == 0 && cnn > 0 && cnn != extra_no) {
-                                        err++;
-                                        td_index = $('#td_' + catid).index();
-                                        if (td_temp >= td_index) {
-                                            td_temp = td_index;
-                                        } else {
-                                            td_temp = td_temp;
-                                        }
-                                        $('.error_' + catid).html("Select " + extra_no + " Options");
-                                    } else {
-                                        $('.error_' + catid).html("");
-                                    }
+                            } else if (upto <2) {//if items are not required, and limit is not unlimited
+                                if (multiples == 0 && cnn > 0 && cnn != extra_no) {//multiple items are allowed, selected is above the limit
+                                    err = ordererror(err, catid, td_index, td_temp, "Select " + extra_no + " Options");
                                 }
                             }
-                           
+                            
                             if (cnn > 0) {
                                 su = $(this).val();
                                 extratitle = extratitle + " " + su + ":";
@@ -556,6 +513,9 @@
                         $('#error_' + catid).html("");
                     });
                 }
+
+                //jsdie();
+
                 ids = ids.replace("__", "_");
                 app_title = app_title.split(",,").join("");
                 app_title = app_title.substring(1, app_title.length);
@@ -678,6 +638,7 @@
                         }
                     }
                 });
+
                 $('.number' + menu_id).text('1');
                 $('#select' + menu_id).val('1');
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function () {

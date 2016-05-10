@@ -281,7 +281,7 @@
                     </div>
                     <div class="pull-right" style="margin-left:.5rem;">
                         <a id="profilemenu{{ $value->id }}" title="{{ $alts["add"] }}"
-                           class="btn  btn-primary add_menu_profile add_end"
+                           class="btn btn-primary add_menu_profile add_end"
                            href="javascript:void(0);">ADD</a>
                     </div>
                     <div class="pull-right text-muted">Qty
