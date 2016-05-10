@@ -157,13 +157,15 @@
          */
         public function changeOrderStatus($status, $subject = "", $email = "", $flash = "", $URL = "", $OrderID = false, $Note = false){
             $post = \Input::all();
-            if ($OrderID) {
+            if($OrderID) {
                 $post['id'] = $OrderID;
-            }
-            if ($Note) {
                 $post['note'] = $Note;
+            } else {
+                $OrderID = $_POST["id"];
+                $Note = $_POST["note"];
             }
-
+            debugprint("Set order status to " . $status, $OrderID);
+        
             if (isset($post) && count($post) > 0 && !is_null($post)) {
                 if (!isset($post['id']) || empty($post['id'])) {
                     return $this->failure("[Order Id] is missing!", $URL);
@@ -184,7 +186,6 @@
 
                     $ob->populate(array('status' => $status, 'note' => $post['note'], 'time' => now()));
                     $ob->save();
-                    debugprint("Set order status to " . $status, $OrderID);
 
                     if ($ob->user_id && $subject && $email && $status != "approved") {
                         $userArray = \App\Http\Models\Profiles::find($ob->user_id)->toArray();
