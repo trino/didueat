@@ -673,12 +673,12 @@ class HomeController extends Controller {
         switch( $_POST["action"] ){
             case "rename":
                 update_database("category", "id", $_POST["id"], array("title" => $_POST["destination"]));
-                update_database("menus", "cat_id", $_POST["id"], array("cat_name" => $_POST["destination"]));
+                //update_database("menus", "cat_id", $_POST["id"], array("cat_name" => $_POST["destination"]));
                 break;
             case "merge":
                 delete_all("category", array("id" => $_POST["id"]));
                 $newcat = select_field("category", "id", $_POST["destination"], "title");
-                update_database("menus", "cat_id", $_POST["id"], array("cat_id" =>  $_POST["destination"], "cat_name" => $newcat));
+                update_database("menus", "cat_id", $_POST["id"], array("cat_id" =>  $_POST["destination"]));
                 break;
         }
     }

@@ -467,6 +467,7 @@ class RestaurantController extends Controller {
         } else {//one
             $MenuItems = enum_anything("menus", "restaurant_id", $res_id);
             foreach ($MenuItems as $MenuItem) {
+                /*
                 $CategoryName = trim($MenuItem->cat_name);
                 $NeedsUpdate=false;
                 if (!$CategoryName) {
@@ -474,6 +475,7 @@ class RestaurantController extends Controller {
                     update_database("menus", "id", $MenuItem->id, array("cat_name" => $CategoryName));
                     $NeedsUpdate=true;
                 }
+                */
                 $Category = select_field_where("category", array("res_id" => $res_id, "title" => $CategoryName));
                 if ($Category) {
                     if($MenuItem->cat_id <> $Category->id){

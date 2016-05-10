@@ -181,7 +181,7 @@ function processrestaurant($restaurant, $times, $now, $getimages){
     $catid = select_field("category", "res_id", $ob->id);
     if(!$catid){
         $catid = new_anything("category", array("title" => "Main", "display_order" => 1, "res_id" => $ob->id));
-        new_anything("menus", array("cat_name" => "Main", "cat_id" => $catid, "is_active" => 1, "display_order" => 1, "price" => 1, "description" => "", "restaurant_id" => $ob->id, "menu_item" => "Test Item", "uploaded_by" => read("id"), "uploaded_on" => $now));
+        new_anything("menus", array("cat_id" => $catid, "is_active" => 1, "display_order" => 1, "price" => 1, "description" => "", "restaurant_id" => $ob->id, "menu_item" => "Test Item", "uploaded_by" => read("id"), "uploaded_on" => $now));
     }
     var_dump($restaurant);
 }

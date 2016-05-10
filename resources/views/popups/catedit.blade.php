@@ -2,6 +2,12 @@
     printfile("views/popups/catedit.blade.php");
 
     $category = select_field("category", "id", $id);
+
+    if(!$category){
+        echo "<BR>Category " . $id . " failed to load";
+        die();
+    }
+
     $restaurant = select_field("restaurants", "id", $category->res_id);
     $categories = select_field("category", "res_id", $restaurant->id, false);
     $categorycount = count($categories);

@@ -1,29 +1,33 @@
 <?php
-printfile("views/menus.blade.php");
-$alts = array(
-        "product-pop-up" => "Product info",
-        "up_cat" => "Move Category up",
-        "down_cat" => "Move Category down",
-        "up_parent" => "Move this up",
-        "down_parent" => "Move this down",
-        "deleteMenu" => "Delete this item",
-        "edititem" => "Edit this item"
-);
+    printfile("views/menus.blade.php");
+    $alts = array(
+            "product-pop-up" => "Product info",
+            "up_cat" => "Move Category up",
+            "down_cat" => "Move Category down",
+            "up_parent" => "Move this up",
+            "down_parent" => "Move this down",
+            "deleteMenu" => "Delete this item",
+            "edititem" => "Edit this item",
+            "editcat" => "Edit this category",
+            "deletecat" => "Delete this category"
+    );
 
-$menuTSv = "?i=";
-$menuTS = read('menuTS');
-if ($menuTS) {
-    $menuTSv = "?i=" . $menuTS;
-    Session::forget('session_menuTS');
-}
+    $menuTSv = "?i=";
+    $menuTS = read('menuTS');
+    if ($menuTS) {
+        $menuTSv = "?i=" . $menuTS;
+        Session::forget('session_menuTS');
+    }
 
-$prevCat = "";
-$catNameStr = [];
-$parentCnt = [];
-$thisCatCnt = 0;
-$itemPosnForJS = [];
-$itemPosn = []; // to decide if js index needs a new array declared
-// $catCnt set in restaurants-menus.blade
+    $categories = enum_all("category", array("res_id" => $restaurant->id));
+
+    $prevCat = "";
+    $catNameStr = [];
+    $parentCnt = [];
+    $thisCatCnt = 0;
+    $itemPosnForJS = [];
+    $itemPosn = []; // to decide if js index needs a new array declared
+    // $catCnt set in restaurants-menus.blade
 ?>
 
 <script>
@@ -109,14 +113,13 @@ $itemPosn = []; // to decide if js index needs a new array declared
                 echo '</div><!-- end of previous category -->';
             }
             $prevCat = $value->cat_id; // also used as current cat_id until next loop
+            $value->cat_name = getIterator($categories, "id", $prevCat)->title;
 
             $catNameStr[$prevCat] = $value->cat_name;
             ($noUpCatSort) ? $thisUpCatSort = "hidden" : $thisUpCatSort = "visible";
             ($thisCatCnt >= ($catCnt - 1)) ? $thisDownCatSort = "hidden" : $thisDownCatSort = "visible";
 
-
             if (!read('id')) {
-
                 $thisUpCatSort = 'hidden';
                 $thisDownCatSort = 'hidden';
                 $thisDownMenuVisib = 'hidden';
@@ -124,9 +127,6 @@ $itemPosn = []; // to decide if js index needs a new array declared
             }
 
             $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
-
-
-
             ?>
 
             <DIV class="list-group m-b-1" id="c{{ $thisCatCnt }}"><!-- start of this category -->
@@ -140,9 +140,8 @@ $itemPosn = []; // to decide if js index needs a new array declared
 
 
                             <div class="col-xs-4">
-
-                                @if($canedit)
-                                    <div class="pull-right" aria-label="Basic example">
+                                <div class="pull-right" aria-label="Basic example">
+                                    @if($canedit)
                                         <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
                                            id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
                                            href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
@@ -157,8 +156,17 @@ $itemPosn = []; // to decide if js index needs a new array declared
                                             <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/down");?>"> -->
                                             <i class="fa fa-arrow-down"></i>
                                         </a>
-                                    </div>
-                                @endif
+
+                                        <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right" onclick="deletecategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
+                                            <i class="fa fa-times"></i>
+                                        </A>
+
+                                        <A title="{{ $alts["editcat"] }}" class="btn btn-sm btn-link pull-right" data-toggle="modal"
+                                               data-target="#editCatModel" data-target-id="{{ $value->cat_id }}" onclick="editcategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
+                                                Edit
+                                        </A>
+                                    @endif
+                                </div>
                             </div>
 
                             <div class="col-md-6" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
@@ -497,5 +505,21 @@ $itemPosn = []; // to decide if js index needs a new array declared
             $("#enable" + id).show();
             $("#spinner" + id).hide();
         });
+    }
+
+    function editcategory(ID, Name){
+        $("#editCatModelLabel").text(Name);
+        $("#categoryeditor").load("{{ url("restaurant/cateditor") }}/" + ID);
+    }
+    function deletecategory(ID, Name){
+        if (confirm("Are you sure you want to delete '" + Name + "' and every item in that category?")){
+            $.post("{{ url('ajax') }}", {
+                        type: "deletecategory",
+                        id: ID,
+                        _token: "{{ csrf_token() }}"
+            }, function (result) {
+                alert(result);
+            });
+        }
     }
 </SCRIPT>
