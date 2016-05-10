@@ -488,6 +488,8 @@ function updatecart(where){
     }
     if( Number(total.replace("$", "")) > 0 ){
         $("#checkout-btn").removeClass("disabled");
+        $("#checkout-btn").removeClass("btn-secondary");
+        $("#checkout-btn").addClass("btn-primary");
     }
 
     $(".cart-header-show").hide();

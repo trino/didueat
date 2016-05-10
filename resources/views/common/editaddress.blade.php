@@ -54,11 +54,7 @@
 
 
 
-
-
-<hr />
-
-<div class="card-block">
+<div class="">
 
 <input type="hidden" id="street_num" value="{{ $street_num }}"/>
 <input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
@@ -186,7 +182,7 @@
                class="form-control"
                value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" />
     @else
-        <div class="nowrap" <?php if (isset($type)&& read('id')) {echo "style='display:none'";} ?> >
+        <div class="form-group nowrap" <?php if (isset($type)&& read('id')) {echo "style='display:none'";} ?> >
             <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address' . $GUID;?>" required
                    id="formatted_address" class="form-control formatted_address"
                    placeholder="Enter your address"
@@ -314,9 +310,12 @@
 
 //if($isUser){
 if(true){
-    echo '</div>' . newrow($new, "Notes", "", false, 9); ?>
+   ?>
+<div class="col-xs-12">
+<div class="">
         <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
-    </div></div>
+</div>
+</div>
 <?php }
 
 

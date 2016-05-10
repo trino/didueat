@@ -102,9 +102,7 @@
                                 </div>
                             </div>
 
-                        </div>
 
-                        <DIV>
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <select class="form-control not-required" name="order_till" id="ordered_on_time">
@@ -148,7 +146,7 @@
                                 @include('home.stripe',['loaded_from'=>'reservation'])
                             </div>
                             <div class="clearfix"></div>
-                        </div>
+
 
                         <!--div class="col-xs-12 form-group text-xs-center p-a-0 m-t-1" style="color: red;font-size:90%;">
                             Please review your order before proceeding!
@@ -162,7 +160,7 @@
                             <input type="hidden" name="hidden_rest_id" id="hidden_rest_id"
                                    value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
                         </div>
-
+                        </div>
                     </div>
                 </div>
 

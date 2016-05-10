@@ -25,6 +25,9 @@
                         {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                         <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
+                        <?
+                        $emaillocked = true;
+                        ?>
                         @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true, "disabled" => array()))
 
                         <?= newrow(false, "Profile Photo", "", "", 7); ?>

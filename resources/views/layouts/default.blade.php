@@ -105,7 +105,7 @@
                 border: 1px solid green;
             }
 
-            div[class^="col-"], div[class*=" col-"] {
+            div[class^="col-"], div[class*=" col-"], div[class^="card-"], div[class*=" card-"]  {
                 border: 1px solid red !important;
             }
 
@@ -128,6 +128,8 @@
             form {
                 border: 3px solid black;
             }
+
+
         </style>
     @endif
 

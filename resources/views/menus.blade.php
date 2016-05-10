@@ -206,7 +206,7 @@ $itemPosn = []; // to decide if js index needs a new array declared
                 }
                 $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
                 $min_p = get_price($value->id);
-                if ($min_p = '10000' ? 0 : $min_p) ;
+              //  if ($min_p = '10000' ? 0 : $min_p) ;
                 ?>
 
                 <a
@@ -249,7 +249,7 @@ $itemPosn = []; // to decide if js index needs a new array declared
                                     }
                                     ?>
 
-                                    <h5 class="card-title">
+                                    <span>
 
                                         <div style="width: 100%;float:left;vertical-align: middle;">
 
@@ -287,7 +287,7 @@ $itemPosn = []; // to decide if js index needs a new array declared
                                         </div>
 
                                         <div class="clearfix"></div>
-                                    </h5>
+                                    </span>
 
 
                                     <p class="card-text m-a-0  text-muted">

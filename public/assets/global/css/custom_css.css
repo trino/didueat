@@ -1,3 +1,14 @@
+.disabled{
+    cursor: not-allowed !important;
+
+}
+
+
+a.btn.disabled, fieldset[disabled] a.btn {
+     pointer-events: all;
+}
+
+
 center {
     text-align: center;
 }
