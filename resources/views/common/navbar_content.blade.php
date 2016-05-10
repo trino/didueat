@@ -74,8 +74,8 @@
 
             $profiletype = Session::get('session_profiletype');
             $data = array();
-            if($profiletype==5){
-                $data["orders/list/driver"] = "My Deliveries";
+            if($profiletype==5 || $profiletype==1){
+                $data["orders/list/driver"] = "Deliveries";
             }
 
             if (!\Session::get('session_restaurant_id') || $profiletype == 1) {

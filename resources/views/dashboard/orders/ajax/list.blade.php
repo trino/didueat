@@ -58,13 +58,16 @@
                         <a class="btn btn-primary btn-sm pull-right" title="{{ $alts["notifyall"] }}" ONCLICK="notifystore(event, 0);">Notify All</a>
                     @endif
 
-                    @if($type == "driver")
-                        <SPAN CLASS="pull-right">Availability:</SPAN>
-                    @endif
+
                 </h4>
             </div>
             @if($type=='driver')
+
+
+
                 <div class="col-lg-3" TITLE="{{ $alts["available"] }}">
+                    <SPAN CLASS="pull-right">Availability:</SPAN>
+
                     <input type="checkbox" class="toggle" @if($driver->available_at > $eighthoursago) checked @endif >
                 </div>
             @endif

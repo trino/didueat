@@ -45,8 +45,8 @@
                     <label id="unit/apt_label" class="col-md-3 text-md-right">Vehicle Type</label>
                     <div class="col-md-5">
                         <select class="form-control" name="vehicle_type">
-                            <option value="Car">Car/Van/Truck</option>
-                            <option value="Motorcycle">Motorcycle</option>
+                            <option value="Car">Car</option>
+                            <option value="Scooter">Scooter</option>
                             <option value="Bicycle">Bicycle</option>
                         </select>
                     </div>
