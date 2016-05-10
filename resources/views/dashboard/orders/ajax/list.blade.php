@@ -57,18 +57,15 @@
                     @if($type == "admin" && false)
                         <a class="btn btn-primary btn-sm pull-right" title="{{ $alts["notifyall"] }}" ONCLICK="notifystore(event, 0);">Notify All</a>
                     @endif
-
-
                 </h4>
             </div>
             @if($type=='driver')
-
-
-
                 <div class="col-lg-3" TITLE="{{ $alts["available"] }}">
-                    <SPAN CLASS="pull-right">Availability:</SPAN>
-
-                    <input type="checkbox" class="toggle" @if($driver->available_at > $eighthoursago) checked @endif >
+                    <LABEL id="available-label">
+                        <input type="checkbox" class="toggle" @if($driver->available_at > $eighthoursago) checked @endif ONCLICK="available(event);">
+                        Availability
+                    </LABEL>
+                    <SPAN id="available-spinner" style="display:none;"><I CLASS="fa fa-spin fa-spinner"></I> Updating</SPAN>
                 </div>
             @endif
             @if(false)
@@ -108,7 +105,9 @@
                     ?>
                         <tr id="order{{ $value->id }}">
                             <td>
-                                <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" title="{{ $alts["order_detail"] }}" class="btn {{ statuscolor($value->status) }} btn-sm">{{ $value->guid }}</a>
+                                <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" title="{{ $alts["order_detail"] }}" class="btn {{ statuscolor($value->status) }} btn-sm">
+                                    {{ $value->guid }}
+                                </a>
                             </td>
                             <td>
                                 @if($type=='user')
@@ -213,11 +212,6 @@
 
 </div>
 
-@if($type == "driver")
-    <link href="{{ asset('assets/global/css/bootstrap-switch.css') }}" rel="stylesheet">
-    <script src="{{ asset('assets/global/scripts/bootstrap-switch.js') }}"></script>
-@endif
-
 <SCRIPT>
     var Orders = "{{ iterator_count($Query) }}";
     function deleteorder(ID){
@@ -290,15 +284,14 @@
         });
     }, 1000);
 
-    @if($type == "driver")
-        $( document ).ready(function() {
-            $(".toggle").bootstrapSwitch();
+    function available(event){
+        var checked = $(event.target).is(":checked"), value = 0;
+        if(checked){value = 1;}
+        $("#available-label").hide();
+        $("#available-spinner").show();
+        $.post("{{ url('user/driverstatus') }}/" + value, {_token: token}, function(result){
+            $("#available-label").show();
+            $("#available-spinner").hide();
         });
-
-        $('.toggle').on('switchChange.bootstrapSwitch', function (event, state) {
-            var value = 0;
-            if(state){value = 1;}
-            $.post("{{ url('user/driverstatus') }}/" + value, {_token: token});
-        });
-    @endif
+    }
 </SCRIPT>
