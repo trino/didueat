@@ -469,8 +469,14 @@ function updatecart(where){
     var total = $(".grandtotal").html();
     $("#cart-header").show();
     $(".cart-header-total").html(total);
+    if( !(debugmode || profiletype == 1) ) {
+        $("#checkout-btn").addClass("disabled");
+    }
     if(total_items != "" && !isNaN(total_items)){
         $(".cart-header-items").html(total_items);
+    }
+    if( Number(total.replace("$", "")) > 0 ){
+        $("#checkout-btn").removeClass("disabled");
     }
 
     $(".cart-header-show").hide();

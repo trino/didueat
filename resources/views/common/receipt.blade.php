@@ -193,7 +193,7 @@
                 @if(!isset($order))
                     <div class="form-group" style="margin-bottom: 0 !important;">
                         @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
-                            <a href="javascript:void(0)" class="btn btn-primary  btn-block" onclick="checkout();" TITLE="{{ $title }}">{{ $checkout }}</a>
+                            <a href="javascript:void(0)" id="checkout-btn" class="btn btn-primary  btn-block" onclick="checkout();" TITLE="{{ $title }}">{{ $checkout }}</a>
                         @elseif($business_day && !$restaurant->open)
                             <a class="btn btn-primary btn-lg btn-block" title="{{ $alts["call"] }}" href="tel:{{ $restaurant->phone }}"><!--i class="fa fa-phone fa-2x"></i-->Call: {{ phonenumber($restaurant->phone, true) }}</a>
                         @else

@@ -251,7 +251,7 @@ class RestaurantController extends Controller {
                 if(!$post['id']){
                     $post['id'] = $ob->id;
                     // add first category
-                    $this->saveCat($ob->id, "Main", 1); // default category is Main
+                    //$this->saveCat($ob->id, "Main", 1); // default category is Main
                 }
 
 

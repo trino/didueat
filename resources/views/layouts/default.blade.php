@@ -135,6 +135,7 @@
         var routename = "{{ \Route::getCurrentRoute()->getActionName() }}";
         var baseurl = "{{ url('/') }}";
         var debugmode = "{{ debugmode() }}";
+        var profiletype = "{{ read("profiletype") }}";
         //only do an alert if debugmode is on
         function debugalert(message) {
             if (debugmode) {
