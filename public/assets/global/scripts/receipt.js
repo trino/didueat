@@ -204,6 +204,7 @@ function calctip(Subtotal, Tax, DeliveryFee){
         tipvalue = tipvalue.toFixed(2);
         $("#tip").val(tipvalue);
     }
+    console.log("Tip: " + tipvalue);
     tiptype = parseFloat(Number(total) + Number(tipvalue) + Number(DeliveryFee));
     //alert(Subtotal + " tax: " + Tax + " total (subtotal+tax): " + total + " tip " + tipvalue + " (" + $("#tip_percent").val() + ") del " + DeliveryFee + " GRAND TOTAL: " + tiptype);
     return tiptype;
