@@ -29,4 +29,7 @@
             alert2(result.message, "subscribe");
         });
     }
+
+    $("#countRows").text("0");
+    $("#countRowsS").text("s");
 </SCRIPT>
