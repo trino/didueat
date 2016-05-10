@@ -292,19 +292,24 @@ $(function(){
         var qty = Number($(tthis).parent().find('.span_'+id).text());
         var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
         var chk = $(tthis).parent().parent().find('#extra_'+id);
-        
         var tit = chk.attr('title');
         var title = tit.split("_");
+        var menu_id = $("#addspan_" + id).parents('.modal').find('.add_menu_profile').attr('id').replace('profilemenu','');
         title[1]= title[1].replace(' x('+qty+")","");
         title[0] = title[0].replace('-'+qty,'');
 
+        var currentprice = Number($("#actualprice" + menu_id).val());
+
         if(dir) {
             qty = Number(qty) + Number(1);
+            currentprice = currentprice + price;
         } else if(qty>0) {
             qty = Number(qty) - Number(1);
+            currentprice = currentprice - price;
         } else {
             return false;
         }
+
         $(tthis).parent().find('.span_'+id).html(qty);
         if(qty == 0) {
             chk.removeClass('checked');
@@ -321,14 +326,19 @@ $(function(){
             newtitle= title[1]+" x("+qty+")";
             newprice= Number(price)*Number(qty);
         }
+        $("#actualprice" + menu_id).val(newprice);
+
+        //alert(qty + " <BR> ID: " + menu_id + "<BR> Price " + price + " <BR>currentprice " + currentprice + " newprice " + newprice);
 
         newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
         newtitle = newtitle.replace(" x(1)","");
         $(tthis).parent().parent().find('.spanextra_'+id).attr('title',newtitle);
         $(tthis).parents('.buttons').find('label.changemodalP').click();
         $(tthis).parents('.buttons').find('label.changemodalP').click();
-        if(price!=0)
-        showloader();
+        if(price!=0) {
+            $('.modalprice'+menu_id).html('$'+newprice.toFixed(2));
+            showloader();
+        }
     }
 
     //handle the +/- buttons on the receipt

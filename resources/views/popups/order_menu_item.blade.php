@@ -72,6 +72,8 @@
 
     </span>
 
+                    <input type="hidden" id="actualprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
+
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                     <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                 </h4>
