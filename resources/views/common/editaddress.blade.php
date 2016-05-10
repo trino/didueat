@@ -38,11 +38,14 @@
             "add" => "Create a new address"
     );
 
-    $street_num = explode(" ", $addresse_detail->formatted_address);
-    if($street_num){
-        $street_num = kill_non_numeric($street_num[0]);
+    $street_num="";
+    if(isset($addresse_detail)){
+        $street_num = explode(" ", $addresse_detail->formatted_address);
+        if($street_num){
+            $street_num = kill_non_numeric($street_num[0]);
+        }
+        $addresse_detail->street_num = $street_num;
     }
-    $addresse_detail->street_num = $street_num;
 ?>
 
 
