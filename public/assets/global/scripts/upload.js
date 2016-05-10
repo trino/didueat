@@ -578,7 +578,7 @@
                 try {
                     var doc = iframe.contentDocument ? iframe.contentDocument : window.frames[iframe.id].document;
                 } catch (error) {
-                    alert2("Upload failed", "upload.js");
+                    alert("Upload failed", "upload.js");
                     return;
                 }
 

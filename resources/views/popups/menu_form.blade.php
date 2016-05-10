@@ -175,7 +175,7 @@
             var cat = $('.cat_title').val();
             if (cat == '') {
                 overlay_loader_hide();
-                alert2('Please enter category title', "save_cat");
+                alert('Please enter category title', "save_cat");
                 return false;
             } else {
                 $.ajax({
@@ -184,7 +184,7 @@
                     type: 'post',
                     success: function (res) {
                         overlay_loader_hide();
-                        alert2('Category added successfully', "save_cat");
+                        alert('Category added successfully', "save_cat");
                         $('.cat_id').append('<option value="' + res + '" selected="selected">' + cat + '</option>');
                         $('.cat_title').val('');
                         $('.catblock').fadeOut('slow');

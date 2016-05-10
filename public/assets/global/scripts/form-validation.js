@@ -437,7 +437,7 @@ function makerules(validation){
                         }
                         break;
                     default:
-                        alert2(temprules[i] + " is not handled");
+                        alert(temprules[i] + " is not handled");
                 }
             }
         }

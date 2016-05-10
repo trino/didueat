@@ -26,7 +26,7 @@
             if(result.type == "success") {
                 $("#subscribeform").hide();
             }
-            alert2(result.message, "subscribe");
+            alert(result.message, "subscribe");
         });
     }
 

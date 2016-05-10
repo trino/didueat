@@ -123,7 +123,7 @@
             _token: token
         }, function (result) {
             if (result) {
-                alert2(result, "index.blade");
+                alert(result, "index.blade");
             }
         });
     });

@@ -173,7 +173,7 @@
             _token: "{{ csrf_token() }}"
         }, function (result) {
             if(result){
-                alert2(result, "promoteuser");
+                alert(result, "promoteuser");
             }
             $("#userplus" + id).show();
             $("#spinner" + id).hide();

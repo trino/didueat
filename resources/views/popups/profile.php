@@ -132,7 +132,7 @@
                     if (msg == '0') {
                         $('.top-cart-content ').html('<span class="thankyou">Thank You.</span>');
                     } else if (msg == '1') {
-                        alert2('Email Already Registered.' , "$('#profiles').submit(function (e) {");
+                        alert('Email Already Registered.' , "$('#profiles').submit(function (e) {");
                     }
                 }
             })

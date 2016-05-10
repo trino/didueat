@@ -61,7 +61,7 @@
                 _token: token
             }, function (result) {
                 if (result) {
-                    alert2(result, "$.post({{ url('user/addresses/sequence') }}");
+                    alert(result, "$.post({{ url('user/addresses/sequence') }}");
                 }
             });
         });

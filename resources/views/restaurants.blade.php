@@ -326,7 +326,7 @@
                     deliverytype = "is_delivery"; // the default
                     replacewith = replacewith + "is_delivery";
                     if (!document.getElementById('deliverycb').checked) {
-                        alert2("At least Delivery or Pickup must be checked (or both). We are checking Delivery as the default, but you may adjust as you see fit");
+                        alert("At least Delivery or Pickup must be checked (or both). We are checking Delivery as the default, but you may adjust as you see fit");
                         document.getElementById('deliverycb').checked = "true";
                     }
                 }

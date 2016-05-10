@@ -85,7 +85,7 @@
             $("#spin" + ID).show();
             $.post("{{ url('ajax') }}", {_token: "{{ csrf_token() }}", type: "csr", id: ID, action: Action}, function (result) {
                 $("#spin" + ID).hide();
-                if(result) {alert2(result);}
+                if(result) {alert(result);}
             });
         }
     </SCRIPT>

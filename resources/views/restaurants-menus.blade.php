@@ -194,17 +194,17 @@
                                 return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
                             }
                         @endif
-                        alert2(message);
+                        alert(message);
                         return false;
                     } else if (debugmode) {
-                        alert2("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
+                        alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
                     }
                     if(element) {
                         element.trigger("click");
                     }
                     return true;
                 } else if (where == "addresscheck") {
-                    alert2("No Address Specified");
+                    alert("No Address Specified");
                     return false;
                 }
             }
@@ -266,7 +266,7 @@
                         } else {
                             $('.payment-errors').html(msg);
                             console.log("stripeResponseHandler");
-                            //alert2( msg, "stripeResponseHandler" );
+                            //alert( msg, "stripeResponseHandler" );
                         }
                         if(hide){overlay_loader_hide();}
                     }
@@ -359,7 +359,7 @@
                                 console.log("$('#profiles').submit(function (e)");
                                 msg = jQuery(msg).text().trim();
                                 if(msg) {
-                                    alert2(jQuery(msg).text(), "$('#profiles').submit(function (e) {");
+                                    alert(jQuery(msg).text(), "$('#profiles').submit(function (e) {");
                                 }
                             }
                             if(hide){overlay_loader_hide();}

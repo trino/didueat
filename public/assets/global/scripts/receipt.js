@@ -87,7 +87,7 @@ function checkout() {
     } else {
         if(Number($('#subtotal1').val()) == 0){
             if(!debugmode){
-                alert2('Please make a menu selection before checking out!');
+                alert('Please make a menu selection before checking out!');
                 return false;
             }
         } else if(subtotal < Number(minimum_delivery)) {
@@ -102,16 +102,16 @@ function checkout() {
             } else if(debugmode) {
                 if (!confirm("Minimum delivery fee not met! Bypass anyway? (DEBUG MODE)")){ return false; }
             } else {
-                alert2("Subtotal must be $"+minimum_delivery+" for delivery!");
+                alert("Subtotal must be $"+minimum_delivery+" for delivery!");
                 return false;
             }
         }
     }
     if (noitems && !debugmode) {
-        alert2('No items yet');
+        alert('No items yet');
     } else {
         if(noitems){
-            alert2('No items yet, but bypassing for debug mode');
+            alert('No items yet, but bypassing for debug mode');
         }
         //$('.receipt_main').hide();
 
@@ -213,7 +213,7 @@ function calctip(Subtotal, Tax, DeliveryFee){
 $(function(){
     //seems to be debug code, as it won't do anything but alert text
     $('.modal').on('hidden',function(){
-        alert2('blured', "receipt.js 193");
+        alert('blured', "receipt.js 193");
     })
 
     //appears to recalculate the total when switched from pickup to delivery
