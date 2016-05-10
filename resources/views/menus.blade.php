@@ -19,7 +19,8 @@
         Session::forget('session_menuTS');
     }
 
-    $categories = enum_all("category", array("res_id" => $restaurant->id));
+    $menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
+    $categories = enum_all("category", array("res_id" => $menu_id));
 
     $prevCat = "";
     $catNameStr = [];

@@ -6,11 +6,11 @@
 
     <?php
         $checkout_modal = false;
+        $menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
 
         if (read("restaurant_id") && read("restaurant_id") != $restaurant->id) {
             popup(false, "You can not place orders as a restaurant owner", "Oops");
         }
-
 
         $is_my_restro = false;
         if (Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id) {
@@ -44,8 +44,7 @@
 
                 @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true, "showtoday" => true))
 
-                @if($allowedtoupload)
-
+                @if($allowedtoupload && $menu_id == $restaurant->id)
                         <a href="#" id="add_item0" type="button"
                            class="btn btn-success btn-lg additem  btn-block m-b-1"
                            data-toggle="modal"
@@ -53,11 +52,7 @@
                            data-target="#addMenuModel">
                             Upload Menu Item
                         </a>
-
                 @endif
-
-
-
 
                 <div class="overlay overlay_reservation">
                         <div class="loadmoreajaxloader"></div>
@@ -83,9 +78,9 @@
                             }
 
                             if(read('restaurant_id') == $restaurant->id || read("profiletype") != 2) {//is yours, doesnt need to be active
-                               $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->orderBy('cat_id', 'ASC')->orderBy('display_order', 'ASC')->get();
+                               $menus_list = App\Http\Models\Menus::where('restaurant_id', $menu_id)->where('parent', '0')->whereIn('cat_id', $cats)->orderBy('cat_id', 'ASC')->orderBy('display_order', 'ASC')->get();
                             } else{//is not yours, needs to be active
-                               $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->where('is_active', 1)->orderBy('display_order', 'ASC')->get();
+                               $menus_list = App\Http\Models\Menus::where('restaurant_id', $menu_id)->where('parent', '0')->whereIn('cat_id', $cats)->where('is_active', 1)->orderBy('display_order', 'ASC')->get();
                             }
 
                         ?>
@@ -94,8 +89,7 @@
                             @include('menus',$menus_list)
                         @endif
 
-                        @if($allowedtoupload)
-
+                        @if($allowedtoupload && $menu_id == $restaurant->id)
                                 <a href="#" id="add_item0" type="button"
                                    class="btn btn-success btn-lg additem  btn-block m-b-1"
                                    data-toggle="modal"
@@ -103,19 +97,14 @@
                                    data-target="#addMenuModel">
                                     Upload Menu Item
                                 </a>
-
-                                @endif
-
-                                <!--input type="file" accept="image/*;capture=camera"-->
+                        @endif
+                        <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
 
 
                 <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
                     @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))
                 </div>
-
-                @if(!read('restaurant_id') || read('restaurant_id') == $restaurant->id)
-                @endif
 
                 <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">

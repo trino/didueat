@@ -10,12 +10,13 @@
 
             <div class="col-lg-9 ">
                 <?php
-                    printfile("views/dashboard/restaurant/info.blade.php");
+                    printfile("views/dashboard/restaurant/info.blade.php<BR>");
 
                     $is_disabled = false;
                     if (isset($route) && $route == "restaurant/view/{view}") {
                         $is_disabled = " DISABLED";
                     }
+                    echo '<H1>' . $resturant->name . '</H1>';
                 ?>
 
                 {!! Form::open(array('url' => 'restaurant/info', 'onsubmit' => 'return validateFn(this)', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
@@ -37,6 +38,16 @@
                         </div>
                         <div class="card-block">
                             @include("dashboard.restaurant.payment", array("edit" => true, "restaurant" => $resturant))
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Franchise</h4>
+                        </div>
+                        <div class="card-block">
+                            @include("dashboard.restaurant.franchise", array("restaurant" => $resturant))
                             <div class="clearfix"></div>
                         </div>
                     </div>

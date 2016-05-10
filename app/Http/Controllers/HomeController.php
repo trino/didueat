@@ -460,7 +460,10 @@ class HomeController extends Controller {
         $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();//load restaurant by its slug
         if(!$res_slug){return $this->failure("Restaurant '" . $slug . "' not found", "/");}
         // category table isn't really needed. Just insert into cat_name field in menus tbl
-        $category = \App\Http\Models\Category::where('res_id',$res_slug->id)->orderBy('display_order','ASC')->get();// all cats for resto in display_order
+
+        $res_id = iif( $res_slug->franchise > 0, $res_slug->franchise, $res_slug->id);
+
+        $category = \App\Http\Models\Category::where('res_id',$res_id)->orderBy('display_order','ASC')->get();// all cats for resto in display_order
         $data['category'] = $category;
         $data['title'] = $res_slug->name;
         $data['keyword'] = $res_slug->name.','.$res_slug->cuisine.' Cuisine'.','.$res_slug->phone.','.$res_slug->formatted_address.',Didueat,didueat.ca,Online food,Online food order,Canada online food';
