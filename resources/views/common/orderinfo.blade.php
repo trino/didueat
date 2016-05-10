@@ -7,17 +7,16 @@
 <TABLE style="width:100%;<?php if($em){?>padding: 15px 0;<?php }?>">
     <?php
         printfile("views/common/orderinfo.blade.php");
-
-
-    if ($order->remarks) {
-        $Data["Notes"] = $order->remarks;
-    }
-
-
+        if ($order->remarks) {
+            $Data["Notes"] = $order->remarks;
+        }
         //$Data = array("Status" => $order->status);
         $Data['Order #'] = $order->guid;
-        $Data['Status'] = $order->status;
 
+        if($type != "user"){
+            $Data['Status'] = $order->status;
+        }
+        
         $Data["Type"] = iif($order->order_type == '1', "Delivery", "Pickup");
         $Data["Payment"] = iif( (isset($paid_for) && $paid_for == '1') || $order->paid, "Paid Online", "Cash on " . $Data["Type"]);
 

@@ -90,9 +90,11 @@
                         </th>
                         <th>Ordered On</th>
                         <TH>Type</TH>
-                        <th>Status</th>
-                        @if (Session::get('session_type_user') == "super" || $type=='restaurant'  || $type=='driver')
-                            <TH>Response Time</TH>
+                        @if($type!='user')
+                            <th>Status</th>
+                            @if (Session::get('session_type_user') == "super" || $type=='restaurant'  || $type=='driver')
+                                <TH>Response Time</TH>
+                            @endif
                         @endif
                         <th></th>
                     </tr>
@@ -129,46 +131,48 @@
                                     echo '</TD><TD><span class="m-a-0 text-muted no_text_break">' . iif($value->order_type, "Delivery", "Pickup") . iif($value->order_till, ' later') . '</span>';
                                     echo '</td>';
 
-                                    if($value->status == "pending" && $value->driver_id){
-                                        $value->status = "Waiting for driver to accept";
-                                        $waiting=true;
-                                    }
-                                    echo '<TD><FONT COLOR="' . statuscolor($value->status, true) . '">' . ucfirst($value->status) . '</FONT></td>';
+                                    if($type!='user'){
+                                        if($value->status == "pending" && $value->driver_id){
+                                            $value->status = "Waiting for driver to accept";
+                                            $waiting=true;
+                                        }
+                                        echo '<TD><FONT COLOR="' . statuscolor($value->status, true) . '">' . ucfirst($value->status) . '</FONT></td>';
 
-                                    echo '<TD>';
-                                    if (Session::get('session_type_user') == "super" || $type=='restaurant' || $type=='driver'){
-                                        if ($value->time) {
-                                            $class = ' CLASS="timedisplay"';
-                                            if(isset($waiting)){
-                                                $delay = (now(true) - strtotime($value->assigned_at));
-                                            } else if($value->status == "pending"){
-                                                $delay = (now(true) - strtotime($value->order_time));
-                                            } else {
-                                                $delay = (strtotime($value->time) - strtotime($value->order_time));
-                                                $class = "";
-                                            }
-                                            echo '<FONT' . $class . ' SECONDS="' . $delay . '" COLOR="';
-                                            if ($delay < 60) {
-                                                echo 'GREEN">';
-                                            } else if ($delay < 300) {
-                                                echo 'ORANGE">';
-                                            } else {
-                                                echo 'RED">';
-                                            }
-                                            //check how much time has passed
-                                            $delay = array($secondsTitle => $delay, "total" => "");
-                                            $total = array();
-                                            foreach ($secondsper as $timeperiod => $seconds) {
-                                                $delay[$timeperiod] = floor($delay[$secondsTitle] / $seconds);
-                                                $delay[$secondsTitle] = $delay[$secondsTitle] - ($seconds * $delay[$timeperiod]);
-                                                if ($delay[$timeperiod]) {
-                                                    $total[] = $delay[$timeperiod] . " " . $timeperiod;// . iif($delay[$timeperiod] != 1, "s");
+                                        echo '<TD>';
+                                        if (Session::get('session_type_user') == "super" || $type=='restaurant' || $type=='driver'){
+                                            if ($value->time) {
+                                                $class = ' CLASS="timedisplay"';
+                                                if(isset($waiting)){
+                                                    $delay = (now(true) - strtotime($value->assigned_at));
+                                                } else if($value->status == "pending"){
+                                                    $delay = (now(true) - strtotime($value->order_time));
+                                                } else {
+                                                    $delay = (strtotime($value->time) - strtotime($value->order_time));
+                                                    $class = "";
                                                 }
+                                                echo '<FONT' . $class . ' SECONDS="' . $delay . '" COLOR="';
+                                                if ($delay < 60) {
+                                                    echo 'GREEN">';
+                                                } else if ($delay < 300) {
+                                                    echo 'ORANGE">';
+                                                } else {
+                                                    echo 'RED">';
+                                                }
+                                                //check how much time has passed
+                                                $delay = array($secondsTitle => $delay, "total" => "");
+                                                $total = array();
+                                                foreach ($secondsper as $timeperiod => $seconds) {
+                                                    $delay[$timeperiod] = floor($delay[$secondsTitle] / $seconds);
+                                                    $delay[$secondsTitle] = $delay[$secondsTitle] - ($seconds * $delay[$timeperiod]);
+                                                    if ($delay[$timeperiod]) {
+                                                        $total[] = $delay[$timeperiod] . " " . $timeperiod;// . iif($delay[$timeperiod] != 1, "s");
+                                                    }
+                                                }
+                                                if ($delay[$secondsTitle]) {
+                                                    $total[] = $delay[$secondsTitle] . " " . $secondsTitle;// . iif($delay[$secondsTitle] != 1, "s");
+                                                }
+                                                echo implode(" ", $total) . '</FONT>';
                                             }
-                                            if ($delay[$secondsTitle]) {
-                                                $total[] = $delay[$secondsTitle] . " " . $secondsTitle;// . iif($delay[$secondsTitle] != 1, "s");
-                                            }
-                                            echo implode(" ", $total) . '</FONT>';
                                         }
                                     }
                                 ?>

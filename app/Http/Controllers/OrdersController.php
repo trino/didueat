@@ -186,7 +186,7 @@
                     $ob->save();
                     debugprint("Set order status to " . $status, $OrderID);
 
-                    if ($ob->user_id && $subject && $email) {
+                    if ($ob->user_id && $subject && $email && $status != "approved") {
                         $userArray = \App\Http\Models\Profiles::find($ob->user_id)->toArray();
                         $userArray['mail_subject'] = $subject;
                         $userArray['note'] = $post['note'];
