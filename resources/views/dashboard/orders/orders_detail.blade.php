@@ -160,7 +160,7 @@
                         <DIV CLASS="clearfix"></DIV>
                     @endif
 
-                    @if(read("profiletype") == 1)
+                    @if(read("profiletype") == 1 && file_exists(public_path('assets/logs/' . $ID . '.txt')))
                         <DIV CLASS="col-md-12">
                             Events:
                             <PRE><?= file_get_contents(public_path('assets/logs/' . $ID . '.txt')); ?></PRE>
