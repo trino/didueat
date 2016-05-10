@@ -37,6 +37,12 @@
             "contactus" => "Contact us",
             "add" => "Create a new address"
     );
+
+    $street_num = explode(" ", $addresse_detail->formatted_address);
+    if($street_num){
+        $street_num = kill_non_numeric($street_num[0]);
+    }
+    $addresse_detail->street_num = $street_num;
 ?>
 
 
@@ -51,7 +57,7 @@
 
 <div class="card-block">
 
-
+<input type="hidden" id="street_num" value="{{ $street_num }}"/>
 <input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
 <input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
@@ -379,7 +385,7 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
 <SCRIPT>
     //check if the address is complete
     function isaddress_incomplete(){
-        var incomplete = !$("#formatted_address").val() || !$("#city").val() || !$("#province").val() || !$("#postal_code").val() || !$("#country").val();
+        var incomplete = !$("#formatted_address").val() || !$("#city").val() || !$("#province").val() || !$("#postal_code").val() || !$("#country").val() || !$('#street_num').val();
         $("#error-message").text("");
         if(incomplete){
             var error = "Please input your exact address";

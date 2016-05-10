@@ -16,7 +16,7 @@
         if($type != "user"){
             $Data['Status'] = $order->status;
         }
-        
+
         $Data["Type"] = iif($order->order_type == '1', "Delivery", "Pickup");
         $Data["Payment"] = iif( (isset($paid_for) && $paid_for == '1') || $order->paid, "Paid Online", "Cash on " . $Data["Type"]);
 

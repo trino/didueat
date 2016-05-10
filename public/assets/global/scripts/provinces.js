@@ -102,6 +102,7 @@ function fillInAddress1() {
     $('span.country').text("[Missing Country]");
     $('span.city').text("[Missing City]");
     $('span.postal_code').text("[Missing Postal Code]");
+    $('#street_num').val("");
 
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
@@ -124,6 +125,10 @@ function fillInAddress1() {
                 $('#province').val(val);
                 $('span.province').text(val);
             }
+            if(addressType == "street_number"){
+                $('#street_num').val(val);
+            }
+
             if(addressType == "locality"){
                 $('#city').val(val);
                 $('span.city').text(val);
