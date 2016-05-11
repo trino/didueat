@@ -673,13 +673,13 @@ class HomeController extends Controller {
     }
 
     function editcategory(){
+        $res_id = select_field("category", "id", $_POST["id"], "res_id");
         switch( $_POST["action"] ){
             case "rename":
                 update_database("category", "id", $_POST["id"], array("title" => $_POST["destination"]));
                 //update_database("menus", "cat_id", $_POST["id"], array("cat_name" => $_POST["destination"]));
                 break;
             case "merge":
-                $res_id = select_field("category", "id", $_POST["id"], "res_id");
                 $Display_order = first("SELECT max(display_order) as maximum FROM category WHERE res_id = " . $res_id)["maximum"];
 
                 delete_all("category", array("id" => $_POST["id"]));
@@ -692,6 +692,7 @@ class HomeController extends Controller {
                 //update_database("menus", "cat_id", $_POST["id"], array("cat_id" =>  $_POST["destination"]));
                 break;
         }
+        $this->updatemenu($res_id);
     }
 
     function deletecategory($ID){
@@ -699,6 +700,7 @@ class HomeController extends Controller {
         delete_all("category", array("id" => $ID));
         delete_all("menus", array("cat_id" => $ID));
         $slug = select_field("restaurants", "id", $Restaurant, "slug");
+        $this->updatemenu($Restaurant);
         return $this->success("Category deleted", "restaurants/" . $slug . "/menu");
     }
 

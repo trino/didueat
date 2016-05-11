@@ -218,4 +218,13 @@ abstract class Controller extends BaseController {
         }
         return $hour . ':' . $min . ':' . $sec;
     }
+
+
+    function updatemenu($restaurantID, $IsMenuItem = false){
+        if($IsMenuItem){$restaurantID = select_field("menus", "id", $restaurantID, "restaurant_id");}
+        if(!is_numeric($restaurantID)){$restaurantID = select_field("restaurants", "slug", $restaurantID, "id");}
+
+        debugprint($restaurantID . " menu updated, needs recaching");
+
+    }
 }

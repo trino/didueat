@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="col-sm-6">
-                    <input class="form-control cat_name form-group" type="text" name="cat_name" id="cat_name" placeholder="Or Create New Category" onkeypress="$('#catList').val('');"/>
+                    <input class="form-control cat_name form-group" type="text" name="cat_name" id="cat_name" placeholder="Or Create New Category" onkeypress="clearcat();" onpaste="clearcat();"/>
                 </div>
             </div>
 
@@ -142,24 +142,24 @@
         <div class="col-md-12">
             <div class="additional additional{{ $menu_id }} ignore" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
                 <?php
-                $k = 0;
-                if(isset($cmodel)){
-                if (isset($_GET['menu_id'])) {
-                    $menu_id = $_GET['menu_id'];
-                }
-                foreach($cmodel as $child){
-                $k++;
-                if ($k == 1){
-                    echo "<div class='ignore subcat' id='subcat" . $menu_id . "'>";
-                }
-                ?>
-                @include('popups.additional')
-                <?php
-                }
-                if ($k > 0){
-                    echo "</div>";
-                }
-                }
+                    $k = 0;
+                    if(isset($cmodel)){
+                        if (isset($_GET['menu_id'])) {
+                            $menu_id = $_GET['menu_id'];
+                        }
+                        foreach($cmodel as $child){
+                            $k++;
+                            if ($k == 1){
+                                echo "<div class='ignore subcat' id='subcat" . $menu_id . "'>";
+                            }
+                            ?>
+                            @include('popups.additional')
+                            <?php
+                        }
+                        if ($k > 0){
+                            echo "</div>";
+                        }
+                    }
                 ?>
             </div>
 
@@ -171,6 +171,10 @@
 </div>
 
 <script>
+    function clearcat(){
+        $('#catList').val('');
+    }
+
     $(function () {
         $('#save_cat').live('click', function () {
             log("#save_cat event");

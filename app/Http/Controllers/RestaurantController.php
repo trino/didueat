@@ -360,7 +360,7 @@ class RestaurantController extends Controller {
     }
 
     /**
-     * Manu Manager
+     * Menu Manager
      * @param null
      * @return view
      */
@@ -438,6 +438,7 @@ class RestaurantController extends Controller {
                     }
                 }
 
+                $this->updatemenu(\Session::get('session_restaurant_id'));
                 return $this->success("Item menus added successfully", 'restaurant/menus-manager');
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/menus-manager');
@@ -492,6 +493,7 @@ class RestaurantController extends Controller {
                 }
             }
         }
+        $this->updatemenu($res_id);
     }
 
     //return a menu item and it's child items
@@ -528,7 +530,6 @@ class RestaurantController extends Controller {
     public function alladdons($resid) {
         $data['menus'] = \App\Http\Models\Menus::where('restaurant_id',$resid)->where('parent','0')->get();
         return view('popups.all_addons',$data);
-
     }
 
     //get more menu items
@@ -662,6 +663,7 @@ class RestaurantController extends Controller {
             $ob2->save();//save changes
             $this->handleimageupload($ob2->id);
         }
+        $this->updatemenu($rest_id);
     }
 
     //handles image uploading for menu items
@@ -775,6 +777,8 @@ class RestaurantController extends Controller {
         foreach($arr as $k=>$a) {
             \App\Http\Models\Category::where('id', $a)->update(array('display_order' => ($k + 1)));
         }
+
+        $this->updatemenu($thisSlug);
         return \Redirect::to('/restaurants/' . $thisSlug . '/menu');
         /*$_POST['ids'] = explode(',', $_POST['ids']);
         $key = array_search($cid, $_POST['ids']);
@@ -814,6 +818,7 @@ class RestaurantController extends Controller {
             $_POST['ids'][$key] = $temp;
         }
         $child = \App\Http\Models\Menus::where('id', $cid)->get()[0];
+        $this->updatemenu($child->restaurant_id);
         echo $child->parent;
         foreach ($_POST['ids'] as $k => $id) {
             \App\Http\Models\Menus::where('id', $id)->update(array('display_order' => ($k + 1)));
@@ -858,6 +863,8 @@ class RestaurantController extends Controller {
 
             // update menus set display_order=(display_order-1) where cat_id=7 AND display_order>$thisDisplayOrder $menuOrderLimit
             \App\Http\Models\Menus::where('cat_id', $_POST['catID'])->where('parent', 0)->where('display_order', '>', $_POST['thisMenuDisplayOrder'])->take($menuOrderLimit)->decrement('display_order', 1);
+
+            $this->updatemenu($res_id);
 
             if(!isset($_POST['id'])){  // done with AJAX now
                 \Session::flash('message', 'Item deleted successfully');
@@ -948,11 +955,14 @@ class RestaurantController extends Controller {
 
     public function menuOrderSort(){ // save order within one category
         if(isset($_POST['newMenuOrder'])){
+            $res_id = false;
             $newMenuOrderExpl=explode(",",$_POST['newMenuOrder']);
             foreach ($newMenuOrderExpl as $updatePair) {
                 $updatePairExpl=explode(":",$updatePair);
+                if(!$res_id){$res_id = $updatePairExpl[0];}
                 \App\Http\Models\Menus::where('id', $updatePairExpl[0])->update(array('display_order' => $updatePairExpl[1]));
             }
+            if($res_id) {$this->updatemenu($res_id, true);}
         } else{
             return false;
         }
@@ -961,11 +971,14 @@ class RestaurantController extends Controller {
 
     public function menuCatSort(){
         if(isset($_POST['newCatOrder'])){
+            $res_id = false;
             $newCatOrderExpl=explode(",",$_POST['newCatOrder']);
             foreach ($newCatOrderExpl as $updatePair) {
                 $updatePairExpl=explode(":",$updatePair);
+                if(!$res_id){$res_id = $updatePairExpl[0];}
                 \App\Http\Models\Category::where('id', $updatePairExpl[0])->update(array('display_order' => ($updatePairExpl[1] + 1)));
             }
+            if($res_id) {$this->updatemenu($res_id, true);}
         } else{
             return false;
         }
@@ -983,6 +996,7 @@ class RestaurantController extends Controller {
             $arr['res_id'] = $_POST['res_id'];
         }
 
+        $this->updatemenu($arr['res_id']);
         $ob2 = new \App\Http\Models\Category();
         $ob2->populate($arr);
         $ob2->save();
@@ -1002,6 +1016,7 @@ class RestaurantController extends Controller {
             echo '0';
         }
         if($menu_id) {
+            $this->updatemenu($menu_id, true);
             \App\Http\Models\Menus::where('id', $menu_id)->update(array('is_active' => $is_active));
         }
         die();
@@ -1015,6 +1030,7 @@ class RestaurantController extends Controller {
             $count = \App\Http\Models\Menus::where(['restaurant_id'=>$Item->restaurant_id,'is_active'=>1])->count();
             if($post["value"] == "false") {$post["value"] = 0;} else {$post["value"] = 1;}
             if($post["value"] && $count >= $limit){ return 0; }
+            $this->updatemenu($Item->restaurant_id);
             update_database("menus", "id", $post["id"], array("is_active" => $post["value"]));
             return 1;
         }
@@ -1032,6 +1048,7 @@ class RestaurantController extends Controller {
         } else{
             $thisSlug = select_field("restaurants", "id", $restaurant_id, "slug"); // don't do db call for slug unless needed
         }
+        $this->updatemenu($id, true);
         update_database("menus", "id", $id, array("image" => "")); // delete image from menus tbl
         return $this->success("Menu image deleted", "restaurants/" . $thisSlug . "/menu");
     }
@@ -1109,6 +1126,7 @@ class RestaurantController extends Controller {
             fclose($file);
             \App\Http\Models\Menus::where('temp_id','<>','')->update(['temp_id'=>'']);
         }
+        $this->updatemenu($id);
     }
 
     function cities(){
