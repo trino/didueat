@@ -27,6 +27,7 @@ class Menus extends BaseModel {
 
     //on save, makes sure the store is open if that's all it needed
     public function save(array $options = array()) {
+        unset( $this->cat_name );
         parent::save($options);
         if(isset($this->restaurant_id)) {
             $before = select_field("restaurants", "id", $this->restaurant_id);
