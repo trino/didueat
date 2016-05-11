@@ -185,6 +185,7 @@ class Restaurants extends BaseModel {
         $IsHardcoded=false;
         if(isset($data["formatted_address"]) && $data["formatted_address"]){
             $IsHardcoded = true;
+            $data["formatted_address"] = trim($data["formatted_address"]);
             switch($data["formatted_address"]){
                 case "Hamilton, Ontario"; case "Hamilton, ON, Canada";
                     $data["city"] = "Hamilton";
@@ -192,6 +193,12 @@ class Restaurants extends BaseModel {
                     break;
                 default:
                     $IsHardcoded = false;
+            }
+            if(!debugmode()){
+                if(!$IsHardcoded){
+                    $IsHardcoded = !$data["postal_code"] || !is_numeric(explode(" ", $data["formatted_address"])[0]);
+                }
+                if($IsHardcoded){return false;}
             }
         }
 

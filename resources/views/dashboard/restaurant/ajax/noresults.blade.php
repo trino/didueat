@@ -4,6 +4,10 @@
     if(read("email")){
         $is_subscribed = select_field("newsletter", "email", read("email"));
     }
+    if($query === false){
+        echo "The address entered is incomplete or not valid";
+    }
+
     if(!$is_subscribed){
         ?>
             <DIV ID="subscribeform" class="input-group col-md-8 row">

@@ -171,13 +171,13 @@ class HomeController extends Controller {
                     }
                 }
 
-                if (!is_null($data['query']) && count($data['query']) > 0){
+                if (!is_null($data['query']) && count($data['query']) > 0 && $data['query'] !== false){
                     $data['data'] = $data;
                     unset($data['data']["data"]);
                     unset($data['data']["query"]);
                     return view('ajax.search_restaurants', $data);
                 } else {
-                    return view('dashboard.restaurant.ajax.noresults', array("SQL" => $SQL));
+                    return view('dashboard.restaurant.ajax.noresults', array("SQL" => $SQL, "query" => $data['query']));
                 }
             } catch (Exception $e) {
                 return \Response::json(array('type' => 'error', 'response' => handleexception($e)), 500);
