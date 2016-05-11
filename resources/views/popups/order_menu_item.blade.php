@@ -39,10 +39,8 @@
 
             <div style=" width:100%; border:0; @if ($has_bigImage)background:transparent !important; @endif"
                  class=" bg-inverse card-header @if ($has_bigImage) fronttext @else bg-success @endif">
-                <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" title="Close"
-                        aria-label="Close" id="clear_<?php echo $value->id; ?>">
-                    <span aria-hidden="true "
-                          style="  @if ($has_bigImage) text-shadow: 1px 1px 9px rgba(0, 0, 0, 2);color:white !important; opacity: .8 !important; @endif">&times;</span>
+                <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" title="Close" aria-label="Close" id="clear_<?php echo $value->id; ?>">
+                    <span aria-hidden="true" style="  @if ($has_bigImage) text-shadow: 1px 1px 9px rgba(0, 0, 0, 2);color:white !important; opacity: .8 !important; @endif">&times;</span>
                 </button>
 
                 <h4 class="modal-title " style="" id="viewDetailModel">
@@ -72,8 +70,8 @@
 
     </span>
 
-                    <input type="hidden" id="actualprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
-
+                    <input type="hidden" id="actualprice<?php echo $value->id; ?>" value="{{$value->price}}"/>
+                    <input type="hidden" id="originalprice<?php echo $value->id; ?>" value="{{$value->price}}"/>
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                     <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                 </h4>

@@ -173,6 +173,7 @@
 <script>
     $(function () {
         $('#save_cat').live('click', function () {
+            log("#save_cat event");
             overlay_loader_show();
             var cat = $('.cat_title').val();
             if (cat == '') {

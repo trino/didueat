@@ -1,5 +1,6 @@
 //handles the add_item (not additem) button
 $('.add_item').live('click', function () {
+    log(".add_item event");
     var id = $(this).attr('id').replace('add_item', '');
     if (id == 0) {
         $('.addnew').show();
@@ -15,6 +16,7 @@ $('.add_item').live('click', function () {
 
 //handles the additem (not add_item) button
 $('.additem').live('click', function () {
+    log(".additem event");
     $('.savebtn').remove();
     $('.add_additional').remove();
     $('.loadPrevious').remove();

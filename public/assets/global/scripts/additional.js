@@ -8,7 +8,7 @@ function overlay_loader_hide(){
     var text = "Loading took: " + (Date.now() - shownat) + " ms";
     if (debugmode) {
         $("#p-footer").append(text);
-        console.log(text);
+        log(text);
     }
 }
 
@@ -89,7 +89,7 @@ $(".sorting_child").live('click', function () {
 */
 //handles sorting of children
 $(".sorting_child").live('click', function () {
-    
+    log(".sorting_child event");
     var start=0;
     var allpar = $(this).closest('.addmore');
     var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
@@ -130,6 +130,7 @@ $(".sorting_child").live('click', function () {
 
 //handle sorting of addons
 $(".addon_sorting").live('click', function () {
+    log(".addon_sorting event");
     var menu_id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
     var pid = $(this).attr('id').replace('addon_up_', '').replace('addon_down_', '');
     if ($(this).attr('id') == 'addon_up_' + pid) {
@@ -162,6 +163,7 @@ $(".addon_sorting").live('click', function () {
 
 //handle adding additons
 $('.add_additional').live('click', function () {
+    log(".add_additional event");
     var id = $(this).attr('id').replace('add_additional', '').replace(';', '');
     $('.additional' + id).show();
     var c = 0;
@@ -199,6 +201,7 @@ $('.loadPrevious').live('change', function () {
 
 //handle removing of normal items
 $('.removenormal').live('click', function () {
+    log(".removenormal event");
     $_this = $(this);
     if (confirm('Are you sure you want to delete this addon?')) {
         $_this.closest('.menuwrapper').remove();
@@ -207,6 +210,7 @@ $('.removenormal').live('click', function () {
 
 //handle removing the last item
 $('.removelast').live('click', function () {
+    log(".removelast event");
     $_this = $(this);
     var tot = $_this.closest('.newmenu').find('.newaction').length;
     var newmenu = $_this.closest('.newmenu').attr('id');
@@ -242,6 +246,7 @@ $('.delcmore').live('click',function(){
 
 //handle adding more something
 $('.addmorebtn').live('click', function () {
+    log(".addmorebtn event");
     var id = 0;
     $(this).closest('.aitems').find('.addmore').append(
         '<div class="cmore m-b-1">' +
@@ -295,6 +300,7 @@ $('.days_discount_all').live('click',function(){
 
 //handle the save button
 $('.savebtn').live('click', function () {
+    log(".savebtn event");
     catObj=document.getElementById('catList');
     for(var i=0;i<catObj.length;i++){
         if(catObj.options[i].text == document.getElementById('cat_name').value){
@@ -481,7 +487,7 @@ $('.savebtn').live('click', function () {
     }
     
     $.ajax({
-        url: base_url + 'restaurant/menuadd?id=' + id,
+            url: base_url + 'restaurant/menuadd?id=' + id,
         data: '&menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&restaurant_id='+$('#res_id').val()+'&cat_name='+cat_name+'&highestCatOrder='+highestCatOrder,
         type: 'post',
         success: function (res) {
