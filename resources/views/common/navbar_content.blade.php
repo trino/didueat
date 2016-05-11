@@ -50,7 +50,7 @@
                        /* 'subscribers/list' => "Subscribers", */
                         'user/reviews' => "Reviews",
                         'eventlogs/list' => "Event Log",
-                        'home/debug' => "Debug Log"
+                        'home/debug' => "Debug Menu"
                 ), "Admin");
             }
 

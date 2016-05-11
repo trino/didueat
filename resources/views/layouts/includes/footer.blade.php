@@ -88,22 +88,11 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                         </li>
                     @endif
 
-                    @if((Session::get('session_type_user') == "super" ) || !islive())
-                        <li class="list-inline-item">
-
-                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}&action=clearcache">Clear
-                                Cache</a>
-                        </li>
-                    @endif
-
                     <li class="list-inline-item">
                         <h5>
-                            <A href="https://www.facebook.com/didueathamilton/" target="_blank"
-                               title="{{ $alts["socmed"] }}"><i class="fa fa-facebook"></i></A>&nbsp;
-                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank"
-                               title="{{ $alts["socmed"] }}"><i class="fa fa-twitter"></i></A>&nbsp;
-                            <A href="https://www.instagram.com/didueat/" target="_blank"
-                               title="{{ $alts["socmed"] }}"><i class="fa fa-instagram"></i></A>
+                            <A href="https://www.facebook.com/didueathamilton/" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-facebook"></i></A>&nbsp;
+                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-twitter"></i></A>&nbsp;
+                            <A href="https://www.instagram.com/didueat/" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-instagram"></i></A>
                         </h5>
                     </li>
                 </ul>

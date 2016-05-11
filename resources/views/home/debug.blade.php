@@ -4,20 +4,31 @@
         <div class="row">
             @include('layouts.includes.leftsidebar')
             <div class="col-lg-9">
-                <?php
-                    printfile("views/home/debug.blade.php");
-                    $filename = public_path("royslog.txt");
-                    if (file_exists($filename) && isset($_GET["delete"])){
-                        unlink($filename);
-                        $doit=true;
-                    }
+                <DIV class="col-lg-12" align="right">
+                    <?php
+                        printfile("<SPAN STYLE='float: left'>home/debug.blade.php</SPAN>");
+                        $filename = public_path("royslog.txt");
+                        if (file_exists($filename) && isset($_GET["delete"])){
+                            unlink($filename);
+                            $doit=true;
+                        }
+                        if (file_exists($filename)){
+                            echo '<a class="btn btn-danger btn-sm" href="' . url("home/debug") . '?delete" onclick="return confirm(' . "'Are you sure you want to delete the log file?'" . ');">Delete log file</a>';
+                        }
+                        $returnurl = "url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                    ?>
+                    <A HREF="{{ url("restaurant/list?fixmenus") . "&" . $returnurl }}" class="btn btn-primary btn-sm">Fix Fenus</A>
+                    <a HREF="{!!  url("home/debugmode") . "?" . $returnurl . '" CLASS="btn btn-sm btn-' . iif(debugmode(), 'secondary">Deactivate', 'primary">Activate') !!} Debug Mode</a>
+                    <a href="{{ url("home/debugmode") . "?" . $returnurl }}&action=clearcache" class="btn btn-primary btn-sm">Clear Cache</a>
+                </div>
+                <h4 class="card-title">Debug log</h4>
+                <PRE style="width: 100%"><?php
                     if (file_exists($filename)){
-                        echo '<h4 class="card-title">Debug log<a class="btn btn-danger btn-sm" href="' . url("home/debug") . '?delete" style="float: right;" onclick="return confirm(' . "'Are you sure you want to delete the log file?'" . ');">Delete log file</a></h4>';
-                        echo '<PRE style="width: 100%">' . file_get_contents($filename) . '</PRE>';
+                        echo file_get_contents($filename);
                     } else {
-                        echo '<h4 class="card-title">Debug log</H4><PRE>Log file is empty</PRE>';
+                        echo 'Log file is empty';
                     }
-                ?>
+                ?></PRE>
                 <FORM METHOD="post">
                     <TEXTAREA NAME="hash" style="width:100%;" placeholder="Email hash verifier"><?php if(isset($_POST["hash"])){echo $_POST["hash"];} ?></textarea>
                     <?php

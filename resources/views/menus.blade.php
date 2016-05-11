@@ -1,34 +1,35 @@
 <?php
-printfile("views/menus.blade.php");
-$alts = array(
-        "product-pop-up" => "Product info",
-        "up_cat" => "Move Category up",
-        "down_cat" => "Move Category down",
-        "up_parent" => "Move this up",
-        "down_parent" => "Move this down",
-        "deleteMenu" => "Delete this item",
-        "edititem" => "Edit this item",
-        "editcat" => "Edit this category",
-        "deletecat" => "Delete this category"
-);
+    printfile("views/menus.blade.php");
+    $alts = array(
+            "product-pop-up" => "Product info",
+            "up_cat" => "Move Category up",
+            "down_cat" => "Move Category down",
+            "up_parent" => "Move this up",
+            "down_parent" => "Move this down",
+            "deleteMenu" => "Delete this item",
+            "edititem" => "Edit this item",
+            "editcat" => "Edit this category",
+            "deletecat" => "Delete this category"
+    );
 
-$menuTSv = "?i=";
-$menuTS = read('menuTS');
-if ($menuTS) {
-    $menuTSv = "?i=" . $menuTS;
-    Session::forget('session_menuTS');
-}
+    $menuTSv = "?i=";
+    $menuTS = read('menuTS');
+    if ($menuTS) {
+        $menuTSv = "?i=" . $menuTS;
+        Session::forget('session_menuTS');
+    }
 
-$menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
-$categories = enum_all("category", array("res_id" => $menu_id));
+    $menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
+    $categories = enum_all("category", array("res_id" => $menu_id));
+    $canedit = false;
 
-$prevCat = "";
-$catNameStr = [];
-$parentCnt = [];
-$thisCatCnt = 0;
-$itemPosnForJS = [];
-$itemPosn = []; // to decide if js index needs a new array declared
-// $catCnt set in restaurants-menus.blade
+    $prevCat = "";
+    $catNameStr = [];
+    $parentCnt = [];
+    $thisCatCnt = 0;
+    $itemPosnForJS = [];
+    $itemPosn = []; // to decide if js index needs a new array declared
+    // $catCnt set in restaurants-menus.blade
 ?>
 
 <script>
@@ -127,7 +128,9 @@ $itemPosn = []; // to decide if js index needs a new array declared
                 $thisUpMenuVisib = 'hidden';
             }
 
-            $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
+            if($menu_id == $restaurant->id){
+                $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
+            }
             ?>
 
             <DIV class="list-group m-b-1" id="c{{ $thisCatCnt }}"><!-- start of this category -->

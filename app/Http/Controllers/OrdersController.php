@@ -165,7 +165,7 @@
                 $Note = $_POST["note"];
             }
             debugprint("Set order status to " . $status, $OrderID);
-        
+
             if (isset($post) && count($post) > 0 && !is_null($post)) {
                 if (!isset($post['id']) || empty($post['id'])) {
                     return $this->failure("[Order Id] is missing!", $URL);

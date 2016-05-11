@@ -11,6 +11,9 @@
         if (read("restaurant_id") && read("restaurant_id") != $restaurant->id) {
             popup(false, "You can not place orders as a restaurant owner", "Oops");
         }
+        if($menu_id != $restaurant->id){
+            popup(false, "Only the parent store can be edited", "Oops");
+        }
 
         $is_my_restro = false;
         if (Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id) {

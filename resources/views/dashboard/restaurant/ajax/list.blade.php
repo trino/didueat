@@ -12,11 +12,17 @@
             "logo" => "This restaurant's logo",
             "delete" => "Delete this restaurant",
             "fixmenus" => "Fix old menu item's categories so they show up properly. Only needs to be done once, ever",
-            "possess" => "Log in as the owner of this restaurant"
+            "possess" => "Log in as the owner of this restaurant",
+            "child" => "This restaurant belongs to a franchise"
     );
     if(!isset($note)){$note = "";}
 ?>
-
+<STYLE>
+    .slimhr{
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+</STYLE>
 @if(\Session::has('message'))
     {!! message_show("Message!", \Session::get('message')) !!}
 @endif
@@ -44,7 +50,16 @@
             <tbody>
                 @if($recCount > 0)
                     @foreach($Query as $key => $value)
-                        <?php $logo = defaultlogo($value, true); ?>
+                        <?php
+                            $logo = defaultlogo($value, true);
+                            $reasons = array();
+                            if($value->franchise == -1){
+                                $reasons["fa-sitemap"] = "Parent of a franchise";
+                            } else if ($value->franchise) {
+                                $reasons["fa-object-group"] = "Child of a franchise";
+                                $Parent = select_field("restaurants", "id", $value->franchise, "name");
+                            }
+                        ?>
                         <tr id="restaurant{{ $value->id }}">
 
                             <td>
@@ -63,14 +78,20 @@
                             
                             <td>{{ $value->id }}</td>
                             <td><img class="img-circle" src="{{ $logo }}" width="90" alt="{{ $alts["logo"] }}"/></td>
-                            <td>{{ $value->name }}</td>
+                            <td>
+                                <?php
+                                    echo $value->name;
+                                    if($value->franchise > 0){
+                                        echo '<HR CLASS="slimhr"><SPAN TITLE="' . $alts["child"] . '" CLASS="franchise-child">' . $Parent . '</SPAN>';
+                                    }
+                                ?>
+                            </td>
                             <!--td >{!! rating_initialize("static-rating", "restaurant", $value->id, true, 'update-rating', false) !!}</td-->
                             <td>
                             <div class="">
                                 @if(!$value->is_complete)
-                                    <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="{{ $alts["incomplete"] }}">Incomplete</A><HR CLASS="slimhr">
+                                    <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="{{ $alts["incomplete"] }}">Incomplete</A>
                                     <?php
-                                        $reasons = array();
                                         if(!$value->has_creditcard){
                                             //$reasons["fa-credit-card"] = "Missing Credit Card information";
                                         }
@@ -89,6 +110,7 @@
                                         if (!$value->minimum || $value->minimum == "0.00") {
                                             $reasons["fa-usd"] = "Minimum delivery charge might be missing";
                                         }
+
                                         //check hours of operation
                                         $weekdays = getweekdays();
                                         $someHoursNotOK = false; // to encourage restaurant to finish setting up hours
@@ -107,15 +129,6 @@
                                         if ($weekdays || $someHoursNotOK) {
                                             $reasons["fa-clock-o"] = "Hours of operations";
                                         }
-
-
-                                        foreach($reasons as $icon => $title){
-                                            if(is_numeric($icon)){
-                                                echo $title;
-                                            } else {
-                                                echo '<i class="fa ' . $icon . '" title="' . $title . '"></i>&nbsp;';
-                                            }
-                                        }
                                     ?>
                                 @elseif($value->open == true)
                                     <a class="btn btn-secondary-outline btn-sm" style="" title="{{ $alts["enabled"] }}">Enabled</A>
@@ -130,6 +143,17 @@
                                     @endif
                                     <a class="btn btn-secondary-outline btn-sm" style="" title="{{ $alts["disabled"] }}">Disabled</A>
                                 @endif
+
+                                <?php
+                                    if($reasons){echo '<HR CLASS="slimhr">';}
+                                    foreach($reasons as $icon => $title){
+                                        if(is_numeric($icon)){
+                                            echo $title;
+                                        } else {
+                                            echo '<i class="fa ' . $icon . '" title="' . $title . '"></i>&nbsp;';
+                                        }
+                                    }
+                                ?>
                                 </div>                                
                             </td>
 
