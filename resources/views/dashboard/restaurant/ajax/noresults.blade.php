@@ -4,15 +4,15 @@
     if(read("email")){
         $is_subscribed = select_field("newsletter", "email", read("email"));
     }
-    if($query === false){
-        echo "The address entered is incomplete or not valid";
-    }
-
     if(!$is_subscribed){
         ?>
             <DIV ID="subscribeform" class="input-group col-md-8 row">
-                <p>We don't have any restaurants in your area at the moment.</p>
-                <p>Subscribe with your email to receive a special gift when we launch in your town.</p>
+                @if($query === false)
+                    <P>The address entered is incomplete or not valid</P>
+                @else
+                    <p>We don't have any restaurants in your area at the moment.</p>
+                    <p>Subscribe with your email to receive a special gift when we launch in your town.</p>
+                @endif
             </DIV>
             <DIV ID="subscribeform" class="input-group col-md-8 row">
                 <INPUT placeholder="Email" class="form-control" TYPE="TEXT" NAME="email" VALUE="{{ read("email") }}" ID="email">

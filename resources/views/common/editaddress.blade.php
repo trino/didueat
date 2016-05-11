@@ -220,13 +220,13 @@
 
 @if($slim)
     <div class="form-group slim">
-        <input type="text" name="apartment" id="apartment" class="form-control " placeholder="{{ $aptUnit }}"/>
+        <input type="text" name="apartment" notrequired="true" id="apartment" class="form-control " placeholder="{{ $aptUnit }}"/>
     </div>
 @else
 
     @if(false)
     <?= newrow($new, $aptUnit, "", false, 9); ?>
-        <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
+        <input type="text" name="apartment" class="form-control" notrequired="true" {{ $is_disabled }} placeholder=""
                value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
     <?= newrow(); ?>
     @endif
@@ -316,7 +316,7 @@ if(true){
    ?>
 <div class="col-xs-12">
 <div class="">
-        <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Notes (Unit, Apt, Buzz Code, etc)" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+        <input type="text" name="notes" class="form-control" {{ $is_disabled }} notrequired="true" placeholder="Notes (Unit, Apt, Buzz Code, etc)" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
 </div>
 </div>
 <?php }

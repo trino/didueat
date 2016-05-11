@@ -128,7 +128,7 @@ function delivery(t) {
     var df = $('input.df').val();
     if (t == 'show') {
         $('.profile_delivery_detail input, .profile_delivery_detail select').each(function(){
-            if($(this).attr('name')=='apartment' || $(this).attr('name')=='address'){
+            if($(this).attr('name')=='apartment' || $(this).attr('name')=='address' || $(this).attr('notrequired')){
                 //do nothing
                 //alert($(this).attr('name'));
             } else {
