@@ -630,7 +630,9 @@ class RestaurantController extends Controller {
 
             $existingImg=\App\Http\Models\Menus::where('id', $id)->pluck('image');
 
-            \App\Http\Models\Menus::where('id', $id)->update($arr);
+            $arrcopy = $arr;
+            unset($arrcopy["cat_name"]);
+            \App\Http\Models\Menus::where('id', $id)->update($arrcopy);
 
             //delete all child items
             $child = \App\Http\Models\Menus::where('parent', $id)->get();

@@ -22,12 +22,12 @@ class Menus extends BaseModel {
                 $data["display_order"] = first("SELECT MAX(display_order) FROM `menus` WHERE cat_id = " . $data["cat_id"] . " AND restaurant_id = " . $data["restaurant_id"])[0] + 1;
             }
         }
+        unset( $data["cat_name"] );
         $this->copycells($cells, $data);
     }
 
     //on save, makes sure the store is open if that's all it needed
     public function save(array $options = array()) {
-        unset( $this->cat_name );
         parent::save($options);
         if(isset($this->restaurant_id)) {
             $before = select_field("restaurants", "id", $this->restaurant_id);
