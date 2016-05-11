@@ -45,7 +45,7 @@
                         <TH>ID</TH>
                         <TH>Restaurant</TH>
                         <TH>Item name</TH>
-                        <TH>Category</TH>
+
                         <TH>Price</TH>
                         <TH>Sales</TH>
                         <TH></TH>
@@ -70,7 +70,7 @@
                             echo '<TD>Missing Data</TD>';
                             echo '<TD>' . $MenuItem->menu_item . '</TD>';
                         }
-                        echo '<TD>' . $MenuItem->cat_name . '</TD>';
+
                         echo '<TD>' . asmoney($MenuItem->price, true) . '</TD>';
                         echo '<TD>' . $count . '</TD>';
                         if($Restaurant){

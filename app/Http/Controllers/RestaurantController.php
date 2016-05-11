@@ -589,7 +589,7 @@ class RestaurantController extends Controller {
         $arr['uploaded_by'] = \Session::get('session_ID');
 
         //copy these keys to the $arr (do not include image, so that it is added/updated in db only if it is present in post)
-        $Copy = array('menu_item', 'price', 'description', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'cat_name', 'req_opt', 'has_addon', 'display_order', 'cat_id', 'has_discount','days_discount','discount_per','is_active','restaurant_id');
+        $Copy = array('menu_item', 'price', 'description', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id', 'has_discount','days_discount','discount_per','is_active','restaurant_id');
 
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {

@@ -276,16 +276,16 @@
         //returns a multidimensional array, first dimension = type of address ("email", "sms", "call", "total"), second dimension = addresses contacted, except for total which is the sum of all 3 types
         //example usage outside of this controller: app('App\Http\Controllers\OrdersController')->notifystore(1, "TEST");
         public function notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter", $IncludeVan = false, $Emails = true, $Calls = true, $SMS = true) {
-            $OnlyVan = true;//if true, only Van will get the message
+            $OnlyVan = false;//if true, only Van will get the message
             $EmailParameters["body"] = $Message;
             if (!isset($EmailParameters["mail_subject"])) {
                 $EmailParameters["mail_subject"] = $Message;
             }
             //list of words to replace for easier pronunciation by the computer
             $CallMessage = str_replace(array(DIDUEAT), array("did you eat"), strtolower($Message));
-            if(($OnlyVan || $IncludeVan) && islive()){$this->sendSMS("van", $Message, strtolower($IncludeVan) == "call");}
+        //    if(($OnlyVan || $IncludeVan) && islive()){$this->sendSMS("van", $Message, strtolower($IncludeVan) == "call");}
             $ret = array("email" => array(), "sms" => array(), "call" => array(), "total" => 0, "ret");
-            if(!$OnlyVan) {
+          //  if(!$OnlyVan) {
                 $NotificationAddresses = \DB::select('SELECT * FROM notification_addresses LEFT JOIN profiles ON notification_addresses.user_id=profiles.id WHERE profiles.restaurant_id = ' . $RestaurantID);
                 foreach ($NotificationAddresses as $NotificationAddress) {
                     //debugprint( var_export($NotificationAddress, true) );
@@ -310,7 +310,7 @@
                         $ret["total"] = $ret["total"] + 1;
                     }
                 }
-            }
+          //  }
             if (!$ret["total"] && $Emails) {//emergency fallback email
                 $restaurant = \App\Http\Models\Restaurants::find($RestaurantID);
                 $EmailParameters['name'] = $restaurant->name;
