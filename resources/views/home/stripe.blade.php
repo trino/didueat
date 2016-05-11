@@ -24,7 +24,7 @@ if(read('id')) {
             echo '<input type="hidden" id="CC'.$c->id.'" value="'.$CardNumber.'_'.$Month.'_'.$Year.'_'.$cvc.'" />';
         }
         echo "<select class='changeCC form-control'>";
-        echo "<option value='0'>Select Card</option>";
+        echo "<option value='0'>Add Card</option>";
         foreach($cc as $c) {
             $CardNumber = obfuscate(\Crypt::decrypt($c->card_number));
             $Month = \Crypt::decrypt($c->expiry_month);
@@ -91,7 +91,7 @@ if(!isset($loaded_from)){ ?>
                             if ($Number < 10) {
                                 $Number = "0" . $Number;
                             }
-                            echo '<OPTION value="' . $Number . '">' .$Number .' '. $Month . '</OPTION>';
+                            echo '<OPTION value="' . $Number . '">' .$Number .'</OPTION>';
                         }
                     ?>
                 </SELECT>

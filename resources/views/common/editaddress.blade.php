@@ -223,10 +223,13 @@
         <input type="text" name="apartment" id="apartment" class="form-control " placeholder="{{ $aptUnit }}"/>
     </div>
 @else
+
+    @if(false)
     <?= newrow($new, $aptUnit, "", false, 9); ?>
         <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
                value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
     <?= newrow(); ?>
+    @endif
 @endif
 @endif
 
@@ -313,7 +316,7 @@ if(true){
    ?>
 <div class="col-xs-12">
 <div class="">
-        <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+        <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Unit, Apt, Buzz Code, etc" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
 </div>
 </div>
 <?php }

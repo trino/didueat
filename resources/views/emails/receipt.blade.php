@@ -12,7 +12,7 @@
             $hash = hashtext($receipt . $view);
         ?>
         <!--h4 style="">Order Status:&nbsp; <span style="color:#f00">{{$order->status}}</span><br/><span style="font-weight:normal;">Note: You will receive a confirmation email when your order has been finalized</span></span></h4>
-        
+
         <h3 style="margin-left:10px">Please indicate whether you Accept or Decline this order:  <span style="color:#FF0000">(Is this needed. What if user doesn't check email) ANSWER: Yes, it's for the store</span>
             <div style="margin-left:10px">
                 <a href="{{ url("/orders/list/approve/email/" . $email . "/" . $order->guid) }}">Accept</a>&nbsp; &nbsp;
