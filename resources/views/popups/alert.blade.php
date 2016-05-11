@@ -26,7 +26,7 @@
             }
             $("#alertModalFooterMSG").text("CALLED FROM: " + calledfrom);
         }
-        $('#alertModalMsg').text(message);
+        $('#alertModalMsg').html(message);
         $('#alertModal').modal('show');
     }
 </SCRIPT>
