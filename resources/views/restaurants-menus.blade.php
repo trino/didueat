@@ -137,7 +137,7 @@
                             </div>
                             <div class="modal-body" id="categoryeditor"></div>
                             <div class="modal-footer">
-                                <a id="saveeditor" class="btn btn-primary savebtn" onclick="savecat();">Save</a>
+                                <a id="saveeditor" class="btn btn-primary savebtn" debug="uses savebtn in additional.js" onclick="savecat();">Save</a>
                             </div>
                         </div>
                     </div>

@@ -84,7 +84,7 @@
     </div>
     <div class="form-group">
         <div class="col-xs-12">
-            <a href="javascript:void(0)" class="btn btn-default back" title="<?= $alts["back"]; ?>">Back</a>
+            <a href="javascript:void(0)" class="btn btn-default back" title="<?= $alts["back"]; ?>" onclick="backbutton();">Back</a>
             <button type="submit" class="btn btn-primary" title="<?= $alts["checkout"]; ?>">Checkout</button>
         </div>
         <div class="clearfix"></div>
@@ -92,6 +92,11 @@
 </form>
 
 <script>
+    function backbutton(){
+        $('.receipt_main').show();
+        $('.profiles').hide();
+    }
+
     $(function () {
         function check_val(v) {
             if (v != '') {
@@ -114,11 +119,6 @@
             password.onchange = validatePassword;
             confirm_password.onkeyup = validatePassword;
         */
-
-        $('.back').live('click', function () {
-            $('.receipt_main').show();
-            $('.profiles').hide();
-        });
 
         $('#profiles').submit(function (e) {
             e.preventDefault();

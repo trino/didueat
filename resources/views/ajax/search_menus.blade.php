@@ -175,7 +175,7 @@
                 <a class="btn btn-primary add" title="{{ $alts["plus"] }}" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','plus')">+</a>
               </div>
               <a id="profilemenu{{ $value->id }}" class="btn btn-primary add_menu_profile add_end btn-spc right-float" title="{{ $alts["add"] }}" href="javascript:void(0);">Add</a>
-              <button id="clear_{{ $value->id }}" title="{{ $alts["reset"] }}" data-dismiss="modal" class="btn btn-warning resetslider" type="button">
+              <button id="clear_{{ $value->id }}" title="{{ $alts["reset"] }}" data-dismiss="modal" class="btn btn-warning resetslider" type="button" debug="uses resetslider in restaurants-menus.blade">
                 RESET
               </button>
               <div class="clearfix"></div>
