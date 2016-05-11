@@ -121,6 +121,7 @@
         */
 
         $('#profiles').submit(function (e) {
+            log("'#profiles submit event");
             e.preventDefault();
             var datas = $('#profiles input, select, textarea').serialize();
             var order_data = $('.receipt_main input').serialize();

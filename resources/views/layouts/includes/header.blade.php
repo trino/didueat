@@ -134,4 +134,8 @@
             return "Body " + selector;
         }
     }
+
+    function log(text){
+        if(debugmode){console.log(text);}
+    }
 </script>

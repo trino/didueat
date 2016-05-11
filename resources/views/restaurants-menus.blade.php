@@ -299,12 +299,14 @@
             }
 
             $('.back').live('click', function () {
+                log(".back event");
                 $('.receipt_main').show();
                 $('.profiles').hide();
             });
 
             //submission of order
             $('#profiles').submit(function (e) {
+                log("'#profiles submit event");
                 if( $("#cardnumber-error").length ||  $("#cvc-error").length ){
                     if($("#cardnumber-error").length) {
                         if($("#cvc-error").length){
@@ -359,7 +361,7 @@
                                 window.location = "{{url('orders/list/user?flash=2')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                             } else {
-                                console.log("$('#profiles').submit(function (e)");
+                                log("$('#profiles').submit(function (e)");
                                 msg = jQuery(msg).text().trim();
                                 if(msg) {
                                     alert(jQuery(msg).text(), "$('#profiles').submit(function (e) {");
@@ -402,6 +404,7 @@
                 $('.fancybox-close').click();
             });
             $('.resetslider').live('click', function () {
+                log(".resetslider event");
                 var menu = $(this).attr('id');
                 menu = menu.replace('clear_', '');
                 $('.number' + menu).html('1');
@@ -422,6 +425,7 @@
 //add items to receipt
             var counter_item = 0;
             $('.add_menu_profile').live('click', function () {
+                log(".add_menu_profile event");
                 var menu_id = $(this).attr('id').replace('profilemenu', '');
                 var ids = "";
                 var app_title = "";
@@ -654,6 +658,9 @@
                 });
                 var dispr = Number($('.displayprice' + menu_id).val());
                 $('.modalprice' + menu_id).html('$' + dispr.toFixed(2));
+
+                $("#actualprice" + menu_id).attr("value", $("#originalprice" + menu_id).val() );
+
                 showloader();
                 $('.allspan').html('0');
                 $('.close' + menu_id).click();

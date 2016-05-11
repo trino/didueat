@@ -68,6 +68,7 @@
 
         //save/delete data from the cookie
         $('#login-ajax-form').submit(function (e) {
+            log("'#login-ajax-form submit event");
             if ($("#login-remember").is(":checked")){
                 createCookieValue("login-email", $("#login-email").val() );
                 createCookieValue("login-password", $("#login-password").val() );

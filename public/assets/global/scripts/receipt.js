@@ -218,6 +218,7 @@ $(function(){
 
     //appears to recalculate the total when switched from pickup to delivery
     $('.del-goods').live('click', function () {
+        log(".del-goods event");
         $(this).parent().remove();
         var subtotal = 0;
         $('.total').each(function () {
@@ -249,9 +250,11 @@ $(function(){
 
     //handle add/remove span
     $('.addspan').live('click',function(){
+        log("'.addspan click event");
         handlespan(this, true);
     });
     $('.remspan').live('click',function(){
+        log("'.remspan click event");
         handlespan(this, false);
     });
 
@@ -298,17 +301,17 @@ $(function(){
         title[1]= title[1].replace(' x('+qty+")","");
         title[0] = title[0].replace('-'+qty,'');
 
-        var currentprice = Number($("#actualprice" + menu_id).val());
-
+        var newprice = Number($("#actualprice" + menu_id).val());
         if(dir) {
             qty = Number(qty) + Number(1);
-            currentprice = currentprice + price;
+            newprice = newprice + price;
         } else if(qty>0) {
             qty = Number(qty) - Number(1);
-            currentprice = currentprice - price;
+            newprice = newprice - price;
         } else {
             return false;
         }
+        $("#actualprice" + menu_id).attr("value", newprice);
 
         $(tthis).parent().find('.span_'+id).html(qty);
         if(qty == 0) {
@@ -316,7 +319,7 @@ $(function(){
             chk.removeAttr('checked');
             chk.prop('checked',false);
             newtitle= title[1];
-            newprice= price;
+            //newprice= price;
         } else {
             chk.prop('checked',true);
             chk.attr('checked','checked');
@@ -324,11 +327,14 @@ $(function(){
                 chk.addClass('checked');
             }
             newtitle= title[1]+" x("+qty+")";
-            newprice= Number(price)*Number(qty);
+            //newprice= Number(price)*Number(qty);
         }
-        $("#actualprice" + menu_id).val(newprice);
 
-        //alert(qty + " <BR> ID: " + menu_id + "<BR> Price " + price + " <BR>currentprice " + currentprice + " newprice " + newprice);
+        //currentprice = calculateprice(tthis, menu_id, 0);
+        //currentprice = $(".modalprice" + menu_id).text();
+        //console.log("currentprice: " + currentprice);
+
+        //alert(id + " qty " + qty + " <BR> ID: " + menu_id + "<BR> Price " + price + " <BR>currentprice " + currentprice + " newprice " + newprice);
 
         newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
         newtitle = newtitle.replace(" x(1)","");
@@ -343,10 +349,12 @@ $(function(){
 
     //handle the +/- buttons on the receipt
     $('.decrease').live('click', function () {
+        log(".decrease event");
         direction(this, false);
     });
 
     $('.increase').live('click', function () {
+        log(".increase event");
         direction(this, true);
     });
 
@@ -444,6 +452,7 @@ $(function(){
 
     //not sure what this does
     $('body').on('click','.changemodalP',function(){
+        log("'.body click event");
         var menu_id = $(this).parents('.modal').find('.add_menu_profile').attr('id').replace('profilemenu','');
         var ids = "";
         var app_title = "";
