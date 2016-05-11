@@ -1350,6 +1350,7 @@ function is_encrypted($Text) {
 
 //check if debug mode is on
 function debugmode() {
+    if(islive() && read("profiletype") != 1){return false;}
     return config('app.debug') || isset($_GET["debugmode"]);
 }
 
