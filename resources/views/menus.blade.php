@@ -198,15 +198,19 @@
                 }
                 //load images, duplicate code
                 $has_iconImage = false;
+                    /*
                 if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
                     $item_iconImg = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image) . $menuTSv;
                     $has_iconImage = true;
                 }
+                    */
                 $has_bigImage = false;
+                    /*
                 if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image))) {
                     $item_bigImage = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image) . $menuTSv;
                     $has_bigImage = true;
                 }
+                    */
                 $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
                 $min_p = get_price($value->id);
               //  if ($min_p = '10000' ? 0 : $min_p) ;

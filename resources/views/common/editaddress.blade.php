@@ -316,7 +316,7 @@ if(true){
    ?>
 <div class="col-xs-12">
 <div class="">
-        <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Unit, Apt, Buzz Code, etc" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+        <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Notes (Unit, Apt, Buzz Code, etc)" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
 </div>
 </div>
 <?php }
