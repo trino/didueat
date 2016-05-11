@@ -51,8 +51,7 @@
                 <div class="card" id="toPrinpetail">
                     <div class="card-header">
                         <h4 class="card-title">Order #{{$order->guid}}
-                            <input type="button" value="Print" onclick="prinpiv('toPrinpetail')"
-                                   class="hidden-sm-down btn btn-sm btn-secondary-outline pull-right"/>
+                            <input type="button" value="Print" onclick="prinpiv('toPrinpetail')" class="hidden-sm-down btn btn-sm btn-secondary-outline pull-right"/>
                         </h4>
                     </div>
 
@@ -89,13 +88,7 @@
 
                                     @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "paid_for"=> $paid_for))
 
-                                    @if(!$CanApprove)
-                                        @if($order->order_type == 0 && false)
-                                            @include("common.gmaps", array("address" => $restaurant->formatted_address))
-                                        @endif
-                                    @endif
-
-                                    @if($order->order_type > 0 && $CanApprove && false)
+                                    @if( (!$CanApprove && $order->order_type == 0) || ($order->order_type > 0 && $CanApprove) && false)
                                         @include("common.gmaps", array("address" => $restaurant->formatted_address))
                                     @endif
 

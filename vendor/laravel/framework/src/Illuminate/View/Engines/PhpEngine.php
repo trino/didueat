@@ -58,12 +58,12 @@ class PhpEngine implements EngineInterface
      *
      * @throws $e
      */
-    protected function handleViewException($e, $obLevel)
-    {
+    protected function handleViewException($e, $obLevel) {
         while (ob_get_level() > $obLevel) {
             ob_end_clean();
         }
-
-        throw $e;
+        ob_flush();
+        popup(false, handleexception($e), "View error", "", "padding-left: 0px !important; padding-right: 0");
+        //throw $e;
     }
 }

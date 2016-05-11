@@ -1862,7 +1862,7 @@ function get_price($id) {
 }
 
 //make a popup
-function popup($Success, $Message, $Title = "", $ID = "", $Margin = 0) {
+function popup($Success, $Message, $Title = "", $ID = "", $Margin = false) {
     if (left($Message, 8) == "message:") {
         $Message = right($Message, strlen($Message) - 8);
         switch ($Message) {
@@ -1896,7 +1896,7 @@ function popup($Success, $Message, $Title = "", $ID = "", $Margin = 0) {
         if ($ID) {
             echo ' ID="' . $ID . '"';
         }
-        if ($Margin) {
+        if ($Margin !== false) {
             echo ' style=" ' . $Margin . 'px !important;"';
         }
         echo '><div class="container text-md-center" style="margin-top:0 !important;line-height: 2rem !important; ">';
