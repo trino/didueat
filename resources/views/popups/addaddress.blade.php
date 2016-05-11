@@ -70,6 +70,7 @@
     //validateform("edit-form", {formatted_address: "required", city: "required", province: "required", postal_code: "required", country: "required"})
     //make sure the form is complete before allowing it to submit
     $('#edit-form').submit(function (e) {
+        log("'#edit-form addaddress submit event");
         if(isaddress_incomplete()) {
             return false;
         }

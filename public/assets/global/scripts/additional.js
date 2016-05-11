@@ -14,6 +14,7 @@ function overlay_loader_hide(){
 
 //duplicate of check_enabled
 $('.is_active').live('change',function(){
+    log("'.is_active change event");
     var stat = 0;
     if($(this).is(':checked')) {
         stat = 1;
@@ -180,6 +181,7 @@ $('.add_additional').live('click', function () {
 })
 //handle loading previuos additons
 $('.loadPrevious').live('change', function () {
+    log("'.loadPrevious change event");
     var id = $(this).attr('id').replace('loadPrevious', '').replace(';', '');
     $('.additional' + id).show();
     var c = 0;
@@ -232,6 +234,7 @@ $('.removelast').live('click', function () {
 
 //unknown
 $('.delcmore').live('click',function(){
+    log("'.delcmore click event");
     var $aitem = $(this).closest('.aitems');
    $(this).closest('.cmore').remove(); 
    var allpar = $aitem.find('.addmore');
@@ -275,6 +278,7 @@ $('.addmorebtn').live('click', function () {
 
 //unknown
 $('.is_multiple').live('change', function () {
+    log("'.is_multiple click event");
     if ($(this).val() == 0) {
         $(this).closest('.radios').find('.exact').show();
     }else {
@@ -284,6 +288,7 @@ $('.is_multiple').live('change', function () {
 
 //handle discount days
 $('.days_discount_all').live('click',function(){
+    log("'.days_discount_all click event");
    $_parent = $(this).closest('.newmenu');
    if($(this).is(':checked')) {
     $_parent.find('.days_discount').each(function(){

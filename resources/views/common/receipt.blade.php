@@ -311,6 +311,7 @@
 
         //handles any address additions, adds them to the SELECT dropdown
         $('#edit-form').submit(function (e) {
+            log("'#edit-form receipt submit event");
             if ($(this).hasClass('reservation')) {
                 e.preventDefault();
                 var url = $(this).attr('action');

@@ -250,9 +250,11 @@ $(function(){
 
     //handle add/remove span
     $('.addspan').live('click',function(){
+        log("'.addspan click event");
         handlespan(this, true);
     });
     $('.remspan').live('click',function(){
+        log("'.remspan click event");
         handlespan(this, false);
     });
 
@@ -450,6 +452,7 @@ $(function(){
 
     //not sure what this does
     $('body').on('click','.changemodalP',function(){
+        log("'.body click event");
         var menu_id = $(this).parents('.modal').find('.add_menu_profile').attr('id').replace('profilemenu','');
         var ids = "";
         var app_title = "";

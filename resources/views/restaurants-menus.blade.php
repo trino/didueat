@@ -306,6 +306,7 @@
 
             //submission of order
             $('#profiles').submit(function (e) {
+                log("'#profiles submit event");
                 if( $("#cardnumber-error").length ||  $("#cvc-error").length ){
                     if($("#cardnumber-error").length) {
                         if($("#cvc-error").length){
@@ -360,7 +361,7 @@
                                 window.location = "{{url('orders/list/user?flash=2')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                             } else {
-                                console.log("$('#profiles').submit(function (e)");
+                                log("$('#profiles').submit(function (e)");
                                 msg = jQuery(msg).text().trim();
                                 if(msg) {
                                     alert(jQuery(msg).text(), "$('#profiles').submit(function (e) {");

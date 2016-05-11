@@ -37,6 +37,7 @@
 
     jQuery(function($) {
       $('#payment-form').submit(function(e) {
+          log("'#payment-form submit event");
         var $form = $(this);
 
         // Disable the submit button to prevent repeated clicks
