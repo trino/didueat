@@ -650,7 +650,7 @@ class HomeController extends Controller {
                     break;
 
                 case "deletecategory":
-                    return $this->deletecategory($_POST["id"], $_POST["restaurant"]);
+                    return $this->deletecategory($_POST["id"]);
                     break;
                 case "editcategory":
                     $this->editcategory();
@@ -686,7 +686,8 @@ class HomeController extends Controller {
         }
     }
 
-    function deletecategory($ID, $Restaurant){
+    function deletecategory($ID){
+        $Restaurant = select_field("category", "id", $ID, "res_id");
         delete_all("category", array("id" => $ID));
         delete_all("menus", array("cat_id" => $ID));
         $slug = select_field("restaurants", "id", $Restaurant, "slug");

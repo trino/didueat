@@ -532,7 +532,7 @@
                 id: ID,
                 _token: "{{ csrf_token() }}"
             }, function (result) {
-                alert(result);
+                window.location.reload();
             });
         }
     }
