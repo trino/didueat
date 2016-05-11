@@ -89,7 +89,26 @@
                         ?>
 
                         @if(count($menus_list))
-                            @include('menus',$menus_list)
+                            <?php
+                                $dir = public_path("assets/images/restaurants/" . $restaurant->id);
+                                $can_edit = read("profiletype") == 1 || $restaurant->id == read("restaurant_id");
+                                if(file_exists($dir . "/menu.php") && !$can_edit){
+                                    include($dir . "/menu.php");
+                                } else {
+                                    $data = array();
+                                    $data["dir"] = $dir;
+                                    $data["restaurant"] = $restaurant;
+                                    $data["menus_list"] = $menus_list;
+                                    $data["cats"] = $cats;
+                                    $data["catsOrder"] = $catsOrder;
+                                    $data["catCnt"] = $catCnt;
+
+                                    $HTML = view('menus',$data);
+                                    if (!is_dir($dir) && $dir){mkdir($dir, 0777, true);}
+                                    file_put_contents($dir . "/menu.php", $HTML);
+                                    echo $HTML;
+                                }
+                            ?>
                         @endif
 
                         @if($allowedtoupload && $menu_id == $restaurant->id)

@@ -606,6 +606,7 @@ class RestaurantController extends Controller {
         }else {
             $rest_id = \Session::get('session_restaurant_id');
         }
+        $this->updatemenu($rest_id);
 
         $newCatID=false;
         if (!($arr['cat_id']) && (isset($arr['cat_name']) && $arr['cat_name'])) { // new entered category typed
@@ -663,7 +664,6 @@ class RestaurantController extends Controller {
             $ob2->save();//save changes
             $this->handleimageupload($ob2->id);
         }
-        $this->updatemenu($rest_id);
     }
 
     //handles image uploading for menu items

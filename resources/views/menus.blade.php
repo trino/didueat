@@ -480,7 +480,7 @@
 <div class="clearfix"></div>
 
 <SCRIPT>
-            <?php echo $itemPosnForJSStr;?>
+    <?php echo $itemPosnForJSStr;?>
 
     var itemPosnOrig = itemPosn;
     var menuSortChngs = [];
