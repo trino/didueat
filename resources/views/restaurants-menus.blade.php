@@ -90,6 +90,7 @@
 
                         @if(count($menus_list))
                             <?php
+                                //old method include('menus',$menus_list)
                                 $dir = public_path("assets/images/restaurants/" . $restaurant->id);
                                 $can_edit = read("profiletype") == 1 || $restaurant->id == read("restaurant_id");
                                 if(file_exists($dir . "/menu.php") && !$can_edit){
