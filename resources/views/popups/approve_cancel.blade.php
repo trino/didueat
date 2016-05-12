@@ -15,7 +15,8 @@
                     printfile("views/popups/approve_cancel.blade.php (approve)");
                     $alts = array(
                             "accept" => "Approve of this order",
-                            "decline" => "Cancel this order"
+                            "decline" => "Cancel this order",
+                            "delivered" => "Mark the order as having been delivered"
                     );
                 ?>
                 <DIV ID="message" align="center"></DIV>
@@ -57,10 +58,33 @@
                 <input type="hidden" name="id" class="orderid" value="" />
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn  btn-danger" onclick="overlay_loader_show();return confirm2('cancel');" title="{{ $alts["decline"] }}"/>Decline</button>
+                <button type="submit" class="btn btn-danger" onclick="overlay_loader_show();return confirm2('cancel');" title="{{ $alts["decline"] }}"/>Decline</button>
                 <div class="clearfix"></div>
             </div>
             {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="orderDeliveredModal" tabindex="-1" role="dialog" aria-labelledby="orderDeliveredModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="orderDeliveredModalLabel">Order Delivered</h4>
+            </div>
+            <div class="modal-body">
+                <?php printfile("views/popups/approve_cancel.blade.php (delivered)"); ?>
+                <div ID="message" align="center"></div>
+                <label>Note:</label>
+                <textarea name="note" id="driver_note" rows="4" class="form-control" PLACEHOLDER="Add a note" maxlength="5000"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" onclick="savenote();" title="{{ $alts["delivered"] }}"/>Delivered</button>
+                <div class="clearfix"></div>
+            </div>
         </div>
     </div>
 </div>

@@ -381,7 +381,7 @@ class UsersController extends Controller
                 $ob2->save();
                 $oid = $ob2->id;
 
-                debugprint("Order placed", $oid);
+                debugprint("Order placed", $oid, true);
                 //$Stage = 6;
 
                 /*
