@@ -170,7 +170,7 @@
                                            data-toggle="modal"
                                            data-target="#editCatModel" data-target-id="{{ $value->cat_id }}"
                                            onclick="editcategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
-                                            Edit
+                                            <i class="fa fa-pencil"></i>
                                         </A>
                                     @endif
                                 </div>
