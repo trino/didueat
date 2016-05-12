@@ -16,12 +16,13 @@
                     $alts = array(
                             "accept" => "Approve of this order",
                             "decline" => "Cancel this order",
-                            "delivered" => "Mark the order as having been delivered"
+                            "delivered" => "Mark the order as having been delivered",
+                            "passed" => "Decline this order and pass it to another driver"
                     );
                 ?>
                 <DIV ID="message" align="center"></DIV>
                 <label>Note to Customer:</label>
-                @if($type=="driver")
+                @if($type=="driver" && false)
                     <BR>Your order has been accepted
                     <input type="hidden" name="note" value="Your order has been accepted" />
                 @else
@@ -83,6 +84,29 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" onclick="savenote();" title="{{ $alts["delivered"] }}"/>Delivered</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="orderPassModal" tabindex="-1" role="dialog" aria-labelledby="orderPassModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="orderPassModalLabel">Pass on the order</h4>
+            </div>
+            <div class="modal-body">
+                <?php printfile("views/popups/approve_cancel.blade.php (passed)"); ?>
+                <div ID="message" align="center"></div>
+                <label>Note:</label>
+                <textarea name="note" id="passed_note" rows="4" class="form-control" PLACEHOLDER="Add a note" maxlength="5000"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" onclick="passnote();" title="{{ $alts["passed"] }}"/>Pass</button>
                 <div class="clearfix"></div>
             </div>
         </div>

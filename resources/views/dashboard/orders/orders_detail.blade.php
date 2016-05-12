@@ -186,7 +186,9 @@
                         @endif
 
                         @if( in_array("pass", $buttons) || debugmode())
-                            <a class="btn btn-warning" HREF="{{ url("orders/order_pass/" . $ID) }}" title="{{ $alts["pass"] }}">Pass</a>
+                            <!--a class="btn btn-warning" HREF="{{ url("orders/order_pass/" . $ID) }}" title="{{ $alts["pass"] }}">Pass</a-->
+                            <a href="#cancel-pass-dialog" class="btn btn-warning orderPassModal" data-toggle="modal"
+                               data-target="#orderPassModal" title="{{ $alts["pass"] }}" id="pass-popup" data-id="{{ $order->id }}">Pass</a>
                         @endif
 
                         @if( in_array("accept", $buttons) || debugmode() )
@@ -242,9 +244,17 @@
         }
 
         function savenote(){
-            var note = encodeURIComponent( $("#driver_note").val() );
-            $("#orderDeliveredModal").modal("hide");
-            $.post("{{ url('ajax') }}", {_token: token, type: "savenote", orderid: "{{$ID}}", note: note}, function (result) {
+            savenotemain("driver_note", "orderDeliveredModal", "savenote");
+        }
+
+        function passnote(){
+            savenotemain("passed_note", "orderPassModal", "passorder");
+        }
+
+        function savenotemain(NoteID, ModalID, EventName){
+            var note = encodeURIComponent( $("#" + NoteID).val() );
+            $("#" + ModalID).modal("hide");
+            $.post("{{ url('ajax') }}", {_token: token, type: EventName, orderid: "{{$ID}}", note: note}, function (result) {
                 $("#logevents").append(result);
             });
         }

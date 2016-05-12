@@ -661,6 +661,10 @@ class HomeController extends Controller {
                     echo debugprint("Set the note to: " . $_POST["note"], $_POST["orderid"]);
                     break;
 
+                case "passorder":
+                    echo app('App\Http\Controllers\OrdersController')->order_pass($_POST["orderid"], $_POST["note"]);
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
                     if(debugmode()){ echo "\r\n" . var_export($_POST, true);}
