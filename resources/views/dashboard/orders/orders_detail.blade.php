@@ -175,7 +175,9 @@
                             case 5://driver
                                 $buttons[] = "pass";
                                 $buttons[] = "accept";
-                                $buttons[] = "delivered";
+                                if($order->status = "approved"){
+                                    $buttons[] = "delivered";
+                                }
                                 break;
                         }
                         //if($order->status == "pending" || $order->status == "waiting"){
