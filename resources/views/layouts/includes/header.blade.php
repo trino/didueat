@@ -114,6 +114,7 @@
         @if(Route::getCurrentRoute()->getActionName() == "App\Http\Controllers\HomeController@menusRestaurants")
             updatecart("header");
         @endif
+        $.altConfirm();
     });
 
     function scrollto(selector) {
@@ -138,4 +139,34 @@
     function log(text){
         if(debugmode){console.log(text);}
     }
+
+    jQuery.altConfirm = function () {
+        var box = '<div class="modal fade static" id="confirm-modal" data-backdrop="static" tabindex="-1" role="dialog">';
+        box += '<div class="modal-dialog">';
+        box += '<div class="modal-content">';
+        box += '<div class="modal-body"> </div>';
+        box += '<div class="modal-footer">';
+        box += '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>';
+        box += '<button type="button" class="btn btn-primary">Ok</button>';
+        box += '</div>';
+        box += '</div>';
+        box += '</div>';
+        box += '</div>';
+        $("body").append(box);
+
+        confirm2 = function (dialog, command, data) {
+            $(".modal-body").html( dialog.replace(/\n/, "<br />") );
+            $('#confirm-modal').modal();
+            $(".btn-default").on('click', function() {
+                $(this).modal('hide');
+            });
+            $(".btn-primary").off('click');
+            $(".btn-primary").on('click', function() {
+                $("#confirm-modal").modal('hide');
+                if(typeof command == "function"){
+                    command(this, data);
+                }
+            });
+        };
+    };
 </script>

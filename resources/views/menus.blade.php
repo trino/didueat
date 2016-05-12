@@ -525,15 +525,16 @@
         $("#editCatModelLabel").text(Name);
         $("#categoryeditor").load("{{ url("restaurant/cateditor") }}/" + ID);
     }
+
     function deletecategory(ID, Name) {
-        if (confirm("Are you sure you want to delete '" + Name + "' and every item in that category?")) {
+        confirm2("Are you sure you want to delete '" + Name + "' and every item in that category?", function(tthis, data){
             $.post("{{ url('ajax') }}", {
                 type: "deletecategory",
-                id: ID,
+                id: data.id,
                 _token: "{{ csrf_token() }}"
             }, function (result) {
                 window.location.reload();
             });
-        }
+        }, { id: ID });
     }
 </SCRIPT>

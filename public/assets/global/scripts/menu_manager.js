@@ -238,12 +238,17 @@ function deleteMenuItem(catID, menID, bndboxDisplayOrder) {
 
 }
 
-
 function deleteMenuItemFn(catID, menID, bndboxDisplayOrder, fromSaveMenuOrder) {
+    confirm2('This will delete the menu item. Do you wish to proceed?<P>Optionally, you can disable the display of this particular menu item by deselecting the Enable Item checkbox on the menu list.<P>This will save the menu item for possible use in the future.', function(tthis, data){
+        deleteMenuItemFn2(data.catID, data.menID, data.bndboxDisplayOrder, data.fromSaveMenuOrder);
+    },{
+        catID: catID, menID: menID, bndboxDisplayOrder: bndboxDisplayOrder, fromSaveMenuOrder: fromSaveMenuOrder
+    });
+    return false;
+}
+
+function deleteMenuItemFn2(catID, menID, bndboxDisplayOrder, fromSaveMenuOrder) {
     // bndboxDisplayOrder is bounding box display order, not the current item's original order
-
-    if (confirm('This will delete the menu item. Do you wish to proceed?\n\nOptionally, you can disable the display of this particular menu item by deselecting the Enable Item checkbox on the menu list.\n\nThis will save the menu item for possible use in the future.')) {
-
         var thisMenuDisplayOrder = itemPosn[catID][menID]; // the index (display order) to be deleted
         var catMenuCnt = Object.keys(itemPosn[catID]).length;
         var thisURL = base_url + 'restaurant/deleteMenu';
@@ -256,25 +261,24 @@ function deleteMenuItemFn(catID, menID, bndboxDisplayOrder, fromSaveMenuOrder) {
                 // now delete item and update correct values into JavaScript objects and arrays
                 // shift each item up 1
 
-//            document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).innerHTML="";
-//            document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).style.display="none";
+                //document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).innerHTML="";
+                //document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).style.display="none";
 
 
                 var itemNewOrder = "";
                 var cnt = 1;
 
                 for (var key in itemPosn[catID]) { // itemPosn[catID]=menuID:displayOrder
-
                     if ((cnt + 1) > catMenuCnt) {
-
                         // set last item key order Posn before ending loop and deleting last container
                         itemNewOrder = (itemPosn[catID][key] - 1);
                         itemPosn[catID][key] = itemNewOrder; // add updated values this catID and key (menID)
                         itemPosnOrig[catID][key] = itemNewOrder;
 
                         // means last item in active list, which will now be set to hidden and empty (ie, deleted)
-                        document.getElementById('parent' + catID + '_' + catMenuCnt).innerHTML = "";
-                        document.getElementById('parent' + catID + '_' + catMenuCnt).style.display = "none";
+                        $('#parent' + catID + '_' + catMenuCnt).remove();
+                        //document.getElementById('parent' + catID + '_' + catMenuCnt).innerHTML = "";
+                        //document.getElementById('parent' + catID + '_' + catMenuCnt).style.display = "none";
 
                         // clear this posn in the object
                         delete itemPosn[catID][menID];
@@ -303,8 +307,7 @@ function deleteMenuItemFn(catID, menID, bndboxDisplayOrder, fromSaveMenuOrder) {
 
                         itemNewOrder = (itemPosn[catID][key] - 1);
 
-                    }
-                    else {
+                    } else {
                         itemNewOrder = itemPosn[catID][key]; // unchanged
                     }
 //               alert("New item order:  "+itemNewOrder)
@@ -328,18 +331,10 @@ function deleteMenuItemFn(catID, menID, bndboxDisplayOrder, fromSaveMenuOrder) {
                     timer2 = setTimeout("hideMenuOrderMsg(" + catID + ")", 250);
                 }
 
+                $('#parent' + catID + '_' + thisMenuDisplayOrder).fadeOut(500);
             }
         });
-
-// window.location = base_url + 'restaurant/deleteMenu/' + menID + '/' + restSlug + '/'  + thisMenuDisplayOrder + '/' + catMenuCnt;
-
-    }
-    else {
-        return false;
-    }
-
-
-////
+    // window.location = base_url + 'restaurant/deleteMenu/' + menID + '/' + restSlug + '/'  + thisMenuDisplayOrder + '/' + catMenuCnt;
 }
 
 
