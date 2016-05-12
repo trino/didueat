@@ -24,7 +24,8 @@
                     "cantdecline" => "Unable to decline this order",
                     "assign" => "Assign this order to this driver",
                     "pass" => "Decline delivering this order",
-                    "submit" => "Save your note"
+                    "submit" => "Save your note",
+                    "delivered" => "Mark this order as delivered"
             );
             $showCSR = true;
 
@@ -145,61 +146,59 @@
                         </div>
                     @endif
 
-                    @if($type == "driver")
-                        <DIV CLASS="driver">
-                            <DIV CLASS="col-md-9">
-                                <TEXTAREA PLACEHOLDER="Add a note " ID="driver_note" STYLE="width:100%">{{ $order->driver_note }}</TEXTAREA>
-                            </DIV>
-                            <DIV CLASS="col-md-3">
-                                <a class="btn btn-warning" title="{{ $alts["submit"] }}" onclick="savenote();">Delivered</a>
-                            </div>
-                        </div>
-                        <DIV CLASS="clearfix"></DIV>
-                    @endif
-
-                    @if($profiletype == 1 && file_exists(public_path('assets/logs/' . $ID . '.txt')))
+                    @if($profiletype == 1)
                         <DIV CLASS="col-md-12">
                             Events:
-                            <PRE><?= file_get_contents(public_path('assets/logs/' . $ID . '.txt')); ?></PRE>
+                            <PRE ID="logevents"><?php
+                                if(file_exists(public_path('assets/logs/' . $ID . '.txt'))){
+                                    echo file_get_contents(public_path('assets/logs/' . $ID . '.txt'));
+                                }
+                            ?></PRE>
                         </div>
                     @endif
 
                     <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
 
                     <?php
-                        $buttons = array();
+                        $buttons = array("cancel");//anyone can cancel
                         switch($profiletype){
                             case 1://admin
-                                $buttons[] = "cancel"  ;
-                                break;
-                            case 2://customer
                                 //GNDN
                                 break;
+                            case 2://customer
+                                $buttons[] = "delivered";
+                                break;
                             case 3://restaurant
-                                $buttons[] = "cancel";
+                                //GNDN
                                 break;
                             case 5://driver
-                                $buttons[] = "cancel";
                                 $buttons[] = "pass";
                                 $buttons[] = "accept";
+                                $buttons[] = "delivered";
                                 break;
                         }
-
                         //if($order->status == "pending" || $order->status == "waiting"){
                     ?>
                     <div class="card-footer text-xs-right">
-                        @if( in_array("cancel", $buttons) )
-                            <a href="#cancel-popup-dialog" class="btn btn-danger orderCancelModal " data-toggle="modal"
-                                    data-target="#orderCancelModal" title="{{ $alts["decline"] }}" id="cancel-popup" data-id="{{ $order->id }}">Decline</a>
+                        @if( in_array("cancel", $buttons) || debugmode() )
+                            <a href="#cancel-popup-dialog" class="btn btn-danger orderCancelModal" data-toggle="modal"
+                                    data-target="#orderCancelModal" title="{{ $alts["decline"] }}" id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
                         @endif
 
-                        @if( in_array("pass", $buttons) )
-                            <a class="btn btn-warning" HREF="{{ url("orders/order_pass/" . $ID) }}" title="{{ $alts["pass"] }}">Pass</a>
+                        @if( in_array("pass", $buttons) || debugmode())
+                            <!--a class="btn btn-warning" HREF="{{ url("orders/order_pass/" . $ID) }}" title="{{ $alts["pass"] }}">Pass</a-->
+                            <a href="#cancel-pass-dialog" class="btn btn-warning orderPassModal" data-toggle="modal"
+                               data-target="#orderPassModal" title="{{ $alts["pass"] }}" id="pass-popup" data-id="{{ $order->id }}">Pass</a>
                         @endif
 
-                        @if( in_array("accept", $buttons) )
-                            <a href="#approve-popup-dialog" class="btn btn-primary orderApproveModal " data-toggle="modal"
+                        @if( in_array("accept", $buttons) || debugmode() )
+                            <a href="#approve-popup-dialog" class="btn btn-primary orderApproveModal" data-toggle="modal"
                                    data-target="#orderApproveModal" id="approve-popup" title="{{ $alts["approve"] }}" data-id="{{ $order->id }}">Accept</a>
+                        @endif
+
+                        @if( in_array("delivered", $buttons) || debugmode() )
+                            <a href="#delivered-popup-dialog" class="btn btn-primary orderDeliveredModal" data-toggle="modal"
+                               data-target="#orderDeliveredModal" id="delivered-popup" title="{{ $alts["delivered"] }}" data-id="{{ $order->id }}">Delivered</a>
                         @endif
                     </div>
                 </div>
@@ -245,9 +244,18 @@
         }
 
         function savenote(){
-            var note = encodeURIComponent( $("#driver_note").val() );
-            $.post("{{ url('ajax') }}", {_token: token, type: "savenote", orderid: "{{$ID}}", note: note}, function (result) {
-                $(".driver").html(result);
+            savenotemain("driver_note", "orderDeliveredModal", "savenote");
+        }
+
+        function passnote(){
+            savenotemain("passed_note", "orderPassModal", "passorder");
+        }
+
+        function savenotemain(NoteID, ModalID, EventName){
+            var note = encodeURIComponent( $("#" + NoteID).val() );
+            $("#" + ModalID).modal("hide");
+            $.post("{{ url('ajax') }}", {_token: token, type: EventName, orderid: "{{$ID}}", note: note}, function (result) {
+                $("#logevents").append(result);
             });
         }
     </script>

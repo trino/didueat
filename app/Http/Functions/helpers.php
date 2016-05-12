@@ -1,6 +1,6 @@
 <?php
 ini_set('session.gc_maxlifetime', 86400);//force long session
-define("MAX_DELIVERY_DISTANCE", 1);
+define("MAX_DELIVERY_DISTANCE", 30);
 define("TINY_THUMB", '150x150');
 define("MED_THUMB", '250x250');
 define("BIG_SQ", '600x600');
@@ -664,7 +664,7 @@ function validateCanadaZip($PostalCode) {//function by Roshan Bhattara(http://ro
 }
 
 //write text to royslog.txt
-function debugprint($text, $path = "royslog.txt") {
+function debugprint($text, $path = "royslog.txt", $DeleteFirst = false) {
     $todaytime = date("Y-m-d") . " " . date("h:i:s a");
     $dashes = "----------------------------------------------------------------------------------------------\r\n";
     if (is_array($text)) {
@@ -673,7 +673,9 @@ function debugprint($text, $path = "royslog.txt") {
     if(is_numeric($path)){$path = public_path('assets/logs/' . $path . '.txt');}
     $dir = getdirectory($path);
     if (!is_dir($dir) && $dir){mkdir($dir, 0777, true);}
-    file_put_contents($path, $dashes . $todaytime . ' (USER: ' . read("id") . ": " . read("name") .  ")  --  " . str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n", $text)) . "\r\n", FILE_APPEND);
+    $text = $dashes . $todaytime . ' (USER: ' . read("id") . ": " . read("name") .  ")  --  " . str_replace(array("%dashes%", "<BR>", "%20"), array($dashes, "\r\n", " "), $text) . "\r\n";
+    file_put_contents($path, $text, iif($DeleteFirst, 0, FILE_APPEND));
+    return $text;
 }
 
 //implodes uusing both the key and value

@@ -658,8 +658,11 @@ class HomeController extends Controller {
 
                 case "savenote":
                     update_database("reservations", "id", $_POST["orderid"], array("driver_note" => $_POST["note"]));
-                    debugprint("Set the note to: " . $_POST["note"], $_POST["orderid"]);
-                    echo "Note saved";
+                    echo debugprint("Set the note to: " . $_POST["note"], $_POST["orderid"]);
+                    break;
+
+                case "passorder":
+                    echo app('App\Http\Controllers\OrdersController')->order_pass($_POST["orderid"], $_POST["note"]);
                     break;
 
                 default:

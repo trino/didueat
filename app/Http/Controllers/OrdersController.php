@@ -65,11 +65,10 @@
             return view('dashboard.orders.ajax.list', $data);
         }
 
-        public function order_pass($ID){
-            update_database("reservations", "id", $ID, array( "driver_id" => 0));
+        public function order_pass($ID, $Note = "No reason specified"){
+            update_database("reservations", "id", $ID, array("driver_id" => 0));
             $this->sendSMS("van", "The driver declined order " . $ID);
-            debugprint("Passed on the order", $ID);
-            return $this->success("You passed on order " . $ID, "orders/list/driver");
+            return debugprint("Passed on the order (" . $Note . ")", $ID);
         }
 
         public function order_assign($ID, $type, $Driver_ID){
