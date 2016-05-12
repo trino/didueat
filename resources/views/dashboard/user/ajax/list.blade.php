@@ -85,6 +85,7 @@
                             $restaurant_slug = $value->restslug;
                         }
                         if($value->profile_type == 1){$usertype = "Admin";}
+                        if($value->profile_type == 5){$usertype = "Driver";}
                     ?>
 
                     <tr id="user{{ $value->id }}">
@@ -119,6 +120,7 @@
                                     <span class="c-indicator"></span>
                                 </LABEL>
                             @endif
+
                             {{ $usertype }}
                         </td>
                         <!--td>{{ $value->email }}</td-->
