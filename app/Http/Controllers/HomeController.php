@@ -657,7 +657,7 @@ class HomeController extends Controller {
                     break;
 
                 case "savenote":
-                    update_database("reservations", "id", $_POST["orderid"], array("driver_note" => $_POST["note"]));
+                    app('App\Http\Controllers\OrdersController')->changeOrderDelivered("", $_POST["orderid"], $_POST["note"]);
                     echo debugprint("Set the note to: " . $_POST["note"], $_POST["orderid"]);
                     break;
 

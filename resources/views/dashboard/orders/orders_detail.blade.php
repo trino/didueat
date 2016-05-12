@@ -160,6 +160,7 @@
                     <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
 
                     <?php
+                        $showall = debugmode() || true;
                         $buttons = array("cancel");//anyone can cancel
                         switch($profiletype){
                             case 1://admin
@@ -180,23 +181,23 @@
                         //if($order->status == "pending" || $order->status == "waiting"){
                     ?>
                     <div class="card-footer text-xs-right">
-                        @if( in_array("cancel", $buttons) || debugmode() )
+                        @if( in_array("cancel", $buttons) || $showall )
                             <a href="#cancel-popup-dialog" class="btn btn-danger orderCancelModal" data-toggle="modal"
                                     data-target="#orderCancelModal" title="{{ $alts["decline"] }}" id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
                         @endif
 
-                        @if( in_array("pass", $buttons) || debugmode())
+                        @if( in_array("pass", $buttons) || $showall)
                             <!--a class="btn btn-warning" HREF="{{ url("orders/order_pass/" . $ID) }}" title="{{ $alts["pass"] }}">Pass</a-->
                             <a href="#cancel-pass-dialog" class="btn btn-warning orderPassModal" data-toggle="modal"
                                data-target="#orderPassModal" title="{{ $alts["pass"] }}" id="pass-popup" data-id="{{ $order->id }}">Pass</a>
                         @endif
 
-                        @if( in_array("accept", $buttons) || debugmode() )
+                        @if( in_array("accept", $buttons) || $showall )
                             <a href="#approve-popup-dialog" class="btn btn-primary orderApproveModal" data-toggle="modal"
                                    data-target="#orderApproveModal" id="approve-popup" title="{{ $alts["approve"] }}" data-id="{{ $order->id }}">Accept</a>
                         @endif
 
-                        @if( in_array("delivered", $buttons) || debugmode() )
+                        @if( in_array("delivered", $buttons) || $showall )
                             <a href="#delivered-popup-dialog" class="btn btn-primary orderDeliveredModal" data-toggle="modal"
                                data-target="#orderDeliveredModal" id="delivered-popup" title="{{ $alts["delivered"] }}" data-id="{{ $order->id }}">Delivered</a>
                         @endif
@@ -258,5 +259,7 @@
                 $("#logevents").append(result);
             });
         }
+
+        $(".orderid").val("{{$ID}}");
     </script>
 @stop

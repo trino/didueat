@@ -148,6 +148,11 @@
             return $this->changeOrderStatus('pending', DIDUEAT . ' - Order Declined', "emails.order_disapprove", 'Order has been disapproved!', "orders/list/" . $type, $OrderID, $Note);
         }
 
+        public function changeOrderDelivered($type = "", $OrderID = false, $Note = false){
+            update_database("reservations", "id", $OrderID, array("driver_note" => $Note));
+            return $this->changeOrderStatus('delivered', DIDUEAT . ' - Order Delivered', "", 'Order has been delivered!', "orders/list/" . $type, $OrderID, $Note);
+        }
+
         /**
          * Change Order Status to $status, send email (using $subject/$email) and $flash
          * @param $id (POST)
@@ -159,9 +164,13 @@
             if($OrderID) {
                 $post['id'] = $OrderID;
                 $post['note'] = $Note;
-            } else {
+            } else if(isset($_POST["id"])) {
                 $OrderID = $_POST["id"];
                 $Note = $_POST["note"];
+            } else {
+                echo "OrderID not specified";
+                var_dump($post);
+                die();
             }
             debugprint("Set order status to " . $status, $OrderID);
 

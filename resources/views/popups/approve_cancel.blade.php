@@ -1,4 +1,4 @@
-<INPUT TYPE="hidden" id="orderid">
+<INPUT TYPE="hidden" id="orderid" class="orderid">
 
 <div class="modal" id="orderApproveModal" tabindex="-1" role="dialog" aria-labelledby="orderApproveModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -24,7 +24,7 @@
                 <label>Note to Customer:</label>
                 @if($type=="driver" && false)
                     <BR>Your order has been accepted
-                    <input type="hidden" name="note" value="Your order has been accepted" />
+                    <input type="hidden" name="note" value="Your order has been accepted"/>
                 @else
                     <textarea name="note" rows="4" id="approvetext" class="form-control" maxlength="5000"></textarea>
                 @endif
@@ -32,7 +32,7 @@
             </div>
             <div class="modal-footer">
                 <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
-                <button class="btn btn-primary" value=" Approve " onclick="overlay_loader_show();return confirm2('approve');" title="{{ $alts["accept"] }}">Accept</button>
+                <button class="btn btn-primary" value=" Approve " onclick="overlay_loader_show();return confirm3('approve');" title="{{ $alts["accept"] }}">Accept</button>
                 <div class="clearfix"></div>
             </div>
             {!! Form::close() !!}            
@@ -59,7 +59,7 @@
                 <input type="hidden" name="id" class="orderid" value="" />
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-danger" onclick="overlay_loader_show();return confirm2('cancel');" title="{{ $alts["decline"] }}"/>Decline</button>
+                <button type="submit" class="btn btn-danger" onclick="overlay_loader_show();return confirm3('cancel');" title="{{ $alts["decline"] }}"/>Decline</button>
                 <div class="clearfix"></div>
             </div>
             {!! Form::close() !!}
@@ -122,15 +122,17 @@
     function getid(){
         return document.getElementById("orderid").value;
     }
-    //seems to be broken
-    function confirm2(Action){
+
+    function confirm3(Action){
         var element = document.getElementById(Action + "text").value.length;
         if(element==0){
             overlay_loader_show();
             return true;
         }
         $(".orderid").val(getid());
-     //   return confirm('Are you sure you want to ' + Action + ' order # ' + getid() + '?');
+        element = confirm('Are you sure you want to ' + Action + ' order # ' + getid() + '?');
+        overlay_loader_hide();
+        return element;
     }
 
     //handle loading of modals

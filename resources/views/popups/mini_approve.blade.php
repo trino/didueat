@@ -18,7 +18,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" TITLE="Close" TITLE="Close">Close</button>
-                <button class="btn btn-primary" onclick="return confirm2('{{ $action }}');">{{ ucfirst($action) }}</button>
+                <button class="btn btn-primary" onclick="return confirm3('{{ $action }}');">{{ ucfirst($action) }}</button>
                 <div class="clearfix"></div>
             </div>
             {!! Form::close() !!}
@@ -26,7 +26,7 @@
     </div>
     <SCRIPT>
         //make sure the note is filled in before submitting
-        function confirm2(Action){
+        function confirm3(Action){
             var element = document.getElementById("text").value.length;
             if(element==0){
                 return true;
