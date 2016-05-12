@@ -200,10 +200,12 @@
                         $userArray['mail_subject'] = $subject;
                         $userArray['note'] = $post['note'];
                         $this->sendEMail($email, $userArray);
+                        debugprint("Email sent to: " . $userArray["email"], $OrderID);
 
                         if($userArray["mobile"] && !$userArray["phone"]){$userArray["phone"] = $userArray["mobile"];}
                         if($post['note']) { $subject .= " The reason specifed was: " . $post['note']; }
                         $this->sendSMS( $userArray["phone"], $subject);
+                        debugprint("Text message sent to: " . $userArray["phone"], $OrderID);
                     }
 
                     return $this->success($flash, $URL);
