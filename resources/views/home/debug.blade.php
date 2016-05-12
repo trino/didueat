@@ -17,7 +17,7 @@
                         }
                         $returnurl = "url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                     ?>
-                    <A HREF="{{ url("restaurant/list?fixmenus") . "&" . $returnurl }}" class="btn btn-primary btn-sm">Fix Fenus</A>
+                    <A HREF="{{ url("restaurant/list?fixmenus") . "&" . $returnurl }}" class="btn btn-primary btn-sm">Fix Menus</A>
                     <a HREF="{!!  url("home/debugmode") . "?" . $returnurl . '" CLASS="btn btn-sm btn-' . iif(debugmode(), 'secondary">Deactivate', 'primary">Activate') !!} Debug Mode</a>
                     <a href="{{ url("home/debugmode") . "?" . $returnurl }}&action=clearcache" class="btn btn-primary btn-sm">Clear Cache</a>
                 </div>
