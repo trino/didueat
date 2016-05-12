@@ -41,6 +41,10 @@
                 $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
                 return $angle * 6371000;
             }
+
+            $profiletype = read("profiletype");
+            if($profiletype == 3){ $profiletype = 2; }//userplus
+            if($profiletype == 2 && read("restaurant_id")){ $profiletype = 3; }//restaurant
         ?>
         <div class="row">
 
@@ -98,7 +102,7 @@
                     </div>
                     <div class="clearfix"></div>
 
-                    @if(read("profiletype") == 1)
+                    @if($profiletype == 1)
                         <DIV CLASS="col-md-12">
                             <table class="table table-responsive m-b-0">
                                 <thead>
@@ -153,7 +157,7 @@
                         <DIV CLASS="clearfix"></DIV>
                     @endif
 
-                    @if(read("profiletype") == 1 && file_exists(public_path('assets/logs/' . $ID . '.txt')))
+                    @if($profiletype == 1 && file_exists(public_path('assets/logs/' . $ID . '.txt')))
                         <DIV CLASS="col-md-12">
                             Events:
                             <PRE><?= file_get_contents(public_path('assets/logs/' . $ID . '.txt')); ?></PRE>
@@ -161,31 +165,43 @@
                     @endif
 
                     <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
-                    @if($CanApprove || $type == "driver")
-                        <div class="card-footer text-xs-right">
-                            @if($CanApprove && $order->status != "cancelled")
-                                @if($order->status == "waiting")
-                                    <a class="btn btn-secondary" title="{{ $alts["cantdecline"] }}">Can't Decline</a>
-                                @else
-                                    <a href="#cancel-popup-dialog"
-                                       class="btn btn-danger orderCancelModal " data-toggle="modal"
-                                       data-target="#orderCancelModal" title="{{ $alts["decline"] }}"
-                                       id="cancel-popup" data-id="{{ $order->id }}">Decline</a>
-                                @endif
-                            @endif
-                            @if($order->status == "pending" || $order->status == "waiting")
-                                @if($type == "driver")
-                                    <a class="btn btn-warning" HREF="{{ url("orders/order_pass/" . $ID) }}" title="{{ $alts["pass"] }}">Pass</a>
-                                @endif
-                                <a href="#approve-popup-dialog"
-                                   class="btn btn-primary orderApproveModal " data-toggle="modal"
-                                   data-target="#orderApproveModal"
-                                   id="approve-popup" title="{{ $alts["approve"] }}"
-                                   data-id="{{ $order->id }}">Accept</a>
-                            @endif
-                        </div>
-                    @endif
 
+                    <?php
+                        $buttons = array();
+                        switch($profiletype){
+                            case 1://admin
+                                $buttons[] = "cancel"  ;
+                                break;
+                            case 2://customer
+                                //GNDN
+                                break;
+                            case 3://restaurant
+                                $buttons[] = "cancel";
+                                break;
+                            case 5://driver
+                                $buttons[] = "cancel";
+                                $buttons[] = "pass";
+                                $buttons[] = "accept";
+                                break;
+                        }
+
+                        //if($order->status == "pending" || $order->status == "waiting"){
+                    ?>
+                    <div class="card-footer text-xs-right">
+                        @if( in_array("cancel", $buttons) )
+                            <a href="#cancel-popup-dialog" class="btn btn-danger orderCancelModal " data-toggle="modal"
+                                    data-target="#orderCancelModal" title="{{ $alts["decline"] }}" id="cancel-popup" data-id="{{ $order->id }}">Decline</a>
+                        @endif
+
+                        @if( in_array("pass", $buttons) )
+                            <a class="btn btn-warning" HREF="{{ url("orders/order_pass/" . $ID) }}" title="{{ $alts["pass"] }}">Pass</a>
+                        @endif
+
+                        @if( in_array("accept", $buttons) )
+                            <a href="#approve-popup-dialog" class="btn btn-primary orderApproveModal " data-toggle="modal"
+                                   data-target="#orderApproveModal" id="approve-popup" title="{{ $alts["approve"] }}" data-id="{{ $order->id }}">Accept</a>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

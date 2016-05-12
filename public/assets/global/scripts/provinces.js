@@ -222,12 +222,15 @@ function fillInAddress() {
     $('#formatted_address').val('');
     $('#postal_code').val('');
     $("#province").val('');
+    var streetformat = "[street_number] [route], [locality]";
     //provinces('{{ addslashes(url("ajax")) }}', '');
 
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
         if (componentForm[addressType]) {
             var val = place.address_components[i][componentForm[addressType]];
+            log(addressType + " = " + val);
+            streetformat = streetformat.replace("[" + addressType + "]", val);
 
             if(addressType == "country"){
                 $('#country').val(val);
@@ -273,6 +276,9 @@ function fillInAddress() {
             }
         }
     }
+
+    log("streetformat = " + streetformat);
+    $('#formatted_address2').val(streetformat);
     return place;
 }
 
