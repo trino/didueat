@@ -81,12 +81,6 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                            title="{{ $alts["allergy"] }}" class="simplemodal">Allergy</a>
                     </li-->
 
-                    @if(!islive())
-                        <li class="list-inline-item">
-                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }}
-                                Debug Mode</a>
-                        </li>
-                    @endif
 
                     <li class="list-inline-item">
                         <h5>
