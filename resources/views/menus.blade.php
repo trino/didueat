@@ -1,35 +1,35 @@
 <?php
-    printfile("views/menus.blade.php");
-    $alts = array(
-            "product-pop-up" => "Product info",
-            "up_cat" => "Move Category up",
-            "down_cat" => "Move Category down",
-            "up_parent" => "Move this up",
-            "down_parent" => "Move this down",
-            "deleteMenu" => "Delete this item",
-            "edititem" => "Edit this item",
-            "editcat" => "Edit this category",
-            "deletecat" => "Delete this category"
-    );
+printfile("views/menus.blade.php");
+$alts = array(
+        "product-pop-up" => "Product info",
+        "up_cat" => "Move Category up",
+        "down_cat" => "Move Category down",
+        "up_parent" => "Move this up",
+        "down_parent" => "Move this down",
+        "deleteMenu" => "Delete this item",
+        "edititem" => "Edit this item",
+        "editcat" => "Edit this category",
+        "deletecat" => "Delete this category"
+);
 
-    $menuTSv = "?i=";
-    $menuTS = read('menuTS');
-    if ($menuTS) {
-        $menuTSv = "?i=" . $menuTS;
-        Session::forget('session_menuTS');
-    }
+$menuTSv = "?i=";
+$menuTS = read('menuTS');
+if ($menuTS) {
+    $menuTSv = "?i=" . $menuTS;
+    Session::forget('session_menuTS');
+}
 
-    $menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
-    $categories = enum_all("category", array("res_id" => $menu_id));
-    $canedit = false;
+$menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
+$categories = enum_all("category", array("res_id" => $menu_id));
+$canedit = false;
 
-    $prevCat = "";
-    $catNameStr = [];
-    $parentCnt = [];
-    $thisCatCnt = 0;
-    $itemPosnForJS = [];
-    $itemPosn = []; // to decide if js index needs a new array declared
-    // $catCnt set in restaurants-menus.blade
+$prevCat = "";
+$catNameStr = [];
+$parentCnt = [];
+$thisCatCnt = 0;
+$itemPosnForJS = [];
+$itemPosn = []; // to decide if js index needs a new array declared
+// $catCnt set in restaurants-menus.blade
 ?>
 
 <script>
@@ -39,7 +39,7 @@
 </script>
 
 @if(!isset($_GET['page']))
-    <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
+    <div class="card" id="loadmenus_{{ (isset($catid))?$catid:0 }}">
         @endif
 
         <?php
@@ -128,92 +128,81 @@
                 $thisUpMenuVisib = 'hidden';
             }
 
-            if($menu_id == $restaurant->id){
+            if ($menu_id == $restaurant->id) {
                 $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
             }
             ?>
 
-            <DIV class="list-group m-b-1" id="c{{ $thisCatCnt }}"><!-- start of this category -->
-                <div class="list-group-item parents" style="background: #f5f5f5;"><!-- start of category heading -->
-                    <div class="">
-                        <div class="row">
-                            <div class="col-xs-8">
-                                <a href="#" name="<?php echo $value->cat_name; ?>"></a>
-                                <h4 class="card-title"><?= $value->cat_name;?></h4>
-                            </div>
+            <DIV class="card-body p-b-1" id="c{{ $thisCatCnt }}"><!-- start of this category -->
+                <div class="parents" style="
+                "><!-- start of category heading -->
 
-
-                            <div class="col-xs-4">
-                                <div class="pull-right" aria-label="Basic example">
-                                    @if($canedit)
-                                        <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
-                                           id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
-                                           href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
-                                            <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
-                                            <i class="fa fa-arrow-up"></i>
-                                        </a>
-
-                                        <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-link"
-                                           id="down{{ $thisCatCnt }}"
-                                           style="visibility:{{ $thisDownCatSort }} !important"
-                                           href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
-                                            <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/down");?>"> -->
-                                            <i class="fa fa-arrow-down"></i>
-                                        </a>
-
-                                        <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right"
-                                           onclick="deletecategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
-                                            <i class="fa fa-times"></i>
-                                        </A>
-
-                                        <A title="{{ $alts["editcat"] }}" class="btn btn-sm btn-link pull-right"
-                                           data-toggle="modal"
-                                           data-target="#editCatModel" data-target-id="{{ $value->cat_id }}"
-                                           onclick="editcategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
-                                            <i class="fa fa-pencil"></i>
-                                        </A>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-md-6" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
-                                        name="saveOrderChng" type="button" value="Save All Category Order Changes"
-                                        onclick="saveCatOrderChngs({{ $thisCatCnt }})"/><span
-                                        id="saveCatOrderMsg{{ $thisCatCnt }}"></span></div>
-
-                            <div class="col-md-6 pull-right" id="saveMenus{{ $value->cat_id }}"
-                                 style="display:none;color:#f00"><input name="saveOrderChng" type="button"
-                                                                        value="Save Category Sorting"
-                                                                        onclick="saveMenuOrder({{ $value->cat_id }},false,false)"/><span
-                                        id="saveMenuOrderMsg{{ $value->cat_id }}"></span></div>
-
+                    <div class="row">
+                        <div class="col-xs-8 ">
+                            <a href="#" name="<?php echo $value->cat_name; ?>"></a>
+                            <h4 class="card-title" style="padding:.9375rem !important;"><?= $value->cat_name;?></h4>
                         </div>
 
+
+                        <div class="col-xs-4">
+                            <div class="pull-right" aria-label="Basic example">
+                                @if($canedit)
+                                    <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
+                                       id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
+                                       href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
+                                    <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
+                                        <i class="fa fa-arrow-up"></i>
+                                    </a>
+
+                                    <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-link"
+                                       id="down{{ $thisCatCnt }}"
+                                       style="visibility:{{ $thisDownCatSort }} !important"
+                                       href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
+                                    <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/down");?>"> -->
+                                        <i class="fa fa-arrow-down"></i>
+                                    </a>
+
+                                    <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right"
+                                       onclick="deletecategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
+                                        <i class="fa fa-times"></i>
+                                    </A>
+
+                                    <A title="{{ $alts["editcat"] }}" class="btn btn-sm btn-link pull-right"
+                                       data-toggle="modal"
+                                       data-target="#editCatModel" data-target-id="{{ $value->cat_id }}"
+                                       onclick="editcategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
+                                        <i class="fa fa-pencil"></i>
+                                    </A>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
+                                    name="saveOrderChng" type="button" value="Save All Category Order Changes"
+                                    onclick="saveCatOrderChngs({{ $thisCatCnt }})"/><span
+                                    id="saveCatOrderMsg{{ $thisCatCnt }}"></span></div>
+
+                        <div class="col-md-6 pull-right" id="saveMenus{{ $value->cat_id }}"
+                             style="display:none;color:#f00"><input name="saveOrderChng" type="button"
+                                                                    value="Save Category Sorting"
+                                                                    onclick="saveMenuOrder({{ $value->cat_id }},false,false)"/><span
+                                    id="saveMenuOrderMsg{{ $value->cat_id }}"></span></div>
+
                     </div>
+
+
                 </div>
-                <!-- end of category heading -->
+
 
                 <?php
                 $thisCatCnt++;
                 }
-                //load images, duplicate code
+
                 $has_iconImage = false;
-                    /*
-                if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
-                    $item_iconImg = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image) . $menuTSv;
-                    $has_iconImage = true;
-                }
-                    */
                 $has_bigImage = false;
-                    /*
-                if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image))) {
-                    $item_bigImage = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image) . $menuTSv;
-                    $has_bigImage = true;
-                }
-                    */
                 $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
                 $min_p = get_price($value->id);
-              //  if ($min_p = '10000' ? 0 : $min_p) ;
+
                 ?>
 
                 <a
@@ -223,15 +212,13 @@
                         class="card-link" data-toggle="modal"
                         data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
 
-                    <div style="border-bottom:1px solid #efefef !important; padding-top: .5rem !important; padding-bottom: .5rem !important;"
-                         class="list-group-item parents"
-                         id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
+                    <div id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
                         <!-- start of menu item -->
 
 
                         <div>
-                            <div class="row">
-                                <div class="col-md-12"><!-- start div 4 -->
+                            <div class="col-md-6 ">
+                                <div class=""><!-- start div 4 -->
 
                                     <?php
                                     $main_price = $value->price;
@@ -266,8 +253,8 @@
                                                      class="img-circle"
                                                      style="height:24px;width:24px;float:left;margin-right:.5rem;"
                                                      alt="{{ $value->menu_item }}"/>
-                                                @else
-                                                        <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
+                                            @else
+
                                             @endif
 
                                             {{ $value->menu_item }}
@@ -278,7 +265,7 @@
                                                 @else
 
 
-                                                        ${{number_format($min_p,2)}}+
+                                                    ${{number_format($min_p,2)}}+
 
                                                 @endif
                                                 @if($dis)
@@ -293,7 +280,7 @@
 
                                         </div>
 
-                                        <div class="clearfix"></div>
+
                                     </span>
 
 
@@ -311,23 +298,23 @@
 
                                     @if(false) <!-- no tags yet -->
                                     @if(isset($restaurant->tags) && $restaurant->tags != "")
-                                    <?php
-                                    $tags = $restaurant->tags;
-                                    $tags = explode(',', $tags);
-                                    for ($i = 0; $i < 5; $i++) {
-                                        if (isset($tags[$i])) {
-                                            echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                        <?php
+                                        $tags = $restaurant->tags;
+                                        $tags = explode(',', $tags);
+                                        for ($i = 0; $i < 5; $i++) {
+                                            if (isset($tags[$i])) {
+                                                echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                            }
                                         }
-                                    }
-                                    ?>
+                                        ?>
                                     @endif
 
-                                            <!--div class="clearfix">
+                                <!--div class="clearfix">
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
-                                            <p class="card-text m-a-0">
-                                                {{$dis}}
-                                            </p>
-                                        </div-->
+                                        <p class="card-text m-a-0">
+                                            {{$dis}}
+                                        </p>
+                                    </div-->
 
                                     <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
                                         @if($value->uploaded_on)
@@ -350,7 +337,7 @@
                                 <!-- End div 4 -->
 
 
-                                <div class="col-md-12"><!-- start div 5 0000-00-00 00:00:00 -->
+                                <div class=""><!-- start div 5 0000-00-00 00:00:00 -->
 
 
                                     @if(read('restaurant_id') == $restaurant->id || $canedit)
@@ -377,7 +364,7 @@
                                     </script>
 
                                     @if($canedit || $value->uploaded_by ==read("id"))
-                                        <div class="clearfix"></div>
+
 
 
                                         parent{{ $value->cat_id }}_{{ $value->display_order }}
@@ -387,7 +374,7 @@
                                             {{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}
                                             , 'down', {{ $catMenuCnt }}</span>
 
-                                        <div class="clearfix"></div>
+
                                         <a href="#"
                                            class="btn btn-sm btn-link pull-right"
                                            title="{{ $alts["deleteMenu"] }}"
@@ -429,9 +416,7 @@
                         </div>
 
 
-                        <div class="clearfix"></div>
                     </div>
-
 
                 </a>
 
@@ -440,12 +425,15 @@
                 $catMenuCnt++;
                 ?>
                 @include('popups.order_menu_item')
+
+
                 @endwhile
 
 
                 <div class="clearfix"></div>
 
             </div> <!-- end of last category -->
+
 
 
             <?php
@@ -480,7 +468,7 @@
 <div class="clearfix"></div>
 
 <SCRIPT>
-    <?php echo $itemPosnForJSStr;?>
+            <?php echo $itemPosnForJSStr;?>
 
     var itemPosnOrig = itemPosn;
     var menuSortChngs = [];
@@ -527,7 +515,7 @@
     }
 
     function deletecategory(ID, Name) {
-        confirm2("Are you sure you want to delete '" + Name + "' and every item in that category?", function(tthis, data){
+        confirm2("Are you sure you want to delete '" + Name + "' and every item in that category?", function (tthis, data) {
             $.post("{{ url('ajax') }}", {
                 type: "deletecategory",
                 id: data.id,
@@ -535,6 +523,6 @@
             }, function (result) {
                 window.location.reload();
             });
-        }, { id: ID });
+        }, {id: ID});
     }
 </SCRIPT>

@@ -108,8 +108,7 @@ if ($is_open) {
 }
 ?>
 
-<div class="card-header" style=" @if(!isset($order)) background: white !important; margin-bottom:1rem !important;    box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
-@endif ">
+<div class="card-header" style=" background: white !important; margin-bottom:1rem !important;    box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;">
     <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1">
             @if(isset($details) && $details)

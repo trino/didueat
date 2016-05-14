@@ -77,12 +77,10 @@
 
     <div class="card">
 
-        <div class="card-header">
-            <h4 class="card-title">Your Order</h4>
-        </div>
 
         <div class="card-block">
-
+            <h4 class="card-title">Your Order</h4>
+<br>
             <div class="receipt_main">
                 @if(!isset($order))
                     <table style="display:none;<?php if(!isset($em)){?>width:100%;<?php }else{?>width:100%;padding:0px;<?php }?>">
