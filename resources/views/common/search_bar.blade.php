@@ -38,7 +38,7 @@
     <FORM ID="addressbar" onsubmit="return false;">
 
 
-        <div class="input-group input-group-lg">
+        <div class="input-group">
 
 
 

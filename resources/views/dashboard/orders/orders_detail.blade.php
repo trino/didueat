@@ -104,7 +104,8 @@
                     <div class="clearfix"></div>
 
                     @if($profiletype == 1)
-                        <DIV CLASS="col-md-12">
+                        <DIV CLASS="
+                         ">
                             <table class="table table-responsive m-b-0">
                                 <thead>
                                     <tr>
@@ -141,21 +142,36 @@
                                             echo '<TR><TD COLSPAN="4">No drivers are available</TD></TR>';
                                         }
                                     ?>
+
+
+                                <tr>
+                                    <td COLSPAN="4">
+
+                                        @if($profiletype == 1)
+
+                                            Events:
+                                            <PRE ID="logevents"><?php
+                                                if(file_exists(public_path('assets/logs/' . $ID . '.txt'))){
+                                                    echo file_get_contents(public_path('assets/logs/' . $ID . '.txt'));
+                                                }
+                                                ?></PRE>
+
+
+                                        @endif
+
+
+                                    </td>
+
+                                </tr>
                                 </tbody>
                             </table>
+
+
+
                         </div>
                     @endif
 
-                    @if($profiletype == 1)
-                        <DIV CLASS="col-md-12">
-                            Events:
-                            <PRE ID="logevents"><?php
-                                if(file_exists(public_path('assets/logs/' . $ID . '.txt'))){
-                                    echo file_get_contents(public_path('assets/logs/' . $ID . '.txt'));
-                                }
-                            ?></PRE>
-                        </div>
-                    @endif
+
 
                     <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
 

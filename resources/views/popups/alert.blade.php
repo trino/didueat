@@ -6,7 +6,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-xs-center">
                 <?php printfile("views/popups/alert.blade.php)<BR>"); ?>
                 <SPAN ID="alertModalMsg"></SPAN>
             </div>
