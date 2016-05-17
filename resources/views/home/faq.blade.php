@@ -77,6 +77,14 @@
             <div class="row" id="toc">
                 <SMALL>
                     <UL class="twocols">
+                        <LI>&bull; <a HREF="#top">Answering the most common questions</a></LI>
+                        <LI>&bull; <a HREF="#general">General Questions About Using {{ DIDUEAT }}</a></LI>
+                        <LI>&bull; <a HREF="#managing">Managing Your {{ DIDUEAT }} Account</a></LI>
+                        <LI>&bull; <a HREF="#other">Other Questions</a></LI>
+                        <LI>&bull; <a HREF="#repeat">Repeat Visits And Examining Previous Orders</a></LI>
+                        <LI>&bull; <a HREF="#payment">Payment Questions</a></LI>
+                        <LI>&bull; <A onclick="collapseall('true');">Collapse All</A></LI>
+                        <LI>&bull; <A onclick="collapseall('false');">Expand All</A></LI>
                     </UL>
                 </SMALL>
             </div>
