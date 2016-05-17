@@ -173,7 +173,6 @@
 
 <div class="overlay_loader">
     <div class="loader"></div>
-
 </div>
 
 <div class="container-fluid" id="the-header">

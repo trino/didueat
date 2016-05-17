@@ -665,6 +665,11 @@ class HomeController extends Controller {
                     echo app('App\Http\Controllers\OrdersController')->order_pass($_POST["orderid"], $_POST["note"]);
                     break;
 
+                case "getmenuitem":
+                    $_POST["value"] = select_field("menus", "id", $_POST["id"]);
+                    return view("popups.order_menu_item", $_POST);
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
                     if(debugmode()){ echo "\r\n" . var_export($_POST, true);}
