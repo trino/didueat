@@ -379,15 +379,12 @@
                                     @if($canedit || $value->uploaded_by ==read("id"))
                                         <div class="clearfix"></div>
 
+                                        @if(debugmode())
+                                            <span style="color:#FF0000" class="debugdata">
+                                                parent{{ $value->cat_id . '_' . $value->display_order . $value->id . ', ' . $value->cat_id . ', ' . $value->display_order . ', "down", ' . $catMenuCnt }}
+                                            </span>
+                                        @endif
 
-                                        parent{{ $value->cat_id }}_{{ $value->display_order }}
-
-
-                                        <span style="color:#FF0000">
-                                            {{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}
-                                            , 'down', {{ $catMenuCnt }}</span>
-
-                                        <div class="clearfix"></div>
                                         <a href="#"
                                            class="btn btn-sm btn-link pull-right"
                                            title="{{ $alts["deleteMenu"] }}"

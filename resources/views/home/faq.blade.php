@@ -34,35 +34,60 @@
         });
     }
 
-    $(window).scroll(function(){
-        var navbar = Math.ceil( Number($(".navbar").height()) );
-        var top = Number($(this).scrollTop());
-        $("#tableofcontents").css("top",  Math.max(navbar,top-navbar));
+
+    $(window).resize(function(){
+        resize();
     });
+    $( document ).ready(function() {
+        resize();
+    });
+
+    function resize(){
+        var height = $( window ).height();
+        var navbar = $("#toc").position().top; //$(".navbar").height();
+        var footer = $("#the-footer").height() + $(".navbar").height();
+        var toc = $("#toc").height();
+        var total = height - navbar - footer - toc - 40;
+
+        $("#contents").css("height", total);
+
+        log("navbar: " + navbar );
+        log("footer: " + footer );
+        log("Window: " + height);
+        log("Total:  " + total)
+    }
 </script>
+<STYLE>
+    .twocols{
+        list-style-type: circle;
+        margin-bottom: 0px;
+    }
+    li{
+        line-height:1.5em;
+        border-bottom:1px solid #ccc;
+        float:left;
+        display:inline;
+    }
+    .twocols li { width:50%;}
+</STYLE>
 
 <div class="container">
     <div class="row m-t-1">
-
-        <h1 class="col-lg-9">Frequently Asked Questions & Answers</h1>
-
-        <div class="col-lg-9">
-            {{ DIDUEAT }} wants to make every step of your dining experience as easy and pleasurable as possible. To assist you in the process, we encourage you to read through our FAQs and learn from the most frequently asked questions. If you have a question that cannot be answered by our FAQs page, then please send an email with your question to <a href="mailto:info@didueat.ca">info@didueat.ca</a>. We will answer your question as soon as possible, so that you can enjoy your dining experience without any uncertainties.
-        </div>
-
-        <div class="col-md-3" id="tableofcontents" style="background-color: white; z-index: 999;">
-            <div class="row">
+        <div class="col-lg-12">
+            <div class="row" id="toc">
                 <SMALL>
-                    &bull; <a HREF="#top">Answering the most common questions</a><br/>
-                    &bull; <a HREF="#general">General Questions About Using {{ DIDUEAT }}</a><br/>
-                    &bull; <a HREF="#managing">Managing Your {{ DIDUEAT }} Account</a><br/>
-                    &bull; <a HREF="#other">Other Questions</a><BR>
-                    &bull; <a HREF="#repeat">Repeat Visits And Examining Previous Orders</a><br/>
-                    &bull; <a HREF="#payment">Payment Questions</a><BR>
-                    &bull; <A onclick="collapseall('true');">Collapse All</A><BR>
-                    &bull; <A onclick="collapseall('false');">Expand All</A>
+                    <UL class="twocols">
+                    </UL>
                 </SMALL>
             </div>
+        </div>
+
+        <div id="contents" style="overflow-y:scroll; width:100%; height: 200px;">
+        <h1 class="col-lg-9">Frequently Asked Questions & Answers</h1>
+
+        <div class="col-lg-12">
+            <?= printfile("views/home/faq.blade.php<BR>"); ?>
+            {{ DIDUEAT }} wants to make every step of your dining experience as easy and pleasurable as possible. To assist you in the process, we encourage you to read through our FAQs and learn from the most frequently asked questions. If you have a question that cannot be answered by our FAQs page, then please send an email with your question to <a href="mailto:info@didueat.ca">info@didueat.ca</a>. We will answer your question as soon as possible, so that you can enjoy your dining experience without any uncertainties.
         </div>
 
         <div class="clearfix"></div>
@@ -602,7 +627,7 @@
             </div>
 
             <div class="clearfix"></div>
-            
+            </div>
         </div>
     </div>
 </div>

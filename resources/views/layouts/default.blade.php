@@ -161,15 +161,11 @@
         var shownat = Date.now();
     </SCRIPT>
 
-
-
-
 </head>
 
 <body style="margin-top:50px;">
 
 @include("popups.alert")
-
 
 <div class="overlay_loader">
     <div class="overlay">
@@ -177,20 +173,19 @@
     </div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" id="the-header">
     @include('layouts.includes.header')
 </div>
 
-
-<div class="container-fluid">
+<div class="container-fluid" id="the-messages">
     @include('common.alert_messages')
 </div>
 
-<div class="container-fluid ">
+<div class="container-fluid" id="the-content">
     @yield('content')
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" id="the-footer">
     @include('layouts.includes.footer')
 </div>
 
