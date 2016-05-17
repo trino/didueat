@@ -1137,4 +1137,40 @@ class RestaurantController extends Controller {
     function catedit($id){
         return view('popups.catedit', array("id" => $id));
     }
+
+    function recurse_copy($src,$dst) {
+        if(is_dir($src)) {
+            $dir = opendir($src);
+            @mkdir($dst, 0777, true);
+            while (false !== ($file = readdir($dir))) {
+                if (($file != '.') && ($file != '..')) {
+                    if (is_dir($src . '/' . $file)) {
+                        $this->recurse_copy($src . '/' . $file, $dst . '/' . $file);
+                    } else {
+                        copy($src . '/' . $file, $dst . '/' . $file);
+                    }
+                }
+            }
+            closedir($dir);
+        }
+    }
+
+    function copyitem($type, $id, $newcat = false){
+        if($type == "item"){
+            $item = object_to_array(select_field("menus", "id", $id));
+            if($newcat){$item["cat_id"] = $newcat;}
+            unset($item["id"]);
+            new_anything("menus", $item);
+            return $this->success("Item duplicated", "restaurants/" . getslug($item["restaurant_id"]) . "/menu?menuadd=1");
+        } else {//category
+            $newcat = object_to_array(select_field("category", "id", $id));
+            unset($newcat["id"]);
+            $newcat = new_anything("category", $newcat);
+            $items = enum_all("menus", array("cat_id" => $id));
+            foreach($items as $item){
+                $this->copyitem("item", $item->id, $newcat);
+            }
+            return $this->success("Category duplicated", "restaurants/" . getslug($item->restaurant_id) . "/menu?menuadd=1");
+        }
+    }
 }

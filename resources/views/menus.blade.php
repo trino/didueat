@@ -101,6 +101,7 @@
         echo '<div id="accordion" role="tablist" aria-multiselectable="true">';
         foreach($valueA as $index => $category){
             $last = count($category) - 1;
+            $thisCatCnt=0;
             printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt);
             printmenuitems($category, false, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, false, $trueID, $itemPosnForJS, $parentCnt);
             $firstcat = false;
@@ -173,7 +174,7 @@
                             <div class="col-xs-4">
                                 <div class="pull-right" aria-label="Basic example">
                                     @if($canedit)
-                                        <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link">
+                                        <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link" href="{{ url("restaurant/copyitem/category/" . $value->cat_id) }}">
                                             <i class="fa fa-files-o"></i>
                                         </A>
 
@@ -350,7 +351,6 @@
 
 
                                         @if($canedit)
-
                                             <div class="btn-group pull-left" role="group" style="vertical-align: middle">
                                                 <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
                                                 @if($value->uploaded_by)
@@ -407,6 +407,10 @@
                                                style="visibility:{{ $thisDownMenuVisib }} !important">
                                                 <i class="fa fa-arrow-down"></i>
                                             </a>
+
+                                            <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link pull-right" href="{{ url("restaurant/copyitem/item/" . $value->id) }}">
+                                                <i class="fa fa-files-o"></i>
+                                            </A>
 
                                         @endif
 

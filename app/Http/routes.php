@@ -149,6 +149,8 @@ Route::group(['middleware' => ['logged', 'role:super']], function() {
     Route::get('orders/order_assign/{id}/{type}/{driver}',          'OrdersController@order_assign')->where('id', '[0-9]+');
 });
 
+Route::get("restaurant/copyitem/{type}/{id}",                       'RestaurantController@copyitem');
+
 Route::resource('user/reviews',                                     'UserReviewsController@index');
 Route::post('user/reviews/list/ajax',                               'UserReviewsController@listingAjax');
 Route::get('user/reviews/action/{id}',                              'UserReviewsController@reviewAction');

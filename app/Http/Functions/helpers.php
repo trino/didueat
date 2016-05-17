@@ -1361,6 +1361,10 @@ function islive() {
     return strpos(strtolower($_SERVER['HTTP_HOST']), "didueat.ca") !== false;
 }
 
+function getslug($restaurantID){
+    return select_field("restaurants", "id", $restaurantID, "slug");
+}
+
 //if debugmode, print whatever file is specified in red text
 function printfile($File, $Ret = false) {//cannot use __FILE__ due to caching
     $showdebug = false;
