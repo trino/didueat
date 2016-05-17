@@ -77,7 +77,7 @@
                             
                             
                             <td>{{ $value->id }}</td>
-                            <td><img class="img-circle" src="{{ $logo }}" width="90" alt="{{ $alts["logo"] }}"/></td>
+                            <td><img class="img-rounded" src="{{ $logo }}" width="90" alt="{{ $alts["logo"] }}"/></td>
                             <td>
                                 <?php
                                     echo $value->name;

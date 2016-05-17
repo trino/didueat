@@ -1,3 +1,54 @@
+textarea, input {
+    padding:10px;
+    font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+
+
+
+.loader {
+    height: 4px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #5cb85c;
+}
+.loader:before{
+    display: block;
+    position: absolute;
+    content: "";
+    left: -200px;
+    width: 200px;
+    height: 4px;
+    background-color: #2980b9;
+    -webkit-animation: loading 2s linear infinite;
+    animation: loading 2s linear infinite;
+}
+
+@-webkit-keyframes loading {
+    from {left: -200px; width: 30%;}
+    50% {width: 30%;}
+    70% {width: 70%;}
+    80% { left: 50%;}
+    95% {left: 120%;}
+    to {left: 100%;}
+}
+
+@keyframes loading {
+    from {left: -200px; width: 30%;}
+    50% {width: 30%;}
+    70% {width: 70%;}
+    80% { left: 50%;}
+    95% {left: 120%;}
+    to {left: 100%;}
+}
+
+
+
+
+
 .disabled{
     cursor: not-allowed !important;
 
@@ -262,7 +313,7 @@ td {
 }
 
 .overlay_loader {
-    background: rgba(0, 0, 0, .3) none repeat scroll 0 0;
+
     height: 100%;
     left: 0;
     position: fixed;
@@ -272,9 +323,8 @@ td {
 }
 
 .overlay {
-    left: calc(50% - 50px);
-    position: absolute;
-    top: calc(50% - 50px);
+
+
 }
 
 .subber {

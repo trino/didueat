@@ -38,13 +38,13 @@
             @endif
 
             <div style=" width:100%; border:0; @if ($has_bigImage)background:transparent !important; @endif"
-                 class=" bg-inverse card-header @if ($has_bigImage) fronttext @else bg-success @endif">
+                 class=" card-header @if ($has_bigImage) fronttext @else  @endif">
                 <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" title="Close" aria-label="Close" id="clear_<?php echo $value->id; ?>">
                     <span aria-hidden="true" style="  @if ($has_bigImage) text-shadow: 1px 1px 9px rgba(0, 0, 0, 2);color:white !important; opacity: .8 !important; @endif">&times;</span>
                 </button>
 
                 <h4 class="modal-title " style="" id="viewDetailModel">
-<span class="bg-success">
+<span class="">
            {{ $value->menu_item }} &ndash; @if($value->price>0)
 
 

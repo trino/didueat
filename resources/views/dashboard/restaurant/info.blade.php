@@ -16,7 +16,15 @@
                     if (isset($route) && $route == "restaurant/view/{view}") {
                         $is_disabled = " DISABLED";
                     }
-                    echo '<H1>' . $resturant->name . '</H1>';
+                    echo '<span>' . $resturant->name . '
+
+                <a href="https://didueat.ca/restaurants/' . $resturant->slug . '/menu">menu</a></span>
+
+                    ';
+
+
+
+
                 ?>
 
                 {!! Form::open(array('url' => 'restaurant/info', 'onsubmit' => 'return validateFn(this)', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}

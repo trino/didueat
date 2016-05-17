@@ -27,34 +27,6 @@
         $is_pickup_checked = "checked";
     }
 
-    /*
-    if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
-        $Province = "";
-        if (function_exists('geoip_record_by_name')) {
-            $info = geoip_record_by_name($localIPTst);
-            $City = $info['city'];
-            $Country = $info['country_name'];
-            if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
-                $Province = $info['region'];
-            }
-        } else {
-            $ip = $localIPTst;
-            $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-            $City = $details->city;
-            if ($details->country == "US"){$Country = "United States";}
-            if ($details->country == "CA"){$Country = "Canada";}
-            if(isset($Country)){
-                $Province = $details->region;
-            } else {
-                $Country = $details->country;
-            }
-            $latlng = explode(",", $details->loc);
-            $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
-        }
-    } else {
-        // get city [, province/state], and country from cookie or session, once implemented
-    }
-    */
 
     if ($useHamilton) {
         $City = "Hamilton";
@@ -146,7 +118,7 @@
                 <div class="col-lg-4" ID="filter-results">
                     <div class="card ">
                         <div class="card-header">
-                            <h4 class="card-title">Search Restaurant</h4>
+                            <h4 class="card-title">Filter</h4>
                         </div>
 
                         <div class="card-block">
@@ -224,7 +196,7 @@
                         <div class="card-footer text-xs-right">
                             <div class="">     <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary-outline"
                                    value="Reset"/>
-                            <input type="button" name="search" class="btn btn-primary" value="Search"
+                            <input type="button" name="search" class="btn btn-primary" value="Filter"
                                    id="search-form-submit"
                                    onclick="submitform(event, 0, 'search onclick');"/>
 
@@ -235,7 +207,7 @@
 
 
                     <div class="col-lg-4 hidden-md-down">
-                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                        <br><br><br><br><br><br><br><br><br><br><br><br>
                     </div>
 
                 </div>

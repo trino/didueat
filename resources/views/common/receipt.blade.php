@@ -77,11 +77,9 @@
 
     <div class="card">
 
-        <div class="card-header">
-            <h4 class="card-title">Your Order</h4>
-        </div>
 
         <div class="card-block">
+            <h4 class="card-title p-b-1">Your Order</h4>
 
             <div class="receipt_main">
                 @if(!isset($order))
