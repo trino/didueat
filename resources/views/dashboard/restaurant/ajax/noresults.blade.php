@@ -13,7 +13,7 @@ if(!$is_subscribed){
 
                 <DIV ID="subscribeform">
                     @if($query === false)
-                        <span class="error">Your exact address is required for delivery. Please try again.</span>
+                        <span class="error">Please enter your exact address for delivery.</span>
                     @else
                         <p>We don't have any restaurants in your area at the moment.</p>
                         <p>Subscribe with your email to receive a special gift when we launch in your town.</p>

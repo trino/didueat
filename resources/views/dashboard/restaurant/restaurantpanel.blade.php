@@ -113,11 +113,11 @@ if ($is_open) {
     <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1">
             @if(isset($details) && $details)
-                <img style="max-width:100%;" class="img-circle" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
+                <img style="max-width:100%;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
             @else
                 <a href="{{ url('restaurants/' . $Restaurant['slug'] . '/menu') }}" oldurl="?delivery_type={{ $delivery_type }}"
                    class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
-                    <img style="max-width:100%;" class="img-circle" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
+                    <img style="max-width:100%;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
                 </a>
             @endif
         </div>
@@ -202,7 +202,7 @@ if ($is_open) {
             $filename = file_exists("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg");
             if (($filename == 1)) {
                 $filename = asset("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg") . ' ';
-                echo '<IMG style="width: 34px; height: 34px;" class="img-circle" SRC="' . $filename . '">';
+                echo '<IMG style="width: 34px; height: 34px;" class="img-rounded" SRC="' . $filename . '">';
             }
             echo ' ' . $menuitem->menu_item . '';
             echo '<span style="white-space: nowrap;"> &ndash; ';
