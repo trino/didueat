@@ -85,46 +85,51 @@
 
 
         $valueA = [];
-        $catIDNum = [];
-        $cnt2 = 0;
         while (list($key, $thisOrder) = each($cats_listA2)) {
-            $valueA[$cnt2] = $menus_listA[$key]; // this contains full menus list for resto
-            $catIDNum[$cnt2] = $menus_listA[$key]->cat_id;
-            $cnt2++;
+            $item = $menus_listA[$key];
+            $valueA[$item->cat_id][] = $item; // this contains full menus list for resto
         }
 
         $catMenuCnt=0;
-        foreach($valueA as $index => $value){
-            $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $prevCat, $thisCnt, $catIDNum, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env);
+        foreach($valueA as $category){
+            $last = count($category) - 1;
+            printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last);
+            printmenuitems($category, false, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last);
+            $catMenuCnt++;
         }
 
-        function printmenuitem($categories, $value, $index, &$thisCatCnt, &$prevCat, $thisCnt, $catIDNum, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env){
+        function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last){
+            foreach($category as $index => $value){
+                if(iseven($index) == $even){
+                    $isfirst = $even && $index == 0;
+                    $islast = $index == $last;
+                    $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env);
+                }
+            }
+        }
+
+        function iseven($number){
+            return $number % 2 == 0;
+        }
+
+        function printmenuitem($categories, $value, $index, &$thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env){
             $noUpCatSort = false;
             $canedit=read("profiletype") == 1 || read("restaurant_id") == $restaurant->id;
             $thisUpMenuVisib = "visible";
-            $thisDownMenuVisib = "visible";
+            $thisDownMenuVisib = iif($islast, "hidden", "visible");
             $has_iconImage = false;
             $min_p = get_price($value->id);
             $parentCnt[$thisCatCnt] = $value->id; // for js sorting with ajax, not implemented yet
             $itemPosnForJS[$value->cat_id][$value->id] = $value->display_order;
             $catPosn[] = $thisCatCnt;
-            if ($prevCat == "") {
+            if (!$catMenuCnt && $isfirst) {
                 $noUpCatSort = true;
             }
 
-            if ($index < ($thisCnt - 1)) { // means it's not the last item
-                $nextIndx = ($index + 1);
-                if ($value->cat_id != $catIDNum[$nextIndx]) {
-                    $thisDownMenuVisib = "hidden";
-                }
-            } else {
-                $thisDownMenuVisib = "hidden"; // last item in array
-            }
-
-            if($value->cat_id != $prevCat){ // means it's a new category
+            if($isfirst){ // means it's a new category
                 $thisUpMenuVisib = "hidden";
                 $catMenuCnt = 0; // reset count for this category
-                if ($prevCat) {
+                if ($catMenuCnt) {
                     echo '</div><!-- end of previous category -->';
                 }
                 $prevCat = $value->cat_id; // also used as current cat_id until next loop
@@ -350,7 +355,7 @@
                                         @if($canedit || $value->uploaded_by ==read("id"))
                                             @if(debugmode())
                                                 <span style="color:#FF0000" class="debugdata">
-                                                    parent{{ $value->cat_id . '_' . $value->display_order . $value->id . ', ' . $value->cat_id . ', ' . $value->display_order . ', "down", ' . $catMenuCnt }}
+                                                    parent{{ $value->cat_id . '_' . $value->display_order . $value->id . ', ' . $value->cat_id . ', ' . $value->display_order . ', "down", ' . $catMenuCnt . ", " . $index }}
                                                 </span>
                                             @endif
 
