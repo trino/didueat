@@ -2,7 +2,7 @@
 @section('content')
 
 <script>
-    //togle the visibility of an element
+    //toggle the visibility of an element
     function toggleDisplay(id,b){
          if(document.getElementById("faq"+id).style.display=="none"){
              document.getElementById("faq"+id).style.display="block";
@@ -103,7 +103,7 @@
 
         <div class="col-lg-12">
             <div class="col-lg-12 questions btn-responsive2" style="cursor:not-allowed;font-weight:bold">TOP FAQ's: Answering the most common questions</div>
-            <div id="accordion" role="tablist" aria-multiselectable="true">
+            <div id="accordion" role="tablist" aria-multiselectable="false">
 
                 <div class="col-lg-12 panel panel-default">
                     <div class="col-lg-12 panel-heading" data-toggle="collapse" data-target="#faq1" onclick="chngIcon(1)">

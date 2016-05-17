@@ -48,12 +48,16 @@
         top: 0px;
         left: 0;
     }
+
+    .panel-heading {
+        cursor: pointer;
+    }
 </style>
 @if(!isset($_GET['page']))
     <div class="card" id="loadmenus_{{ (isset($catid))?$catid:0 }}">
-        @endif
+@endif
 
-        <?php
+<?php
         $menus_listA = [];
         $menus_sortA = [];
         $cats_listA = [];
@@ -91,19 +95,25 @@
         }
 
         $catMenuCnt=0;
-        foreach($valueA as $category){
+        $trueID = 0;
+        $firstcat = true;
+        echo '<div id="accordion" role="tablist" aria-multiselectable="true">';
+        foreach($valueA as $index => $category){
             $last = count($category) - 1;
-            printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last);
-            printmenuitems($category, false, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last);
+            printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID);
+            printmenuitems($category, false, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, false, $trueID);
+            $firstcat = false;
             $catMenuCnt++;
+            $trueID++;
         }
+        echo '</div>';
 
-        function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last){
+        function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat = false, $catindex){
             foreach($category as $index => $value){
                 if(iseven($index) == $even){
                     $isfirst = $even && $index == 0;
                     $islast = $index == $last;
-                    $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env);
+                    $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex);
                 }
             }
         }
@@ -112,7 +122,7 @@
             return $number % 2 == 0;
         }
 
-        function printmenuitem($categories, $value, $index, &$thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env){
+        function printmenuitem($categories, $value, $index, &$thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex){
             $noUpCatSort = false;
             $canedit=read("profiletype") == 1 || read("restaurant_id") == $restaurant->id;
             $thisUpMenuVisib = "visible";
@@ -128,9 +138,9 @@
 
             if($isfirst){ // means it's a new category
                 $thisUpMenuVisib = "hidden";
-                $catMenuCnt = 0; // reset count for this category
+                //$catMenuCnt = 0; // reset count for this category
                 if ($catMenuCnt) {
-                    echo '</div><!-- end of previous category -->';
+                    echo '</div></div><!-- end of previous category -->';
                 }
                 $prevCat = $value->cat_id; // also used as current cat_id until next loop
                 $value->cat_name = getIterator($categories, "id", $prevCat)->title;
@@ -150,13 +160,13 @@
                 }
                 ?>
 
-                <DIV class="card-body p-b-1" id="c{{ $thisCatCnt }}"><!-- start of this category -->
+                <DIV class="card-body p-b-1 {{ iif(!$firstcat, "collapsed") }} " id="c{{ $thisCatCnt }}"><!-- start of this category -->
                     <div class="parents"><!-- start of category heading -->
 
                         <div class="row">
-                            <div class="col-xs-8 ">
+                            <div class="col-xs-8 panel-heading" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
                                 <a href="#" name="<?php echo $value->cat_name; ?>"></a>
-                                <h4 class="card-title" style="padding:.9375rem !important;"><?= $value->cat_name;?></h4>
+                                <h4 class="card-title" style="padding:.9375rem !important;"><?= $value->cat_name; ?></h4>
                             </div>
 
 
@@ -208,6 +218,7 @@
 
 
                     </div>
+                    <DIV ID="cat_{{ $catindex }}" CLASS="{{ iif(!$firstcat, "collapse", "collapse in") }}">
                 <?php
                 $thisCatCnt++;
 
@@ -218,6 +229,7 @@
             }
 
                     ?>
+
                     <a href="#" id="{{ $value->id }}" name="{{ $value->id }}"
                             data-res-id="{{ $value->restaurant_id }}"
                             title="{{ $alts["product-pop-up"] }}"
@@ -404,12 +416,13 @@
                         </div>
 
                     </a>
-                    <?php
+
+                <?php
                     //include('popups.order_menu_item')
             return $catMenuCnt++;
         }
 
-        echo '<div class="clearfix"></div></div> <!-- end of last category -->';
+        echo '<div class="clearfix"></div></div></div> <!-- end of last category -->';
 
             $catIDforJS = array_keys($catNameStr);
             $catIDforJS_Str = implode(",", $catIDforJS);
@@ -517,5 +530,16 @@
                 $(temptarget).trigger("click");
             });
         }
+    }
+
+    function collapseall(value){
+        var temp;
+        $(".panel-heading").each(function() {
+            temp = $(this).next().attr('aria-expanded');
+            if(temp == null || temp === undefined){temp = "false";}
+            if (temp == value){
+                $(this).trigger("click");
+            }
+        });
     }
 </SCRIPT>
