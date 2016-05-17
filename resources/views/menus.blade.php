@@ -9,7 +9,8 @@
             "deleteMenu" => "Delete this item",
             "edititem" => "Edit this item",
             "editcat" => "Edit this category",
-            "deletecat" => "Delete this category"
+            "deletecat" => "Delete this category",
+            "duplicate" => "Duplicate this item or category"
     );
 
     $menuTSv = "?i=";
@@ -21,7 +22,7 @@
 
     $menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
     $categories = enum_all("category", array("res_id" => $menu_id));
-    $canedit = false;
+    $canedit = read('restaurant_id') == $restaurant->id || read("profiletype") == 1;
 
     $prevCat = "";
     $catNameStr = [];
@@ -100,20 +101,20 @@
         echo '<div id="accordion" role="tablist" aria-multiselectable="true">';
         foreach($valueA as $index => $category){
             $last = count($category) - 1;
-            printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID);
-            printmenuitems($category, false, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, false, $trueID);
+            printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt);
+            printmenuitems($category, false, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, false, $trueID, $itemPosnForJS, $parentCnt);
             $firstcat = false;
             $catMenuCnt++;
             $trueID++;
         }
         echo '</div>';
 
-        function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat = false, $catindex){
+        function printmenuitems($category, $even, $categories, &$thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt){
             foreach($category as $index => $value){
                 if(iseven($index) == $even){
                     $isfirst = $even && $index == 0;
                     $islast = $index == $last;
-                    $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex);
+                    $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt);
                 }
             }
         }
@@ -122,7 +123,7 @@
             return $number % 2 == 0;
         }
 
-        function printmenuitem($categories, $value, $index, &$thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex){
+        function printmenuitem($categories, $value, $index, &$thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt){
             $noUpCatSort = false;
             $canedit=read("profiletype") == 1 || read("restaurant_id") == $restaurant->id;
             $thisUpMenuVisib = "visible";
@@ -136,13 +137,12 @@
                 $noUpCatSort = true;
             }
 
-            if($isfirst){ // means it's a new category
+            if($isfirst){
                 $thisUpMenuVisib = "hidden";
-                //$catMenuCnt = 0; // reset count for this category
                 if ($catMenuCnt) {
                     echo '</div></div><!-- end of previous category -->';
                 }
-                $prevCat = $value->cat_id; // also used as current cat_id until next loop
+                $prevCat = $value->cat_id;
                 $value->cat_name = getIterator($categories, "id", $prevCat)->title;
 
                 $catNameStr[$prevCat] = $value->cat_name;
@@ -173,10 +173,14 @@
                             <div class="col-xs-4">
                                 <div class="pull-right" aria-label="Basic example">
                                     @if($canedit)
+                                        <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link">
+                                            <i class="fa fa-files-o"></i>
+                                        </A>
+
                                         <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
                                            id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
                                            href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
-                                            <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
+                                            <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href=" <?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
                                             <i class="fa fa-arrow-up"></i>
                                         </a>
 
@@ -345,7 +349,7 @@
                                     <div class=""><!-- start div 5 0000-00-00 00:00:00 -->
 
 
-                                        @if(read('restaurant_id') == $restaurant->id || $canedit)
+                                        @if($canedit)
 
                                             <div class="btn-group pull-left" role="group" style="vertical-align: middle">
                                                 <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
@@ -455,7 +459,7 @@
 <div class="clearfix"></div>
 
 <SCRIPT>
-            <?php echo $itemPosnForJSStr;?>
+    <?php echo $itemPosnForJSStr;?>
 
     var itemPosnOrig = itemPosn;
     var menuSortChngs = [];
