@@ -32,7 +32,6 @@ class Drivers extends BaseModel {
         if($this->is_complete) {
             $OldData = select_field("drivers", "id", $this->id);
             //check for changes in the phone number and email address
-            
         }
         parent::save($options);
         return $ret;

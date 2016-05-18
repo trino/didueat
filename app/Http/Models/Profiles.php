@@ -36,7 +36,6 @@ class Profiles extends BaseModel {
     }
 
     public static function listing($array = "", $type = "", &$reccount = 0){
-        //echo "<pre>".print_r($array)."</pre>"; exit();
         $searchResults = $array['searchResults'];
         $meta = "profiles." . $array['meta'];
         $order = $array['order'];

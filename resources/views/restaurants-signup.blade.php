@@ -164,22 +164,6 @@ $alts = array(
                 password: "required minlength 3"
             });
 
-            /* duplicates tag field
-             $('#demo4').tagEditor({
-             initialTags: [
-            {{ old('tags') }}],
-             placeholder: 'Enter tags ...',
-             maxTags: 9,
-             onChange: function (field, editor, tags) {
-             $('#responseTags').val((tags.length ? tags.join(', ') : ''));
-             },
-             beforeTagDelete: function (field, editor, tags, val) {
-             var q = confirm('Remove tag "' + val + '"?');
-             return q;
-             }
-             });
-             */
-
             @if(old('city'))
             $(document).ready(function () {
                 cities("{{ url('ajax') }}", "{{ old('city') }}");

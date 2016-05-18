@@ -520,7 +520,6 @@ function chngCatPosn(thisIndx1, direction) {
             break;
         }
     }
-    //if(!thisIndx2){return false;}
 
     var tempHTML1 = getElementById('c' + currentOrderPosn1).innerHTML;
     var tempHTML2 = getElementById('c' + currentOrderPosn2).innerHTML;
@@ -565,13 +564,10 @@ consoleLog = function(msg) {//See http://stackoverflow.com/a/27074218/470749
     var e = new Error();
     if (!e.stack)
         try {
-            // IE requires the Error to actually be thrown or else the
-            // Error's 'stack' property is undefined.
+            // IE requires the Error to actually be thrown or else the Error's 'stack' property is undefined.
             throw e;
         } catch (e) {
-            if (!e.stack) {
-                //return 0; // IE < 10, likely
-            }
+
         }
     var stack = e.stack.toString().split(/\r\n|\n/);
     if (msg === '') {

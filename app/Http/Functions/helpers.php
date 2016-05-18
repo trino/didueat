@@ -5,11 +5,6 @@ define("TINY_THUMB", '150x150');
 define("MED_THUMB", '250x250');
 define("BIG_SQ", '600x600');
 define("DIDUEAT", 'DiduEat');
-/*
-    define("SMALL_THUMB", '120x120');
-    define("MAX_IMG_SIZE_P", '600x800');
-    define("MAX_IMG_SIZE_L", '800x600');
-*/
 
 //detects which protocol is being used. returns http or https
 function protocol() {
@@ -42,31 +37,7 @@ function getfield($object, $Field) {
 }
 
 //used in 9 places, but goes nowhere/does nothing
-function message_show($msgtype, $description) {
-    /*
-    if ($msgtype != "" && $description != "") {
-        return '<script type="text/javascript">
-                Command: toastr["success"]("' . $description . '", "' . $msgtype . '")
-                toastr.options = {
-                  "closeButton": true,
-                  "debug": false,
-                  "newestOnTop": true,
-                  "progressBar": true,
-                  "positionClass": "toast-top-left",
-                  "preventDuplicates": false,
-                  "showDuration": "300",
-                  "hideDuration": "1000",
-                  "timeOut": "5000",
-                  "extendedTimeOut": "1000",
-                  "showEasing": "swing",
-                  "hideEasing": "linear",
-                  "showMethod": "fadeIn",
-                  "hideMethod": "fadeOut"
-                }
-        </script>';
-    }
-    */
-}
+function message_show($msgtype, $description) {}
 
 //returns a list of weekdays
 function getweekdays($asJavascript = false) {
@@ -185,8 +156,6 @@ function areacodes() {
 //array("province" => Province abreviation, "areacode" => area code, "district" => district name) of the phone number
 //or false if it's not a valid canadian area code
 function qualifyareacode($phone) {
-    //$phone = preg_replace("/[^0-9]/", "", $phone);
-    //if(left($phone,1) == 0 || left($phone,1) == 1){$phone = right($phone, strlen($phone)-1);}
     $phone = left($phone, 3);
     foreach (areacodes() as $acronym => $province) {
         foreach ($province as $areacode => $district) {
@@ -318,7 +287,6 @@ function call($controller, $action, $parameters = array()) {
 
 //handles possessing and firing of users
 function handle_action($Action = "") {
-    //http://localhost/didueat/public/restaurant/users?action=test
     if (!$Action) {
         $Action = getpost("action");
     }
@@ -330,10 +298,6 @@ function handle_action($Action = "") {
             case "user_fire":
                 hire_employee(getpost("ID"), 0, 999);
                 break;
-
-            default:
-                //echo $Action . " is unhandled";
-                //die();
         }
     }
     return false;
@@ -485,7 +449,8 @@ function login($Profile, $IsPossessing = false) {
                 $session_type_user = 'restaurant';
             }
             break;
-        //case 3: $session_type_user = "userplus"; break;
+        case 3: $session_type_user = "userplus"; break;
+        case 5: $session_type_user = "driver"; break;
     }
 
     \Session::put('session_type_user', $session_type_user);
@@ -722,7 +687,6 @@ function collapsearray($Array, $Key = "") {
 
 //clones the flash message
 function message($msgtype, $description) {
-
     if ($msgtype != "" && $description != "") {
         return '<script type="text/javascript">
                         $(document).ready(function() {
@@ -1318,11 +1282,6 @@ function get_time_interval($Restaurant, $isDelivery = false) {
     for ($i = 0; $i <= $length; $i++) {
         $business_day = \App\Http\Models\Restaurants::getbusinessday($Restaurant, $date);
         if ($business_day) {
-            /*
-            if($PreviousBusinessDay && $business_day != $PreviousBusinessDay){
-                echo '<OPTION DISABLED>New business day</OPTION>';
-            }
-            */
             $open = getfield($Restaurant, $business_day . "_open" . iif($isDelivery, "_del"));
             $close = getfield($Restaurant, $business_day . "_close" . iif($isDelivery, "_del"));
             $hour = date("G:H:s", $date);
@@ -1426,11 +1385,8 @@ function getBrowser() {
 
     // finally get the correct version number
     $known = array('Version', $ub, 'other');
-    $pattern = '#(?<browser>' . join('|', $known) .
-        ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
-    if (!preg_match_all($pattern, $u_agent, $matches)) {
-        // we have no matching number just continue
-    }
+    $pattern = '#(?<browser>' . join('|', $known) . ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+    preg_match_all($pattern, $u_agent, $matches);
 
     // see how many we have
     $i = count($matches['browser']);
@@ -1516,8 +1472,6 @@ function getUserBrowser() {
         '/mobile/i' => 'Handheld Browser'
     );
 
-    //echo "<pre>";print_r($user_agent); die;
-
     foreach ($browser_array as $regex => $value) {
         if (preg_match($regex, $user_agent)) {
             $browser = $value;
@@ -1555,7 +1509,7 @@ function getTime($time) {
     if (strpos($time, "AM") !== false || strpos($time, "PM") !== false || strpos($time, ":") === false) {
         return $time;
     }
-    return "12:00 AM";
+    //return "12:00 AM";
     if (!$time) {
         return $time;
     } else {

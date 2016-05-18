@@ -370,12 +370,6 @@ class HomeController extends Controller {
             if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x01)",$Redirect, true);
             }
-            /* if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
-                return $this->failure( trans('messages.user_confim_pass_field_missing.message'),$Redirect, true);
-            }
-            if ($post['password'] != $post['confirm_password']) {
-                return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
-            }*/
 
             return app('App\Http\Controllers\RestaurantController')->driverInfo(0,true); // add new driver to db and loads restaurant admin pg
         }else{
@@ -429,23 +423,9 @@ class HomeController extends Controller {
             if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x01)",$Redirect, true);
             }
-            /* if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
-                return $this->failure( trans('messages.user_confim_pass_field_missing.message'),$Redirect, true);
-            }
-            if ($post['password'] != $post['confirm_password']) {
-                return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
-            }*/
-
             return app('App\Http\Controllers\RestaurantController')->restaurantInfo(0,true); // add new restaurant to db and loads restaurant admin pg
         } else {
-            //$data['title'] = "Signup Restaurants Page";
-//            $data['countries_list'] = \App\Http\Models\Countries::get();
-//            $data['states_list'] = \App\Http\Models\States::get();
-//            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
-//            $data['resturant'] = \App\Http\Models\Restaurants::find(\Session::get('session_restaurant_id'));
-
             $data['cuisine_list'] = cuisinelist();
-
             return view('restaurants-signup', $data);
         }
     }
@@ -502,8 +482,6 @@ class HomeController extends Controller {
         $data['catid'] = $catid;
         if(count($menus_list)) {
             return view('menus', $data);
-        }else {
-            //return '<div class="alert alert-danger " style="margin-bottom:1rem !important;" role="alert">No menu items yet<br><div class="clearfix"></div></div>';
         }
         
     }
@@ -511,7 +489,6 @@ class HomeController extends Controller {
     //loads contact us view
     function contactus() {
         $data['title'] = 'Contact';
-        //   $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
         return view('contactus', $data);
     }
 
@@ -534,10 +511,6 @@ class HomeController extends Controller {
             }
             move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
             $file_path = url() . '/' . $path . '/' . $file;
-            /*handle image resizing, which didn't get used...
-            foreach(array(150,300) as $size){
-                $this->make_thumb(public_path($path) . '/' . $file, $size, $size, false);
-            }*/
             echo $file_path . '___' . $file;
         }
         die();
@@ -582,7 +555,6 @@ class HomeController extends Controller {
                     break;
 
                 case "updatereview"://update a review star, returns the new HTML
-                    //$type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $starts = false, $Color = "", $NeedsVARs = true
                     echo rating_initialize($_POST["rating_type"], $_POST["rating_loadtype"], $_POST["targetid"], $_POST["rating_twolines"], $_POST["rating_class"], $_POST["rating_button"], $_POST["rating_starts"], $_POST["rating_color"], false);
                     break;
 
@@ -685,11 +657,9 @@ class HomeController extends Controller {
         switch( $_POST["action"] ){
             case "rename":
                 update_database("category", "id", $_POST["id"], array("title" => $_POST["destination"]));
-                //update_database("menus", "cat_id", $_POST["id"], array("cat_name" => $_POST["destination"]));
                 break;
             case "merge":
                 $Display_order = first("SELECT max(display_order) as maximum FROM category WHERE res_id = " . $res_id)["maximum"];
-
                 delete_all("category", array("id" => $_POST["id"]));
 
                 $items = enum_all("menus", array("cat_id" => $_POST["id"]));
@@ -697,7 +667,6 @@ class HomeController extends Controller {
                     $Display_order++;
                     update_database("menus", "id", $item->id, array("cat_id" =>  $_POST["destination"], "display_order" => $Display_order));
                 }
-                //update_database("menus", "cat_id", $_POST["id"], array("cat_id" =>  $_POST["destination"]));
                 break;
         }
         $this->updatemenu($res_id);

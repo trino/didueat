@@ -31,7 +31,6 @@
                 <input type="hidden" name="id" class="orderid" value="" />
             </div>
             <div class="modal-footer">
-                <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
                 <button class="btn btn-primary" value=" Approve " onclick="overlay_loader_show();return confirm3('approve');" title="{{ $alts["accept"] }}">Accept</button>
                 <div class="clearfix"></div>
             </div>
@@ -150,13 +149,5 @@
             $('#orderCancelModal input[name=id]').val(id);
             setid(id);
         });
-        /*
-         $('body').on('click', '.disapprove-popup', function(){
-         var id = $(this).attr('data-id');
-         $('#disapprove-form textarea[name=note]').val('');
-         $('#disapprove-form input[name=id]').val(id);
-         setid(id);
-         });
-         */
     });
 </script>

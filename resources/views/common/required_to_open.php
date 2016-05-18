@@ -12,15 +12,6 @@
             $MissingData[] = "<a href=\"" . url('restaurant/info') . "#PickupAndDelivery\">Pickup and/or delivery options</a>";
         }
 
-        /* dont need logo
-        if (!$Restaurant->logo) {
-            $MissingData[] = "Your Restaurant Logo <a href=\"" . url('restaurant/info') . "#setlogo\">(<u>Set Restaurant Logo</u>)</a>";
-        }
-*/
-        if (!$Restaurant->description) {
-            //$MissingData[] = "Your Restaurant Description <a href=\"" . url('restaurant/info') . "#setlogo\">(<u>Set Restaurant Description</u>)</a>";
-        }
-
         if (!$Restaurant->latitude || !$Restaurant->longitude) {
             $MissingData[] = "<a href=\"" . url('restaurant/info') . "#RestaurantAddress\">Restaurant address</a>";
         }
@@ -42,9 +33,7 @@
                     $field = $weekday . $field;
                     if ($Restaurant->$field != "00:00:00") {
                         $doesopen = true;
-                    } //else {
-                    //  $someHoursNotOK = true;
-                    //}
+                    }
                 }
             }
         }
@@ -54,13 +43,6 @@
         } elseif ($someHoursNotOK) {
             $MissingData[] = "<a href=\"" . url('restaurant/info') . "#HoursOpen\">Hours open needs completing</a>";
         }
-
-        /*check credit card
-        $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
-        if (!$creditcards) {
-            $MissingData[] = "Your credit card authorization <a href=\"" . url('credit-cards/list/restaurant') . "\">(<u>Set Credit Card</u>)</a>";
-        }
-        */
 
         $MenuTst = select_field("menus", array("restaurant_id","is_active"), array($RestaurantID,1),"menu_item");
         if (!isset($MenuTst)) {

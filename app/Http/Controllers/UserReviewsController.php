@@ -74,7 +74,6 @@
             if($userid){
                 $data["user_id"] = $userid;
             }
-            //  $Query = \App\Http\Models\Profiles::listing($data, "list", $recCount)->get();
 
             $Query = \App\Http\Models\RatingUsers::listing($data, "list", $recCount)->get();
             $no_of_paginations = ceil($recCount / $per_page);
@@ -96,8 +95,6 @@
         public function reviewAction($id = 0){
             $ob = \App\Http\Models\RatingUsers::find($id);
             $ob->delete();
-            //return $this->listingAjax();
-            //return $this->success('Review has been deleted successfully!', 'user/reviews');
         }
 
         /**

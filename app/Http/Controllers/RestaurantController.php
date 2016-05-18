@@ -183,8 +183,6 @@ class RestaurantController extends Controller {
                     $newName=$ob->slug.".".$ext;
 
                     $destinationPath = public_path('assets/images/restaurants/'.urldecode($post['id']));
-                    //$imgVs=getimagesize($destinationPath."/".$post['logo']);
-
                     if (!file_exists($destinationPath)) {
                         mkdir('assets/images/restaurants/' . $post['id'], 0777, true);
                     } else{
@@ -207,7 +205,6 @@ class RestaurantController extends Controller {
                     $thisresult=copy($post['restLogoTemp'],$destinationPath.'/'.$newName);
 
                     $sizes = ['assets/images/restaurants/' . urldecode($post['id']) . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/small-' => MED_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/big-' => BIG_SQ];
-
 
                     copyimages($sizes, $filename, $newName, true);
 
@@ -250,8 +247,6 @@ class RestaurantController extends Controller {
                 }
                 if(!$post['id']){
                     $post['id'] = $ob->id;
-                    // add first category
-                    //$this->saveCat($ob->id, "Main", 1); // default category is Main
                 }
 
 
@@ -279,7 +274,6 @@ class RestaurantController extends Controller {
                     $update=$post;
                     $restaurant_id = $post['id'];
                     unset($update["id"]);
-                    //$update = \App\Http\Models\Profiles::makenew($update); $update = login($update);
                     $this->registeruser("RestaurantController@restaurantInfo", $update, 2, $restaurant_id, false, read("id"), true);
                 }
 
@@ -338,12 +332,9 @@ class RestaurantController extends Controller {
                     $update['vehicle_type'] = $post['vehicle_type'];
                     $driver_id = $post['id'];
                     unset($update["id"]);
-                    //$update = \App\Http\Models\Profiles::makenew($update); $update = login($update);
                     $this->registeruser("RestaurantController@driverInfo", $update, 5, 0, false, read("id"), true);
                 }
 
-                //event(new \App\Events\AppEvents($ob, "Driver " . iif($id, "Updated", "Created")));
-                //if($ReturnData){return $ob;}
                 return $this->success("Driver ".iif($id, "Updated", "Created")." Successfully", 'user/info');
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'user/info');
@@ -374,9 +365,6 @@ class RestaurantController extends Controller {
             }
             if (!isset($post['price']) || empty($post['price'])) {
                 return $this->failure("[Price] field is missing!", 'restaurant/menus-manager');
-            }
-            if (!isset($post['description']) || empty($post['description'])) {
-                //return $this->failure("[Description] field is missing!", 'restaurant/menus-manager');
             }
             if (!\Input::hasFile('menu_image')) {
                 return $this->failure("[Image] field is missing!", 'restaurant/menus-manager');
@@ -502,9 +490,6 @@ class RestaurantController extends Controller {
         if(!$res_id){
             $res_id = \Session::get('session_restaurant_id');
         }
-
-        //$this->fixcategories($res_id);
-
         $data['res_id'] = $res_id;
         $data['res_slug'] = select_field('restaurants', 'id', $res_id, 'slug');
         $data['category'] = \App\Http\Models\Category::where('res_id',$res_id)->orderBy('display_order', 'ASC')->get();
@@ -543,8 +528,6 @@ class RestaurantController extends Controller {
 
     //handle image uploading and thumbnail generation
     public function uploadimg($type = '', $setSize = true) {
-        //echo "test";die();
-
         if(isset($_REQUEST['setSize']) && $_REQUEST['setSize'] == "No"){
             $setSize=false;
         }
@@ -562,10 +545,8 @@ class RestaurantController extends Controller {
             if ($type == 'restaurant') {
                 $RestaurantID = read("restaurant_id");
                 $path = 'assets/images/restaurants/' . $RestaurantID;
-//                edit_database("restaurants", "id", $RestaurantID, array("logo" => $file));  // added in restaurantInfo()
             } else if ($type == 'user') {
                 $path = 'assets/images/users/' . read("id");
-//                \App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));  // added in dashboard()
             } else {
                 $path = 'assets/images/products';
                 $sizes=false;//where do these go? Shouldn't there be a product ID? -> temp img uploaded into /products, and deleted after rendering sizes
@@ -746,8 +727,6 @@ class RestaurantController extends Controller {
             $thisSlug = select_field("restaurants", "id", \Session::get('session_restaurant_id'), "slug"); // don't do db call for slug unless needed
         }
 
-//        $res = \App\Http\Models\Restaurants::where('id', \Session::get('session_restaurant_id'))->get()[0];
-        //echo $res->id;die();
         $cats = \App\Http\Models\Category::where('res_id', \Session::get('session_restaurant_id'))->orderBy('display_order', 'ASC')->get();
         $arr = array();
         $key="";
@@ -780,26 +759,6 @@ class RestaurantController extends Controller {
 
         $this->updatemenu($thisSlug);
         return \Redirect::to('/restaurants/' . $thisSlug . '/menu');
-        /*$_POST['ids'] = explode(',', $_POST['ids']);
-        $key = array_search($cid, $_POST['ids']);
-        if (($key == 0 && $sort == 'up') || ($key == (count($_POST['ids']) - 1) && $sort == 'down')) {
-            //do nothing
-        } else {
-            if ($sort == 'down') {
-                $new = $key + 1;
-            }else {
-                $new = $key - 1;
-            }
-            $temp = $_POST['ids'][$new];
-            $_POST['ids'][$new] = $cid;
-            $_POST['ids'][$key] = $temp;
-        }
-        $child = \App\Http\Models\Menus::where('id', $cid)->get()[0];
-        echo $child->parent;
-        foreach ($_POST['ids'] as $k => $id) {
-            \App\Http\Models\Menus::where('id', $id)->update(array('display_order' => ($k + 1)));
-        }
-        die();*/
     }
 
     public function orderCat($cid, $sort) {
@@ -838,8 +797,6 @@ class RestaurantController extends Controller {
             $slug=$_POST['slug'];
         }
         $res_id = \App\Http\Models\Menus::where('id', $id)->get()[0]->restaurant_id;
-        //  $catID = '', $thisMenuDisplayOrder = '', $catMenuCnt = ''
-
         if(isset($_POST['catID'])){
             \App\Http\Models\Menus::where('id', $id)->delete();
             $child = \App\Http\Models\Menus::where('parent', $id)->get();
@@ -966,7 +923,6 @@ class RestaurantController extends Controller {
         } else{
             return false;
         }
-        ////
     }
 
     public function menuCatSort(){
@@ -1038,7 +994,6 @@ class RestaurantController extends Controller {
     }
 
     public function deletemenuimage($id){
-        //$restaurant_id = select_field("menus", "id", $id, "restaurant_id");
         $restaurant_id = \Session::get('session_restaurant_id');// take from Session instead of db
         $dir = public_path('assets/images/restaurants/' . $restaurant_id . "/menus/" . $id);
         $this->deleteDir($dir);

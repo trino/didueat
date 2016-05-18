@@ -25,24 +25,7 @@
 
                 <?php
                     $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-                //    echo "<p><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</p>";
                     echo '<p><strong>Phone</strong> <A HREF="tel:' . $restaurant->phone . '">' . phonenumber($restaurant->phone, true) . '</A></p>';
-
-                        /*
-                    if($restaurant->is_delivery){
-                        $open = getfield($restaurant, $Today . "_open");
-                        $close = getfield($restaurant, $Today . "_close");
-
-                        echo "<p><strong>Delivery</strong> ";
-                        if ($open != $close) {
-                            echo converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</p>";
-                        } else {
-                            echo "Closed";
-                        }
-
-                        echo '<input type="hidden" id="minimum_delivery" value="' . $restaurant->minimum . '"/>';
-                    }
-                        */
                 ?>
 
                 @if (Session::get('session_type_user') == "super" )
@@ -149,10 +132,6 @@
 
                         echo "</table>";
                     }
-
-
-
-
                     ?>
 
 

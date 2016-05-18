@@ -42,8 +42,6 @@ class AuthController extends Controller {
                     }
 
                     $password = encryptpassword(\Input::get('password'));
-//                    debugprint($password . " = " . $user->password);
-
                     if ($password == $user->password) {
                         $gmt = \Input::get('gmt');
                         edit_database("profiles", "id", $user->id, array("gmt" => $gmt));//update time zone
@@ -118,14 +116,6 @@ class AuthController extends Controller {
             if (!isset($data['password']) || empty($data['password'])) {
                 return $this->failure2($AsJSON, trans('messages.user_pass_field_missing.message') . " (0x04)");
             }
-            /*
-            if (!isset($data['confirm_password']) || empty($data['confirm_password'])) {
-                return $this->failure2($AsJSON, trans('messages.user_confim_pass_field_missing.message'));
-            }
-            if (trim($data['password']) != trim($data['confirm_password'])) {
-                return $this->failure2($AsJSON, trans('messages.user_passwords_mismatched.message'));
-            } else {
-            */
             if(true){
                 \DB::beginTransaction();
                 try {//add new user to the database
@@ -246,7 +236,6 @@ class AuthController extends Controller {
 
             $message['title'] = "Email verification";
             $message['msg_type'] = "success";
-            //$message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. Please <a href='#login-pop-up' class='fancybox-fast-view'><b>click here</b></a> to login.";
             $message['msg_desc'] = "Thank you for activating your account with " . DIDUEAT . ". Your email has been confirmed successfully. You have been logged in into our system. Please <a href='#login-pop-up' class='fancybox-fast-view'><b>click here</b></a> to change your info. ";
             return view('messages.message', $message);
         } else {
@@ -326,7 +315,6 @@ class AuthController extends Controller {
         if (\Input::has('email')) {
             try {
                 $user = is_email_in_use(\Input::get('email'), $CurrentUser);
-                //$user = \App\Http\Models\Profiles::where('email', \Input::get('email'))->count();
                 echo iif($user, "false", "true");//false if is in use, and can't use this email address. True if not in use and can use it
                 die;
             } catch (Exception $e) {

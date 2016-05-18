@@ -112,7 +112,6 @@
         foreach($valueA as $index => $category){
             $last = count($category) - 1;
             printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt, $lastcategory,$catNameStr);
-            //printmenuitems($category, false, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, false, $trueID, $itemPosnForJS, $parentCnt);
             $firstcat = false;
             $thisCatCnt++;
             $catMenuCnt++;
@@ -123,11 +122,10 @@
         function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr){
             $halfway = ceil(count($category) * 0.5);
             foreach($category as $index => $value){
-                //if(iseven($index) == $even){
-                    $isfirst = $index == 0;
-                    $islast = $index == $last;
-                    $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr, $halfway);
-                //}
+                $isfirst = $index == 0;
+                $islast = $index == $last;
+                $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr, $halfway);
+
             }
         }
 
@@ -238,10 +236,6 @@
                         <DIV CLASS="col-md-6 nopadding">
                 <?php
                 $thisCatCnt++;
-
-
-
-
                 $catMenuCnt++;
             }
 
@@ -312,59 +306,55 @@
 
                                         <p class="card-text m-a-0  text-muted">
                                             <?php
-                                            if (strlen($value->description) > 65) {
-                                                echo substr($value->description, 0, 65) . '...';
-                                            } else {
-                                                echo substr($value->description, 0, 65);
-                                            }
+                                                if (strlen($value->description) > 65) {
+                                                    echo substr($value->description, 0, 65) . '...';
+                                                } else {
+                                                    echo substr($value->description, 0, 65);
+                                                }
                                             ?>
-
                                         </p>
 
 
                                         @if(false) <!-- no tags yet -->
-                                        @if(isset($restaurant->tags) && $restaurant->tags != "")
-                                        <?php
-                                        $tags = $restaurant->tags;
-                                        $tags = explode(',', $tags);
-                                        for ($i = 0; $i < 5; $i++) {
-                                            if (isset($tags[$i])) {
-                                                echo "<span class='tags'>" . $tags[$i] . "</span>";
-                                            }
-                                        }
-                                        ?>
-                                        @endif
+                                            @if(isset($restaurant->tags) && $restaurant->tags != "")
+                                                <?php
+                                                    $tags = $restaurant->tags;
+                                                    $tags = explode(',', $tags);
+                                                    for ($i = 0; $i < 5; $i++) {
+                                                        if (isset($tags[$i])) {
+                                                            echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                                        }
+                                                    }
+                                                ?>
+                                            @endif
 
-                                                <!--div class="clearfix">
-                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
+                                            <!--div class="clearfix">
+                                                {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
                                                 <p class="card-text m-a-0">
                                                     {{$dis}}
                                                 </p>
                                             </div-->
 
-                                        <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
-                                            @if($value->uploaded_on)
-                                                Submitted: {{$value->uploaded_on}}
-                                            @endif
+                                            <p class="card-text m-a-0 text-muted"> Category:
+                                                <?php
+                                                    echo $value->cat_name;
 
-                                            <?php
-                                            if ($value->uploaded_by) {
-                                                $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
-                                                echo "by: " . $uploaded_by->name . "";
-                                            }
-                                            ?>
-                                        </p>
+                                                    if($value->uploaded_on){
+                                                        echo 'Submitted: ' . $value->uploaded_on;
+                                                    }
 
-
+                                                    if ($value->uploaded_by) {
+                                                        $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+                                                        echo "by: " . $uploaded_by->name . "";
+                                                    }
+                                                ?>
+                                            </p>
                                         @endif
-
 
                                     </div>
                                     <!-- End div 4 -->
 
-
                                     <div class=""><!-- start div 5 0000-00-00 00:00:00 -->
-
 
                                         @if($canedit)
                                             <div class="btn-group pull-left" role="group" style="vertical-align: middle">
@@ -441,7 +431,6 @@
                     </a>
 
                 <?php
-                    //include('popups.order_menu_item')
             return $catMenuCnt++;
         }
 

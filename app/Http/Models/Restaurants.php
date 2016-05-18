@@ -84,7 +84,6 @@ class Restaurants extends BaseModel {
     }
     
     public static function listing($array = "", $type = "", &$reccount = 0) {
-        //echo "<pre>".print_r($array)."</pre>"; exit();
         $searchResults = $array['searchResults'];
         $incomplete = $array['incomplete'];
         $meta = $array['meta'];
@@ -98,7 +97,6 @@ class Restaurants extends BaseModel {
             ->Where(function ($query) use ($searchResults, $incomplete, $city, $array) {
                 if ($incomplete) {
                     $query->Where('is_complete', '0');
-                    //->orWhere('has_creditcard', '0');
                 }
                 if($city){
                     $query->Where('city',               'LIKE', "%$city%");
@@ -147,7 +145,6 @@ class Restaurants extends BaseModel {
         if($Today_Close < $Today_Open && $now >= $Today_Open){
             return $Today;
         }
-        //echo "Now: " . $now . ' Today open: ' . $Today_Open . " Today close: " . $Today_Close . " Yest. Open: " . $Yesterday_Open . " Yest. Close: " . $Yesterday_Close;
         return false;
     }
 
@@ -246,7 +243,6 @@ class Restaurants extends BaseModel {
         
         if($ReturnSQL){return $SQL;}
         $query = \DB::select(\DB::raw($SQL));
-//        debugprint(json_decode(json_encode($query),true));
         return json_decode(json_encode($query),true);
     }
 

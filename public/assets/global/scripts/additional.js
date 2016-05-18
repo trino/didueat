@@ -27,14 +27,9 @@ $('.is_active').live('change',function(){
             url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/25/'+stat,
             success:function(res) {
                 res = res.trim();
-                //alert('0_'+res+'_'+'0');
-                /*if(res=='0') {
-                    alert('You can only enable 25 items');
-                    $thi.prop('checked', false);
-                }*/
             }
         }) 
-})
+});
 
 //handles the enabling/disabling of menu items
 //id: menu item id
@@ -47,7 +42,6 @@ function check_enabled(id,cat_id,stat,$thi,base_url) {
             url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/25/'+stat,
             success:function(res) {
                 res = res.trim();
-                //alert('0_'+res+'_'+'0');
                 if(res=='0') {
                     alert('You can enable up to 25 items only.', "check enabled in additional.js");
                     $thi.prop('checked', false);
@@ -56,38 +50,9 @@ function check_enabled(id,cat_id,stat,$thi,base_url) {
             },
             async: false
     });
-    //return $ajax.responseText;
     return '1';
 }
-/*
-$(".sorting_child").live('click', function () {
-    var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
-    var sort = 'down';
-    if ($(this).attr('id') == 'child_up_' + pid) {
-        sort = 'up';
-    }
 
-    var order = '';
-    $(this).closest('.subcat').find('.cmore').each(function (index) {
-        var val = $(this).attr('id').replace('cmore', '');
-        if (order == '') {
-            order = val;
-        } else {
-            order = order + ',' + val;
-        }
-    });
-    $th = $(this);
-
-    $.ajax({
-        url: base_url+"restaurant/orderCat/" + pid + '/' + sort,
-        data: 'ids=' + order + '&_token='+token,
-        type: 'post',
-        success: function (res) {
-            $th.closest('.addmore').load(base_url+"restaurant/loadChild/" + res + '/0');
-        }
-    });
-});
-*/
 //handles sorting of children
 $(".sorting_child").live('click', function () {
     log(".sorting_child event");
@@ -124,7 +89,7 @@ $(".sorting_child").live('click', function () {
         $(this).find('button').each(function(){
             $(this).removeAttr('disabled');
         })
-    })
+    });
     allpar.find('.cmore').first().find('.moveup').attr('disabled','');
     allpar.find('.cmore').last().find('.movedown').attr('disabled','');
 });
@@ -159,7 +124,6 @@ $(".addon_sorting").live('click', function () {
             });
         }
     });
-
 });
 
 //handle adding additons
@@ -178,7 +142,8 @@ $('.add_additional').live('click', function () {
             $('.additional' + id).append(res);
         }
     });
-})
+});
+
 //handle loading previuos additons
 $('.loadPrevious').live('change', function () {
     log("'.loadPrevious change event");
@@ -190,8 +155,7 @@ $('.loadPrevious').live('change', function () {
     });
     var addon_id = $(this).val();
     var ajax_load = '';
-    if(addon_id!=0)
-    {
+    if(addon_id!=0) {
         $.ajax({
             url: base_url + 'restaurant/loadPrevious/'+addon_id,
             success: function (res) {
@@ -199,7 +163,7 @@ $('.loadPrevious').live('change', function () {
             }
         });
     }
-})
+});
 
 //handle removing of normal items
 $('.removenormal').live('click', function () {
@@ -208,7 +172,7 @@ $('.removenormal').live('click', function () {
     if (confirm('Are you sure you want to delete this addon?')) {
         $_this.closest('.menuwrapper').remove();
     }
-})
+});
 
 //handle removing the last item
 $('.removelast').live('click', function () {
@@ -236,15 +200,15 @@ $('.removelast').live('click', function () {
 $('.delcmore').live('click',function(){
     log("'.delcmore click event");
     var $aitem = $(this).closest('.aitems');
-   $(this).closest('.cmore').remove(); 
-   var allpar = $aitem.find('.addmore');
-            allpar.find('.cmore').each(function(){
-                $(this).find('button').each(function(){
-                    $(this).removeAttr('disabled');
-                })
-            })
-            allpar.find('.cmore').first().find('.moveup').attr('disabled','');
-            allpar.find('.cmore').last().find('.movedown').attr('disabled','');
+    $(this).closest('.cmore').remove();
+    var allpar = $aitem.find('.addmore');
+    allpar.find('.cmore').each(function(){
+        $(this).find('button').each(function(){
+            $(this).removeAttr('disabled');
+        });
+    });
+    allpar.find('.cmore').first().find('.moveup').attr('disabled','');
+    allpar.find('.cmore').last().find('.movedown').attr('disabled','');
 });
 
 //handle adding more something
@@ -266,14 +230,14 @@ $('.addmorebtn').live('click', function () {
         '<button href="javascript:void(0);" class="btn btn-sm btn-secondary delcmore" >'+
         '<i class="fa fa-times"></i> </button>'+
         '</div></div><div class="clearfix"></div></div>');
-        var allpar = $(this).closest('.aitems').find('.addmore');
-            allpar.find('.cmore').each(function(){
-                $(this).find('button').each(function(){
-                    $(this).removeAttr('disabled');
-                })
-            })
-            allpar.find('.cmore').first().find('.moveup').attr('disabled','');
-            allpar.find('.cmore').last().find('.movedown').attr('disabled','');
+    var allpar = $(this).closest('.aitems').find('.addmore');
+    allpar.find('.cmore').each(function(){
+        $(this).find('button').each(function(){
+                $(this).removeAttr('disabled');
+        })
+    });
+    allpar.find('.cmore').first().find('.moveup').attr('disabled','');
+    allpar.find('.cmore').last().find('.movedown').attr('disabled','');
 });
 
 //unknown
@@ -339,11 +303,6 @@ $('.savebtn').live('click', function () {
     if(mul) {
         return false;
     }
-    
-    /*if($_parent.find('.mul_ch').is(':checked') && $_parent.find('.itemno').val() == '') {
-        $_parent.find('.itemno').attr('style','border:1px solid red');
-        return false;
-    }*/
 
     $_parent.find('.subber').each(function(){
         var subber_id = $(this).attr('id').replace('sub','');
@@ -369,7 +328,7 @@ $('.savebtn').live('click', function () {
             stop_item = $(this);
            } 
         });
-    })
+    });
     
     if(stop_item){//This is to check if Addon name is blank
         alert('Addon name cannot be blank', "additional.js 351");
@@ -429,7 +388,6 @@ $('.savebtn').live('click', function () {
         is_active = 1;
     }
     var ch_en = 1;
-   // var ch_en = check_enabled(id,cat_id,is_active,$_parent.find('.is_active'),base_url);
 
     if(ch_en=='0') {
         return false;

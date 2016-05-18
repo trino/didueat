@@ -3,9 +3,6 @@
 @section('content')
     <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
     <script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
-    <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/-->
-
 
     <div class="row">
 
@@ -41,7 +38,6 @@
 
     <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-    <!--script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script-->
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 
@@ -92,22 +88,6 @@
         }
 
         jQuery(document).ready(function () {
-            /*$('#demo4').tagEditor({
-                initialTags: [],
-                placeholder: 'Enter tags ...',
-                //beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
-                //onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },
-                onChange: function (field, editor, tags) {
-                    $('#responseTags').val((tags.length ? tags.join(', ') : ''));
-                },
-                beforeTagDelete: function (field, editor, tags, val) {
-                    var q = confirm('Remove tag "' + val + '"?');
-                    //if (q) $('#responseTags').prepend('Tag <i>'+val+'</i> deleted.<hr>');
-                    //else $('#responseTags').prepend('Removal of <i>'+val+'</i> discarded.<hr>');
-                    return q;
-                }
-            });
-*/
             $("#resturantForm").validate();
             ajaxuploadbtn('uploadbtn');
         });

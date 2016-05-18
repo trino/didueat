@@ -94,9 +94,7 @@ function fillInAddress1() {
         postal_code: 'short_name'
     };
     $('#city').val('');
-    //$('#rout_street_number').val('');
     $('#postal_code').val('');
-    //provinces('{{ addslashes(url("ajax")) }}', '');
     $(".commas").show();
 
     $('span.country').text("[Missing Country]");
@@ -138,12 +136,6 @@ function fillInAddress1() {
                 $('span.postal_code').text(val);
                 pcFnd=true;
             }
-            
-            /*  formatted_address is not part of the google maps address_components array
-            if(addressType == "formatted_address"){
-                $('#formatted_addressForDB').val(val);
-            }
-            */
 
             if(addressType == "street_number"){
                 $('#formatted_address').val(val);                
@@ -157,23 +149,6 @@ function fillInAddress1() {
             }
         }
     }
-
-    /*
-    if(!pcFnd){
-      document.getElementById('postal_code').readOnly=false;
-      document.getElementById('pcNotFnd').innerHTML="Please enter your Postal Code.";
-      document.getElementById('pcNotFnd').style.display="block";
-      document.getElementById('postal_code').focus();
-      return place;
-    } else{
-    // reset msg above in case user enters new address in field
-      document.getElementById('postal_code').readOnly=true;
-      document.getElementById('pcNotFnd').innerHTML="";
-      document.getElementById('pcNotFnd').style.display="none";
-      isaddress_incomplete();
-      return place;
-    }
-    */
 }
 
 function fillInAddress() {

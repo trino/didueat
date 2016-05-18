@@ -1,41 +1,30 @@
 @extends('layouts.default')
 @section('content')
 
-        <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
 <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
 <?php
-printfile("views/driver-signup.blade.php"); $Layout = "rows";
-$alts = array(
-        "contactus" => "Contact us",
-        "home/terms" => "Terms of Use",
-        "click" => "Sign up",
-        "clip" => "Create a menu",
-        "box" => "Receive orders",
-        "arrow" => "Payment handling"
-);
+    printfile("views/driver-signup.blade.php"); $Layout = "rows";
+    $alts = array(
+            "contactus" => "Contact us",
+            "home/terms" => "Terms of Use",
+            "click" => "Sign up",
+            "clip" => "Create a menu",
+            "box" => "Receive orders",
+            "arrow" => "Payment handling"
+    );
 ?>
-
-
-
-
 
 <div class="container" style="padding-top:0 !important;">
     <div class="row ">
-
 
         <div class="col-sm-12">
             <h1 align="center">SIGN UP AS A DRIVER</h1>
         </div>
 
-
         {!! Form::open(array('url' => '/driver/signup', 'onsubmit'=>'return validateFn(this)', 'id'=>'signupForm', 'class'=>'form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
-
-        @include('common.driver', array("hours" => false, "cols" => 2, "minimum" => true))
+            @include('common.driver', array("hours" => false, "cols" => 2, "minimum" => true))
         {!! Form::close() !!}
-
 
     </div>
 
@@ -49,22 +38,6 @@ $alts = array(
                 email: "email required",
                 password: "required minlength 3"
             });
-
-            /* duplicates tag field
-             $('#demo4').tagEditor({
-             initialTags: [
-            {{ old('tags') }}],
-             placeholder: 'Enter tags ...',
-             maxTags: 9,
-             onChange: function (field, editor, tags) {
-             $('#responseTags').val((tags.length ? tags.join(', ') : ''));
-             },
-             beforeTagDelete: function (field, editor, tags, val) {
-             var q = confirm('Remove tag "' + val + '"?');
-             return q;
-             }
-             });
-             */
 
             @if(old('city'))
                 $(document).ready(function () {

@@ -1,18 +1,3 @@
-<!--STYLE>
-    .footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: {{ iif(debugmode(), 130, 100)}}px;
-        background-color: white;
-        z-index: 100;
-    }
-
-    body {
-        padding-bottom: 130px;
-    }
-</STYLE-->
 @include('popups.simplemodal')
 <div class="container m-t-1 footer">
     <footer class="text-muted p-a-1">
@@ -75,13 +60,6 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                     </li>
                     <?php } ?>
 
-
-                    <!--li class="list-inline-item">
-                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy"
-                           title="{{ $alts["allergy"] }}" class="simplemodal">Allergy</a>
-                    </li-->
-
-
                     <li class="list-inline-item">
                         <h5>
                             <A href="https://www.facebook.com/didueathamilton/" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-facebook"></i></A>&nbsp;
@@ -94,15 +72,6 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
 
             <div class="col-lg-12 " style="font-size: 90%;">
                 <p ID="p-footer">
-
-
-                    <!--a href="http://trinoweb.com/" target="_blank" title="{{ $alts["trinoweb"] }}">
-                        <B CLASS="nowrap">
-                            <SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN><SPAN style="color:black;">WEB</SPAN>
-                        </B>
-                    </a-->
-                    <!-- and maintained by the <a href="{{ url("home/team") }}">core team</a> -->
-
                     &copy; {{ DIDUEAT  }} <?= date("Y"); ?>
 
                     @if(Session::get('session_type_user') == "super" && false )
@@ -151,7 +120,6 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
             var target_id = $(this).attr('data-target-id');
 
             $("#ratingModal #ratingModalLabel").text(dataname);
-            /* $("#ratingModal #reviews").text(detail); */
             $("#ratingModal #modal_contents").show();
 
             $.post("{{ url('reviews/users/get') }}", {
@@ -214,7 +182,6 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
             }
 
             $.post("{{ url('newsletter/subscribe') }}", {email: email, _token: token}, function (jason) {
-                //var jason = $.parseJSON(result);
                 if (jason.type == "error") {
                     alert(jason.message, "newsletter/subscribe");
                     $('#subscribe-email input[name=email]').focus();
@@ -234,16 +201,13 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
         $('.top-cart-block').css({'height': htt});
         handleresizing(wd);
         function handleresizing(wd) {
-            //console.log(wd);
             if (wd < '753') {
-                //$('.top-cart-info').show();
                 $('.header-navigation-wrap').hide();
                 $('.new_headernav').show();
 
                 $('#cartsz').closest('#printableArea').attr("class", "col-md-8 col-xs-12");
             } else {
                 $('.header-navigation-wrap').show();
-                //$('.top-cart-info').hide();
                 $('.new_headernav').hide();
 
                 $('#cartsz').closest('#printableArea').attr("class", "col-lg-4 col-md-5 col-sm-12");
@@ -316,8 +280,6 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
                     alert(json.message, "forgot-pass-form");
-//                    $('#forgot-pass-form #error').show();
-//                    $('#forgot-pass-form #error').html(json.message);
                 } else {
                     $('#forgot-pass-form').hide();
                     $('#forgot-pass-success').show();
@@ -356,7 +318,6 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                             $('#invalid').fadeIn(500);
                         }
                     } else {
-                        //if ($('#login_type').val() == 'reservation' || reserv == 'reservation') {
                         $.ajax({
                             url: "{{url('/user/json_data')}}",
                             type: "post",
@@ -424,9 +385,6 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                                 }
                             }
                         });
-                        //} else {
-                        //   window.location = "{{ url('dashboard') }}";
-                        //}
                     }
                 },
                 failure: function (msg) {
@@ -452,12 +410,12 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
         //handles submission of the register form (should be moved to where it's used)
         $('body').on('submit', '#register-form', function (e) {
             var token = $("#register-form input[name=_token]").val();
-                    <?php
+                <?php
                     $fields = array("name", "email", "password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "gmt");//, "confirm_password"
                     foreach ($fields as $field) {
                         echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
                     }
-                    ?>
+                ?>
             var subscribed = 0;
             if ($("#register-form input[name=subscribed]").is(':checked')) {
                 subscribed = $("#register-form input[name=subscribed]").val();
@@ -481,8 +439,6 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                 if (json.type == "error") {
                     $('#register-form .editaddress').show();
                     alert(json.message, "register-form #actionBtn");
-                    //$('#register-form #registration-error').show();
-                    //$('#register-form #registration-error').html(json.message);
                 } else {
                     $('#register-form').hide();
                     $('#registration-success').show();

@@ -57,15 +57,10 @@ function fillInAddress() {
         postal_code: 'short_name'
     };
     $('#city').val('');
-    //$('#rout_street_number').val('');
     $('#postal_code').val('');
-    //provinces('{{ addslashes(url("ajax")) }}', '');
 
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
-
-        //alert(addressType +  " is not on record, is: ");
-
         if (componentForm[addressType]) {
             var val = place.address_components[i][componentForm[addressType]];
             if(addressType == "country"){

@@ -108,7 +108,6 @@
                 $data['type'] = $type;
                 $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);//load the restaurant the order was placed for
                 $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);//load user that placed the order
-                //$data['states_list'] = \App\Http\Models\States::get();//load provinces/states
                 return view('dashboard.orders.orders_detail', $data);
             }
         }
@@ -178,11 +177,6 @@
                 if (!isset($post['id']) || empty($post['id'])) {
                     return $this->failure("[Order Id] is missing!", $URL);
                 }
-                /*
-                if (is_numeric($post['id']) && (!isset($post['note']) || empty($post['note']))) {
-                    return $this->failure("[Note Field] is missing!", $URL);
-                }
-*/
                 try {
                     if (is_numeric($post['id'])) {
                         $ob = \App\Http\Models\Reservations::find($post['id']);
@@ -230,9 +224,6 @@
                 $ob = \App\Http\Models\Reservations::find($id);
                 $ob->delete();
                 @unlink(public_path('assets/logs/' . $id . '.txt'));
-
-                //return $this->success('Order has been deleted successfully!', 'orders/list/' . $type);
-                //$this->success('Order has been deleted successfully!');
                 return $this->listingAjax($type);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'orders/list/' . $type);
@@ -256,7 +247,6 @@
                 $order = $order->where('order_time', '<=', $_GET['to']);//equal to and lesser than to time
             }
             $data['orders'] = $order->get();
-            //$data['states_list'] = \App\Http\Models\States::get();//gets all states/provinces
             $data['title'] = 'Report';
             return view('dashboard.restaurant.report', $data);
         }

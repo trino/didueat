@@ -41,13 +41,6 @@ class UsersController extends Controller
             if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x03)", 'users/list', true);
             }
-            /*if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
-                return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'users/list', true);
-            }
-            if ($post['password'] != $post['confirm_password']) {
-                return $this->failure(trans('messages.user_passwords_mismatched.message'),'users/list', true);
-            }
-            */
             \DB::beginTransaction();
             try {
                 $this->registeruser("Users@index", $post, 2, 0, false, true);
@@ -61,7 +54,6 @@ class UsersController extends Controller
             }
         } else {//get data to load the page
             $data['title'] = 'Users List';
-            //$data['states_list'] = \App\Http\Models\States::get();
             $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('name', 'ASC')->get();
             return view('dashboard.user.index', $data);
         }
@@ -113,8 +105,6 @@ class UsersController extends Controller
             $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
         }
         $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('name', 'ASC')->get();
-//        $data['states_list'] = \App\Http\Models\States::get();
-        //echo '<pre>'; print_r($data['address_detail']); die;
         return view('common.edituser', $data);
     }
 
@@ -140,14 +130,6 @@ class UsersController extends Controller
             if ($is_email > 0) {
                 return $this->failure(trans('messages.user_email_already_exist.message'), 'users/list', true);
             }
-            /*
-            if (!isset($post['password']) || empty($post['password'])) {
-                return $this->failure( trans('messages.user_pass_field_missing.message') . "(0x02)",'users/list', true);
-            }
-            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
-                return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'users/list', true);
-            }
-            */
             if (isset($post['password'])) {// && isset($post['confirm_password']) && $post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'), 'users/list', true);
             }
@@ -237,7 +219,6 @@ class UsersController extends Controller
         }
         update_database("profiles", "id", read("id"), array("available_at" => $status));
         return $message;
-        //return $this->success("You have been set to " . $message, "orders/list/driver");
     }
 
     //handle updating a profile image
@@ -284,7 +265,6 @@ class UsersController extends Controller
         } else {
             $data['title'] = 'Images Manage';
             $data['restaurants_list'] = \App\Http\Models\Restaurants::get();//get all restaurants
-            //$data['images_list'] = \App\Http\Models\ProfilesImages::get();//get all profile images
             return view('dashboard.user.manage_image', $data);
         }
     }
@@ -292,10 +272,8 @@ class UsersController extends Controller
     //create a new order via AJAX
     public function ajax_register() {
         $post = \Input::all();
-        //echo '<pre>'.print_r($post); die;
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             \DB::beginTransaction();
-            //$Stage = 1;
             try {
 
                 $msg = "";
@@ -334,7 +312,6 @@ class UsersController extends Controller
                     $res['contact'] = $post['contact'];
                 }
 
-                //$Stage = 3;
                 $copyaddress=0;
                 if (isset($post["reservation_address_dropdown"]) && $post["reservation_address_dropdown"]) {
                     $copyaddress = $post["reservation_address_dropdown"];
@@ -359,7 +336,7 @@ class UsersController extends Controller
                     $res['latitude'] = $Address->latitude;
                     $res['longitude'] = $Address->longitude;
                 }
-                //$Stage = 4;
+
                 $res['name'] = trim($post['ordered_by']);
 
                 //if the user is not logged in and specified a password, make a new user
@@ -373,38 +350,18 @@ class UsersController extends Controller
 
                     }
                 }
-                
 
-                //$Stage = 5;
                 $ob2 = new \App\Http\Models\Reservations();
                 $ob2->populate($res, "guid");
                 $ob2->save();
                 $oid = $ob2->id;
 
                 debugprint("Order placed", $oid, true);
-                //$Stage = 6;
-
-                /*
-                if($post['payment_type']=='cc')
-                {
-                    
-                    if(isset($post["stripeToken"]) && $post["stripeToken"]){
-                        if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total'])) {
-                            $this->success("Your order has been paid.");
-                         //   $data['order']->paid = 1;
-                        }else {
-                            $this->failure("Your order has <B>NOT</B> been paid.");
-                        }
-                    }
-                }*/
 
                 $res['ordered_by'] = $post['ordered_by'];
-
-                //$res_data = array('email' => $post['email'], /*'address2' => $post['address2'], 'city' => $post['city'], 'ordered_by' => $post['postal_code'],*/ 'remarks' => $post['remarks'], 'order_till' => $post['order_till'], 'contact' => $phone);
                 $res1 = \App\Http\Models\Reservations::find($oid);
                 $res1->populate($res);
                 $res1->save();
-                //$Stage = 7;
 
                 event(new \App\Events\AppEvents($res, "Order Created"));
                 if ($res1->user_id) {
@@ -414,7 +371,6 @@ class UsersController extends Controller
                     $userArray3["name"] = $post["ordered_by"];
                     $userArray3["email"] = $post["email"];
                 }
-                //$Stage = 8;
 
                 $userArray3['mail_subject'] = 'Your ' . DIDUEAT . ' order has been received!';
                 $userArray3["guid"] = $ob2->guid;
@@ -422,13 +378,10 @@ class UsersController extends Controller
                 $userArray3["profile_type"] = "user";
 
                 $this->sendEMail("emails.receipt", $userArray3);
-                //$Stage = 9;
 
                 $userArray3["profile_type"] = "restaurant";
                 $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to ' . DIDUEAT . ' for more details. Thank you.';
-                //notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter", $IncludeVan = false, $Emails = true, $Calls = true, $SMS = true) {
                 $ret = app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt");
-                //$Stage = 10;
 
                 //CC
                 if ($post['payment_type'] == 'cc') {
@@ -444,19 +397,13 @@ class UsersController extends Controller
                                 \App\Http\Models\CreditCard::makenew($creditinfo);
                             }   
                             echo '6';
-                            //$this->success("Your order has been paid.");
-                            //$data['order']->paid = 1;
                         } else {
-                            //$this->failure("Your order has <B>NOT</B> been paid.");
                             echo "There was an issue processing your Card. Please try again or select Cash payment.";
-
                         }
                     }
                 } else {
                     echo '6';
                 }
-
-                //$Stage = 11;
 
                 \DB::commit();
             } catch (\Illuminate\Database\QueryException $e) {
@@ -477,16 +424,8 @@ class UsersController extends Controller
 
     //converts the current profile to JSON
     function json_data() {
-        $id = $_POST['id'];
         $user = \App\Http\Models\Profiles::select('profiles.id as user_id', 'profiles.name', 'profiles.email', 'profiles.phone as phone', 'profiles_addresses.address as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province', 'profiles_addresses.notes as notes', "profiles.restaurant_id as restaurant_id")->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
         $user->token = csrf_token();
-        /*
-        $user->restaurant_slug = "";
-        if($user->restaurant_id){
-            $user->restaurant_slug = select_field("restaurants", "id", $user->restaurant_id, "slug");
-        }
-        //$user = \DB::table('profiles')->select('profiles.name', 'profiles.phone', 'profiles.email', 'profiles_addresses.street as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
-        */
         return json_encode($user);
     }
 

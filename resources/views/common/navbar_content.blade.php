@@ -47,7 +47,6 @@
                 makelink(array('orders/list/admin' => 'Orders',
                         'users/list' => "Users",
                         'restaurant/list' => "Restaurants",
-                       /* 'subscribers/list' => "Subscribers", */
                         'user/reviews' => "Reviews",
                         'eventlogs/list' => "Event Log",
                         'home/debug' => "Debug Menu"
@@ -65,12 +64,6 @@
                         'notification/addresses' => "Notification methods", 'restaurant/info' => "Settings",
                 ), "My Restaurant");
             }
-
-            /*else {//if(read("profiletype") == 3){
-                makelink(array(
-                        'restaurant/list' => "Restaurants",
-                ), "Restaurants");
-            }*/
 
             $profiletype = Session::get('session_profiletype');
             $data = array();

@@ -37,9 +37,6 @@ class ProfileAddressesController extends Controller {
             if (!isset($post['province']) || empty($post['province'])) {
                 return $this->failure("[Province] field is missing!",'user/addresses');
             }
-            if (!isset($post['country']) || empty($post['country'])) {
-              //  return $this->failure( "[Country] field is missing!",'user/addresses');
-            }
             if (!isset($post['phone']) || empty(phonenumber($post['phone']))) {
                 return $this->failure( "[Phone number] field is missing or invalid!",'user/addresses');
             }
@@ -65,8 +62,6 @@ class ProfileAddressesController extends Controller {
             }
         } else {
             $data['title'] = "Addresses Manage";
-//            $data['countries_list'] = \App\Http\Models\Countries::get();
-//            $data['states_list'] = \App\Http\Models\States::get();
             return view('dashboard.profiles_address.index', $data);
         }
     }
@@ -146,7 +141,6 @@ class ProfileAddressesController extends Controller {
         try {
             $ob = \App\Http\Models\ProfilesAddresses::find($id);
             $ob->delete();
-            //return $this->success("Address has been deleted successfully!", 'user/addresses');
         } catch(\Exception $e) {
             return $this->failure(handleexception($e),'user/addresses');
         }
@@ -155,7 +149,6 @@ class ProfileAddressesController extends Controller {
     //edit an address
     public function addressEdit($id=0){
         $post = \Input::all();
-        //var_dump($post); 
         if(!$id || !is_numeric($id)){
             $post["user_id"] = read("id");
             $post["id"] = 0;

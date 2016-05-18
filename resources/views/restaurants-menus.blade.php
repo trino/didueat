@@ -21,9 +21,6 @@
         }
 
         $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-        if (!$business_day) {
-            //popup(false, $restaurant->name . " is currently closed", "Oops");
-        }
 
         $alts = array(
             "add_item" => "Add Item"
@@ -90,28 +87,6 @@
 
                         @if(count($menus_list))
                             @include('menus',$menus_list)
-                            <?php
-                                /*
-                                $dir = public_path("assets/images/restaurants/" . $restaurant->id);
-                                $can_edit = read("profiletype") == 1 || $restaurant->id == read("restaurant_id");
-                                if(file_exists($dir . "/menu.php") && !$can_edit){
-                                    include($dir . "/menu.php");
-                                } else {
-                                    $data = array();
-                                    $data["dir"] = $dir;
-                                    $data["restaurant"] = $restaurant;
-                                    $data["menus_list"] = $menus_list;
-                                    $data["cats"] = $cats;
-                                    $data["catsOrder"] = $catsOrder;
-                                    $data["catCnt"] = $catCnt;
-
-                                    $HTML = view('menus',$data);
-                                    if (!is_dir($dir) && $dir){mkdir($dir, 0777, true);}
-                                    file_put_contents($dir . "/menu.php", $HTML);
-                                    echo $HTML;
-                                }
-                                */
-                            ?>
                         @endif
 
                         @if($allowedtoupload && $menu_id == $restaurant->id)
@@ -123,7 +98,6 @@
                                     Upload Menu Item
                                 </a>
                         @endif
-                        <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
 
 
@@ -142,7 +116,6 @@
                             </div>
                             <div class="modal-body" id="menumanager2"></div>
                             <div class="modal-footer">
-                                <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
                             </div>
                         </div>
                     </div>
@@ -371,7 +344,6 @@
                                 $('#ordered_email').focus();
                                 $('.email_error').show();
                                 $('.email_error').html('Email Already Registered.');
-                                //$('.email_error').fadeOut(2000);
                             } else if (msg == '6') {
                                 hide=false;
                                 checkingout=true;
@@ -727,41 +699,6 @@
                     $(this).parent().remove();
                 }
             });
-            
-            
-/*
-            $(".sorting_parent").live('click', function () {
-                var path = window.location.pathname + '?sorted';
-                //alert(path);
-                overlay_loader_show();
-                var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');
-                var arr_pid = pid.split('_');
-                pid = arr_pid[0];
-                var cid = arr_pid[1];
-                if ($(this).attr('id') == 'up_parent_' + pid + '_' + cid) {
-                    var sort = 'up';
-                } else {
-                    var sort = 'down';
-                }
-                var order = '';// array to hold the id of all the child li of the selected parent
-                $('#loadmenus_' + cid + ' .parents').each(function (index) {
-                    var val = $(this).attr('id').replace('parent', '');
-                    if (order == '') {
-                        order = val;
-                    } else {
-                        order = order + ',' + val;
-                    }
-                });
-                $.ajax({
-                    url: '<?php echo url('restaurant/orderCat/'); ?>/' + pid + '/' + sort,
-                    data: 'ids=' + order + '&_token=<?php echo csrf_token(); ?>',
-                    type: 'post',
-                    success: function () {
-                        window.location = path;
-                    }
-                });
-            });
-*/
 
             <?php if(isset($_GET["menuitem"]) && $_GET["menuitem"]): ?>
                 setTimeout(function(){

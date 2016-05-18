@@ -67,30 +67,11 @@
                     <a class="btn btn-lg btn-link btn-responsive "
                        href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}" style="color: white;"><h5 class="banner-text-shadow">Restaurant Sign Up</h5></a>
 
-
-                    <!--h4 class="m-t-1 display-5 banner-text-shadow">
-                        or show me <a style="cursor:pointer;text-decoration: underline; color:white"
-                                      class="search-city" onclick="submitform(event, 0);return false;"
-                                      city="{{ $City }}" province="{{ $Province }}" title="{{ $alts["city"] }}"
-                                      country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
-                    </h4-->
-
-
                     <div class="clearfix"></div>
-
-                    <!--h5 class="banner-text-shadow  m-t-1"><span style="">$5 Delivery. No Minimum Order.</span></h5-->
 
                 </div>
 
-                        <!--h5 class="m-t-1 display-5 banner-text-shadow" loc="{{ $loc }}"-->
-                        <!--h5 class="m-t-1 display-5 banner-text-shadow">
-                            or show me <a style="cursor:pointer;text-decoration: underline; color:white"
-                                          class="search-city" onclick="submitform(event, 0);return false;"
-                                          city="{{ $City }}" province="{{ $Province }}" title="{{ $alts["city"] }}"
-                                          country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
-                        </h5-->
-
-                        <div class="clearfix"></div>
+                <div class="clearfix"></div>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -213,48 +194,6 @@
                 </div>
             </div>
 
-            <!--div id="icons_show">
-                <div class="col-lg-12 p-b-1 text-xs-center" style="padding-top:1rem !important;">
-                    <h2 class="text-muted ">WHY ORDER FROM {{ strtoupper(DIDUEAT)  }}?</h2>
-                    <hr>
-                </div>
-                <div class="col-lg-4 text-xs-center">
-                    <div class="card card-block text-xs-center m-b-0">
-                        <div class="exp_cir bg-success"><i class="fa fa-map-marker fa-2x "
-                                                           style="line-height: inherit;"></i></div>
-                        <br><br>
-                        <h4>Local</h4>
-                        <footer>
-                            Steel Town's best restaurants
-                        </footer>
-                    </div>
-                </div>
-                <div class="col-lg-4 text-xs-center">
-                    <div class="card card-block text-xs-center m-b-0">
-                        <div class="exp_cir bg-warning"><i class="fa fa-cutlery fa-2x "
-                                                           style="line-height: inherit;"></i></div>
-                        <br><br>
-                        <h4>Efficient</h4>
-                        <footer>
-                            The fastest way to order food
-                        </footer>
-                    </div>
-                </div>
-                <div class="col-lg-4 text-xs-center">
-                    <div class="card card-block text-xs-center m-b-0">
-                        <div class="exp_cir bg-info"><i class="fa fa-usd fa-2x " style="line-height: inherit;"></i>
-                        </div>
-                        <br><br>
-                        <h4>Discounts</h4>
-                        <footer>
-                            There's a deal everyday
-                        </footer>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-
-            </div-->
-
             @if(!Session::has('is_logged_in') && false)
                 <div class="col-lg-12 text-xs-center p-t-0">
                     <hr>
@@ -279,9 +218,6 @@
         var elementname = '#formatted_address2';
         var IgnoreOne = false;
         var startingat = 0;
-        @if(isset($_GET["start"]))
-            //startingat = "{{ $_GET["start"] }}";
-        @endif
         onloadpage();
 
         function setdeliverytype() {
@@ -365,28 +301,11 @@
                 $('#search-form #is_menu').attr("checked", true);
             }
 
-            /*
-             if (getCookie('cname') || getCookie('latitude2') || getCookie('longitude2') || getCookie('minimum') || getCookie('cuisine') || getCookie('rating') || getCookie('SortOrder')) {
-             $('#search-form #clearSearch').show();
-             } else {
-             $('#search-form #clearSearch').hide();
-             }
-
-             if (getCookie('radius').trim() != "") {
-             $('#search-form #radius_panel').show();
-             $('#search-form #radius').val(getCookie('radius'));
-             }
-             */
-
             if (getCookie('address')) {
                 $('#formatted_address2').val(getCookie('address'));
                 $("#header-search-button").show();
                 $('#search-form-submit').trigger('click');
             }
-
-            @if(isset($_GET["start"]))
-                //submitform($(".footer"), 0);
-            @endif
         }
 
         $('body').on('click', '#clearSearch', function () {
@@ -415,19 +334,9 @@
             $('#restuarant_bar').html("");
             $('#results_show').hide();
             $('#start_up_message').show();
-            //  $('#icons_show').show();
             $("#formatted_address2").val("");
             $("html, body").animate({scrollTop: 0}, "slow");
         }
-
-        /*
-         $('body').on('keyup', elementname, function () {
-         $('#radius_panel').hide();
-         if ($(this).val()) {
-         $('#radius_panel').show();
-         }
-         });
-         */
 
         var lastdata = "";
         var oldpadding = "";
@@ -438,11 +347,6 @@
                 return false;
             }
 
-            /*if(startingat){
-                ChangeUrl("Search", "{{ url("?start=") }}" + startingat);
-            } else {
-                ChangeUrl("Search", "{{ url("?start=") }}" + start);
-            }*/
             var formatted_address = $(elementname).val();
             var latitude = $('#latitude').val().trim();
             var longitude = $('#longitude').val().trim();
@@ -505,20 +409,6 @@
                 $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data: data, start: start}, function (result) {
                     $('#parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);
-
-                    /*
-                    var quantity = 0;
-                    $('#countRowsS').text('s');
-                    if (result.trim() != "") {
-                        quantity = $('#countTotalResult').val();
-                        $('#countRows').text(quantity);
-                        if (quantity == "1" || quantity == 1) {
-                            $('#countRowsS').text('');
-                        }
-                    } else {
-                        $('#countRows').text(0);
-                    }
-                    */
                 });
             } else {
                 $('.loadingbar').show();
@@ -535,55 +425,6 @@
 
             return tempdata;
         }
-        
-        
-        
-        
-        /*
-       $(document).ready(function () {
-    $(window).on('beforeunload', function () {
-        document.cookie = "keepscroll=" + $(window).scrollTop();
-    });
-    var cs = document.cookie ? document.cookie.split(';') : [];
-    var i = 0, cslen = cs.length;
-    for (; i < cs.length; i++) {
-        var c = cs[i].split('=');
-        if (c[0].trim() == "keepscroll") {
-            setTimeout(function(){
-                if($(document).height()<c[1])
-                {
-                   $('.loadMoreRestaurants').click()
-                     setTimeout(function(){$(window).scrollTop(parseInt(c[1]));},800);
-                    
-                    
-                  
-                  // alert($(document).height());
-                  
-                }
-            },800);
-            
-            
-            break;
-        }
-    }
-});
-        
-        
-        $(document).ready(function() {
-        	var win = $(window);
-        
-        	// Each time the user scrolls
-        	win.scroll(function() {
-        	   //if($(document).height()>4000)
-        	  //alert($(window).scrollTop());
-        	   //alert($("div#element").scrollTop());
-        		// End of the document reached?
-        		if ($(document).height() - win.height() == win.scrollTop()) {
-        			$('.loadMoreRestaurants').click();
-        		}
-        	});
-        });
-        */////////////////////////////////////////////////////////
 
         $('body').on('click', '.loadMoreRestaurants', function (e) {
             var start = $(this).attr('data-id');
