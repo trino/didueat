@@ -105,6 +105,10 @@ textarea, select, input[type=text], input[type=number], input[type=email], input
     border: 1px solid #e8e8e8 !important;
 }
 
+.redborder{
+    border: 1px solid red !important;
+}
+
 a {
     cursor: pointer;
 }

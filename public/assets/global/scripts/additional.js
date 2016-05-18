@@ -267,8 +267,19 @@ $('.days_discount_all').live('click',function(){
    } 
 });
 
+function highlight(ID, msg, calledfrom){
+    overlay_loader_hide();
+    scrollto(ID);
+    $(ID).addClass("redborder");
+    if (typeof selector != "object"){
+        calledfrom = calledfrom + " " + ID;
+    }
+    alert(msg, calledfrom);
+}
+
 //handle the save button
 $('.savebtn').live('click', function () {
+    $(".redborder").removeClass("redborder");
     log(".savebtn event");
     catObj=document.getElementById('catList');
     for(var i=0;i<catObj.length;i++){
@@ -282,6 +293,7 @@ $('.savebtn').live('click', function () {
     var id = $(this).attr('id').replace('save', '');
     $_parent = $(this).closest('.modal-content').find('.newmenu');
     var subber_html = '';
+    var subber_id = "";
     var stop_id = 0;
     var stop_item = 0;
     var lim = 0;
@@ -305,12 +317,19 @@ $('.savebtn').live('click', function () {
     }
 
     $_parent.find('.subber').each(function(){
-        var subber_id = $(this).attr('id').replace('sub','');
-        subber_html = $('#addmore'+subber_id).text().replace(/ /g,'').length;
-        if(subber_html<5) {
-            stop_id = 1;
+        if(stop_id == 0) {
+            subber_id = $(this).attr('id').replace('sub', '');
+            subber_html = $('#addmore' + subber_id).text().replace(/ /g, '').length;
+            var numofinputs = $("#addmore" + subber_id).find(".cctitle").length;
+            var numofblankinputs = $("#addmore" + subber_id).find(".cctitle[value='']").length;
+            if (subber_html < 5 && (numofblankinputs || !numofinputs)) {
+                console.log("ERROR: " + subber_id + " - " + numofinputs + " " + numofblankinputs);
+                stop_id = 1;
+            }
         }
     });
+
+    //#sub18167
 
     var chi = 0;
     $('.additional'+id+ ' .subber').each(function(){
@@ -331,23 +350,17 @@ $('.savebtn').live('click', function () {
     });
     
     if(stop_item){//This is to check if Addon name is blank
-        alert('Addon name cannot be blank', "additional.js 351");
-        overlay_loader_hide();
-        scrollto(stop_item);
-        return false;
+        return highlight(stop_item, 'Addon name cannot be blank', "additional.js 351 " + stop_item);
     }
     
     if(stop_id){// If addon is added but inserted nothing is sub addon
-        alert('One or more of your options are empty', "additional.js 357");
-        overlay_loader_hide();
-        scrollto(stop_id);
-        return false;
+        return highlight("#sub" + subber_id, "'" + $("#sub" + subber_id).find(".ctitle").attr("value") + "' has blank or missing addons", "additional.js 357 " + subber_html);
     }
 
     var cat_id = $_parent.find('.cat_id').val();
     var cat_name = $_parent.find('.cat_name').val();
     if ((!cat_id || cat_id == '')&& cat_name=='') {
-        alert('Please select or create a category', "additional.js 365");
+        alert('Please select or create a category', "additional.js 365 " + cat_id);
         scrollto($_parent.find('.cat_id'));
         $_parent.find('.cat_id').attr('style', 'border:1px solid red;');
         $_parent.find('.cat_name').attr('style', 'border:1px solid red;');
