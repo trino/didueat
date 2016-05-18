@@ -111,7 +111,6 @@
         echo '<div id="accordion" role="tablist" aria-multiselectable="true">';
         foreach($valueA as $index => $category){
             $last = count($category) - 1;
-
             printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt, $lastcategory,$catNameStr);
             //printmenuitems($category, false, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, false, $trueID, $itemPosnForJS, $parentCnt);
             $firstcat = false;
@@ -122,11 +121,12 @@
         echo '</div>';
 
         function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr){
+            $halfway = ceil(count($category) * 0.5);
             foreach($category as $index => $value){
                 //if(iseven($index) == $even){
                     $isfirst = $index == 0;
                     $islast = $index == $last;
-                    $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr);
+                    $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr, $halfway);
                 //}
             }
         }
@@ -135,7 +135,7 @@
             return $number % 2 == 0;
         }
 
-        function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr){
+        function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $halfway){
             $noUpCatSort = false;
             $canedit=read("profiletype") == 1 || read("restaurant_id") == $restaurant->id;
             $thisUpMenuVisib = "visible";
@@ -235,6 +235,7 @@
 
                     </div>
                     <DIV ID="cat_{{ $catindex }}" CLASS="{{ iif(!$firstcat, "collapse", "collapse in") }}">
+                        <DIV CLASS="col-md-6 nopadding">
                 <?php
                 $thisCatCnt++;
 
@@ -242,6 +243,10 @@
 
 
                 $catMenuCnt++;
+            }
+
+            if($index == $halfway){
+                echo '</DIV><DIV CLASS="col-md-6 nopadding">';
             }
 
                     ?>
@@ -255,7 +260,7 @@
                         <div id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
                             <!-- start of menu item -->
                             <div>
-                                <div class="col-md-6 ">
+                                <div class="col-md-12">
                                     <div><!-- start div 4 -->
                                         <?php
                                             $main_price = $value->price;
@@ -431,7 +436,6 @@
                                 </div>
                             </div>
 
-
                         </div>
 
                     </a>
@@ -441,7 +445,7 @@
             return $catMenuCnt++;
         }
 
-        echo '<div class="clearfix"></div></div></div> <!-- end of last category -->';
+        echo '<div class="clearfix"></div></div></div></DIV><!-- end of last category -->';
 
             $catIDforJS = array_keys($catNameStr);
             $catIDforJS_Str = implode(",", $catIDforJS);

@@ -1160,6 +1160,8 @@ class RestaurantController extends Controller {
             $item = object_to_array(select_field("menus", "id", $id));
             if($newcat){$item["cat_id"] = $newcat;}
             unset($item["id"]);
+            $item["uploaded_by"] = read("id");
+            $item["uploaded_on"] = now();
             new_anything("menus", $item);
             return $this->success("Item duplicated", "restaurants/" . getslug($item["restaurant_id"]) . "/menu?menuadd=1");
         } else {//category

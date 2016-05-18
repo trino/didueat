@@ -6,8 +6,6 @@ textarea, input {
     text-decoration: inherit;
 }
 
-
-
 .loader {
     height: 4px;
     width: 100%;
@@ -15,6 +13,7 @@ textarea, input {
     overflow: hidden;
     background-color: #5cb85c;
 }
+
 .loader:before{
     display: block;
     position: absolute;
@@ -45,20 +44,14 @@ textarea, input {
     to {left: 100%;}
 }
 
-
-
-
-
 .disabled{
     cursor: not-allowed !important;
-
 }
 
 
 a.btn.disabled, fieldset[disabled] a.btn {
      pointer-events: all;
 }
-
 
 center {
     text-align: center;
@@ -191,6 +184,10 @@ body.modal-open {
 
 .modal-open[style] {
     padding-right: 0px !important;
+}
+
+.nopadding{
+    padding: 0px;
 }
 
 .lesspadding {
