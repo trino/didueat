@@ -43,8 +43,6 @@ $('.additem').live('click', function () {
                     '<a id="save' + id + '" class="btn  btn-primary savebtn ignore ignore2 ignore1" href="javascript:void(0)">Save</a>');
             }
         })
-
-
     });
 });
 
@@ -56,20 +54,18 @@ function toggleFullSizeMenu(path, imgroot) {
         document.getElementById('zoomMsg').innerHTML = "Loading...";
         img.onload = function () {
             document.getElementById('zoomMsg').innerHTML = "Click Image to Zoom Out";
-        }
+        };
         document.getElementById('menuImage').src = path + "/big-" + imgroot;
         document.getElementById('menuImage').style.left = "-16px";
         document.getElementById('menuImage').style.cursor = "zoom-out";
         toggleMenuImgH = false;
-    }
-    else {
+    } else {
         document.getElementById('zoomMsg').innerHTML = "Click Image to Zoom In";
         document.getElementById('menuImage').src = path + "/small-" + imgroot;
         document.getElementById('menuImage').style.left = "0px";
         document.getElementById('menuImage').style.cursor = "zoom-in";
         toggleMenuImgH = true;
     }
-////
 }
 
 var cntr1 = 0;
@@ -82,17 +78,6 @@ function reduceFile(button_id) {
     var file = document.getElementById('photoUpload').files[0];
     var reader = new FileReader();
     var thispath = base_url + '/assets/images/restaurant';
-
-    /*
-
-     var imgName=file.name.toLowerCase()
-     imgName=imgName.split(/(\\|\/)/g).pop();
-     imgNameSpl=imgName.split(".");
-     var imgName=imgNameSpl[0];
-
-     document.getElementById('imgName').value=imgName;
-
-     */
 
     reader.addEventListener("load", function () {
         preview.src = reader.result;
@@ -154,16 +139,7 @@ function reduceFile(button_id) {
     }, false);
 
     reader.readAsDataURL(file);
-
-
 }
-/*
-
- function ajaxuploadbtn(button_id, doc) {
- // remove reference to this in jQuery
- }
-
- */
 
 //handles ajax uploading of an image
 function ajaxuploadbtn(button_id, doc) {
@@ -230,8 +206,7 @@ function deleteMenuItem(catID, menID, bndboxDisplayOrder) {
         if (confirm("Note, this will cause all menu sorting changes you have made to the category " + thisCatName + " this session to be saved. If you do not want this, please click Cancel")) {
             saveMenuOrder(catID, menID, bndboxDisplayOrder);
         }
-    }
-    else {
+    } else {
         // otherwise, just send directly to delete item
         deleteMenuItemFn(catID, menID, bndboxDisplayOrder, false);
     }
@@ -261,10 +236,6 @@ function deleteMenuItemFn2(catID, menID, bndboxDisplayOrder, fromSaveMenuOrder) 
                 // now delete item and update correct values into JavaScript objects and arrays
                 // shift each item up 1
 
-                //document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).innerHTML="";
-                //document.getElementById('parent'+catID+'_'+thisMenuDisplayOrder).style.display="none";
-
-
                 var itemNewOrder = "";
                 var cnt = 1;
 
@@ -277,8 +248,6 @@ function deleteMenuItemFn2(catID, menID, bndboxDisplayOrder, fromSaveMenuOrder) 
 
                         // means last item in active list, which will now be set to hidden and empty (ie, deleted)
                         $('#parent' + catID + '_' + catMenuCnt).remove();
-                        //document.getElementById('parent' + catID + '_' + catMenuCnt).innerHTML = "";
-                        //document.getElementById('parent' + catID + '_' + catMenuCnt).style.display = "none";
 
                         // clear this posn in the object
                         delete itemPosn[catID][menID];
@@ -287,11 +256,9 @@ function deleteMenuItemFn2(catID, menID, bndboxDisplayOrder, fromSaveMenuOrder) 
                         break;
                     }
 
-//           alert("cnt:  "+cnt+"  --  "+itemPosn[catID][key] +"  --  "+ thisMenuDisplayOrder)
                     if (itemPosn[catID][key] >= thisMenuDisplayOrder) {
                         var oneHigher = (itemPosn[catID][key] + 1);
 
-//alert("Is "+itemPosn[catID][key] +" > "+ thisMenuDisplayOrder + "  --  oneHigher: "+oneHigher)
                         if (document.getElementById('parent' + catID + '_' + oneHigher)) {
                             document.getElementById('parent' + catID + '_' + itemPosn[catID][key]).innerHTML = document.getElementById('parent' + catID + '_' + oneHigher).innerHTML;
                         }
@@ -310,21 +277,12 @@ function deleteMenuItemFn2(catID, menID, bndboxDisplayOrder, fromSaveMenuOrder) 
                     } else {
                         itemNewOrder = itemPosn[catID][key]; // unchanged
                     }
-//               alert("New item order:  "+itemNewOrder)
                     if (key != menID) {
                         itemPosn[catID][key] = itemNewOrder; // add updated values this catID and key (menID)
                         itemPosnOrig[catID][key] = itemNewOrder;
                     }
-
                     cnt++;
                 }
-
-                /*
-                 itemPosn[catID] = temp_itemPosnObj; // add updated values back to this catID index
-                 itemPosnOrig[catID] = temp_itemPosnObj;
-                 itemPosn[cat][id2]=currentItemPosn1;
-                 itemPosn[cat][id]=currentItemPosn2;
-                 */
 
                 if (fromSaveMenuOrder) {
                     menuSortChngs[catID] = false;
@@ -334,7 +292,6 @@ function deleteMenuItemFn2(catID, menID, bndboxDisplayOrder, fromSaveMenuOrder) 
                 $('#parent' + catID + '_' + thisMenuDisplayOrder).fadeOut(500);
             }
         });
-    // window.location = base_url + 'restaurant/deleteMenu/' + menID + '/' + restSlug + '/'  + thisMenuDisplayOrder + '/' + catMenuCnt;
 }
 
 
@@ -345,9 +302,7 @@ function hideMenuOrderMsg(indx) {
     if (document.getElementById('saveMenus' + indx)) {
         document.getElementById('saveMenus' + indx).style.display = "none"
     }
-    ;
     clearTimeout(timer2);
-////
 }
 
 function hideCatOrderMsg(indx) {
@@ -358,7 +313,6 @@ function hideCatOrderMsg(indx) {
     }
     document.getElementById('saveOrderChngBtn').style.display = "none";
     clearTimeout(timer1);
-////
 }
 
 
@@ -399,8 +353,7 @@ function dump(v, howDisplay, recursionLevel) {
                         dump(v[i], "none", recursionLevel + 1) + "\n";
                 }
                 out += repeatString('   ', recursionLevel) + "}";
-            }
-            else { //if object    
+            } else { //if object
                 sContents = "{\n";
                 cnt = 0;
                 for (var member in v) {
@@ -420,8 +373,7 @@ function dump(v, howDisplay, recursionLevel) {
         var pre = document.createElement('pre');
         pre.innerHTML = out;
         document.body.appendChild(pre)
-    }
-    else if (howDisplay == 'alert') {
+    } else if (howDisplay == 'alert') {
         alert(out);
     }
 
@@ -460,28 +412,22 @@ function saveMenuOrder(catID, menID, bndboxDisplayOrder) {
         itemPosnCnt++;
     }
 
-
     $.ajax({
         url: base_url + 'restaurant/menuOrderSort',
         data: 'newMenuOrder=' + newMenuOrder + '&_token=' + token,
         type: 'post',
         success: function (res) {
-
             document.getElementById('saveMenus' + catID).style.display = "none";
             document.getElementById('saveMenuOrderMsg' + catID).innerHTML = " <br/>Your menu sort order has been saved for " + catName;
-
-
             if (menID != false) {
                 // on successfully updating menus, we can now delete the item that called this fn:
                 deleteMenuItemFn(catID, menID, bndboxDisplayOrder, true); // true means it's from saveMenuOrder()
-            }
-            else {
+            } else {
                 menuSortChngs[catID] = false;
                 timer2 = setTimeout("hideMenuOrderMsg(" + catID + ")", 250);
             }
         }
     });
-////
 }
 
 timer1 = "";
@@ -516,8 +462,6 @@ function saveCatOrderChngs(indx) {
             catSortChngs = false;
         }
     });
-
-////
 }
 
 // menuSortChngs array set on menus.blade page
@@ -559,9 +503,6 @@ function menuItemSort(id, cat, displayOrder, direction, catMenuCnt) {
     document.getElementById('saveMenus' + cat).style.display = "block";
 
     menuSortChngs[cat] = true;
-
-
-////
 }
 
 catSortChngs = false;
@@ -569,42 +510,72 @@ function chngCatPosn(thisIndx1, direction) {
     // since display permits only permissisable moves where up or down is possible, we don't need to test the index before applying function
 
     var currentOrderPosn1 = catPosns[thisIndx1]; // thisIndx represents original assignment from $thisCatCnt
-
+    var currentOrderPosn2 = false;
     (direction == "down") ? currentOrderPosn2 = (currentOrderPosn1 + 1) : currentOrderPosn2 = (currentOrderPosn1 - 1);
 
-    var thisIndx2 = "";
+    var thisIndx2 = false;
     for (var i = 0; i < catPosns.length; i++) {
         if (catPosns[i] == currentOrderPosn2) {
             thisIndx2 = i; // thisIndx2 represents original assignment from $thisCatCnt
             break;
         }
     }
-//  alert(currentOrderPosn1+": "+thisIndx1+"  --  "+currentOrderPosn2+": "+thisIndx2)
+    //if(!thisIndx2){return false;}
 
-    var tempHTML1 = document.getElementById('c' + currentOrderPosn1).innerHTML;
-    var tempHTML2 = document.getElementById('c' + currentOrderPosn2).innerHTML;
-    var tempUpVisib1 = document.getElementById('up' + thisIndx1).style.visibility;
-    var tempDownVisib1 = document.getElementById('down' + thisIndx1).style.visibility;
-    var tempUpVisib2 = document.getElementById('up' + thisIndx2).style.visibility;
-    var tempDownVisib2 = document.getElementById('down' + thisIndx2).style.visibility;
+    var tempHTML1 = getElementById('c' + currentOrderPosn1).innerHTML;
+    var tempHTML2 = getElementById('c' + currentOrderPosn2).innerHTML;
+    var tempUpVisib1 = getElementById('up' + thisIndx1).style.visibility;
+    var tempDownVisib1 = getElementById('down' + thisIndx1).style.visibility;
+    var tempUpVisib2 = getElementById('up' + thisIndx2).style.visibility;
+    var tempDownVisib2 = getElementById('down' + thisIndx2).style.visibility;
 
-    document.getElementById('c' + currentOrderPosn1).innerHTML = tempHTML2;
-    document.getElementById('c' + currentOrderPosn2).innerHTML = tempHTML1;
+    getElementById('c' + currentOrderPosn1).innerHTML = tempHTML2;
+    getElementById('c' + currentOrderPosn2).innerHTML = tempHTML1;
 
     catPosns[thisIndx2] = currentOrderPosn1;
     catPosns[thisIndx1] = currentOrderPosn2;
 
-// now that the categories have moved, flip the up/down arrows according to new position
-    document.getElementById('up' + thisIndx1).style.visibility = tempUpVisib2;
-    document.getElementById('down' + thisIndx1).style.visibility = tempDownVisib2;
-    document.getElementById('up' + thisIndx2).style.visibility = tempUpVisib1;
-    document.getElementById('down' + thisIndx2).style.visibility = tempDownVisib1;
+    // now that the categories have moved, flip the up/down arrows according to new position
+    getElementById('up' + thisIndx1).style.visibility = tempUpVisib2;
+    getElementById('down' + thisIndx1).style.visibility = tempDownVisib2;
+    getElementById('up' + thisIndx2).style.visibility = tempUpVisib1;
+    getElementById('down' + thisIndx2).style.visibility = tempDownVisib1;
 
-    document.getElementById('saveOrderChngBtn').style.display = "block";
-    document.getElementById('save' + thisIndx1).style.display = "block";
-    document.getElementById('save' + thisIndx2).style.display = "block";
+    getElementById('saveOrderChngBtn').style.display = "block";
+    getElementById('save' + thisIndx1).style.display = "block";
+    getElementById('save' + thisIndx2).style.display = "block";
 
     catSortChngs = true;
+}
 
-////
+
+function getErrorObject(){
+    try { throw Error('') } catch(err) { return err; }
+}
+function getElementById(ID){
+    var element = document.getElementById(ID);
+    if(!element){
+        consoleLog("Element " + ID + " not found");
+        die();
+    }
+    return element;
+}
+
+consoleLog = function(msg) {//See http://stackoverflow.com/a/27074218/470749
+    var e = new Error();
+    if (!e.stack)
+        try {
+            // IE requires the Error to actually be thrown or else the
+            // Error's 'stack' property is undefined.
+            throw e;
+        } catch (e) {
+            if (!e.stack) {
+                //return 0; // IE < 10, likely
+            }
+        }
+    var stack = e.stack.toString().split(/\r\n|\n/);
+    if (msg === '') {
+        msg = '""';
+    }
+    console.log(msg, '          [' + arguments.callee.caller.caller.name + stack[1] + ']');
 }

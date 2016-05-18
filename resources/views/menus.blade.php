@@ -95,28 +95,39 @@
             $valueA[$item->cat_id][] = $item; // this contains full menus list for resto
         }
 
+        function consolelog($text){
+            if(isset($GLOBALS["debug"])){
+                $GLOBALS["debug"] .= "  -  " . $text;
+            } else {
+                $GLOBALS["debug"] = $text;
+            }
+        }
+
         $catMenuCnt=0;
         $trueID = 0;
         $firstcat = true;
+        $thisCatCnt=0;
+        $lastcategory = count($valueA) - 1;
         echo '<div id="accordion" role="tablist" aria-multiselectable="true">';
         foreach($valueA as $index => $category){
             $last = count($category) - 1;
-            $thisCatCnt=0;
-            printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt);
-            printmenuitems($category, false, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, false, $trueID, $itemPosnForJS, $parentCnt);
+
+            printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt, $lastcategory,$catNameStr);
+            //printmenuitems($category, false, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, false, $trueID, $itemPosnForJS, $parentCnt);
             $firstcat = false;
+            $thisCatCnt++;
             $catMenuCnt++;
             $trueID++;
         }
         echo '</div>';
 
-        function printmenuitems($category, $even, $categories, &$thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt){
+        function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr){
             foreach($category as $index => $value){
-                if(iseven($index) == $even){
-                    $isfirst = $even && $index == 0;
+                //if(iseven($index) == $even){
+                    $isfirst = $index == 0;
                     $islast = $index == $last;
-                    $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt);
-                }
+                    $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr);
+                //}
             }
         }
 
@@ -124,7 +135,7 @@
             return $number % 2 == 0;
         }
 
-        function printmenuitem($categories, $value, $index, &$thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt){
+        function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr){
             $noUpCatSort = false;
             $canedit=read("profiletype") == 1 || read("restaurant_id") == $restaurant->id;
             $thisUpMenuVisib = "visible";
@@ -147,17 +158,17 @@
                 $value->cat_name = getIterator($categories, "id", $prevCat)->title;
 
                 $catNameStr[$prevCat] = $value->cat_name;
-                ($noUpCatSort) ? $thisUpCatSort = "hidden" : $thisUpCatSort = "visible";
-                ($thisCatCnt >= ($catCnt - 1)) ? $thisDownCatSort = "hidden" : $thisDownCatSort = "visible";
+                $thisUpCatSort = iif($noUpCatSort, "hidden", "visible");
+                $thisDownCatSort = iif($lastcategory == $thisCatCnt, "hidden", "visible");
 
-                if (!read('id')) {
+                if ($menu_id == $restaurant->id) {
+                    $canedit = $canedit || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
+                }
+                if (!$canedit) {
                     $thisUpCatSort = 'hidden';
                     $thisDownCatSort = 'hidden';
                     $thisDownMenuVisib = 'hidden';
                     $thisUpMenuVisib = 'hidden';
-                }
-                if ($menu_id == $restaurant->id) {
-                    $canedit = $canedit || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
                 }
                 ?>
 
@@ -450,14 +461,10 @@
                 }
             }
 
-
-            ?>
-
-
-            @if(!isset($_GET['page']))
-    </div>
-    </div>
-@endif
+if(!isset($_GET['page'])){
+    echo '</div></div>';
+}
+?>
 
 <DIV ID="popupholder"></DIV>
 <div class="clearfix"></div>
@@ -550,4 +557,8 @@
             }
         });
     }
+
+    @if(isset($GLOBALS["debug"]))
+        console.log("{{ $GLOBALS["debug"] }}");
+    @endif
 </SCRIPT>
