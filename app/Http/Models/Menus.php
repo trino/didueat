@@ -85,12 +85,10 @@ class Menus extends BaseModel {
                  if(isset($minmenu_price) && ($minprice > $minmenu_price || $minprice == -1)) {
                       $minprice = $minmenu_price;
                  }
-                 if($minprice > -1) {
-                    return $minprice;
-                 }
+                 if($minprice > -1) {return $minprice;}
             }
         }
-        if($minprice == -1){$minprice = 0;}
+        if($minprice < 0){$minprice = 0;}
         return $minprice;
     }
 }
