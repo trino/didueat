@@ -642,6 +642,10 @@ class HomeController extends Controller {
                     return view("popups.order_menu_item", $_POST);
                     break;
 
+                case "handlemenu":
+                    return json_encode(\App\Http\Models\Orders::additem($_POST));
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
                     if(debugmode()){ echo "\r\n" . var_export($_POST, true);}

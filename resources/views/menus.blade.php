@@ -111,7 +111,7 @@
         echo '<div id="accordion" role="tablist" aria-multiselectable="true">';
         foreach($valueA as $index => $category){
             $last = count($category) - 1;
-            printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt, $lastcategory,$catNameStr);
+            printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt, $lastcategory,$catNameStr, debugmode());
             $firstcat = false;
             $thisCatCnt++;
             $catMenuCnt++;
@@ -119,12 +119,12 @@
         }
         echo '</div>';
 
-        function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr){
+        function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $debugmode){
             $halfway = ceil(count($category) * 0.5);
             foreach($category as $index => $value){
                 $isfirst = $index == 0;
                 $islast = $index == $last;
-                $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr, $halfway);
+                $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr, $halfway, $debugmode);
 
             }
         }
@@ -133,7 +133,7 @@
             return $number % 2 == 0;
         }
 
-        function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $halfway){
+        function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $halfway, $debugmode){
             $noUpCatSort = false;
             $canedit=read("profiletype") == 1 || read("restaurant_id") == $restaurant->id;
             $thisUpMenuVisib = "visible";
@@ -176,12 +176,12 @@
                         <div class="row">
                             <div class="col-xs-8 panel-heading" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
                                 <a href="#" name="<?php echo $value->cat_name; ?>"></a>
-                                <h4 class="card-title" style="padding:.9375rem !important;"><?= $value->cat_name; ?></h4>
+                                <h4 class="card-title" style="padding:.9375rem !important;"><?=$value->cat_name; ?></h4>
                             </div>
 
 
                             <div class="col-xs-4">
-                                <div class="pull-right" aria-label="Basic example">
+                                <div class="pull-right">
                                     @if($canedit)
                                         <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link" onclick="confirmcopy('{{ url("restaurant/copyitem/category/" . $value->cat_id) }}', 'category', '{{ $value->cat_name }}');">
                                             <i class="fa fa-files-o"></i>
@@ -377,7 +377,7 @@
                                         @if($canedit || $value->uploaded_by ==read("id"))
                                             @if(debugmode())
                                                 <span style="color:#FF0000" class="debugdata">
-                                                    parent{{ $value->cat_id . '_' . $value->display_order . $value->id . ', ' . $value->cat_id . ', ' . $value->display_order . ', "down", ' . $catMenuCnt . ", " . $index }}
+                                                    parent{{ $value->cat_id . '_' . $value->display_order . " ID: " . $value->id . ', ' . $value->cat_id . ', ' . $value->display_order . ', "down", ' . $catMenuCnt . ", " . $index }}
                                                 </span>
                                             @endif
 

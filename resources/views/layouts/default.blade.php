@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <?php
-        $ReceiptVersion = ""; //2;
         //$start_loading_time = microtime(true);
         if (Session::has('menuTS')) {
             $GLOBALS['menuTS'] = Session('menuTS');
@@ -76,7 +75,7 @@
     <!--script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}"></script-->
 
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
-    <script src="{{ asset('assets/global/scripts/receipt' . $ReceiptVersion . '.js') }}"></script>
+    <script src="{{ asset('assets/global/scripts/receipt' . ReceiptVersion . '.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
@@ -125,7 +124,7 @@
     @endif
 
     <SCRIPT>
-        var receiptversion = "{{ $ReceiptVersion }}";
+        var receiptversion = "{{ ReceiptVersion }}";
         var routename = "{{ \Route::getCurrentRoute()->getActionName() }}";
         var baseurl = "{{ url('/') }}";
         var debugmode = "{{ debugmode() }}";

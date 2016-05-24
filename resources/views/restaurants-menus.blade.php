@@ -5,6 +5,8 @@
     @include("popups.rating")
 
     <?php
+        $orderid = 0;
+        if(ReceiptVersion){$orderid = \App\Http\Models\Orders::newid();}
         $checkout_modal = false;
         $menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
 
@@ -153,6 +155,8 @@
 
     <script type="text/javascript">
         var checkout_modal = "{{ $checkout_modal }}";
+        var order_id = "{{ $orderid }}";
+        console.log("Order ID " + order_id);
 
         function addresschange(where) {
             //code for adding addresses to the drop down is in views/common/receipt.blade.php
