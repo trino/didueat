@@ -183,7 +183,7 @@
                             <div class="col-xs-4">
                                 <div class="pull-right" aria-label="Basic example">
                                     @if($canedit)
-                                        <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link" href="{{ url("restaurant/copyitem/category/" . $value->cat_id) }}">
+                                        <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link" onclick="confirmcopy('{{ url("restaurant/copyitem/category/" . $value->cat_id) }}', 'category', '{{ $value->cat_name }}');">
                                             <i class="fa fa-files-o"></i>
                                         </A>
 
@@ -414,7 +414,7 @@
                                                 <i class="fa fa-arrow-down"></i>
                                             </a>
 
-                                            <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link pull-right" href="{{ url("restaurant/copyitem/item/" . $value->id) }}">
+                                            <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link pull-right" onclick="confirmcopy('{{ url("restaurant/copyitem/item/" . $value->id) }}', 'item', '{{ $value->menu_item }}');">
                                                 <i class="fa fa-files-o"></i>
                                             </A>
 
@@ -554,4 +554,11 @@ if(!isset($_GET['page'])){
     @if(isset($GLOBALS["debug"]))
         console.log("{{ $GLOBALS["debug"] }}");
     @endif
+
+    function confirmcopy(URL, itemtype, name){
+         if(itemtype == "category"){ itemtype = itemtype + " and all of it's items"; }
+         confirm2("Do you want to duplicate the '" + name + "' " + itemtype + "?", function(tthis, data){
+         window.location.href = URL;
+         },{ url: URL });
+    }
 </SCRIPT>
