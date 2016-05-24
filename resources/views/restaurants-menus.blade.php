@@ -515,8 +515,6 @@
                     });
                 }
 
-                //jsdie();
-
                 ids = ids.replace("__", "_");
                 app_title = app_title.split(",,").join("");
                 app_title = app_title.substring(1, app_title.length);
@@ -555,105 +553,8 @@
                 } else {
                     pre_cnt = Number(n);
                 }
-                /*
-                 var img = $('.popimage_' + menu_id).attr('src');
-                 img = img.replace('thumb', 'thumb2');
-                 */
-                $('#list' + ids).remove();
-                $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
-                $('#list' + ids).html('<td class="receipt_image" valign="top" style="width:50px !important;">' +
-                        '<SELECT  style="border:0 !important;padding:0rem !important;margin-right:.1rem !important;"   class="btn btn-secondary" ID="itemsel' + ids + '" onchange="changeitem(' + "'" + ids + "'" + ')">' + makeselect(0,10, pre_cnt) + '</SELECT>' +
 
-                        '<SPAN style="display:none;"><a id="inc' + ids + '" class="clearfix increase btn btn-sm  btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-plus"></i></a>' +
-
-                        '<div class="clearfix"><span class="count" style="padding-left:15px;">' + pre_cnt + '</span><input type="hidden" id="qty' + ids + '" class="count" name="qtys[]" value="' + pre_cnt + '">' +
-                        '</div><br><a id="dec' + ids + '" class="clearfix decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-minus"></i></a></SPAN>' +
-
-                        '<input class="amount" type="hidden" value="' + price.toFixed(2) + '"/></td>' +
-                        '<td class="innerst" width="60%">' + app_title + '</td>' +
-                        '<td valign="top"  class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
-                        '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
-                        '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
-                        '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +
-                        '<input type="hidden" class="csr" name="csr[]" value="' + csr + '" />' +
-
-                        '<a href="javascript:void(0);" class="del-goods" onclick=""></a>');
-
-                price = parseFloat(price);
-                var subtotal = "";
-                var ccc = 0;
-                $('.total').each(function () {
-                    ccc++;
-                    var tt = $(this).text().replace('$', '');
-                    subtotal = Number(subtotal) + Number(tt);
-                })
-                var items = (ccc == '1') ? ccc + ' item' : ccc + ' items';
-                $('#cart-items').text(items);
-                subtotal = parseFloat(subtotal);
-                subtotal = subtotal.toFixed(2);
-                $('div.subtotal').text('$' + subtotal);
-                $('input.subtotal').val(subtotal);
-                subtotal = parseFloat(subtotal);
-                var tax = 13;
-                tax = parseFloat(tax);
-                tax = (tax / 100) * subtotal;
-                tax = tax.toFixed(2);
-                $('span.tax').text('$' + tax);
-                $('input.tax').val(tax);
-                if ($('#delivery_flag').val() == '1') {
-                    var del_fee = $('.df').val();
-                } else {
-                    var del_fee = 0;
-                }
-                del_fee = parseFloat(del_fee);
-                var gtotal = calctip(Number(subtotal), Number(tax), Number(del_fee));
-                if(subtotal==0){gtotal=0;}
-                gtotal = gtotal.toFixed(2);
-                $('div.grandtotal').text('$' + gtotal);
-                $('input.grandtotal').val(gtotal);
-                $('#cart-total').text(gtotal);
-                $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
-                    if ($(this).is(':checked') && $(this).attr('title') != "") {
-                        var tit = $(this).attr('title');
-                        var title = tit.split("_");
-                        if (index != 0) {
-                            extratitle = extratitle + "," + title[1];
-                        }
-                        var su = "";
-                        if ($(this).val() != "") {
-                            var cnn = 0;
-                            var catid = $(this).attr('id');
-                            $('.extra-' + catid).each(function () {
-                                if ($(this).is(":checked")) {
-                                    var mid = $(this).attr('id').replace('extra_', '');
-                                    var qty = Number($(this).parent().parent().find('.span_' + mid).text().trim());
-                                    var tit1 = $(this).attr('title');
-                                    tit1 = tit1.split('_');
-                                    tit1[0] = tit1[0].replace('-' + qty, '');
-                                    tit1[1] = tit1[1].replace(" x(" + qty + ")", "");
-                                    nwtit = tit1[0] + "_" + tit1[1] + "_" + tit1[2];
-                                    $(this).attr('title', nwtit);
-
-                                }
-                            });
-                        }
-                    }
-                });
-
-                $('.number' + menu_id).text('1');
-                $('#select' + menu_id).val('1');
-                $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function () {
-                    if (!$(this).hasClass('chk')) {
-                        $(this).removeAttr("checked");
-                    }
-                    if ($(this).hasClass('checked')) {
-                        $(this).removeClass("checked");
-                    }
-                });
-                var dispr = Number($('.displayprice' + menu_id).val());
-                $('.modalprice' + menu_id).html('$' + dispr.toFixed(2));
-
-                $("#actualprice" + menu_id).attr("value", $("#originalprice" + menu_id).val() );
+                additemtoreceipt(menu_id, ids, pre_cnt, price, csr, app_title, extratitle, dbtitle);
 
                 showloader();
                 $('.allspan').html('0');

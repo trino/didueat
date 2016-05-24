@@ -1,38 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <!--?php
-    if (trim($_SERVER['REMOTE_ADDR']) == '24.36.153.107' || trim($_SERVER['REMOTE_ADDR']) == '65.93.60.187' || trim($_SERVER['REMOTE_ADDR']) == '103.10.29.22' || trim($_SERVER['REMOTE_ADDR']) == '24.141.192.74' || trim($_SERVER['REMOTE_ADDR']) == '::1' || trim($_SERVER['REMOTE_ADDR']) == '127.0.0.1' || trim($_SERVER['REMOTE_ADDR']) == '24.36.252.21') {
-    } else {
-        die();
-    }
-    ?-->
     <?php
-    //$start_loading_time = microtime(true);
+        $ReceiptVersion = ""; //2;
+        //$start_loading_time = microtime(true);
+        if (Session::has('menuTS')) {
+            $GLOBALS['menuTS'] = Session('menuTS');
+        }
+        $preUpRe = "false";
+        if (isset($_COOKIE['pvrbck'])) {
+            $preUpRe = "true";
+        }
+        echo '<script>preUpRe=' . $preUpRe . ';</script>';
 
-    if (Session::has('menuTS')) {
-        $GLOBALS['menuTS'] = Session('menuTS');
-    }
-    $preUpRe = "false";
-    if (isset($_COOKIE['pvrbck'])) {
-        $preUpRe = "true";
-    }
-    echo '<script>preUpRe=' . $preUpRe . ';</script>';
+        if (!isset($userAddress)) {
+            $userAddress = "";
+        }
+        if (!isset($radiusSelect)) {
+            $radiusSelect = "";
+        }
+        $nextPath = "";
+        if (Request::path() !== null && Request::path() != "/") {
+            $nextPath = "/" . Request::path();
+        }
 
-    if (!isset($userAddress)) {
-        $userAddress = "";
-    }
-    if (!isset($radiusSelect)) {
-        $radiusSelect = "";
-    }
-    $nextPath = "";
-    if (Request::path() !== null && Request::path() != "/") {
-        $nextPath = "/" . Request::path();
-    }
-
-    $first = false;
-    $type = "hidden";
-
+        $first = false;
+        $type = "hidden";
     ?>
 
     <title>{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT  }}</title>
@@ -47,12 +40,10 @@
     <meta content="Didueat" name="author">
     <meta name="content-language" content="en-CA"/>
     <meta http-equiv="content-language" content="en-CA"/>
-    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}"
-          name="description">
+    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}" name="description">
     <meta property="og:site_name" content="DiduEat">
     <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT }}">
-    <meta property="og:description"
-          content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}">
+    <meta property="og:description" content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
@@ -85,7 +76,7 @@
     <!--script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}"></script-->
 
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
-    <script src="{{ asset('assets/global/scripts/receipt.js') }}"></script>
+    <script src="{{ asset('assets/global/scripts/receipt' . $ReceiptVersion . '.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
@@ -134,6 +125,7 @@
     @endif
 
     <SCRIPT>
+        var receiptversion = "{{ $ReceiptVersion }}";
         var routename = "{{ \Route::getCurrentRoute()->getActionName() }}";
         var baseurl = "{{ url('/') }}";
         var debugmode = "{{ debugmode() }}";
