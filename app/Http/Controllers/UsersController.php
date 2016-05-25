@@ -277,7 +277,7 @@ class UsersController extends Controller
             try {
 
                 $msg = "";
-                if (!isset($post['listid'])) {
+                if (!isset($post['listid']) && !ReceiptVersion) {
                     die("There are no items in your cart");
                 }
                 
@@ -292,13 +292,18 @@ class UsersController extends Controller
                 $res['subtotal'] = $post['subtotal'];
                 $res['g_total'] = $post['g_total'];
                 $res['tax'] = $post['tax'];
-                $res['listid'] = implode(',', $post['listid']);
-                $res['prs'] = implode(',', $post['prs']);
-                $res['qtys'] = implode(',', $post['qtys']);
-                $res['extras'] = implode(',', $post['extras']);
-                $res['menu_ids'] = implode(',', $post['menu_ids']);
-                $res['csr'] = implode(',', $post['csr']);
-                $res['restaurant_id'] = $post['res_id'];
+                $res['order_id'] = $post['order_id'];
+
+                if(!ReceiptVersion) {
+                    $res['listid'] = implode(',', $post['listid']);
+                    $res['prs'] = implode(',', $post['prs']);
+                    $res['qtys'] = implode(',', $post['qtys']);
+                    $res['extras'] = implode(',', $post['extras']);
+                    $res['menu_ids'] = implode(',', $post['menu_ids']);
+                    $res['csr'] = implode(',', $post['csr']);
+                    $res['restaurant_id'] = $post['res_id'];
+                }
+
                 $res['order_till'] = $post['order_till'];
                 $res["remarks"] = $post["remarks"];
                 $res["tip"] = $post["tip"];

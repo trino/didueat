@@ -3,7 +3,7 @@ var checkingout = false;
 var allowbypassminumum = false;
 
 $( document ).ready(function() {
-    log("Receipt system version 2 initialized");
+    log("Receipt system version 2 initialized. Order ID: " + order_id);
 });
 
 window.onbeforeunload = function (e) {
@@ -162,7 +162,7 @@ function checkout() {
         }
         $('.profiles').fadeIn("slow");
         scrolltocheckout();
-        $('#checkoutModal').modal('show');
+        $('.profile_delivery_detail').show();
     }
 }
 

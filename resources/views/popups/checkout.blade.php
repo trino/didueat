@@ -10,22 +10,22 @@
                 </div>
 
                 <div class="modal-body ">
-                    @endif
+@endif
 
                     <div class="p-b-0 " id="modal_contents">
                         <div class="row">
                             <?php
-                            printfile("views/popups/checkout.blade.php");
-                            if (!$profile) {
-                                unset($profile);
-                            }
-                            if (!$type) {
-                                unset($type);
-                            }
-                            $alts = array(
-                                    "login" => "Log in as an existing user",
-                                    "checkout" => "Send the order to the store"
-                            );
+                                printfile("views/popups/checkout.blade.php");
+                                if (!$profile) {
+                                    unset($profile);
+                                }
+                                if (!$type) {
+                                    unset($type);
+                                }
+                                $alts = array(
+                                        "login" => "Log in as an existing user",
+                                        "checkout" => "Send the order to the store"
+                                );
                             ?>
 
                             @if(!read("id"))
@@ -52,8 +52,8 @@
                                            required="" @if (isset($profile)) readonly @endif
 
                                            @if (isset($profile))
-                                           style="display: none;"
-                                            @endif
+                                                style="display: none;"
+                                           @endif
                                     />
                                 </div>
                             </div>
@@ -164,7 +164,7 @@
                     </div>
                 </div>
 
-                @if(!isset($checkout_modal) || $checkout_modal)
+@if(!isset($checkout_modal) || $checkout_modal)
             </div>
         </div>
     </div>

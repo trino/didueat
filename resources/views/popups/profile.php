@@ -121,16 +121,15 @@
         */
 
         $('#profiles').submit(function (e) {
-            log("'#profiles submit event");
             e.preventDefault();
             var datas = $('#profiles input, select, textarea').serialize();
             var order_data = $('.receipt_main input').serialize();
+            var more_data = datas + '&order_id=' + order_id + '&' + order_data;
+            log("'#profiles submit event: " + more_data);
             $.ajax({
                 type: 'post',
                 url: "{{ url('user/ajax_register') }}",
-                data: datas + '&' + order_data,
-                order_id: order_id,
-                _token: token,
+                data: more_data,
                 success: function (msg) {
                     if (msg == '0') {
                         $('.top-cart-content ').html('<span class="thankyou">Thank You.</span>');

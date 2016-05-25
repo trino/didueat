@@ -305,7 +305,7 @@
 
             //submission of order
             $('#profiles').submit(function (e) {
-                log("'#profiles submit event");
+                log("'#profiles submit event in restaurants-menus");
                 if( $("#cardnumber-error").length ||  $("#cvc-error").length ){
                     if($("#cardnumber-error").length) {
                         if($("#cvc-error").length){
@@ -339,7 +339,7 @@
                     $.ajax({
                         type: 'post',
                         url: '<?php echo url(); ?>/user/ajax_register',
-                        data: datas + '&' + order_data + '&_token=' + token,
+                        data: datas + '&' + order_data + '&_token=' + token + '&order_id=' + order_id ,
                         success: function (msg) {
                             msg = msg.trim();
                             $('#chkOut').removeAttr('disabled');

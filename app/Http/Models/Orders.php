@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS `orderitems` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
+ALTER TABLE `orders` ADD `latitude` DOUBLE NOT NULL , ADD `longitude` DOUBLE NOT NULL ;
+
  */
 
 namespace App\Http\Models;
@@ -49,20 +51,19 @@ class Orders extends BaseModel {
     protected $table = 'orders';
     protected $primaryKey = 'id';
     public $timestamps = false;
-
     /**
      * @param array
      * @return Array
      */
     public function populate($data) {
-        $cells = array('status', 'user_id');
+        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip');
         $this->copycells($cells, $data);
     }
 
     //\App\Http\Models\Orders::newid();
     public static function newid(){
         $ID = self::makenew(array(
-            'status' => 0,
+            'status' => 'incomplete',
             'ordered_by' => read("name"),
             'user_id' => read("id")
         ))->id;
@@ -71,9 +72,21 @@ class Orders extends BaseModel {
     }
 
     public static function finalizeorder($post){
+        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip');
+        $post = array_filter($post);
         $post["status"] = "pending";
-        update_database("orders", "id", $post["order_id"], $post);
-        debugprint("Order finalized", $post["order_id"]);
+        $orderid = $post["order_id"];
+        foreach($post as $key => $value){
+            if (!in_array($key, $cells)){
+                unset($post[$key]);
+            }
+        }
+        var_dump( update_database("orders", "id", $orderid, $post) ) ;
+        var_dump( select_field("orders", "id", $orderid) );
+
+        die();
+        debugprint("Order finalized", $orderid);
+        return $orderid;
     }
 
     //must return an array for json_encode

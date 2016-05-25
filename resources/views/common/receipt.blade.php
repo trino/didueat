@@ -1,17 +1,6 @@
 <?php
     printfile("views/common/receipt.blade.php");
-    if(ReceiptVersion == 2 && isset($order)){
-        echo view("common.receipt2", array(
-                "order"         => $order,
-                "items"         => $items,
-                "ID"            => $ID,
-                "title"         => $title,
-                "type"          => $type,
-                "user_detail"   => $user_detail
-        ));
-        return false;
-    }
-
+    if(ReceiptVersion) {$checkout_modal = false;}
     //the receipt that goes in an order
     $ordertype = false;
     $em=0;
@@ -103,9 +92,9 @@
                                     <input type="radio" id="delivery1" name="delevery_type"
                                            onclick="delivery('show');"
                                            @if(!isset($restaurant->is_pickup) || !$restaurant->is_pickup)
-                                           CHECKED TITLE="Only does delivery"
-                                            @endif
-                                            >
+                                            CHECKED TITLE="Only does delivery"
+                                           @endif
+                                           >
                                     <span class="c-indicator"></span>
                                     <strong>Delivery</strong>
                                 </label>
@@ -367,7 +356,7 @@
                 reservation_address: "required",
                 @if(!read("id"))
                     email: "email required",
-                password: "required minlength 3",
+                    password: "required minlength 3",
                 @endif
             });
         }
