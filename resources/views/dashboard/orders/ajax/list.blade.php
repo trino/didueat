@@ -234,7 +234,7 @@
 </div>
 
 <SCRIPT>
-    var Orders = "{{ iterator_count($Query) }}";
+    var Orders = "{{ count_iterator($Query) }}";
     function deleteorder(ID){
         if(confirm('Are you sure you want to delete order #' + ID + '?')) {
             $("#fa" + ID).attr("class", "fa fa-spinner fa-spin");

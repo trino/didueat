@@ -831,7 +831,18 @@ function getDatasource() {
 //run an SQL query
 function select_query($Query) {
     $con = getDatasource();
+    $GLOBALS["sql"] = $Query;
     return $con->query($Query);
+}
+
+function select_all($SQL, $asClass = false){
+    return select_query($SQL)->fetchAll(iif($asClass, 2, 5));//1=lazy (invalid), 2=assoc. array, 3=indexed array, 4=indexed+assoc. array, 5=class
+}
+
+function count_iterator($arr){
+    if(is_array($arr)){return count($arr);}
+    if(is_iterable($arr)){return iterator_count($arr);}
+    return 0;
 }
 
 //get the first result of a query
@@ -884,7 +895,8 @@ function lastQuery() {
     $queries = DB::getQueryLog();
     $queries = end($queries);
     if (!$queries) {
-        echo 'Query log is disabled, run "initialize();" first';
+        if(isset($GLOBALS["sql"])){return $GLOBALS["sql"];}
+        return 'Query log is disabled, run "initialize();" first';
     }
     return $queries["query"];
 }

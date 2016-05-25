@@ -1,5 +1,45 @@
 <?php
 
+/*
+
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `status` set('incomplete','pending','approved','cancelled','delivered') NOT NULL DEFAULT 'incomplete',
+  `driver_id` int(11) NOT NULL,
+  `order_time` datetime NOT NULL,
+  `time` datetime NOT NULL,
+  `ordered_by` varchar(128) NOT NULL,
+  `order_type` tinyint(4) NOT NULL DEFAULT '1',
+  `paid` tinyint(4) NOT NULL,
+  `remarks` varchar(256) NOT NULL,
+  `order_till` varchar(128) NOT NULL,
+  `address1` varchar(128) NOT NULL,
+  `address2` varchar(128) NOT NULL,
+  `city` varchar(128) NOT NULL,
+  `province` varchar(64) NOT NULL,
+  `country` varchar(64) NOT NULL,
+  `postal_code` varchar(16) NOT NULL,
+  `note` varchar(5000) NOT NULL,
+  `tip` decimal(6,2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+
+CREATE TABLE IF NOT EXISTS `orderitems` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `quantity` varchar(512) NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `title` varchar(1024) NOT NULL,
+  `csr_action` int(11) NOT NULL,
+  `id_list` varchar(1024) NOT NULL,
+  `price` decimal(6,2) NOT NULL,
+  `restaurant_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
+
+ */
+
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -87,7 +127,17 @@ class Orders extends BaseModel {
         $per_page = $array['per_page'];
         $start = $array['start'];
 
-        $query = Orders::select('*')
+        $SQL = "SELECT *, (SELECT count(*) FROM orderitems WHERE order_id = orders.id) as itemcount FROM `orders` HAVING itemcount > 0";
+        $query = select_query($SQL);
+        $reccount = $query->rowCount();
+
+        $SQL .= " LIMIT " . $start . ", " . $per_page;
+        //$SQL .= " ORDER BY " . $meta . " " . $order;
+
+        $query = select_all($SQL);
+        /*
+        $query = Orders::select("*, COUNT(SELECT id FROM orderitems WHERE 'orderitems.order_id' = 'orders.id') AS itemcount'")
+            //->Where("itemcount", '>', 0)
             ->Where(function($query) use ($query_type, $array) {
                 $userid=read('id');
                 //$restaurantid=read('restaurant_id');
@@ -108,26 +158,15 @@ class Orders extends BaseModel {
             ->Where(function($query) use ($searchResults) {
                 if($searchResults != "" && $searchResults != "undefined"){
                     $query->orWhere('id', '=', $searchResults);
-                        /*
-                        ->orWhere('ordered_by',     'LIKE', "%$searchResults%")
-                        ->orWhere('contact',        'LIKE', "%$searchResults%")
-                        ->orWhere('payment_mode',   'LIKE', "%$searchResults%")
-                        ->orWhere('address1',       'LIKE', "%$searchResults%")
-                        ->orWhere('address2',       'LIKE', "%$searchResults%")
-                        ->orWhere('city',           'LIKE', "%$searchResults%")
-                        ->orWhere('postal_code',    'LIKE', "%$searchResults%")
-                        ->orWhere('note',           'LIKE', "%$searchResults%")
-                        ->orWhere('status',         'LIKE', "%$searchResults%")
-                        ->orWhere('remarks',        'LIKE', "%$searchResults%");
-                        */
                 }
             })
             ->orderBy($meta, $order);
-        $reccount = $query->count();
-        if ($type == "list") {
-            $query->take($per_page);
-            $query->skip($start);
-        }
+            $reccount = $query->count();
+            if ($type == "list") {
+                $query->take($per_page);
+                $query->skip($start);
+            }
+        */
         return $query;
     }
 }

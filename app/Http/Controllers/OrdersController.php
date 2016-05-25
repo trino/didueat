@@ -59,7 +59,7 @@
                     $Query = \App\Http\Models\Reservations::listing($data, "list", $recCount)->get();
                     break;
                 case 2:
-                    $Query = \App\Http\Models\Orders::listing($data, "list", $recCount)->get();
+                    $Query = \App\Http\Models\Orders::listing($data, "list", $recCount);
                     break;
             }
             $no_of_paginations = ceil($recCount / $per_page);

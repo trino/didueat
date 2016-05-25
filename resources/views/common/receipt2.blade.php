@@ -55,6 +55,7 @@
             </tr>
         @endif
         @if($tip)
+            <TR><TD COLSPAN="3"><HR></TD></TR>
             <tr>
                 <td colspan="2"><strong>Tip</strong></td>
                 <td class="pull-right"><span>{{ asmoney( $tip ) }}</span></td>
@@ -90,8 +91,8 @@
                                 foreach($items as $item){
                                     if($item->restaurant_id != $curr_rest){
                                         if(isset($restaurant) && $curr_rest_subtotal){
-                                            echo '<TR><TD COLSPAN="3"><HR></TD></TR>';
                                             $total += totals($curr_rest_subtotal,  0, $tax, $delivery_fee," for " . $restaurant->name);
+                                            echo '<TR><TD COLSPAN="3"><HR></TD></TR>';
                                         }
                                         $curr_rest = $item->restaurant_id;
                                         $curr_rest_subtotal = 0;
@@ -104,19 +105,7 @@
                                     $curr_rest_subtotal += $item->price;
                                 }
                                 $total += totals($curr_rest_subtotal, 0, $tax, $delivery_fee, " for " . $restaurant->name);
-                                totals($total, $order->tip);
-                            /*
-                            var_dump($ID);//6
-                            var_dump($title);//Orders Detail
-                            var_dump($type);//admin
-
-                            var_dump($user_detail);
-
-                            var_dump($order);
-                            foreach($items as $item){
-                                var_dump($item);
-                            }
-                            */
+                                totals($total, $order->tip, 0,0, " for all restaurants");
                             ?>
                         </tbody>
                     </table>
