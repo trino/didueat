@@ -1,5 +1,17 @@
 <?php
     printfile("views/common/receipt.blade.php");
+    if(ReceiptVersion == 2 && isset($order)){
+        echo view("common.receipt2", array(
+                "order"         => $order,
+                "items"         => $items,
+                "ID"            => $ID,
+                "title"         => $title,
+                "type"          => $type,
+                "user_detail"   => $user_detail
+        ));
+        return false;
+    }
+
     //the receipt that goes in an order
     $ordertype = false;
     $em=0;
@@ -162,7 +174,7 @@
                             </td>
                         </tr-->
                         <tr>
-                            <td colspan="2"><strong>Tip The Driver</strong></td>
+                            <td colspan="2"><strong>Tip</strong></td>
                             <td class="pull-right">
                                 <?php
                                     if(isset($order)){

@@ -190,7 +190,7 @@
                 if (found) {
                     var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
                     if (distance > {{ $restaurant->max_delivery_distance }}) {
-                        var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, " + address + " is " + distance.toFixed(2) + " km away.";
+                        var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km<BR>" + address + " is " + distance.toFixed(2) + " km away.";
                         @if(debugmode())
                             if (where == "addresscheck") {
                                 return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");

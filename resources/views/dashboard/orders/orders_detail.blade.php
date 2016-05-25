@@ -46,6 +46,26 @@
             $profiletype = read("profiletype");
             if($profiletype == 3){ $profiletype = 2; }//userplus
             if($profiletype == 2 && read("restaurant_id")){ $profiletype = 3; }//restaurant
+
+            function printrestaurant($restaurant){
+                ?>
+                <tr class="infolist noprint">
+                    <td class=""><strong>Restaurant</strong></td>
+                    <td width="15"></td>
+                    <td>{{$restaurant->name}}</td>
+                </tr>
+                <tr class="infolist noprint">
+                    <td class=""><strong>Phone</strong></td>
+                    <td width="15"></td>
+                    <td>{{$restaurant->phone}}</td>
+                </tr>
+                <tr class="infolist noprint">
+                    <td class=""><strong>Address</strong></td>
+                    <td width="15"></td>
+                    <td>{{$restaurant->address}}, {{$restaurant->city}} {{$restaurant->province}} {{$restaurant->postal_code}}</td>
+                </tr>
+                <?php
+            }
         ?>
         <div class="row">
 
@@ -69,37 +89,26 @@
                         <div class="col-md-6">
                             <div class="card " style="margin-bottom: 0 !important;">
                                 <div class="card-block">
-
                                     <table style="width:100%;">
                                         <tbody>
-                                        <tr class="infolist noprint">
-                                            <td class=""><strong>Restaurant</strong></td>
-                                            <td width="15"></td>
-                                            <td>{{$restaurant->name}}</td>
-                                        </tr>
-                                        <tr class="infolist noprint">
-                                            <td class=""><strong>Phone</strong></td>
-                                            <td width="15"></td>
-                                            <td>{{$restaurant->phone}}</td>
-                                        </tr>
-                                        <tr class="infolist noprint">
-                                            <td class=""><strong>Address</strong></td>
-                                            <td width="15"></td>
-                                            <td>{{$restaurant->address}}, {{$restaurant->city}} {{$restaurant->province}} {{$restaurant->postal_code}}</td>
-                                        </tr>
+                                        <?php
+                                            if(isset($restaurant)){
+                                                printrestaurant($restaurant);
+                                            } else {
+                                                $restaurant = false;
+                                            }
+                                        ?>
                                         </tbody>
                                     </table>
                                     <hr >
-
                                     @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "paid_for"=> $paid_for))
-
                                     @if( (!$CanApprove && $order->order_type == 0) || ($order->order_type > 0 && $CanApprove) && false)
                                         @include("common.gmaps", array("address" => $restaurant->formatted_address))
                                     @endif
-
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="clearfix"></div>
 
@@ -151,8 +160,8 @@
 
                                             Events:
                                             <PRE ID="logevents"><?php
-                                                if(file_exists(public_path('assets/logs/' . $ID . '.txt'))){
-                                                    echo file_get_contents(public_path('assets/logs/' . $ID . '.txt'));
+                                                if(file_exists(public_path('assets/logs' . ReceiptVersion . '/' . $ID . '.txt'))){
+                                                    echo file_get_contents(public_path('assets/logs' . ReceiptVersion . '/' . $ID . '.txt'));
                                                 }
                                                 ?></PRE>
 

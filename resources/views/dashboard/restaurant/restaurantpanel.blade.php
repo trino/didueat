@@ -39,7 +39,11 @@ if (!function_exists("toseconds")) {
 }
 
 if (is_object($Restaurant)) {
-    $Restaurant = getProtectedValue($Restaurant, "attributes");
+    if(isset($isgood)){
+        $Restaurant = object_to_array($Restaurant);
+    } else {
+        $Restaurant = getProtectedValue($Restaurant, "attributes");
+    }
 }
 
 $logo = defaultlogo($Restaurant);

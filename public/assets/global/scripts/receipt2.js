@@ -1,6 +1,10 @@
 var total_items = 0;
 var checkingout = false;
 
+$( document ).ready(function() {
+    log("Receipt system version 2 initialized");
+});
+
 window.onbeforeunload = function (e) {
     if (total_items && !checkingout && false) { // enable later when were more established
         var message = "You have not finished your order. Leaving this page will empty your cart.", e = e || window.event;
@@ -18,6 +22,7 @@ window.onbeforeunload = function (e) {
 //dbtitle:      the HTML description going into the database
 //uses: order_id
 function additemtoreceipt(menu_id, ids, quantity, price, csr_action, app_title, extratitle, dbtitle){
+    log("menu_id " + menu_id + " ids: " + ids + " quantity: " + quantity + " price: " + price + " csr_action: " + csr_action + " apptitle: " + app_title + " extratitle: " + extratitle + " dbtitle: " + dbtitle);
     $.post(baseurl + "/ajax", {
         type: "handlemenu",
         action: "additemtoreceipt",
@@ -50,6 +55,7 @@ function additemtoreceipt(menu_id, ids, quantity, price, csr_action, app_title, 
 }
 
 function calculatetotal(result){
+    //log(simpleStringify(result));
     var subtotal = result.subtotal.toFixed(2);
     $(".subtotal").text("$" + subtotal);
     $('input.subtotal').val(subtotal);
@@ -97,6 +103,9 @@ function updatequantity(menuitem_id){
         menuitem_id: menuitem_id,
         quantity: quantity,
     }, function (result) {
+        if(quantity == 0){
+            $("#menuitem_" + menuitem_id).fadeOut(500);
+        }
         calculatetotal(result);
     });
 }

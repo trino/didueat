@@ -4,6 +4,9 @@
     $secondsTitle = "sec";
     function statuscolor($Status, $Color = false){
         switch ($Status) {
+            case "incomplete":
+                return iif($Color, 'BLUE', "btn-secondary");
+                break;
             case "approved":
                 return iif($Color, 'GREEN', "btn-success");
                 break;
@@ -29,6 +32,10 @@
     if($type == "driver"){
         $eighthoursago = now(false, strtotime("-8 hour") );
         $driver = select_field("profiles", "id", read("id"));
+    }
+
+    if(debugmode()){
+        var_dump($SQL);
     }
 ?>
 
@@ -77,7 +84,6 @@
     <div class="card-block p-a-0">
         <table class="table table-responsive m-b-0">
             @if($recCount > 0)
-
                 <thead>
                     <tr>
                         <th>Order #</th>
@@ -103,31 +109,42 @@
 
                     @foreach($Query as $value)
                     <?php
-                      $resto = DB::table('restaurants')->select('name', 'slug')->where('id', '=', $value->restaurant_id)->get();
+                        if(ReceiptVersion == ""){
+                            $resto = DB::table('restaurants')->select('name', 'slug')->where('id', '=', $value->restaurant_id)->get();
+                        } else {
+                            $value->guid = $value->id;
+                        }
                     ?>
                         <tr id="order{{ $value->id }}">
-                            <td>
-                                <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" title="{{ $alts["order_detail"] }}" class="btn {{ statuscolor($value->status) }} btn-sm">
+                            <td align="center">
+                                <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" title="{{ $alts["order_detail"] }}" class="btn {{ statuscolor($value->status) }} btn-sm" style="width:100%">
                                     {{ $value->guid }}
                                 </a>
                             </td>
                             <td>
-                                @if($type=='user')
-                                    <a HREF="{{ url('restaurants/'. $resto[0]->slug .'/menu') }}" title="{{ $alts["restaurants/menu"] }}">{{ $resto[0]->name }}</a>
-                                @else
-                                    {{$value->ordered_by }}
-                                @endif
-                            </td>
-
-                            <td>
                                 <?php
-                                    $dateformat = get_date_format();//D M d, g:j A
-                                    $date = strtotime($value->order_time);
-                                    if (date("dmY", $date) == date("dmY")) {
-                                        echo '<FONT COLOR="">Today, </FONT>';
-                                        $dateformat = str_replace("D M d,", "", $dateformat);
+                                    if($type=='user'){
+                                        if(isset($resto)){
+                                            echo '<a HREF="' . url('restaurants/'. $resto[0]->slug .'/menu') . '" title="' . $alts["restaurants/menu"] . '">' . $resto[0]->name . '</a>';
+                                        } else {
+                                            echo 'Multi';
+                                        }
+                                    } else {
+                                        echo $value->ordered_by;
                                     }
-                                    echo date($dateformat, $date);
+                                    echo '</td><td>';
+
+                                    if($value->status == "incomplete"){
+                                        echo "Incomplete";
+                                    } else {
+                                        $dateformat = get_date_format();//D M d, g:j A
+                                        $date = strtotime($value->order_time);
+                                        if (date("dmY", $date) == date("dmY")) {
+                                            echo 'Today, ';
+                                            $dateformat = str_replace("D M d,", "", $dateformat);
+                                        }
+                                        echo date($dateformat, $date);
+                                    }
                                     echo '</TD><TD><span class="m-a-0 text-muted no_text_break">' . iif($value->order_type, "Delivery", "Pickup") . iif($value->order_till, ' later') . '</span>';
                                     echo '</td>';
 
@@ -187,7 +204,7 @@
                                         <i class="fa fa-times"></i>
                                     </a-->
                                     <a title="{{ $alts["deleteorder"] }}"
-                                       class=" pull-right"
+                                       class="pull-right"
                                        onclick="deleteorder({{ $value->id }});">
                                         <i ID="fa{{ $value->id }}" class="fa fa-times"></i>
                                     </a>

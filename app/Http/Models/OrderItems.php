@@ -16,6 +16,7 @@ class OrderItems extends BaseModel {
      */
     public function populate($data) {
         $cells = array('order_id', 'quantity', 'parent_id', 'title', 'csr_action', 'id_list', 'price');
+        $this->restaurant_id = select_field("menus", "id", $data["parent_id"], "restaurant_id");
         $this->copycells($cells, $data);
     }
 }

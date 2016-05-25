@@ -520,6 +520,7 @@ window.onbeforeunload = function (e) {
 };
 
 function additemtoreceipt(menu_id, ids, pre_cnt, price, csr, app_title, extratitle, dbtitle){
+    log("menu_id " + menu_id + " ids: " + ids + " quantity: " + pre_cnt + " price: " + price + " csr_action: " + csr + " apptitle: " + app_title + " extratitle: " + extratitle + " dbtitle: " + dbtitle);
     $('#list' + ids).remove();
     $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
     $('#list' + ids).html('<td class="receipt_image" valign="top" style="width:50px !important;">' +

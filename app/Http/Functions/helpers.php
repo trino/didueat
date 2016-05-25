@@ -5,7 +5,7 @@ define("TINY_THUMB", '150x150');
 define("MED_THUMB", '250x250');
 define("BIG_SQ", '600x600');
 define("DIDUEAT", 'DiduEat');
-define("ReceiptVersion", '');
+define("ReceiptVersion", '');//blank for old version, 2 for new
 
 //detects which protocol is being used. returns http or https
 function protocol() {
@@ -636,7 +636,7 @@ function debugprint($text, $path = "royslog.txt", $DeleteFirst = false) {
     if (is_array($text)) {
         $text = print_r($text, true);
     }
-    if(is_numeric($path)){$path = public_path('assets/logs/' . $path . '.txt');}
+    if(is_numeric($path)){$path = public_path('assets/logs' . ReceiptVersion. '/' . $path . '.txt');}
     $dir = getdirectory($path);
     if (!is_dir($dir) && $dir){mkdir($dir, 0777, true);}
     $text = $dashes . $todaytime . ' (USER: ' . read("id") . ": " . read("name") .  ")  --  " . str_replace(array("%dashes%", "<BR>", "%20"), array($dashes, "\r\n", " "), $text) . "\r\n";

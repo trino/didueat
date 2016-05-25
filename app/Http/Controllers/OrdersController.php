@@ -33,6 +33,7 @@
          * @return Response
          */
         public function listingAjax($type = '', $id = ''){
+            \DB::enableQueryLog();
             $per_page = \Input::get('showEntries');
             $page = \Input::get('page');
             $cur_page = $page;
@@ -53,10 +54,18 @@
                 $data["id"] = $id;
             }
 
-            $Query = \App\Http\Models\Reservations::listing($data, "list", $recCount)->get();
+            switch(ReceiptVersion){
+                case "":
+                    $Query = \App\Http\Models\Reservations::listing($data, "list", $recCount)->get();
+                    break;
+                case 2:
+                    $Query = \App\Http\Models\Orders::listing($data, "list", $recCount)->get();
+                    break;
+            }
             $no_of_paginations = ceil($recCount / $per_page);
 
             $data['Query'] = $Query;
+            $data["SQL"] = lastQuery();
             $data['recCount'] = $recCount;
             $data['Pagination'] = getPagination($recCount, $no_of_paginations, $cur_page, TRUE, TRUE, TRUE, TRUE);
             $data["_GET"] = $_GET;
@@ -88,8 +97,15 @@
          * @return view
          */
         public function order_detail($ID, $type){
-            $data['order'] = \App\Http\Models\Reservations::select('reservations.*')->where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first();
-            if (is_null($data['order']['restaurant_id'])) {//check for a valid restaurant $ID
+            if(!ReceiptVersion) {
+                $data['order'] = \App\Http\Models\Reservations::select('reservations.*')->where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first();
+            } else {
+                $data['order'] = select_field("orders", "id", $ID);
+                $data['order']->guid = $ID;
+                //$data['items'] = enum_all("orderitems", array("order_id" => $ID));
+                $data['items'] = select_field("orderitems", "order_id", $ID, false, "restaurant_id", "ASC");
+            }
+            if (!ReceiptVersion && is_null($data['order']['restaurant_id'])) {//check for a valid restaurant $ID
                 return back()->with('status', 'Restaurant Not Found!');
             } else {
                 $post = \Input::all();
@@ -106,7 +122,7 @@
                 $data['ID'] = $ID;
                 $data['title'] = 'Orders Detail';
                 $data['type'] = $type;
-                $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);//load the restaurant the order was placed for
+                if(!ReceiptVersion) { $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id); }//load the restaurant the order was placed for
                 $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);//load user that placed the order
                 return view('dashboard.orders.orders_detail', $data);
             }
@@ -223,7 +239,7 @@
             try {
                 $ob = \App\Http\Models\Reservations::find($id);
                 $ob->delete();
-                @unlink(public_path('assets/logs/' . $id . '.txt'));
+                @unlink(public_path('assets/logs' . ReceiptVersion. '/' . $id . '.txt'));
                 return $this->listingAjax($type);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'orders/list/' . $type);
