@@ -1,5 +1,6 @@
 total_items = 0;
 var allowbypassminumum = false;
+var order_id = 0;
 
 //change the quantity of an item
 //id: id of the item

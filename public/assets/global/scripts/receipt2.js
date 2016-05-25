@@ -1,5 +1,6 @@
 var total_items = 0;
 var checkingout = false;
+var allowbypassminumum = false;
 
 $( document ).ready(function() {
     log("Receipt system version 2 initialized");
@@ -124,6 +125,53 @@ function updatequantity(menuitem_id){
 
 
 //legacy code required to run
+
+//show the checkout form, if the cart has met the minimum requirements
+function checkout() {
+    var minimum_delivery = $('#minimum_delivery').val();
+    var noitems = $('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00';
+    var subtotal =  Number($('#subtotal1').val());
+
+    if(Number($('#subtotal1').val()) == 0){
+        if(!debugmode){
+            alert('Please make a menu selection before checking out!');
+            return false;
+        }
+    } else if(subtotal < Number(minimum_delivery)) {
+        if (allowbypassminumum) {
+            if (confirm('Minimum delivery fee not met! If you accept the additional charges, your subtotal would be $' + minimum_delivery)) {
+                $('.subtotal').val(minimum_delivery);
+                $('.subtotal').text(minimum_delivery);
+                delivery('show');
+            } else {
+                return false;
+            }
+        } else if(debugmode) {
+            if (!confirm("Minimum delivery fee not met! Bypass anyway? (DEBUG MODE)")){ return false; }
+        } else {
+            alert("Subtotal must be $"+minimum_delivery+" for delivery!");
+            return false;
+        }
+    }
+
+    if (noitems && !debugmode) {
+        alert('No items yet');
+    } else {
+        if(noitems){
+            alert('No items yet, but bypassing for debug mode');
+        }
+        $('.profiles').fadeIn("slow");
+        scrolltocheckout();
+        $('#checkoutModal').modal('show');
+    }
+}
+
+//scroll down to the receipt
+function scrolltocheckout(){
+    $('html, body').animate({
+        scrollTop: $("#cartsz").offset().top
+    }, 1000);
+}
 
 function calctip(Subtotal, Tax, DeliveryFee){
     if(Subtotal==0){return 0;}

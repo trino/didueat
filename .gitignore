@@ -86,4 +86,4 @@ resources/views/restaurants-menus2.blade.php
 config/app.php
 *.xml
 public/assets/global/scripts/dump.js
-public/assets/logs/*
+public/assets/logs*/*

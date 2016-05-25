@@ -66,8 +66,14 @@ class Orders extends BaseModel {
             'ordered_by' => read("name"),
             'user_id' => read("id")
         ))->id;
-        debugprint("Order started", $ID);
+        debugprint("Order started", $ID, true);
         return $ID;
+    }
+
+    public static function finalizeorder($post){
+        $post["status"] = "pending";
+        update_database("orders", "id", $post["order_id"], $post);
+        debugprint("Order finalized", $post["order_id"]);
     }
 
     //must return an array for json_encode

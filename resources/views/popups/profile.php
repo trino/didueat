@@ -129,6 +129,8 @@
                 type: 'post',
                 url: "{{ url('user/ajax_register') }}",
                 data: datas + '&' + order_data,
+                order_id: order_id,
+                _token: token,
                 success: function (msg) {
                     if (msg == '0') {
                         $('.top-cart-content ').html('<span class="thankyou">Thank You.</span>');

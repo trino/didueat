@@ -302,6 +302,8 @@ class UsersController extends Controller
                 $res['order_till'] = $post['order_till'];
                 $res["remarks"] = $post["remarks"];
                 $res["tip"] = $post["tip"];
+                $res['ordered_by'] = $post['ordered_by'];
+                $post["email"] = read("email");
 
                 if($res['order_type'] == 0) {
                     $res["status"] = "approved";
@@ -351,29 +353,25 @@ class UsersController extends Controller
                     }
                 }
 
-                $ob2 = new \App\Http\Models\Reservations();
-                $ob2->populate($res, "guid");
-                $ob2->save();
-                $oid = $ob2->id;
-
-                debugprint("Order placed", $oid, true);
-
-                $res['ordered_by'] = $post['ordered_by'];
-                $res1 = \App\Http\Models\Reservations::find($oid);
-                $res1->populate($res);
-                $res1->save();
-
-                event(new \App\Events\AppEvents($res, "Order Created"));
-                if ($res1->user_id) {
-                    $u2 = \App\Http\Models\Profiles::find($res1->user_id);
-                    $userArray3 = $u2->toArray();
+                if(!ReceiptVersion) {
+                    $ob2 = new \App\Http\Models\Reservations();
+                    $ob2->populate($res, "guid");
+                    $ob2->save();
+                    $oid = $ob2->id;
+                    $guid = $ob2->guid;
                 } else {
-                    $userArray3["name"] = $post["ordered_by"];
-                    $userArray3["email"] = $post["email"];
+                    $res['restaurant_id'] = 0;
+                    $oid = \App\Http\Models\Orders::finalizeorder($res);
+                    $guid = $oid;
                 }
 
+                debugprint("Order placed", $oid, !ReceiptVersion);
+
+                event(new \App\Events\AppEvents($res, "Order Created"));
+                $userArray3["name"] = $post["ordered_by"];
+                $userArray3["email"] = $post["email"];
                 $userArray3['mail_subject'] = 'Your ' . DIDUEAT . ' order has been received!';
-                $userArray3["guid"] = $ob2->guid;
+                $userArray3["guid"] = $guid;
                 $userArray3["orderid"] = $oid;
                 $userArray3["profile_type"] = "user";
 
@@ -381,12 +379,12 @@ class UsersController extends Controller
 
                 $userArray3["profile_type"] = "restaurant";
                 $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to ' . DIDUEAT . ' for more details. Thank you.';
-                $ret = app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt");
+                $ret = app('App\Http\Controllers\OrdersController')->notifystore($res['restaurant_id'], $userArray3['mail_subject'], $userArray3, "emails.receipt");
 
                 //CC
                 if ($post['payment_type'] == 'cc') {
                     if (isset($post["stripeToken"]) && $post["stripeToken"]) {
-                        if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total'])) {
+                        if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $guid, $post['g_total'])) {
                             
                             if ((!isset($post["cardid"]) || !$post["cardid"]) && isset($post["savecard"]) && $post["savecard"]) {
                                 $creditinfo = array();
