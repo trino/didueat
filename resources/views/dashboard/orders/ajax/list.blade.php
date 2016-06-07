@@ -108,16 +108,21 @@
                 <tbody>
 
                     @foreach($Query as $value)
-                    <?php
-                        if(ReceiptVersion == ""){
-                            $resto = DB::table('restaurants')->select('name', 'slug')->where('id', '=', $value->restaurant_id)->get();
-                        } else {
-                            $value->guid = $value->id;
-                        }
-                    ?>
+                        <?php
+                            $URL = url('orders/order_detail/' . $value->id . '/' . $type);
+                            if(ReceiptVersion == ""){
+                                $resto = DB::table('restaurants')->select('name', 'slug')->where('id', '=', $value->restaurant_id)->get();
+                            } else {
+                                $value->guid = $value->id;
+                                if($value->status == "incomplete"){//get the slug of the first restaurant from the order
+                                    $restaurant_id = select_field("orderitems", "order_id", $value->id, "restaurant_id");
+                                    $URL = url("restaurants/" . getslug($restaurant_id)  . "/menu") . "?orderid=" . $value->id;
+                                }
+                            }
+                        ?>
                         <tr id="order{{ $value->id }}">
                             <td align="center">
-                                <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" title="{{ $alts["order_detail"] }}" class="btn {{ statuscolor($value->status) }} btn-sm" style="width:100%">
+                                <a href="{{ $URL }}" title="{{ $alts["order_detail"] }}" class="btn {{ statuscolor($value->status) }} btn-sm" style="width:100%">
                                     {{ $value->guid }}
                                 </a>
                             </td>

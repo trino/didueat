@@ -9,6 +9,7 @@
     </thead>
     <TBODY>
         <?php
+            if(!isset($ordering)){$ordering = false;}
             if(ReceiptVersion == 2 && isset($order)){ ?>
                 @include("common.receipt2")
             <?php } else {

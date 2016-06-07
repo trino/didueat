@@ -27,47 +27,49 @@
     $delivery_fee = 5;//per restaurant
     $tax = 13;
 
-    function totals($subtotal, $tip = 0, $tax = 0, $delivery_fee = 0, $message = ""){
+    function totals($subtotal, $tip = 0, $tax = 0, $delivery_fee = 0, $message = "", $ordering = false){
         $total = $subtotal + $tip;
         if($tax){
             $total = $subtotal * ( 1 + ($tax * 0.01) ) + $delivery_fee;
         }
+        if(!$ordering){
         ?>
-        @if($tax)
+            @if($tax)
+                <tr>
+                    <td colspan="2" width="75%"><strong>Subtotal {{ $message }}</strong></td>
+                    <td width="25%"><div class="pull-right subtotal inlineblock">{{ asmoney($subtotal) }}</div></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><strong>Tax (<span id="tax inlineblock">{{ $tax }}</span>%)</strong></td>
+                    <td><div class="pull-right"><span class="tax inlineblock">{{ asmoney($subtotal * $tax * 0.01) }}</span></div></td>
+                </tr>
+            @endif
+            @if($delivery_fee)
+                <tr>
+                    <td colspan="2"><strong>Delivery</strong></td>
+                    <td><div class="pull-right"><span class="df">{{ asmoney( $delivery_fee ) }}</span></div></td>
+                </tr>
+            @endif
+            @if($tip)
+                <TR><TD COLSPAN="3"><HR></TD></TR>
+                <tr>
+                    <td colspan="2"><strong>Tip</strong></td>
+                    <td class="pull-right"><span>{{ asmoney( $tip ) }}</span></td>
+                </tr>
+            @endif
             <tr>
-                <td colspan="2" width="75%"><strong>Subtotal {{ $message }}</strong></td>
-                <td width="25%"><div class="pull-right subtotal inlineblock">{{ asmoney($subtotal) }}</div></td>
+                <td colspan="2"><strong>Total {{ $message }}</strong></td>
+                <td><div class="grandtotal inlineblock pull-right">{{ asmoney($total) }}</div></td>
             </tr>
-            <tr>
-                <td colspan="2"><strong>Tax (<span id="tax inlineblock">{{ $tax }}</span>%)</strong></td>
-                <td><div class="pull-right"><span class="tax inlineblock">{{ asmoney($subtotal * $tax * 0.01) }}</span></div></td>
-            </tr>
-        @endif
-        @if($delivery_fee)
-            <tr>
-                <td colspan="2"><strong>Delivery</strong></td>
-                <td><div class="pull-right"><span class="df">{{ asmoney( $delivery_fee ) }}</span></div></td>
-            </tr>
-        @endif
-        @if($tip)
-            <TR><TD COLSPAN="3"><HR></TD></TR>
-            <tr>
-                <td colspan="2"><strong>Tip</strong></td>
-                <td class="pull-right"><span>{{ asmoney( $tip ) }}</span></td>
-            </tr>
-        @endif
-        <tr>
-            <td colspan="2"><strong>Total {{ $message }}</strong></td>
-            <td><div class="grandtotal inlineblock pull-right">{{ asmoney($total) }}</div></td>
-        </tr>
-        <?php
+            <?php
+        }
         return $total;
     }
 ?>
 
 <?php
     foreach($items as $item){
-        if($item->restaurant_id != $curr_rest){
+        if($item->restaurant_id != $curr_rest && !$ordering){
             if(isset($restaurant) && $curr_rest_subtotal){
                 $total += totals($curr_rest_subtotal,  0, $tax, $delivery_fee," for " . $restaurant->name);
                 echo '<TR><TD COLSPAN="3"><HR></TD></TR>';
@@ -78,11 +80,15 @@
             echo '<TR class="border_bottom"><TD COLSPAN="3">' . $restaurant->name . '<BR>';
             echo $restaurant->address . ', ' . $restaurant->city . " " . $restaurant->province . '</TD></TR>';
         }
-        echo '<TR><TD>' . $item->quantity . '</TD><TD>' . $item->title;
-        echo '</TD><TD class="pull-right">' . asmoney($item->price) . '</TD></TR>';
+        if($ordering){
+            echo view("receipt.menuitem", array("menuitem_id" => $item->id, "title" => $item->title, "price" => $item->price, "quantity" => $item->quantity));
+        } else {
+            echo '<TR><TD>' . $item->quantity . '</TD><TD>' . $item->title;
+            echo '</TD><TD class="pull-right">' . asmoney($item->price) . '</TD></TR>';
+        }
         $curr_rest_subtotal += $item->price;
     }
-    $total += totals($curr_rest_subtotal, 0, $tax, $delivery_fee, " for " . $restaurant->name);
+    $total += totals($curr_rest_subtotal, 0, $tax, $delivery_fee, " for " . $restaurant->name, $ordering);
     $order->subtotal = $curr_rest_subtotal;
     $order->tax = $tax;
     $order->delivery_fee = $delivery_fee;

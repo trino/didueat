@@ -13,6 +13,6 @@
             ?>
         </SELECT>
     </TD>
-    <TD class="innerst" width="60%">{{ $title }}</TD>
+    <TD class="innerst" width="60%">{!! $title !!}</TD>
     <TD valign="top" class="total">{{ asmoney($price * $quantity) }}</TD>
 </TR>

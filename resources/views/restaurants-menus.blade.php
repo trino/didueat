@@ -5,8 +5,14 @@
     @include("popups.rating")
 
     <?php
-        $orderid = 0;
-        if(ReceiptVersion){$orderid = \App\Http\Models\Orders::newid();}
+        $orderID = 0;
+        if(ReceiptVersion){
+            $orderID = \App\Http\Models\Orders::newid();
+            if(isset($_GET["orderid"])){
+                $order = select_field("orders", "id", $orderID);
+                $items = enum_all("orderitems", "order_id=" . $orderID);
+            }
+        }
         $checkout_modal = false;
         $menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
 
@@ -104,7 +110,7 @@
 
 
                 <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
-                    @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))
+                    @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal, "ordering" => true))
                 </div>
 
                 <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
@@ -155,7 +161,7 @@
 
     <script type="text/javascript">
         var checkout_modal = "{{ $checkout_modal }}";
-        var order_id = "{{ $orderid }}";
+        var order_id = "{{ $orderID }}";
         console.log("Order ID " + order_id);
 
         function addresschange(where) {

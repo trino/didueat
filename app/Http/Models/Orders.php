@@ -62,12 +62,17 @@ class Orders extends BaseModel {
 
     //\App\Http\Models\Orders::newid();
     public static function newid(){
-        $ID = self::makenew(array(
-            'status' => 'incomplete',
-            'ordered_by' => read("name"),
-            'user_id' => read("id")
-        ))->id;
-        debugprint("Order started", $ID, true);
+        if(isset($_GET["orderid"])){
+            $ID = $_GET["orderid"];
+            debugprint("Order resumed", $ID);
+        } else {
+            $ID = self::makenew(array(
+                'status' => 'incomplete',
+                'ordered_by' => read("name"),
+                'user_id' => read("id")
+            ))->id;
+            debugprint("Order started", $ID, true);
+        }
         return $ID;
     }
 
