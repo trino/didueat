@@ -6,9 +6,11 @@
             printfile($profile_type . " views/emails/receipt.blade.php<BR>Email: " . $email);
             if(ReceiptVersion == '2'){
                 $order = select_field("orders", "id", $orderid);
+                $guid = $orderid;
                 $restaurant = firstrest($orderid);
             } else {
                 $order = select_field("reservations", "id", $orderid);
+                $guid = $order->guid;
                 $restaurant = select_field("restaurants", "id", $order->restaurant_id);
             }
             $user_detail = select_field("profiles", "id", $order->user_id);
@@ -20,8 +22,8 @@
 
         <h3 style="margin-left:10px">Please indicate whether you Accept or Decline this order:  <span style="color:#FF0000">(Is this needed. What if user doesn't check email) ANSWER: Yes, it's for the store</span>
             <div style="margin-left:10px">
-                <a href="{{ url("/orders/list/approve/email/" . $email . "/" . $order->guid) }}">Accept</a>&nbsp; &nbsp;
-                <a href="{{ url("/orders/list/cancel/email/" . $email . "/" . $order->guid) }}">Decline</a>
+                <a href="{{ url("/orders/list/approve/email/" . $email . "/" . $guid) }}">Accept</a>&nbsp; &nbsp;
+                <a href="{{ url("/orders/list/cancel/email/" . $email . "/" . $guid) }}">Decline</a>
             </div>
         </h3-->
         <TABLE WIDTH="100%">

@@ -5,6 +5,7 @@
             $Data["Notes"] = $order->remarks;
         }
         //$Data = array("Status" => $order->status);
+        if(!isset($order->guid)){$order->guid = $order->id;}
         $Data['Order #'] = $order->guid;
 
         if(!isset($type)){$type = "user";}

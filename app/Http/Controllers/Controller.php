@@ -30,7 +30,7 @@ abstract class Controller extends BaseController {
                 $this->sendEMail($template_name, $array);
             }
         } else if($array['email']) {
-            try {
+            try {//queue send later
                 \Mail::send($template_name, $array, function ($messages) use ($array) {
                     $messages->to($array['email'])->subject($array['mail_subject']);
                 });

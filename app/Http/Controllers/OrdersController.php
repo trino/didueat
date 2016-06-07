@@ -327,7 +327,7 @@
                     }
                 }
             }
-            if (!$ret["total"] && $Emails) {//emergency fallback email
+            if (!$ret["total"] && $Emails && $RestaurantID) {//emergency fallback email
                 $restaurant = \App\Http\Models\Restaurants::find($RestaurantID);
                 $EmailParameters['name'] = $restaurant->name;
                 $EmailParameters['email'] = $restaurant->email;

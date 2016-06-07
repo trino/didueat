@@ -56,7 +56,7 @@ class Orders extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total');
+        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total', 'guid');
         $this->copycells($cells, $data);
     }
 
@@ -86,6 +86,7 @@ class Orders extends BaseModel {
                 unset($post[$key]);
             }
         }
+        $post['guid'] = $orderid;
         update_database("orders", "id", $orderid, $post);
         debugprint("Order finalized", $orderid);
         return $orderid;
