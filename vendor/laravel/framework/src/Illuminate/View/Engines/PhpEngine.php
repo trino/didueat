@@ -63,7 +63,7 @@ class PhpEngine implements EngineInterface
             ob_end_clean();
         }
         @ob_flush();
-        popup(false, handleexception($e), "View error", "", "padding-left: 0px !important; padding-right: 0");
+        popup(false, handleexception($e, false, false), "View error", "", "padding-left: 0px !important; padding-right: 0");
         //throw $e;
     }
 }

@@ -26,7 +26,8 @@
             "restaurants/menu" => "View the restaurant",
             "deleteorder" => "Delete this order",
             "available" => "Mark yourself as available for the next 8 hours",
-            "unavailable" => "Mark yourself as unavailable"
+            "unavailable" => "Mark yourself as unavailable",
+            "resume" => "Resume placing this order"
     );
 
     if($type == "driver"){
@@ -110,13 +111,14 @@
                     @foreach($Query as $value)
                         <?php
                             $URL = url('orders/order_detail/' . $value->id . '/' . $type);
+                            $ResumeURL="";
                             if(ReceiptVersion == ""){
                                 $resto = DB::table('restaurants')->select('name', 'slug')->where('id', '=', $value->restaurant_id)->get();
                             } else {
                                 $value->guid = $value->id;
                                 if($value->status == "incomplete"){//get the slug of the first restaurant from the order
                                     $restaurant_id = select_field("orderitems", "order_id", $value->id, "restaurant_id");
-                                    $URL = url("restaurants/" . getslug($restaurant_id)  . "/menu") . "?orderid=" . $value->id;
+                                    $ResumeURL = url("restaurants/" . getslug($restaurant_id)  . "/menu") . "?orderid=" . $value->id;
                                 }
                             }
                         ?>
@@ -217,6 +219,9 @@
                                 @if($type == "admin" )
                                     <!--a class="btn btn-secondary-outline btn-sm pull-right" title="{{ $alts["notifyone"] }}"
                                        ONCLICK="notifystore(event, {{ $value->id}});">Notify</a-->
+                                @endif
+                                @if($value->status == "incomplete")
+                                    <a class="btn btn-secondary-outline btn-sm pull-right" title="{{ $alts["resume"] }}" HREF="{{ $ResumeURL }});">Resume</a>
                                 @endif
                             </td>
                         </tr>

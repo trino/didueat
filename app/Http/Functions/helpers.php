@@ -250,16 +250,19 @@ function fontawesome($profiletype, $icontype = 0) {
 }
 
 //unified error handling
-function handleexception($e, $isSQL = false) {
+function handleexception($e, $isSQL = false, $showfile = true) {
     if ($isSQL) {
         $Message = "An SQL error occurred. Please try again. \r\n /r/n SQL:" . $e->getSql();
     } else {
         $Message = $e->getMessage();
         if (debugmode()) {
-            $Message .= "<BR>File " . $e->getFile() . " Line " . $e->getLine();
+            $Message .= "<BR>";
+            if($showfile){$Message .= "File " . $e->getFile() . " ";}
+            $Message .= "Line " . $e->getLine();
             debugprint($Message . "\r\n Trace " . $e->getTraceAsString());
         }
     }
+    if(!$showfile){return '<SMALL>' . $Message . '</SMALL>';}
     return $Message;
 }
 
@@ -1965,4 +1968,11 @@ function striptag($HTML, $Tag) {
     return preg_replace('#<' . $Tag . '(.*?)>(.*?)</' . $Tag . '>#is', '', $HTML);
 }
 
+
+function firstrest($items){
+    foreach($items as $item){
+        $menuitem = select_field("menus", "id", $item->parent_id);
+        return select_field("restaurants", "id", $menuitem->restaurant_id);
+    }
+}
 ?>

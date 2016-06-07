@@ -55,6 +55,8 @@
             $title = "Closed, but bypassing because: " . $reason;
             $checkout .= " (" . $reason . ")";
         }
+    } else if(!isset($restaurant)){
+        $restaurant = firstrest($items); //get first restaurant in the order
     }
     $alts = array(
             "cart-items" => "Number of items in your cart",

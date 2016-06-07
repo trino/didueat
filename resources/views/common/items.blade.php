@@ -10,9 +10,10 @@
     <TBODY>
         <?php
             if(!isset($ordering)){$ordering = false;}
-            if(ReceiptVersion == 2 && isset($order)){ ?>
-                @include("common.receipt2")
-            <?php } else {
+            if(ReceiptVersion == 2 && isset($order)){
+                ?> @include("common.receipt2") <?php
+                if(!isset($restaurant)){$restaurant = firstrest($items); } //get first restaurant in the order
+            } else {
                 $alts = array(
                         "csr" => "What to do if something is wrong with the order"
                 );
