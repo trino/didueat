@@ -376,9 +376,9 @@
 
                                         @if($canedit || $value->uploaded_by ==read("id"))
                                             @if(debugmode())
-                                                <span style="color:#FF0000" class="debugdata">
+                                                <div style="color:#FF0000" class="debugdata btn-group pull-left">
                                                     parent{{ $value->cat_id . '_' . $value->display_order . " ID: " . $value->id . ', ' . $value->cat_id . ', ' . $value->display_order . ', "down", ' . $catMenuCnt . ", " . $index }}
-                                                </span>
+                                                </div>
                                             @endif
 
                                             <DIV CLASS="clearfix"></DIV>

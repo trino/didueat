@@ -20,6 +20,9 @@
     if (!isset($profile)) {
         $profile = false;
     }
+    if(!isset($ordering)){
+        $ordering=false;
+    }
     if(!isset($showCSR)){
         $showCSR = false;
     }
@@ -32,6 +35,7 @@
 
     $checkout = "Checkout";
     $is_my_restro = false;
+    $title = "";
     if(!ReceiptVersion) {
         $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
 
@@ -42,7 +46,6 @@
             }
         }
 
-        $title = "";
         if(!$business_day || !$restaurant->open){
             $reason = "";
             if(Session::get('session_type_user') == "super"){
@@ -57,6 +60,10 @@
         }
     } else if(!isset($restaurant)){
         $restaurant = firstrest($items); //get first restaurant in the order
+        $business_day=true;
+        if(debugmode()){
+            $checkout .= " (v2)";
+        }
     }
     $alts = array(
             "cart-items" => "Number of items in your cart",
@@ -192,7 +199,7 @@
                     </table>
                 </div>
 
-                @if(!isset($order))
+                @if(!isset($order) || $ordering)
                     <div class="form-group" style="margin-bottom: 0 !important;">
                         @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
                             <a href="javascript:void(0)" id="checkout-btn" class="btn btn-secondary btn-block" onclick="checkout();" TITLE="{{ $title }}">{{ $checkout }}</a>

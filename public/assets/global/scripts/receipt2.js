@@ -1,6 +1,7 @@
 var total_items = 0;
 var checkingout = false;
 var allowbypassminumum = false;
+var needsminimum = false;
 
 $( document ).ready(function() {
     log("Receipt system version 2 initialized. Order ID: " + order_id);
@@ -137,7 +138,7 @@ function checkout() {
             alert('Please make a menu selection before checking out!');
             return false;
         }
-    } else if(subtotal < Number(minimum_delivery)) {
+    } else if(subtotal < Number(minimum_delivery) && needsminimum) {
         if (allowbypassminumum) {
             if (confirm('Minimum delivery fee not met! If you accept the additional charges, your subtotal would be $' + minimum_delivery)) {
                 $('.subtotal').val(minimum_delivery);

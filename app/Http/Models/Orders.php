@@ -56,7 +56,7 @@ class Orders extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip');
+        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total');
         $this->copycells($cells, $data);
     }
 
@@ -77,7 +77,7 @@ class Orders extends BaseModel {
     }
 
     public static function finalizeorder($post){
-        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip');
+        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total');
         $post = array_filter($post);
         $post["status"] = "pending";
         $orderid = $post["order_id"];
@@ -86,10 +86,7 @@ class Orders extends BaseModel {
                 unset($post[$key]);
             }
         }
-        var_dump( update_database("orders", "id", $orderid, $post) ) ;
-        var_dump( select_field("orders", "id", $orderid) );
-
-        die();
+        update_database("orders", "id", $orderid, $post);
         debugprint("Order finalized", $orderid);
         return $orderid;
     }

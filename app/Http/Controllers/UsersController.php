@@ -303,6 +303,7 @@ class UsersController extends Controller
                     $res['csr'] = implode(',', $post['csr']);
                     $res['restaurant_id'] = $post['res_id'];
                 }
+                if(!isset($post["tip"])){$post["tip"] = "0.00";}
 
                 $res['order_till'] = $post['order_till'];
                 $res["remarks"] = $post["remarks"];
@@ -354,7 +355,6 @@ class UsersController extends Controller
                         $uid = $this->registeruser("Users@ajax_register", $post, 2, 0);
                         $res['user_id'] = $uid->id;
                         $msg = "78";
-
                     }
                 }
 
@@ -384,7 +384,10 @@ class UsersController extends Controller
 
                 $userArray3["profile_type"] = "restaurant";
                 $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to ' . DIDUEAT . ' for more details. Thank you.';
-                $ret = app('App\Http\Controllers\OrdersController')->notifystore($res['restaurant_id'], $userArray3['mail_subject'], $userArray3, "emails.receipt");
+                if(ReceiptVersion == '2'){
+                    $res['restaurant_id'] = 0;
+                }
+                app('App\Http\Controllers\OrdersController')->notifystore($res['restaurant_id'], $userArray3['mail_subject'], $userArray3, "emails.receipt");
 
                 //CC
                 if ($post['payment_type'] == 'cc') {

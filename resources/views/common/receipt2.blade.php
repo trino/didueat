@@ -12,6 +12,9 @@
 <?php
     printfile("views/common/receipt2.blade.php");
     $restaurants = array();
+    if(!isset($items)){
+        $items = select_field("orderitems", "order_id", $order->id, false);
+    }
     foreach($items as $item){
         $menuitem = select_field("menus", "id", $item->parent_id);
         if(!isset($restaurants[ $menuitem->restaurant_id ])){

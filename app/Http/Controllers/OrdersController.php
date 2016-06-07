@@ -302,7 +302,7 @@
             $CallMessage = str_replace(array(DIDUEAT), array("did you eat"), strtolower($Message));
             //if(($OnlyVan || $IncludeVan) && islive()){$this->sendSMS("van", $Message, strtolower($IncludeVan) == "call");}
             $ret = array("email" => array(), "sms" => array(), "call" => array(), "total" => 0, "ret");
-            //if(!$OnlyVan) {
+            if(!$OnlyVan) {
                 $NotificationAddresses = \DB::select('SELECT * FROM notification_addresses LEFT JOIN profiles ON notification_addresses.user_id=profiles.id WHERE profiles.restaurant_id = ' . $RestaurantID);
                 foreach ($NotificationAddresses as $NotificationAddress) {
                     if ($NotificationAddress->address) {
@@ -326,7 +326,7 @@
                         $ret["total"] = $ret["total"] + 1;
                     }
                 }
-            //}
+            }
             if (!$ret["total"] && $Emails) {//emergency fallback email
                 $restaurant = \App\Http\Models\Restaurants::find($RestaurantID);
                 $EmailParameters['name'] = $restaurant->name;

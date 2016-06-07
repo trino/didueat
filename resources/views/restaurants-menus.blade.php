@@ -365,7 +365,7 @@
                                 window.location = "{{url('orders/list/user?flash=2')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                             } else {
-                                log("$('#profiles').submit(function (e)");
+                                log("$('#profiles').submit in restaurants-menus.blade.php: " + msg);
                                 msg = jQuery(msg).text().trim();
                                 if(msg) {
                                     alert(jQuery(msg).text(), "$('#profiles').submit(function (e) {");

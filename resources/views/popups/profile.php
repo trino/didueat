@@ -131,6 +131,7 @@
                 url: "{{ url('user/ajax_register') }}",
                 data: more_data,
                 success: function (msg) {
+                    log("Submit: " + msg);
                     if (msg == '0') {
                         $('.top-cart-content ').html('<span class="thankyou">Thank You.</span>');
                     } else if (msg == '1') {

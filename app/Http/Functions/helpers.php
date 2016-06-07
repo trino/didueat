@@ -23,11 +23,7 @@ function protocol() {
 //returns a value in money format ($0.00)
 //if $free && $value == 0: returns the word "Free"
 function asmoney($value, $free = false) {
-    if ($free) {
-        if ($value == '0') {
-            return "Free";
-        }
-    }
+    if ($free && $value == '0') {return "Free";}
     return "$" . number_format($value, 2);
 }
 
@@ -235,17 +231,8 @@ function fontawesome($profiletype, $icontype = 0) {
                 case 4:
                     $icon = "user";
                     break;//employee
-
-                    if (strlen($phone) == 10) {
-                        if ($qualifyareacode) {
-                            if (!qualifyareacode($phone)) {
-                                return "";
-                            }
-                        }
-                        return $phone;
-                    }
             }
-
+        break;
     }
 }
 
@@ -1970,6 +1957,9 @@ function striptag($HTML, $Tag) {
 
 
 function firstrest($items){
+    if(is_numeric($items)){
+        $items = select_field("orderitems", "order_id", $items, false);
+    }
     foreach($items as $item){
         $menuitem = select_field("menus", "id", $item->parent_id);
         return select_field("restaurants", "id", $menuitem->restaurant_id);
