@@ -32,29 +32,30 @@
 
     $checkout = "Checkout";
     $is_my_restro = false;
-    $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
+    if(!ReceiptVersion) {
+        $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
 
-    if(read("restaurant_id")){
-        $is_my_restro = $restaurant->id == read("restaurant_id");
-        if(!$is_my_restro && !debugmode() && Session::get('session_type_user') != "super"){
-            $business_day = false;
+        if(read("restaurant_id")){
+            $is_my_restro = $restaurant->id == read("restaurant_id");
+            if(!$is_my_restro && !debugmode() && Session::get('session_type_user') != "super"){
+                $business_day = false;
+            }
+        }
+
+        $title = "";
+        if(!$business_day || !$restaurant->open){
+            $reason = "";
+            if(Session::get('session_type_user') == "super"){
+                $reason = "SUPER";
+            } else if(debugmode()){
+                $reason = "DEBUG MODE";
+            } else if ($is_my_restro) {
+                $reason = "OWNER";
+            }
+            $title = "Closed, but bypassing because: " . $reason;
+            $checkout .= " (" . $reason . ")";
         }
     }
-
-    $title = "";
-    if(!$business_day || !$restaurant->open){
-        $reason = "";
-        if(Session::get('session_type_user') == "super"){
-            $reason = "SUPER";
-        } else if(debugmode()){
-            $reason = "DEBUG MODE";
-        } else if ($is_my_restro) {
-            $reason = "OWNER";
-        }
-        $title = "Closed, but bypassing because: " . $reason;
-        $checkout .= " (" . $reason . ")";
-    }
-
     $alts = array(
             "cart-items" => "Number of items in your cart",
             "cart-total" => "Total cost of your cart",

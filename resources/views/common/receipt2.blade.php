@@ -16,6 +16,9 @@
         $menuitem = select_field("menus", "id", $item->parent_id);
         if(!isset($restaurants[ $menuitem->restaurant_id ])){
             $restaurants[ $menuitem->restaurant_id ] = select_field("restaurants", "id", $menuitem->restaurant_id);
+            if(!isset($restaurant)){
+                $restaurant = $restaurants[ $menuitem->restaurant_id ];
+            }
         }
     }
     $curr_rest = 0;
@@ -80,5 +83,10 @@
         $curr_rest_subtotal += $item->price;
     }
     $total += totals($curr_rest_subtotal, 0, $tax, $delivery_fee, " for " . $restaurant->name);
+    $order->subtotal = $curr_rest_subtotal;
+    $order->tax = $tax;
+    $order->delivery_fee = $delivery_fee;
+    $restaurant->delivery_fee = $delivery_fee;
+    $order->g_total = $total;
     totals($total, $order->tip, 0,0, " for all restaurants");
 ?>

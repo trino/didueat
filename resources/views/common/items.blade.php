@@ -9,16 +9,9 @@
     </thead>
     <TBODY>
         <?php
-            if(ReceiptVersion == 2 && isset($order)){
-                echo view("common.receipt2", array(
-                        "order"         => $order,
-                        "items"         => $items,
-                        "ID"            => $ID,
-                        "title"         => $title,
-                        "type"          => $type,
-                        "user_detail"   => $user_detail
-                ));
-            } else {
+            if(ReceiptVersion == 2 && isset($order)){ ?>
+                @include("common.receipt2")
+            <?php } else {
                 $alts = array(
                         "csr" => "What to do if something is wrong with the order"
                 );
