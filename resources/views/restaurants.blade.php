@@ -200,7 +200,7 @@
 
                     <div class="col-lg-12">
                         <?php
-                            if($IncludeMenuBackup){
+                            if($IncludeMenuBackup && ReceiptVersion){
                                 printablereceipt(false, false, true, true, $__env, false, false);
                                 printscripts(true, $orderID, false, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
                             }

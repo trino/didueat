@@ -8,7 +8,7 @@
         <?php
     }
 
-function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS_Str, &$catNameStrJS){
+function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS_Str, &$catNameStrJS, $firstcat = true){
         $alts = array(
                 "product-pop-up" => "Product info",
                 "up_cat" => "Move Category up",
@@ -98,7 +98,7 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
 
         $catMenuCnt=0;
         $trueID = 0;
-        $firstcat = true;
+
         $thisCatCnt=0;
         $lastcategory = count($valueA) - 1;
         echo '<div id="accordion" role="tablist" aria-multiselectable="true">';
