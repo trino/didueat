@@ -173,7 +173,7 @@
                             <td colspan="2"><strong>Tip</strong></td>
                             <td class="pull-right">
                                 <?php
-                                    if(isset($order)){
+                                    if(isset($order) && !$ordering){
                                         echo '<SPAN>$' . $order->tip . '</SPAN>';
                                     } else {
                                         echo '<INPUT TYPE="HIDDEN" NAME="tip" ID="tip" VALUE="0.00" STEP="0.01" ONBLUR="tipchanged();">';//, "other" => "Other"
