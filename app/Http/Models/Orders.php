@@ -22,8 +22,15 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `postal_code` varchar(16) NOT NULL,
   `note` varchar(5000) NOT NULL,
   `tip` decimal(6,2) NOT NULL,
+  `latitude` double NOT NULL,
+  `longitude` double NOT NULL,
+  `subtotal` decimal(6,2) NOT NULL,
+  `tax` decimal(6,2) NOT NULL,
+  `delivery_fee` decimal(6,2) NOT NULL,
+  `g_total` decimal(6,2) NOT NULL,
+  `guid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `orderitems` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -36,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `orderitems` (
   `price` decimal(6,2) NOT NULL,
   `restaurant_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 ALTER TABLE `orders` ADD `latitude` DOUBLE NOT NULL , ADD `longitude` DOUBLE NOT NULL ;
 

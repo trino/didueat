@@ -198,7 +198,7 @@
                     </div>
 
 
-                    <div class="col-lg-4 hidden-md-down">
+                    <div class="col-lg-12">
                         <?php
                             if($IncludeMenuBackup){
                                 printablereceipt(false, false, true, true, $__env, false, false);

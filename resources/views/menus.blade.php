@@ -3,9 +3,7 @@
 
     function printablereceipt($restaurant, $is_my_restro, $business_day, $checkout_modal, $__env, $order, $items){
         ?>
-            <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
-                @include('common.receipt', array("restaurant" => $restaurant, "is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal, "ordering" => true, "__env" => $__env, "order" => $order, "items" => $items))
-            </div>
+            @include('common.receipt', array("restaurant" => $restaurant, "is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal, "ordering" => true, "__env" => $__env, "order" => $order, "items" => $items))
             <DIV ID="popupholder"></DIV>
         <?php
     }

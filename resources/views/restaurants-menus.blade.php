@@ -100,10 +100,12 @@
                     </div>
 
 
+                <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
                 <?php
                     if(!isset($order)){$order = false;}
                     printablereceipt($restaurant, $is_my_restro, $business_day, $checkout_modal, $__env, $order, $items);
                 ?>
+                </div>
 
                 <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">

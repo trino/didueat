@@ -5,7 +5,7 @@ define("TINY_THUMB", '150x150');
 define("MED_THUMB", '250x250');
 define("BIG_SQ", '600x600');
 define("DIDUEAT", 'DiduEat');
-define("ReceiptVersion", '');//blank for old version, 2 for new
+define("ReceiptVersion", '');//blank for old version, 2 for new and inline
 
 //detects which protocol is being used. returns http or https
 function protocol() {
@@ -1960,9 +1960,11 @@ function firstrest($items){
     if(is_numeric($items)){
         $items = select_field("orderitems", "order_id", $items, false);
     }
-    foreach($items as $item){
-        $menuitem = select_field("menus", "id", $item->parent_id);
-        return select_field("restaurants", "id", $menuitem->restaurant_id);
+    if(is_iterable($items)) {
+        foreach ($items as $item) {
+            $menuitem = select_field("menus", "id", $item->parent_id);
+            return select_field("restaurants", "id", $menuitem->restaurant_id);
+        }
     }
 }
 ?>
