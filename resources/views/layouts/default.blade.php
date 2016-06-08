@@ -74,8 +74,6 @@
 
     <!--script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}"></script-->
 
-    <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
-    <script src="{{ asset('assets/global/scripts/receipt' . ReceiptVersion . '.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>

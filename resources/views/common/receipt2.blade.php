@@ -69,8 +69,6 @@
         $delivery_fee = 5;//per restaurant
         $tax = 13;
 
-        debugprint("GOT HERE 3");
-
         foreach($items as $item){
             if($item->restaurant_id != $curr_rest && !$ordering){
                 if(isset($restaurant) && $curr_rest_subtotal){
