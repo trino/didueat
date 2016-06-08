@@ -1,5 +1,5 @@
 <?php
-    $IncludeMenu = true;
+    if(!isset($IncludeMenu)){ $IncludeMenu = ReceiptVersion; }
     if($IncludeMenu){
         ?> @include('menus') <?php
     }
@@ -65,7 +65,7 @@
                 $is_open = \App\Http\Models\Restaurants::getbusinessday($value);
                 echo '<div class="card">' . view("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "is_menu" => isset($is_menu)));
                 if($IncludeMenu){
-                    //printmenu($__env, $value, $catid, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
+                    printmenu($__env, array_to_object($value), $catid, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
                 }
                 echo '</div>';
                 if ($is_open) {

@@ -10,37 +10,6 @@
         <?php
     }
 
-   $slug = "";
-   if(isset( $restaurant->slug )){
-       $slug =  $restaurant->slug;
-   }
-?>
-<script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
-<script src="{{ asset('assets/global/scripts/receipt' . ReceiptVersion . '.js') }}"></script>
-
-<script>
-    var catPosn = [];
-    var itemPosn = [];
-    var restSlug = "{{ $slug }}";
-</script>
-<style>
-    .image {
-        position: relative;
-        max-width: 100% !important; /* for IE 6 */
-    }
-
-    .fronttext {
-        position: absolute;
-        top: 0px;
-        left: 0;
-    }
-
-    .panel-heading {
-        cursor: pointer;
-    }
-</style>
-
-<?php
 function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS_Str, &$catNameStrJS){
         $alts = array(
                 "product-pop-up" => "Product info",
@@ -58,6 +27,7 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
         $cats=[];
         $catsOrder=[];
         $catCnt=0;
+
         $category = \App\Http\Models\Category::where('res_id',$restaurant->id)->orderBy('display_order','ASC')->get();// all cats for resto in display_order
         foreach ($category as $cat) {
             $cats[$catCnt]=$cat->id;
@@ -495,8 +465,37 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
 
 
 function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS){
+    $slug = "";
+    if(isset( $restaurant->slug )){
+        $slug =  $restaurant->slug;
+    }
 ?>
+<script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
+<script src="{{ asset('assets/global/scripts/receipt' . ReceiptVersion . '.js') }}"></script>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script src="{{ asset('assets/global/scripts/stripe.js') }}"></script>
 
+<script>
+    var catPosn = [];
+    var itemPosn = [];
+    var restSlug = "{{ $slug }}";
+</script>
+<style>
+    .image {
+        position: relative;
+        max-width: 100% !important; /* for IE 6 */
+    }
+
+    .fronttext {
+        position: absolute;
+        top: 0px;
+        left: 0;
+    }
+
+    .panel-heading {
+        cursor: pointer;
+    }
+</style>
 <SCRIPT>
     <?php echo $itemPosnForJSStr;?>
 
@@ -631,23 +630,24 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
             }
 
             if (found) {
-                if(receiptversion){ return true;}
-                var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
-                if (distance > {{ $restaurant->max_delivery_distance }}) {
-                    var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km<BR>" + address + " is " + distance.toFixed(2) + " km away.";
-                    @if(debugmode())
-                        if (where == "addresscheck") {
-                        return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
+                @if(!ReceiptVersion)
+                    var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
+                    if (distance > {{ $restaurant->max_delivery_distance }}) {
+                        var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km<BR>" + address + " is " + distance.toFixed(2) + " km away.";
+                        @if(debugmode())
+                            if (where == "addresscheck") {
+                            return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
+                        }
+                        @endif
+                        alert(message);
+                        return false;
+                    } else if (debugmode) {
+                        alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
                     }
-                    @endif
-                    alert(message);
-                    return false;
-                } else if (debugmode) {
-                    alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
-                }
-                if(element) {
-                    element.trigger("click");
-                }
+                    if(element) {
+                        element.trigger("click");
+                    }
+                @endif
                 return true;
             } else if (where == "addresscheck") {
                 alert("No Address Specified");

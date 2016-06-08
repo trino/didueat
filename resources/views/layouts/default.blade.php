@@ -78,11 +78,6 @@
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
 
-    @if(isset($paymentpg))
-        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-        <script src="{{ asset('assets/global/scripts/stripe.js') }}"></script>
-    @endif
-
     @if (debugmode())
         <style>
             .container-fluid {

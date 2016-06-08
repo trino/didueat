@@ -1,4 +1,14 @@
 <?php
+    $IncludeMenu = true;
+
+
+    if($IncludeMenu){
+        $orderID = \App\Http\Models\Orders::newid();
+        $itemPosnForJSStr="";
+        $catIDforJS_Str="";
+        $catNameStrJS="";
+    }
+    $IncludeMenuBackup = $IncludeMenu;
     $first = false;
     $type = "hidden";
     //$localIPTst = $_SERVER['REMOTE_ADDR'];
@@ -44,7 +54,9 @@
             "signup" => "Sign up as a restaurant owner"
     );
 ?>
-
+@if($IncludeMenu)
+    @include('menus')
+@endif
 
 @extends('layouts.default')
 @section('content')
@@ -93,7 +105,7 @@
 
             <div class="" id="results_show" style="display: none;">
                 <div class="col-lg-8 m-b-2">
-                    <?php popup(true, "message:nostores", false, false, ''); ?>
+                    <?php popup(true, "message:nostores", false, false, ''); $IncludeMenu = false; ?>
                     @include('ajax.search_restaurants')
                 </div>
                 <div class="col-lg-4" ID="filter-results">
@@ -175,8 +187,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-xs-right">
-                            <div class="">     <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary-outline"
-                                   value="Reset"/>
+                            <div class="">     <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary-outline" value="Reset"/>
                             <input type="button" name="search" class="btn btn-primary" value="Filter"
                                    id="search-form-submit"
                                    onclick="submitform(event, 0, 'search onclick');"/>
@@ -188,6 +199,12 @@
 
 
                     <div class="col-lg-4 hidden-md-down">
+                        <?php
+                            if($IncludeMenuBackup){
+                                printablereceipt(false, false, true, true, $__env, false, false);
+                                printscripts(true, $orderID, false, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
+                            }
+                        ?>
                         <br><br><br><br><br><br><br><br><br><br><br><br>
                     </div>
 

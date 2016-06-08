@@ -60,11 +60,14 @@
             $title = "Closed, but bypassing because: " . $reason;
             $checkout .= " (" . $reason . ")";
         }
-    } else if(!isset($restaurant)){
-        $restaurant = firstrest($items); //get first restaurant in the order
-        $business_day=true;
-        if(debugmode()){
-            $checkout .= " (v2)";
+    } else {
+        if($restaurant === false){ unset($restaurant);}
+        if(!isset($restaurant)){
+            $restaurant = firstrest($items); //get first restaurant in the order
+            $business_day=true;
+            if(debugmode()){
+                $checkout .= " (v2)";
+            }
         }
     }
     $alts = array(
@@ -166,14 +169,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <!--tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df2">
-                            <td><strong>Minimum</strong></td>
-                            <td>
-                                <div class="pull-right ">
-                                    <span class="df">${{ number_format($restaurant->minimum,2) }}</span>
-                                </div>
-                            </td>
-                        </tr-->
                         <tr>
                             <td colspan="2"><strong>Tip</strong></td>
                             <td class="pull-right">
@@ -203,7 +198,7 @@
 
                 @if(!isset($order) || $ordering)
                     <div class="form-group" style="margin-bottom: 0 !important;">
-                        @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
+                        @if($is_my_restro || !isset($restaurant->open) || ($business_day && $restaurant->open) || debugmode())
                             <a href="javascript:void(0)" id="checkout-btn" class="btn btn-secondary btn-block" onclick="checkout();" TITLE="{{ $title }}">{{ $checkout }}</a>
                         @elseif($business_day && !$restaurant->open)
                             <a class="btn btn-primary btn-lg btn-block" title="{{ $alts["call"] }}" href="tel:{{ $restaurant->phone }}"><!--i class="fa fa-phone fa-2x"></i-->Call: {{ phonenumber($restaurant->phone, true) }}</a>
