@@ -9,6 +9,11 @@
             <DIV ID="popupholder"></DIV>
         <?php
     }
+
+   $slug = "";
+   if(isset( $restaurant->slug )){
+       $slug =  $restaurant->slug;
+   }
 ?>
 <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
 <script src="{{ asset('assets/global/scripts/receipt' . ReceiptVersion . '.js') }}"></script>
@@ -16,7 +21,7 @@
 <script>
     var catPosn = [];
     var itemPosn = [];
-    var restSlug = "{{ $restaurant->slug }}";
+    var restSlug = "{{ $slug }}";
 </script>
 <style>
     .image {

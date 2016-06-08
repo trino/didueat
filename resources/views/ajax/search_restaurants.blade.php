@@ -1,91 +1,102 @@
 <?php
-function offsettime($time, $hours = 0)
-{
-    if ($hours) {
-        $time = explode(":", $time);
-        $time[0] = $time[0] + $hours;
-        if ($time[0] < 0) {
-            $time[0] += 24;
-        }
-        if ($time[0] > 23) {
-            $time[0] -= 24;
-        }
-        $time = implode(":", $time);
+    $IncludeMenu = true;
+    if($IncludeMenu){
+        ?> @include('menus') <?php
     }
-    return $time;
-}
 
-if (isset($data)) {
-    if (debugmode()) {
-        echo "Debugging here: ";
-        var_dump($data);
-    }
-    foreach ($data as $key => $value) {
-        $$key = $value;
-        $_POST[$key] = $value;
-    }
-}
-
-$server_gmt = date('Z') / 3600;
-$user_gmt = \Session::get('session_gmt', $server_gmt);
-$difference = $server_gmt - $user_gmt;
-$server_time = date('H:i:s');
-$user_time = $server_time;
-if (!isset($sql)) {
-    $sql = "MISSING SQL";
-}
-printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
-if (is_object($count)) {
-    echo "Count should not be an object!!!";
-    return;
-}
-
-echo '<div id="restuarant_bar">';
-
-$totalCnt = 0;
-$openCnt = 0;
-$closedCnt = 0;
-$openStr = "";
-$closedStr = "";
-
-if (isset($query) && $count > 0 && is_iterable($query)) {
-    $restaurants = array();
-    foreach ($query as $value) {
-        if (!isset($restaurants[$value["id"]])) {
-            $restaurants[$value["id"]] = true;
-            $is_open = \App\Http\Models\Restaurants::getbusinessday($value);
-            echo '<div class="card">' . view("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "is_menu" => isset($is_menu))) . '</div>';
-            if ($is_open) {
-                //$openStr .= $thisrestaurant;
-                $openCnt++;
-            } else {
-                //$closedStr .= $thisrestaurant;
-                $closedCnt++;
+    function offsettime($time, $hours = 0) {
+        if ($hours) {
+            $time = explode(":", $time);
+            $time[0] = $time[0] + $hours;
+            if ($time[0] < 0) {
+                $time[0] += 24;
             }
-            $totalCnt++;
+            if ($time[0] > 23) {
+                $time[0] -= 24;
+            }
+            $time = implode(":", $time);
+        }
+        return $time;
+    }
+
+    if (isset($data)) {
+        if (debugmode()) {
+            echo "Debugging here: ";
+            var_dump($data);
+        }
+        foreach ($data as $key => $value) {
+            $$key = $value;
+            $_POST[$key] = $value;
         }
     }
-}
 
-//the SQL should already be sorted, or it'll be out of order when you click "load more"
-//if ($openStr) {echo '<div class="open-stores">' . $openStr . '</div>';}
-//if ($closedStr) {echo '<div class="closed-stores">' . $closedStr . '</div>';}
+    $server_gmt = date('Z') / 3600;
+    $user_gmt = \Session::get('session_gmt', $server_gmt);
+    $difference = $server_gmt - $user_gmt;
+    $server_time = date('H:i:s');
+    $user_time = $server_time;
+    if (!isset($sql)) {
+        $sql = "MISSING SQL";
+    }
+    printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
+    if (is_object($count)) {
+        echo "Count should not be an object!!!";
+        return;
+    }
 
-$alts = array(
-        "loadmore" => "Load more restaurants",
-        "loading" => "Loading..."
-);
+    echo '<div id="restuarant_bar">';
 
-echo '</div>';
-$totalCnt = $count;
+    $totalCnt = 0;
+    $openCnt = 0;
+    $closedCnt = 0;
+    $openStr = "";
+    $closedStr = "";
+
+    $itemPosnForJSStr="";
+    $catIDforJS_Str="";
+    $catNameStrJS="";
+    if(!isset($catid)){$catid=0;}
+
+    if (isset($query) && $count > 0 && is_iterable($query)) {
+        $restaurants = array();
+        foreach ($query as $value) {
+            if (!isset($restaurants[$value["id"]])) {
+                $restaurants[$value["id"]] = true;
+                $is_open = \App\Http\Models\Restaurants::getbusinessday($value);
+                echo '<div class="card">' . view("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "is_menu" => isset($is_menu)));
+                if($IncludeMenu){
+                    //printmenu($__env, $value, $catid, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
+                }
+                echo '</div>';
+                if ($is_open) {
+                    //$openStr .= $thisrestaurant;
+                    $openCnt++;
+                } else {
+                    //$closedStr .= $thisrestaurant;
+                    $closedCnt++;
+                }
+                $totalCnt++;
+            }
+        }
+    }
+
+
+    $alts = array(
+            "loadmore" => "Load more restaurants",
+            "loading" => "Loading..."
+    );
+
+    echo '</div>';
+    $totalCnt = $count;
 ?>
 
 @if(isset($data["start"]) && $data["start"] < 20)
     <script>
-                <?= "var totalCnt = " . $data["count"] . ";
-         var openCnt = " . $openCnt . ";
-         var closedCnt = " . $closedCnt . ";";
-                ?>
+        <?=
+            "var totalCnt = " . $data["count"] . ";
+             var openCnt = " . $openCnt . ";
+             var closedCnt = " . $closedCnt . ";";
+        ?>
         var openCntMsg = "";
         var closedCntMsg = "";
         var spBR = "";
@@ -117,12 +128,10 @@ $totalCnt = $count;
                         class="loadMoreRestaurants btn btn-success btn-block btn-lg"
                         title="{{ $alts["loadmore"] }}">Load More
                 </button>
-                <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"
-                     alt="{{ $alts["loading"] }}"/>
+                <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" alt="{{ $alts["loading"] }}"/>
             </div>
         </div>
     @endif
     <input type="hidden" id="countTotalResult" value="{{ $count }}"/>
 </div>
-<img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"
-     alt="{{ $alts["loading"] }}"/>
+<img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;" alt="{{ $alts["loading"] }}"/>
