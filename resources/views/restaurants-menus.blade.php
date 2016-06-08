@@ -7,13 +7,17 @@
     <?php
         $orderID = 0;
         $items=false;
+        $order=false;
         if(ReceiptVersion){
-            $orderID = \App\Http\Models\Orders::newid();
             if(isset($_GET["orderid"])){
+                $orderID = $_GET["orderid"];
                 $order = select_field("orders", "id", $orderID);
                 $items = enum_all("orderitems", "order_id=" . $orderID);
+            } else {
+                $orderID = \App\Http\Models\Orders::newid();
             }
         }
+
         $checkout_modal = false;
         $menu_id = iif($restaurant->franchise > 0, $restaurant->franchise, $restaurant->id);
 
@@ -112,7 +116,10 @@
                     </div>
 
 
-                <?php printablereceipt($is_my_restro, $business_day, $checkout_modal, $__env, $order, $items); ?>
+                <?php
+                if(!isset($order)){$order = false;}
+                printablereceipt($restaurant, $is_my_restro, $business_day, $checkout_modal, $__env, $order, $items);
+                ?>
 
                 <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">

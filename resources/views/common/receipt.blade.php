@@ -7,12 +7,14 @@
     if(isset($email_msg)){
         $em = 1;
     }
-    if (isset($order)) {
+    if (isset($order) && is_object($order)) {
         if ($order->order_type) {
             $ordertype = "Delivery";
         } else {
             $ordertype = "Pickup";
         }
+    }else {
+        unset($order);
     }
     if(isset($_GET["delivery_type"])){
         $ordertype = $_GET["delivery_type"];

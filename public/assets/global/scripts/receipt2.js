@@ -179,6 +179,9 @@ function calctip(Subtotal, Tax, DeliveryFee){
     var tiptype = $("#tip_percent").val();
     Tax = parseFloat(Subtotal * 0.13);
     var total = Number(Subtotal) + Number(Tax.toFixed(2));
+
+    //alert("TOTAL: " + total);
+
     if (tiptype == "other"){
         var tipvalue = parseFloat($("#tip").val());
     } else {
