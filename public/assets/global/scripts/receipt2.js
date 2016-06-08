@@ -40,14 +40,11 @@ function additemtoreceipt(menu_id, ids, quantity, price, csr_action, app_title, 
         extratitle: extratitle,
         dbtitle: dbtitle
     }, function (result) {
-
-        result = JSON.parse(result);
+        result = calculatetotal(result);
         if(!isundefined(result.HTML)) {
             result.HTML = decode(result.HTML);
             $(".orders").prepend(result.HTML);
         }
-
-        calculatetotal(result);
     });
     //update cart: additemtoreceipt 3722 _3722_4665_4673 1 40.97 2
     //apptitle:    <b>Beef Mixed Vegetables</b> <br/>Select Drink:  Coke(+$1) x(2) <br/>Appetizers:  Spring Roll (2 pcs)(+$4)
@@ -57,7 +54,8 @@ function additemtoreceipt(menu_id, ids, quantity, price, csr_action, app_title, 
 }
 
 function calculatetotal(result){
-    //log(simpleStringify(result));
+    result = JSON.parse(result);
+    log(result);
     var subtotal = result.subtotal.toFixed(2);
     $(".subtotal").text("$" + subtotal);
     $('input.subtotal').val(subtotal);
@@ -81,6 +79,7 @@ function calculatetotal(result){
     $('#cart-total').text(gtotal);
 
     updatecart("calculatetotal");
+    return result;
 }
 
 function decode(input){
@@ -179,9 +178,6 @@ function calctip(Subtotal, Tax, DeliveryFee){
     var tiptype = $("#tip_percent").val();
     Tax = parseFloat(Subtotal * 0.13);
     var total = Number(Subtotal) + Number(Tax.toFixed(2));
-
-    //alert("TOTAL: " + total);
-
     if (tiptype == "other"){
         var tipvalue = parseFloat($("#tip").val());
     } else {
@@ -189,6 +185,7 @@ function calctip(Subtotal, Tax, DeliveryFee){
         tipvalue = tipvalue.toFixed(2);
         $("#tip").val(tipvalue);
     }
+    if(isNaN(tipvalue)){tipvalue = parseFloat(0);}
     console.log("Tip: " + tipvalue);
     return parseFloat(Number(total) + Number(tipvalue) + Number(DeliveryFee));
 }
