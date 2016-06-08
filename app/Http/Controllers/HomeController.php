@@ -443,8 +443,6 @@ class HomeController extends Controller {
 
         $res_id = iif( $res_slug->franchise > 0, $res_slug->franchise, $res_slug->id);
 
-        $category = \App\Http\Models\Category::where('res_id',$res_id)->orderBy('display_order','ASC')->get();// all cats for resto in display_order
-        $data['category'] = $category;
         $data['title'] = $res_slug->name;
         $data['keyword'] = $res_slug->name.','.$res_slug->cuisine.' Cuisine'.','.$res_slug->phone.','.$res_slug->formatted_address.',Didueat,didueat.ca,Online food,Online food order,Canada online food';
         while(strpos($data['keyword'], ",,") !== false ) {

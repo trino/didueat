@@ -81,28 +81,12 @@
                         @endif
 
                         <?php
-                            $cats=[];
-                            $catsOrder=[];
-                            $catCnt=0;
-                            foreach ($category as $cat) {
-                                $cats[$catCnt]=$cat->id;
-                                $catsOrder[$catCnt]=$cat->display_order;
-                                $catCnt++;
-                            }
-
-                            if(read('restaurant_id') == $restaurant->id || read("profiletype") != 2) {//is yours, doesnt need to be active
-                               $menus_list = App\Http\Models\Menus::where('restaurant_id', $menu_id)->where('parent', '0')->whereIn('cat_id', $cats)->orderBy('cat_id', 'ASC')->orderBy('display_order', 'ASC')->get();
-                            } else{//is not yours, needs to be active
-                               $menus_list = App\Http\Models\Menus::where('restaurant_id', $menu_id)->where('parent', '0')->whereIn('cat_id', $cats)->where('is_active', 1)->orderBy('display_order', 'ASC')->get();
-                            }
-
-                        if(count($menus_list)){
                             $itemPosnForJSStr="";
                             $catIDforJS_Str="";
                             $catNameStrJS="";
                             if(!isset($catid)){$catid=0;}
-                            printmenu($__env, $restaurant, $menus_list, $catid, $cats, $catsOrder, $catCnt, $alts, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
-                        } ?>
+                            printmenu($__env, $restaurant, $catid, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
+                        ?>
 
                         @if($allowedtoupload && $menu_id == $restaurant->id)
                                 <a href="#" id="add_item0" type="button"
@@ -117,8 +101,8 @@
 
 
                 <?php
-                if(!isset($order)){$order = false;}
-                printablereceipt($restaurant, $is_my_restro, $business_day, $checkout_modal, $__env, $order, $items);
+                    if(!isset($order)){$order = false;}
+                    printablereceipt($restaurant, $is_my_restro, $business_day, $checkout_modal, $__env, $order, $items);
                 ?>
 
                 <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">

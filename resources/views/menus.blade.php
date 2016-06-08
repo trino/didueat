@@ -36,19 +36,35 @@
 </style>
 
 <?php
-function printmenu($__env, $restaurant, $menus_list, $catid, $cats, $catsOrder, $catCnt, $alts, &$itemPosnForJSStr, &$catIDforJS_Str, &$catNameStrJS){
-    $alts = array(
-            "product-pop-up" => "Product info",
-            "up_cat" => "Move Category up",
-            "down_cat" => "Move Category down",
-            "up_parent" => "Move this up",
-            "down_parent" => "Move this down",
-            "deleteMenu" => "Delete this item",
-            "edititem" => "Edit this item",
-            "editcat" => "Edit this category",
-            "deletecat" => "Delete this category",
-            "duplicate" => "Duplicate this item or category"
-    );
+function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS_Str, &$catNameStrJS){
+        $alts = array(
+                "product-pop-up" => "Product info",
+                "up_cat" => "Move Category up",
+                "down_cat" => "Move Category down",
+                "up_parent" => "Move this up",
+                "down_parent" => "Move this down",
+                "deleteMenu" => "Delete this item",
+                "edititem" => "Edit this item",
+                "editcat" => "Edit this category",
+                "deletecat" => "Delete this category",
+                "duplicate" => "Duplicate this item or category"
+        );
+
+        $cats=[];
+        $catsOrder=[];
+        $catCnt=0;
+        $category = \App\Http\Models\Category::where('res_id',$restaurant->id)->orderBy('display_order','ASC')->get();// all cats for resto in display_order
+        foreach ($category as $cat) {
+            $cats[$catCnt]=$cat->id;
+            $catsOrder[$catCnt]=$cat->display_order;
+            $catCnt++;
+        }
+
+        if(read('restaurant_id') == $restaurant->id || read("profiletype") != 2) {//is yours, doesnt need to be active
+            $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->orderBy('cat_id', 'ASC')->orderBy('display_order', 'ASC')->get();
+        } else{//is not yours, needs to be active
+            $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->where('is_active', 1)->orderBy('display_order', 'ASC')->get();
+        }
 
         $menuTSv = "?i=";
         $menuTS = read('menuTS');

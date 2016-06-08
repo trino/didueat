@@ -55,7 +55,7 @@ function additemtoreceipt(menu_id, ids, quantity, price, csr_action, app_title, 
 
 function calculatetotal(result){
     result = JSON.parse(result);
-    log(result);
+    //log(result);
     var subtotal = result.subtotal.toFixed(2);
     $(".subtotal").text("$" + subtotal);
     $('input.subtotal').val(subtotal);
