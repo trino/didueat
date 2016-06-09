@@ -1,9 +1,19 @@
 <?php
     $IncludeMenu = true;
 
-
     if($IncludeMenu){
-        $orderID = \App\Http\Models\Orders::newid();
+        $orderID = 0;
+        $items=false;
+        $order=false;
+        if(ReceiptVersion){
+            if(isset($_GET["orderid"])){
+                $orderID = $_GET["orderid"];
+                $order = select_field("orders", "id", $orderID);
+                $items = enum_all("orderitems", "order_id=" . $orderID);
+            } else {
+                $orderID = \App\Http\Models\Orders::newid();
+            }
+        }
         $itemPosnForJSStr="";
         $catIDforJS_Str="";
         $catNameStrJS="";
@@ -201,7 +211,7 @@
                     <div class="col-lg-12">
                         <?php
                             if($IncludeMenuBackup && ReceiptVersion){
-                                printablereceipt(false, false, true, true, $__env, false, false);
+                                printablereceipt(false, false, true, true, $__env, $order, $items);
                                 printscripts(true, $orderID, false, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
                             }
                         ?>
