@@ -273,10 +273,13 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
             ?>
 
                     <a href="#" id="{{ $value->id }}" name="{{ $value->id }}"
-                            data-res-id="{{ $value->restaurant_id }}"
                             title="{{ $alts["product-pop-up"] }}"
                             class="card-link" data-toggle="modal"
-                            data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
+                            @if(!ReceiptVersion)
+                            data-res-id="{{ $value->restaurant_id }}"
+                            data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
+                            @endif
+                    >
 
                         <div id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
                             <!-- start of menu item -->
@@ -567,8 +570,14 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
             }, function (result) {
                 overlay_loader_hide();
                 $( "#popupholder" ).append( result );
-                $(temptarget).trigger("click");
+                if(ReceiptVersion) {
+                    $("#product-pop-up_" + ID).modal("show");
+                } else {
+                    $(temptarget).trigger("click");
+                }
             });
+        } else if (ReceiptVersion) {
+            $("#product-pop-up_" + ID).modal("show");
         }
     }
 
