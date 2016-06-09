@@ -85,7 +85,7 @@
                             $catIDforJS_Str="";
                             $catNameStrJS="";
                             if(!isset($catid)){$catid=0;}
-                            printmenu($__env, $restaurant, $catid, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS, false);
+                            printmenu($__env, $restaurant, $catid, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
                         ?>
 
                         @if($allowedtoupload && $menu_id == $restaurant->id)

@@ -98,13 +98,14 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
 
         $catMenuCnt=0;
         $trueID = 0;
+        $isBeingIncluded = ReceiptVersion && !$firstcat;
 
         $thisCatCnt=0;
         $lastcategory = count($valueA) - 1;
         echo '<div id="accordion" role="tablist" aria-multiselectable="true">';
         foreach($valueA as $index => $category){
             $last = count($category) - 1;
-            printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt, $lastcategory,$catNameStr, debugmode());
+            printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt, $lastcategory,$catNameStr, $isBeingIncluded);
             $firstcat = false;
             $thisCatCnt++;
             $catMenuCnt++;
@@ -146,13 +147,13 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
                 $GLOBALS["debug"] = $text;
             }
         }
-        function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $debugmode){
+
+        function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $isBeingIncluded){
             $halfway = ceil(count($category) * 0.5);
             foreach($category as $index => $value){
                 $isfirst = $index == 0;
                 $islast = $index == $last;
-                $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr, $halfway, $debugmode);
-
+                $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr, $halfway, $isBeingIncluded);
             }
         }
 
@@ -160,9 +161,14 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
             return $number % 2 == 0;
         }
 
-        function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $halfway, $debugmode){
+        function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $halfway, $isBeingIncluded){
             $noUpCatSort = false;
             $canedit=read("profiletype") == 1 || read("restaurant_id") == $restaurant->id;
+            if($isBeingIncluded){
+                $canedit=false;
+                $thisCatCnt=$value->id;
+                $catindex=$value->id;
+            }
             $thisUpMenuVisib = "visible";
             $thisDownMenuVisib = iif($islast, "hidden", "visible");
             $has_iconImage = false;
@@ -570,13 +576,13 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
             }, function (result) {
                 overlay_loader_hide();
                 $( "#popupholder" ).append( result );
-                if(ReceiptVersion) {
+                if(receiptversion) {
                     $("#product-pop-up_" + ID).modal("show");
                 } else {
                     $(temptarget).trigger("click");
                 }
             });
-        } else if (ReceiptVersion) {
+        } else if (receiptversion) {
             $("#product-pop-up_" + ID).modal("show");
         }
     }
