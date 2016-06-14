@@ -107,7 +107,8 @@ function updatequantity(menuitem_id){
         if(quantity == 0){
             $("#menuitem_" + menuitem_id).fadeOut(500);
         }
-        calculatetotal(result);
+        result = calculatetotal(result);
+        $("#totalitem_" + result.menuitem_id).text(result.itemmoney);
     });
 }
 

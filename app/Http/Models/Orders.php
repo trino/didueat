@@ -113,6 +113,8 @@ class Orders extends BaseModel {
             case "changequantity":
                 if($post["quantity"]) {
                     update_database("orderitems", "id", $post["menuitem_id"], array("quantity" => $post["quantity"]));
+                    $post["itemtotal"] = first("SELECT SUM(price * quantity) FROM orderitems WHERE id = " . $post["menuitem_id"])[0];
+                    $post["itemmoney"] = asmoney($post["itemtotal"]);
                 } else {
                     delete_all("orderitems", array("id" => $post["menuitem_id"]));
                 }
