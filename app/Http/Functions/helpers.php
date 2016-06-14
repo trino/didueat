@@ -1631,7 +1631,7 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $T
             if ($Color) {
                 $html .= 'color: ' . $Color . ';';
             }
-            $html .= '" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ';
+            $html .= '" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" onclick="return false;" data-reviews-detail="Total Reviews: ';
             $html .= $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount';
             $html .= $target_id . '">Reviews (' . $count_rating . ')</a></SPAN>';
         }
@@ -1849,7 +1849,7 @@ function popup($Success, $Message, $Title = "", $ID = "", $Margin = false) {
         }
     }
     if ($Success == "card") {
-        echo '<div class="bg-success text-xs-center m-b-1" style="padding: .9rem;border: 0 !important;">' . $Message . '</div>';
+        echo '<div class="bg-success text-xs-center m-b-1" style="padding: .9rem;border: 0 !important; display:none;">' . $Message . '</div>';
     } else {
         if (!$Success || $Success === "danger") {
             $Success = "danger";
