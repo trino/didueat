@@ -63,9 +63,10 @@
             if (!isset($restaurants[$value["id"]])) {
                 $restaurants[$value["id"]] = true;
                 $is_open = \App\Http\Models\Restaurants::getbusinessday($value);
-                echo '<div class="card">' . view("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "is_menu" => isset($is_menu)));
+                echo '<div class="card" id="card-rest-' . $value["id"] . '">';
+                echo view("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "IncludeMenu" => $IncludeMenu, "is_menu" => isset($is_menu)));
                 if($IncludeMenu){
-                    printmenu($__env, array_to_object($value), $catid, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS, false);
+                    //printmenu($__env, array_to_object($value), $catid, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS, false);
                 }
                 echo '</div>';
                 if ($is_open) {

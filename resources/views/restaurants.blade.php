@@ -462,5 +462,14 @@
         p.addEventListener("input", function () {
             $("#radius").trigger("change");
         }, false);
+
+        function loadmenu(RestaurantID){
+            if(!$("#menu-rest-" + RestaurantID).length) {
+                $.post("{{ url('ajax') }}", {token: token, type: "loadmenu", RestaurantID: RestaurantID}, function (result) {
+                    result = '<DIV ID="#menu-rest-' + RestaurantID + '">' + result + '</DIV>';
+                    $("#card-rest-" + RestaurantID).append(result);
+                });
+            }
+        }
     </script>
 @stop
