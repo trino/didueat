@@ -212,7 +212,7 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="p-t-1 clearfix">
+                    <!--div class="p-t-1 clearfix">
                         <div class="col-md-4 btn text-muted" style="cursor: default;text-align: left;">
                             If issue arises?
                         </div>
@@ -227,7 +227,7 @@
                             </SELECT>
                         </div>
                         <div class=""></div>
-                    </div>
+                    </div-->
                 </div>
             </div>
             <div class="card-footer" style="border-radius: 0 !important;">

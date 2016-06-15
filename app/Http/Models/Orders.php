@@ -133,8 +133,14 @@ class Orders extends BaseModel {
             if(debugmode()){$post["POST"] = $post;}
             $post["HTML"] = "" . view($post["layout"], $post);
         }
-        $post["subtotal"] = first("SELECT SUM(price * quantity) FROM orderitems WHERE order_id = " . $post["order_id"])[0];
+
+        $Query = first("SELECT SUM(price * quantity), COUNT(restaurant_id) FROM orderitems WHERE order_id = " . $post["order_id"]);
+
+        $post["subtotal"] = $Query[0];
+        $post["restaurants"] = $Query[1];
+        $post["deliveryfee"] = $Query[1] * 5;
         if(!$post["subtotal"]){$post["subtotal"] = "0.00";}
+
         return $post;
     }
 

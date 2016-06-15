@@ -66,11 +66,15 @@ function calculatetotal(result){
     $('span.tax').text('$' + tax);
     $('input.tax').val(tax);
 
-    var del_fee = 0;
-    if ($('#delivery_flag').val() == '1' || true) {//only delivery
-        del_fee = $("#delivery_fee").val();
+    var del_fee = parseFloat(result.deliveryfee);
+    var restaurants = parseFloat(result.restaurants);
+    if(restaurants < 2){
+        restaurants = "";
+    } else {
+        restaurants = "(x" + restaurants + ") ";
     }
-    del_fee = parseFloat(del_fee);
+    $("#df").show();
+    $(".df").text(restaurants + "$" + del_fee.toFixed(2));
 
     var gtotal = calctip(Number(subtotal), Number(tax), Number(del_fee));
     gtotal = gtotal.toFixed(2);
