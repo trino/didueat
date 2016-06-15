@@ -302,6 +302,8 @@ class UsersController extends Controller
                     $res['menu_ids'] = implode(',', $post['menu_ids']);
                     $res['csr'] = implode(',', $post['csr']);
                     $res['restaurant_id'] = $post['res_id'];
+                } else {
+                    $res['csr_action'] = $post['csr_action'];
                 }
                 if(!isset($post["tip"])){$post["tip"] = "0.00";}
 

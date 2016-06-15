@@ -30,7 +30,6 @@ function additemtoreceipt(menu_id, ids, quantity, price, csr_action, app_title, 
         action: "additemtoreceipt",
         _token: token,
         order_id: order_id,
-
         parent_id: menu_id,
         id_list: ids,
         quantity: quantity,

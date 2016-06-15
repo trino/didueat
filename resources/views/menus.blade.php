@@ -701,10 +701,13 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
                 var token = $('#profiles input[name=_token]').val();
                 var datas = $('#profiles input, select, textarea').serialize();
                 var order_data = $('.receipt_main input').serialize();
+
+                var totaldata = datas + '&' + order_data + '&_token=' + token + '&order_id=' + order_id;
+
                 $.ajax({
                     type: 'post',
                     url: '<?php echo url(); ?>/user/ajax_register',
-                    data: datas + '&' + order_data + '&_token=' + token + '&order_id=' + order_id ,
+                    data: totaldata ,
                     success: function (msg) {
                         msg = msg.trim();
                         $('#chkOut').removeAttr('disabled');

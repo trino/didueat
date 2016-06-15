@@ -63,7 +63,7 @@ class Orders extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total', 'guid');
+        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total', 'guid', 'csr_action');
         $this->copycells($cells, $data);
     }
 
@@ -71,20 +71,25 @@ class Orders extends BaseModel {
     public static function newid(){
         if(isset($_GET["orderid"])){
             $ID = $_GET["orderid"];
-            debugprint("Order resumed", $ID);
-        } else {
-            $ID = self::makenew(array(
-                'status' => 'incomplete',
-                'ordered_by' => read("name"),
-                'user_id' => read("id")
-            ))->id;
-            debugprint("Order started", $ID, true);
+            $order = select_field("orders", "id", $ID);
+                debugprint("Order resumed", $ID);
+                return $ID;
+            } else {
+                unset($_GET["orderid"]);
+            }
         }
+
+        $ID = self::makenew(array(
+            'status' => 'incomplete',
+            'ordered_by' => read("name"),
+            'user_id' => read("id")
+        ))->id;
+        debugprint("Order started", $ID, true);
         return $ID;
     }
 
     public static function finalizeorder($post){
-        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total');
+        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total', 'csr_action');
         $post = array_filter($post);
         $post["status"] = "pending";
         $orderid = $post["order_id"];
@@ -164,7 +169,7 @@ class Orders extends BaseModel {
         $per_page = $array['per_page'];
         $start = $array['start'];
 
-        $SQL = "SELECT *, (SELECT count(*) FROM orderitems WHERE order_id = orders.id) as itemcount FROM `orders` HAVING itemcount > 0";
+        $SQL = "SELECT *, (SELECT count(*) FROM orderitems WHERE order_id = orders.id) as itemcount FROM `orders` HAVING itemcount > 0 ORDER BY id DESC";
         $query = select_query($SQL);
         $reccount = $query->rowCount();
 

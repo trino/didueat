@@ -61,7 +61,7 @@
             $checkout .= " (" . $reason . ")";
         }
     } else {
-        if($restaurant === false){ unset($restaurant);}
+        if(isset($restaurant) && $restaurant === false){ unset($restaurant);}
         if(!isset($restaurant)){
             $restaurant = firstrest($items); //get first restaurant in the order
             $business_day=true;

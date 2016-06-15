@@ -24,7 +24,8 @@
                                 }
                                 $alts = array(
                                         "login" => "Log in as an existing user",
-                                        "checkout" => "Send the order to the store"
+                                        "checkout" => "Send the order to the store",
+                                        "csr" => "What to do if something is wrong with the order"
                                 );
                             ?>
 
@@ -110,7 +111,19 @@
                                 </div>
                             </div>
 
-                                <?php debugprint("GOT HERE 9"); ?>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <SELECT style="padding:.375rem;width:100%;text-align: left;" name="csr_action" TITLE="{{ $alts["csr"] }}" CLASS="btn btn-secondary text-muted">
+                                        <?php
+                                            $Actions = array("Go with restaurant suggestion", "Contact me", "Refund this item", "Cancel entire order");
+                                            foreach ($Actions as $Index => $Action) {
+                                                echo '<OPTION VALUE="' . $Index . '">' . $Action . '</OPTION>';
+                                            }
+                                        ?>
+                                    </SELECT>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
 
                             <div class="col-xs-12">
                                 <div class="form-group">
@@ -142,7 +155,6 @@
                             </div>
                             <div class="clearfix"></div>
 
-                                <?php debugprint("GOT HERE 10"); ?>
                             <!--div class="col-xs-12 form-group text-xs-center p-a-0 m-t-1" style="color: red;font-size:90%;">
                                 Please review your order before proceeding!
                             </div-->

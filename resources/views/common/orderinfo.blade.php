@@ -30,6 +30,11 @@
 
         $Data["Customer"] = $order->ordered_by;
 
+        if (isset($order->csr_action)) {
+            $Actions = array("Go with merchant suggestion", "Refund this item", "Contact me", "Cancel entire order");
+            $Data["CSR Action"] = $Actions[$order->csr_action];
+        }
+
         if ($order->order_type == '1') {
             if(!isset($order->prov) || !$order->prov){$order->prov = "ON";}
             $Data['Address'] = $order->address2 . ', ' . $order->city. ' ' . $order->prov. ' ' . $order->postal_code;
