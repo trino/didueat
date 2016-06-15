@@ -1276,7 +1276,8 @@ function datename($date) {
 }
 
 //generate a dropdown of future order times
-function get_time_interval($Restaurant, $isDelivery = false) {
+function get_time_interval($Restaurant = false, $isDelivery = false) {
+    if (!$Restaurant){ return; }
     $period = 15;
     $mintime = 20;
     $date = roundToQuarterHour(time() + (60 * $mintime));

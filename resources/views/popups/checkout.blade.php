@@ -32,16 +32,14 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <span class="reserve_login">Please </span>
-                                        <a class="reserve_login" href="#" data-target="#loginModal" data-toggle="modal"
-                                           onclick="checkout_login();" title="{{ $alts["login"] }}">Log in</a>
+                                        <a class="reserve_login" href="#" data-target="#loginModal" data-toggle="modal" onclick="checkout_login();" title="{{ $alts["login"] }}">Log in</a>
                                         <span class="reserve_login">or Sign up below:</span>
                                     </div>
                                 </div>
                             @endif
 
                             <input type="hidden" name="_token" class="csrftoken" value="{{ csrf_token() }}"/>
-                            <input type="hidden" name="user_id" id="ordered_user_id"
-                                   value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
+                            <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
                             <input type="hidden" name="added_address" value="" class="added_address"/>
 
                             <div class="col-sm-12">
@@ -68,7 +66,6 @@
                                            value="{{ (isset($profile))? $profile->phone : '' }}" <?php if ((isset($profile))) echo "hidden";?> />
                                 </div>
                             </div>
-
 
                             <div class="col-sm-12" <?php if ((isset($profile))) echo "hidden";?>>
                                 <div class="form-group">
@@ -102,24 +99,23 @@
                                 </div>
                             </div>
 
-
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <select class="form-control not-required" name="order_till" id="ordered_on_time">
                                         <option value="">Order ASAP</option>
-                                        {{ get_time_interval($restaurant) }}
+                                        {{ get_time_interval(false) }}
                                     </select>
 
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
 
+                                <?php debugprint("GOT HERE 9"); ?>
+
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <textarea placeholder="Additional Notes" id="ordered_notes"
-                                              class="form-control resetme" name="remarks"></textarea>
-                                    <input type="hidden" name="vehicle_type" id=""
-                                           value="Car"/>
+                                    <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control resetme" name="remarks"></textarea>
+                                    <input type="hidden" name="vehicle_type" id="" value="Car"/>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -127,8 +123,7 @@
                             <div class="form-group">
                                 <div class="col-xs-4">
                                     <label class="radio-inline c-input c-radio">
-                                        <input type="radio" name="payment_type" checked="checked"
-                                               onclick="$('.CC').hide();" value="cash"/>
+                                        <input type="radio" name="payment_type" checked="checked" onclick="$('.CC').hide();" value="cash"/>
                                         <span class="c-indicator"></span>
                                         Cash
                                     </label>
@@ -147,19 +142,19 @@
                             </div>
                             <div class="clearfix"></div>
 
+                                <?php debugprint("GOT HERE 10"); ?>
+                            <!--div class="col-xs-12 form-group text-xs-center p-a-0 m-t-1" style="color: red;font-size:90%;">
+                                Please review your order before proceeding!
+                            </div-->
 
-                        <!--div class="col-xs-12 form-group text-xs-center p-a-0 m-t-1" style="color: red;font-size:90%;">
-                            Please review your order before proceeding!
-                        </div-->
+                            <div class="col-xs-12">
+                                <!--a href="javascript:history.go(0)" class="btn  btn-secondary clearitems">Cancel</a-->
+                                <button type="submit" class="btn btn-primary btn-block " onclick="return addresscheck();"
+                                        id="chkOut" title="{{ $alts["checkout"] }}">Place Order
+                                </button>
+                                <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
+                            </div>
 
-                        <div class="col-xs-12">
-                            <!--a href="javascript:history.go(0)" class="btn  btn-secondary clearitems">Cancel</a-->
-                            <button type="submit" class="btn btn-primary btn-block " onclick="return addresscheck();"
-                                    id="chkOut" title="{{ $alts["checkout"] }}">Place Order
-                            </button>
-                            <input type="hidden" name="hidden_rest_id" id="hidden_rest_id"
-                                   value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
-                        </div>
                         </div>
                     </div>
                 </div>
