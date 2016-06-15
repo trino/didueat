@@ -107,7 +107,7 @@
     @include("popups.rating")
     <div class="container hidden-md-down">
     </div>
-    <div class="container" style="margin-top: 0 !important;">
+    <div class="" style="margin-top: 0 !important;">
 
         <?php printfile("views/restaurants.blade.php"); ?>
 
@@ -119,7 +119,7 @@
                     @include('ajax.search_restaurants')
                 </div>
                 <div class="col-lg-4" ID="filter-results">
-                    <div class="card ">
+                    <div class="card " style="">
                         <div class="card-header">
                             <h4 class="card-title">Filter</h4>
                         </div>

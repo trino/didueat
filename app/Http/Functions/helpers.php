@@ -5,7 +5,7 @@ define("TINY_THUMB", '150x150');
 define("MED_THUMB", '250x250');
 define("BIG_SQ", '600x600');
 define("DIDUEAT", 'DiduEat');
-define("ReceiptVersion", '');//blank for old version, 2 for new and inline
+define("ReceiptVersion", '2');//blank for old version, 2 for new and inline
 
 //detects which protocol is being used. returns http or https
 function protocol() {
