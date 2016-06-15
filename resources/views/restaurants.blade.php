@@ -465,11 +465,11 @@
 
         function loadmenu(RestaurantID){
             if(!$("#menu-rest-" + RestaurantID).length) {
-                $("#card-rest-" + RestaurantID).append('<DIV ID="loading-rest-' + RestaurantID + '">Loading...<i class="fa fa-spin fa-spinner"></DIV>');
+                $("#card-header-" + RestaurantID).append('<DIV ID="loading-rest-' + RestaurantID + '">Loading...<i class="fa fa-spin fa-spinner"></DIV>');
                 $.post("{{ url('ajax') }}", {token: token, type: "loadmenu", RestaurantID: RestaurantID}, function (result) {
                     result = '<DIV ID="menu-rest-' + RestaurantID + '">' + result + '</DIV>';
                     $("#loading-rest-" + RestaurantID).remove();
-                    $("#card-rest-" + RestaurantID).append(result);
+                    $("#card-header-" + RestaurantID).append(result);
                 });
             }
         }

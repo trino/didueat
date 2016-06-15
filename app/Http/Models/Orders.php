@@ -72,6 +72,7 @@ class Orders extends BaseModel {
         if(isset($_GET["orderid"])){
             $ID = $_GET["orderid"];
             $order = select_field("orders", "id", $ID);
+            if(isset($order->user_id) && ($order->user_id == read("id") || read("profiletype") == 1)){
                 debugprint("Order resumed", $ID);
                 return $ID;
             } else {
