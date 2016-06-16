@@ -44,7 +44,7 @@
             <TABLE class="searchtable" width="100%">
                     <TD width="15%"> At </TD>
                     <TD width="20%">
-                        <INPUT TYPE="TEXT" CLASS="form-control time col-xs-4" name="delivery-time" id="delivery-time" placeholder="ASAP">
+                        <INPUT TYPE="TEXT" CLASS="form-control time col-xs-4" name="delivery-time" id="delivery-time" placeholder="ASAP" onchange="$('#ordered_on_time').val( $('#delivery-time').val() );">
                     </TD>
                     <TD width="20%"> Bring </TD>
                     <TD width="25%">
