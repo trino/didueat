@@ -100,16 +100,18 @@
                                 </div>
                             </div>
 
+                            @if(!ReceiptVersion)
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <select class="form-control not-required" name="order_till" id="ordered_on_time">
                                         <option value="">Order ASAP</option>
-                                        {{ get_time_interval(false) }}
+                                        {{ get_time_interval($restaurant) }}
                                     </select>
 
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
+                            @endif
 
                             <div class="col-xs-12">
                                 <div class="form-group">
@@ -153,8 +155,6 @@
                             <div class="CC" style="display: none;">
                                 @include('home.stripe',['loaded_from'=>'reservation'])
                             </div>
-                            <div class="clearfix"></div>
-
                             <!--div class="col-xs-12 form-group text-xs-center p-a-0 m-t-1" style="color: red;font-size:90%;">
                                 Please review your order before proceeding!
                             </div-->

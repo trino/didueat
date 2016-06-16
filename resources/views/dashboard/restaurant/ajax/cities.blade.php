@@ -1,5 +1,5 @@
 <?php
-    printfile("views/common/search_bar.blade.php");
+    printfile("views/dashboard/restaurant/ajax/cities.blade.php");
     $provinces = array(
             "ON" => "Ontario",
             "QC" => "Quebec",
