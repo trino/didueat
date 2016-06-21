@@ -31,6 +31,7 @@
         </div>
     @endif
     <FORM ID="addressbar" onsubmit="return false;">
+
       Bring
 
         <select name="cuisine" id="cuisine" class="" onchange="createCookieValue('cuisine', this.value)">
@@ -79,6 +80,28 @@
                 onclick="$('#search-form-submit').trigger('click');" title="{{ $alts["search"] }}">
             <i class="fa fa-search"></i>
         </button>
+
+
+        <!--div class="input-group" style="margin-bottom:0 !important; width: 100%">
+            <TABLE class="searchtable" width="100%">
+                    <TD width="15%"> At </TD>
+                    <TD width="20%">
+                        <INPUT TYPE="TEXT" CLASS="form-control time col-xs-4" name="delivery-time" id="delivery-time" placeholder="ASAP" onchange="$('#ordered_on_time').val( $('#delivery-time').val() );">
+                    </TD>
+                    <TD width="20%"> Bring </TD>
+                    <TD width="25%">
+                        <select name="cuisine" id="cuisine" class="form-control" onchange="createCookieValue('cuisine', this.value)">
+                            <option value="">All Cuisine</option>
+                            @foreach($cuisine as $value)
+                                <option>{{ $value }}</option>
+                            @endforeach
+                        </select>
+                    </TD>
+                    <TD width="20%"> To </TD>
+            </TABLE>
+        </div-->
+
+        
     </FORM>
     <!-- Or view all restaurants from <A class="stroke-black-1px" onclick="setaddress('Hamilton, ON, Canada');">Hamilton</A> or <A class="stroke-black-1px" onclick="cities();">a list of cities</A> -->
 
