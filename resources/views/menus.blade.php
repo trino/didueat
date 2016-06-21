@@ -315,7 +315,7 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
                                             }
                                         </script>
 
-                                        @if($canedit || $value->uploaded_by ==read("id"))
+                                        @if($canedit)
                                             @if(debugmode())
                                                 <div style="color:#FF0000" class="debugdata btn-group pull-left">
                                                     parent{{ $value->cat_id . '_' . $value->display_order . " ID: " . $value->id . ', ' . $value->cat_id . ', ' . $value->display_order . ', "down", ' . $catMenuCnt . ", " . $index }}

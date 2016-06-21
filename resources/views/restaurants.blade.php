@@ -131,14 +131,13 @@ $alts = array(
                         </div>
                     </div>
 
-                    <div class="col-lg-12" >
+                    <div class="col-lg-12 followTo">
                         <?php
-                        if ($IncludeMenuBackup && ReceiptVersion) {
-                            printablereceipt(false, false, true, true, $__env, $order, $items);
-                            printscripts(true, $orderID, false, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
-                        }
+                            if ($IncludeMenuBackup && ReceiptVersion) {
+                                printablereceipt(false, false, true, true, $__env, $order, $items);
+                                printscripts(true, $orderID, false, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
+                            }
                         ?>
-
                     </div>
 
                 </div>

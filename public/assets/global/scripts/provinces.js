@@ -354,3 +354,38 @@ function ChangeUrl(page, url) {
         return true;
     }
 }
+
+$.fn.hasAttr = function(name) {
+    return this.attr(name) !== undefined;
+};
+
+//usage: $('#yourDiv').followTo(250);
+$.fn.followTo = function (pos) {
+    var $this = this, $window = $(window);
+
+    $window.scroll(function (e) {
+        var top = $window.scrollTop();
+        if (top > pos) {
+            $this.css({
+                position: 'fixed',
+                top: pos
+            });
+        } else {
+            $this.css({
+                position: 'relative',
+                top: 0
+            });
+        }
+    });
+};
+
+$(document).ready(function() {
+    $(".followTo").each(function() {
+        var Y = 0;
+        if ($(this).hasAttr("followy") ){
+            Y = $(this).attr("followy");
+        }
+        $(this).attr("oldY", $(this).position().top );
+        $(this).followTo(Y);
+    });
+});

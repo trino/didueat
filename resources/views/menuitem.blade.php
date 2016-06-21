@@ -29,6 +29,10 @@
                  alt="{{ $value->menu_item }}"/>
         @endif
 
+        @if(debugmode())
+            (ID: {{ $value->id }})
+        @endif
+
         {{ $value->menu_item }}
 
 
