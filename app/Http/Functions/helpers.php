@@ -1277,20 +1277,25 @@ function datename($date) {
 
 //generate a dropdown of future order times
 function get_time_interval($Restaurant = false, $isDelivery = false) {
-    if (!$Restaurant){ return; }
+    if (!$Restaurant){ $business_day = true; }
     $period = 15;
     $mintime = 20;
     $date = roundToQuarterHour(time() + (60 * $mintime));
     $length = 1440 / $period;//192 = 2 days of 15 minute increments
-    $PreviousBusinessDay = "";
     for ($i = 0; $i <= $length; $i++) {
-        $business_day = \App\Http\Models\Restaurants::getbusinessday($Restaurant, $date);
+        if ($Restaurant) {
+            $business_day = \App\Http\Models\Restaurants::getbusinessday($Restaurant, $date);
+        }
         if ($business_day) {
-            $open = getfield($Restaurant, $business_day . "_open" . iif($isDelivery, "_del"));
-            $close = getfield($Restaurant, $business_day . "_close" . iif($isDelivery, "_del"));
             $hour = date("G:H:s", $date);
-
-            if ($hour >= $open && $hour <= $close) {
+            if($Restaurant) {
+                $open = getfield($Restaurant, $business_day . "_open" . iif($isDelivery, "_del"));
+                $close = getfield($Restaurant, $business_day . "_close" . iif($isDelivery, "_del"));
+                $isopen = $hour >= $open && $hour <= $close;
+            } else {
+                $isopen = true;
+            }
+            if ($isopen) {
                 $start_format = date("F d Y G:i", $date);
                 //istoday
                 echo "<option value='" . $start_format . "'>" . datename($date) . date(' - g:i A', $date);
@@ -1302,7 +1307,6 @@ function get_time_interval($Restaurant = false, $isDelivery = false) {
                 }
                 echo "</option>";
             }
-            $PreviousBusinessDay = $business_day;
         }
         $date = $date + ($period * 60);
     }

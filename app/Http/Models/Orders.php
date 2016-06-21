@@ -140,7 +140,7 @@ class Orders extends BaseModel {
             $post["HTML"] = "" . view($post["layout"], $post);
         }
 
-        $Query = first("SELECT SUM(price * quantity), COUNT(restaurant_id) FROM orderitems WHERE order_id = " . $post["order_id"]);
+        $Query = first("SELECT SUM(price * quantity), COUNT(DISTINCT restaurant_id) FROM orderitems WHERE order_id = " . $post["order_id"]);
 
         $post["subtotal"] = $Query[0];
         $post["restaurants"] = $Query[1];

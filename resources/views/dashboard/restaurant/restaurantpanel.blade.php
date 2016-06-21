@@ -10,8 +10,7 @@ $alts = array(
 if (!function_exists("toseconds")) {
     printfile("dashboard/restaurant/restaurantpanel.blade.php");
     //convert a 24hr time into seconds
-    function toseconds($Time)
-    {
+    function toseconds($Time) {
         if (strpos($Time, ":") !== false) {
             $Time = explode(":", $Time);
             return $Time[0] * 3600 + $Time[1] * 60 + $Time[2];
@@ -20,8 +19,7 @@ if (!function_exists("toseconds")) {
     }
 
     //get a rough estimate of the difference between 2 times
-    function timediff($Start, $End = false)
-    {//end is the bigger time
+    function timediff($Start, $End = false) {//end is the bigger time
         $Start = toseconds($Start);
         if (!$End) {
             $End = time();
@@ -31,8 +29,7 @@ if (!function_exists("toseconds")) {
         return durationtotext($Diff, false, ", ");
     }
 
-    function link_it($text)
-    {
+    function link_it($text) {
         $text = preg_replace("/(^|[\n ])([\w]*?)([\w]*?:\/\/[\w]+[^ \,\"\n\r\t<]*)/is", "$1$2<a href=\"$3\" >$3</a>", $text);
         $text = preg_replace("/(^|[\n ])([\w]*?)((www)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"http://$3\" >$3</a>", $text);
         $text = preg_replace("/(^|[\n ])([\w]*?)((ftp)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"ftp://$3\" >$3</a>", $text);
@@ -63,8 +60,19 @@ if (!isset($delivery_type)) {
 if (!isset($IncludeMenu)) {
     $IncludeMenu = false;
 }
+
+if(isset($user_time) && $user_time){
+    $user_time = strtotime($user_time);
+    $Day = current_day_of_week($user_time);
+    $is_open = \App\Http\Models\Restaurants::getbusinessday($Restaurant, $user_time);
+    $user_time = date('H:i:s', $user_time);
+} else {
+    $user_time = date('H:i:s');
+    $Day = current_day_of_week();
+    $is_open = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
+}
+
 $key = iif($delivery_type == "is_delivery", "_del"); //check if store is open
-$is_open = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
 
 $MoreTime = "";
 $grayout = "";
@@ -73,9 +81,6 @@ if (!$Restaurant['open']) {
     $Message = "View Menu";
 }
 
-$user_time = date('H:i:s');
-
-$Day = current_day_of_week();
 if ($is_open) {
     if (isset($showtoday) || debugmode()) {
         $open = converttime($Restaurant[$is_open . "_open" . $key]);

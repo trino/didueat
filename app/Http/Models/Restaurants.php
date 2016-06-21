@@ -212,12 +212,10 @@ class Restaurants extends BaseModel {
         //handles hours of operation
         $date = now(true);
         if(isset($data["delivery-time"]) && $data["delivery-time"]){
-            if (strpos($data["delivery-time"], ":") && strpos($data["delivery-time"], "M") && strlen(kill_non_numeric($data["delivery-time"])) > 2){
-                $data["delivery-time"] = converttime($data["delivery-time"]);
-                $data["delivery-datetime"] = "Y-m-d " . $data["delivery-time"];
-                $data["date"] = date($data["delivery-datetime"], time() ) ;
-                $date = strtotime(now(true, $data["date"]));
-            }
+            $data["delivery-datetime"] = $data["delivery-time"];
+            $data["date"] = strtotime($data["delivery-datetime"]) ;
+            $data["delivery-time"] = date('H:i:s', $data["date"]);
+            $date = now(true, $data["date"]);
         }
 
         $data['date'] = date("l F j, Y - H:i (g:i A)", $date);

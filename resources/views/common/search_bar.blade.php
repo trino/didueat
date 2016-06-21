@@ -34,7 +34,7 @@
 
       Bring
 
-        <select name="cuisine" id="cuisine" class="" onchange="createCookieValue('cuisine', this.value)">
+        <select name="cuisine" id="cuisine" onchange="createCookieValue('cuisine', this.value)">
             <option value="">All Cuisine</option>
             @foreach($cuisine as $value)
                 <option>{{ $value }}</option>
@@ -42,22 +42,26 @@
         </select>
         To
         <?php
-        $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
-        $alts = array(
-                "search" => "Search for this address"
-        );
+            $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
+            $alts = array(
+                    "search" => "Search for this address"
+            );
         ?>
 
         <input STYLE="width: 300px;" type="text" name="formatted_address" id="formatted_address2"
-               class=" formatted_address" placeholder="Enter your address"
+               class="formatted_address" placeholder="Enter your address"
                onchange="change_address_event();"
                @if(isset($_GET["search"]))
                value="{{ $_GET["search"] }}"
                @endif
                onpaste="this.onchange();">
 
-
-        At <INPUT TYPE="TEXT" CLASS=" time " name="delivery-time" id="delivery-time" placeholder="ASAP">
+<BR>
+        At
+        <select style="width:120px;" name="delivery-time" id="delivery-time" onchange="searchtimechange();">
+            <option value="">Order ASAP</option>
+            {{ get_time_interval() }}
+        </select>
 
 
         <!--script>
@@ -72,8 +76,7 @@
         <input type="{{ $Type }}" name="country" id="country" style="color: black;" placeholder="country">
 
         @if(debugmode())
-            <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe"
-                                                                         style="color:blue;"></i></A>
+            <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe" style="color:blue;"></i></A>
         @endif
         <button style="" class="btn btn-success dueBtn"
                 oldstyle="display: none;" id="header-search-button"
@@ -153,14 +156,18 @@
                 $('#restuarant_bar').html(result);
             });
         }
+
+        function searchtimechange(){
+            $("#ordered_on_time").val( $("#delivery-time").val() );
+        }
     </script>
 
     <?php
-    printfile("views/common/search_bar.blade.php");
-    includeJS(url("assets/global/scripts/provinces.js"));
-    if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
-        echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-    }
+        printfile("views/common/search_bar.blade.php");
+        includeJS(url("assets/global/scripts/provinces.js"));
+        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
+            echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+        }
     ?>
     <script>
         <?php if ($first) {
