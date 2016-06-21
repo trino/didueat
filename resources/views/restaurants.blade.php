@@ -1,68 +1,68 @@
 <?php
-    $IncludeMenu = true;
+$IncludeMenu = true;
 
-    if($IncludeMenu){
-        $orderID = 0;
-        $items=false;
-        $order=false;
-        if(ReceiptVersion){
-            if(isset($_GET["orderid"])){
-                $orderID = $_GET["orderid"];
-                $order = select_field("orders", "id", $orderID);
-                $items = enum_all("orderitems", "order_id=" . $orderID);
-            } else {
-                $orderID = \App\Http\Models\Orders::newid();
-            }
+if ($IncludeMenu) {
+    $orderID = 0;
+    $items = false;
+    $order = false;
+    if (ReceiptVersion) {
+        if (isset($_GET["orderid"])) {
+            $orderID = $_GET["orderid"];
+            $order = select_field("orders", "id", $orderID);
+            $items = enum_all("orderitems", "order_id=" . $orderID);
+        } else {
+            $orderID = \App\Http\Models\Orders::newid();
         }
-        $itemPosnForJSStr="";
-        $catIDforJS_Str="";
-        $catNameStrJS="";
     }
-    $IncludeMenuBackup = $IncludeMenu;
-    $first = false;
-    $type = "hidden";
-    //$localIPTst = $_SERVER['REMOTE_ADDR'];
-    //$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
-    $latlngStr = "";
-    $locationStr = "";
-    $useCookie = false;
-    $useHamilton = true;
-    $is_pickup_checked = "";
-    $is_delivery_checked = "";
-    $is_menu_checked = iif(isset($_COOKIE["is_menu"]) && $_COOKIE["is_menu"], " CHECKED");
-    if (isset($_COOKIE['delivery_type'])) {
-        switch ($_COOKIE['delivery_type']) {
-            case "is_delivery":
-                $is_delivery_checked = "checked";
-                break;
-            case "is_pickup":
-                $is_pickup_checked = "checked";
-                break;
-            default:
-                $is_delivery_checked = "checked";
-                $is_pickup_checked = "checked";
-        }
-    } else {
-        $is_delivery_checked = "checked";
-        $is_pickup_checked = "checked";
+    $itemPosnForJSStr = "";
+    $catIDforJS_Str = "";
+    $catNameStrJS = "";
+}
+$IncludeMenuBackup = $IncludeMenu;
+$first = false;
+$type = "hidden";
+//$localIPTst = $_SERVER['REMOTE_ADDR'];
+//$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+$latlngStr = "";
+$locationStr = "";
+$useCookie = false;
+$useHamilton = true;
+$is_pickup_checked = "";
+$is_delivery_checked = "";
+$is_menu_checked = iif(isset($_COOKIE["is_menu"]) && $_COOKIE["is_menu"], " CHECKED");
+if (isset($_COOKIE['delivery_type'])) {
+    switch ($_COOKIE['delivery_type']) {
+        case "is_delivery":
+            $is_delivery_checked = "checked";
+            break;
+        case "is_pickup":
+            $is_pickup_checked = "checked";
+            break;
+        default:
+            $is_delivery_checked = "checked";
+            $is_pickup_checked = "checked";
     }
+} else {
+    $is_delivery_checked = "checked";
+    $is_pickup_checked = "checked";
+}
 
 
-    if ($useHamilton) {
-        $City = "Hamilton";
-        $Province = "Ontario";
-        $Country = "Canada";
-        $latHam = "43.2566983";
-        $lonHam = "-79.8690719";
-        $loc = "43.2566983,-79.8690719";
-    } else if (is_object($details)) {
-        $loc = $details->loc;
-    }
+if ($useHamilton) {
+    $City = "Hamilton";
+    $Province = "Ontario";
+    $Country = "Canada";
+    $latHam = "43.2566983";
+    $lonHam = "-79.8690719";
+    $loc = "43.2566983,-79.8690719";
+} else if (is_object($details)) {
+    $loc = $details->loc;
+}
 
-    $alts = array(
-            "city" => "View restaurants for this city",
-            "signup" => "Sign up as a restaurant owner"
-    );
+$alts = array(
+        "city" => "View restaurants for this city",
+        "signup" => "Sign up as a restaurant owner"
+);
 ?>
 @if($IncludeMenu)
     @include('menus')
@@ -71,55 +71,59 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class=" bg-success main-bg-image " style="/*margin-top:-50px !important;*/">
-        <div class="container" style="margin-top: 0 !important;">
-            <div class="row text-md-center " style="padding:0 1rem !important;">
-                <div class="col-md-offset-2 text-xs-center col-md-8" style="">
-                    <h1 class="banner-text-shadow m-y-1"><span style="font-size: 125%;font-weight: 500;">Hamilton Restaurants<br>& Delivery</span></h1>
+    <div class=" main-bg-image " style="">
+        <div class="" style="margin-top: 0 !important;">
+            <div class=" text-xs-center" style="">
+
+
+            @include('common.search_bar')
+
+
+
+            <!--div class="col-md-offset-2 text-xs-center col-md-8" style="">
+                    <h1 class="banner-text-shadow m-y-1"><span style="font-size: 125%;font-weight: 500;">Hamilton Restaurants<br>& Delivery</span>
+                    </h1>
                     <div class="clearfix"></div>
-                </div>
+                </div-->
 
-                <div class="col-md-offset-3 col-md-6 text-md-center">
-                    @include('common.search_bar')
-                </div>
-                <div class="clearfix"></div>
 
-                <div class="col-md-offset-2 text-xs-center col-md-8" style="">
+                <!--div class="col-md-offset-2 text-xs-center col-md-8" style="">
 
                     <a class="btn btn-lg btn-link btn-responsive "
-                       href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}" style="color: white;"><h5 class="banner-text-shadow">Restaurant Sign Up</h5></a>
+                       href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}" style="color: white;"><h5
+                                class="banner-text-shadow">Restaurant Sign Up</h5></a>
 
                     <div class="clearfix"></div>
 
                 </div>
 
-                <div class="clearfix"></div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-
-                <div class="container hidden-md-down"></div>
-
+                <div class="clearfix"></div-->
             </div>
         </div>
+        <div class="clearfix"></div>
+
+        <div class="container hidden-md-down"></div>
+
+    </div>
+    </div>
     </div>
 
     @include("popups.rating")
     <div class="container hidden-md-down">
     </div>
-    <div class="" style="margin-top: 0 !important;">
+    <div class="" style="">
 
         <?php printfile("views/restaurants.blade.php"); ?>
 
-        <div class="row">
+        <div class="row m-t-2">
 
             <div class="" id="results_show" style="display: none;">
-                <div class="col-lg-8 m-b-2">
+                <div class="col-lg-9 m-b-2">
                     <?php popup(true, "message:nostores", false, false, ''); $IncludeMenu = false; ?>
                     @include('ajax.search_restaurants')
                 </div>
-                <div class="col-lg-4" ID="filter-results">
-                    <div class="card" style="">
+                <div class="col-lg-3" ID="filter-results" style="height: 100%;">
+                    <div class="" style="">
                         <div class="card-footer text-xs-right" style="display: none">
                             <input type="button" name="search" class="btn btn-primary" value="Filter"
                                    id="search-form-submit"
@@ -127,14 +131,14 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" >
                         <?php
-                            if($IncludeMenuBackup && ReceiptVersion){
-                                printablereceipt(false, false, true, true, $__env, $order, $items);
-                                printscripts(true, $orderID, false, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
-                            }
+                        if ($IncludeMenuBackup && ReceiptVersion) {
+                            printablereceipt(false, false, true, true, $__env, $order, $items);
+                            printscripts(true, $orderID, false, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
+                        }
                         ?>
-                        <br><br><br><br><br><br><br><br><br><br><br><br>
+
                     </div>
 
                 </div>
@@ -338,7 +342,7 @@
             }
 
             var tempdata = data + "&start=" + start;
-            if(tempdata == lastdata){
+            if (tempdata == lastdata) {
                 return tempdata;
             }
 
@@ -350,9 +354,13 @@
                 $('#restuarant_bar').html('');
                 $('#parentLoadingbar').show();
                 $('#start_up_message').hide();
-               // $('#icons_show').hide();
+                // $('#icons_show').hide();
                 $('#results_show').show();
-                $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data: data, start: start}, function (result) {
+                $.post("{{ url('/search/restaurants/ajax') }}", {
+                    token: token,
+                    data: data,
+                    start: start
+                }, function (result) {
                     $('#parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);
                 });
@@ -377,10 +385,14 @@
             lastdata = submitform(e, start, "body onclick");
         });
 
-        function loadmenu(RestaurantID){
-            if(!$("#menu-rest-" + RestaurantID).length) {
+        function loadmenu(RestaurantID) {
+            if (!$("#menu-rest-" + RestaurantID).length) {
                 $("#card-header-" + RestaurantID).append('<DIV ID="loading-rest-' + RestaurantID + '">Loading...<i class="fa fa-spin fa-spinner"></DIV>');
-                $.post("{{ url('ajax') }}", {token: token, type: "loadmenu", RestaurantID: RestaurantID}, function (result) {
+                $.post("{{ url('ajax') }}", {
+                    token: token,
+                    type: "loadmenu",
+                    RestaurantID: RestaurantID
+                }, function (result) {
                     result = '<DIV ID="menu-rest-' + RestaurantID + '">' + result + '</DIV>';
                     $("#loading-rest-" + RestaurantID).remove();
                     $("#card-header-" + RestaurantID).append(result);

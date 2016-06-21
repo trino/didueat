@@ -4,10 +4,6 @@
         top: 0;
         margin-top: 8px;
     }
-
-    tr.border_bottom td {
-        border: 1px solid black !important;
-    }
 </style>
 <?php
     if(!function_exists ("totals")){
@@ -78,7 +74,7 @@
                 $curr_rest = $item->restaurant_id;
                 $curr_rest_subtotal = 0;
                 $restaurant = $restaurants[$curr_rest];
-                echo '<TR class="border_bottom"><TD COLSPAN="3">' . $restaurant->name . '<BR>';
+                echo '<TR><TD COLSPAN="3">' . $restaurant->name . '<BR>';
                 echo $restaurant->address . ', ' . $restaurant->city . " " . $restaurant->province . '</TD></TR>';
             }
             if($ordering){

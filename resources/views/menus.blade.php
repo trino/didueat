@@ -59,7 +59,7 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
         // $catCnt set in restaurants-menus.blade
 
         if(!isset($_GET['page'])){
-            echo '<div class="card" id="loadmenus_' . $catid . '">';
+            echo '<div class="" id="loadmenus_' . $catid . '">';
         }
         $menus_listA = [];
         $menus_sortA = [];
@@ -203,17 +203,14 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
                 }
                 ?>
 
-                <DIV class="card-body p-b-1 {{ iif(!$firstcat, "collapsed") }} " id="c{{ $thisCatCnt }}"><!-- start of this category -->
+                <DIV class=" {{ iif(!$firstcat, "collapsed") }} " id="c{{ $thisCatCnt }}"><!-- start of this category -->
                     <div class="parents"><!-- start of category heading -->
 
-                        <div class="row">
-                            <div class="col-xs-8 panel-heading" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
+                        <div class="row p-l-1 ">
+                            <div style="" class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
                                 <a href="#" name="<?php echo $value->cat_name; ?>"></a>
-                                <h4 class="card-title" style="padding:.9375rem !important;"><?=$value->cat_name; ?></h4>
-                            </div>
+                               <?=$value->cat_name; ?>
 
-
-                            <div class="col-xs-4">
                                 <div class="pull-right">
                                     @if($canedit)
                                         <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link" onclick="confirmcopy('{{ url("restaurant/copyitem/category/" . $value->cat_id) }}', 'category', '{{ $value->cat_name }}');">
@@ -250,12 +247,12 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
                                 </div>
                             </div>
 
-                            <div class="col-md-6" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
+                            <div class="col-md-12" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
                                         name="saveOrderChng" type="button" value="Save All Category Order Changes"
                                         onclick="saveCatOrderChngs({{ $thisCatCnt }})"/><span
                                         id="saveCatOrderMsg{{ $thisCatCnt }}"></span></div>
 
-                            <div class="col-md-6 pull-right" id="saveMenus{{ $value->cat_id }}"
+                            <div class="col-md-12 pull-right" id="saveMenus{{ $value->cat_id }}"
                                  style="display:none;color:#f00"><input name="saveOrderChng" type="button"
                                                                         value="Save Category Sorting"
                                                                         onclick="saveMenuOrder({{ $value->cat_id }},false,false)"/><span
@@ -266,14 +263,14 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
 
                     </div>
                     <DIV ID="cat_{{ $catindex }}" CLASS="{{ iif(!$firstcat, "collapse", "collapse in") }}">
-                        <DIV CLASS="col-md-6 nopadding">
+                        <DIV CLASS="col-md-12">
                 <?php
                 $thisCatCnt++;
                 $catMenuCnt++;
             }
 
             if($index == $halfway){
-                echo '</DIV><DIV CLASS="col-md-6 nopadding">';
+                echo '</DIV><DIV CLASS="col-md-12">';
             }
 
             ?>

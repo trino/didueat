@@ -5,101 +5,82 @@
     @if(read("id") && false)
         <div class="input-group-btn">
             <?php
-                //this is the address dropdown search bar that used to go in the header
-                $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
-                if($addresses->count()){
+            //this is the address dropdown search bar that used to go in the header
+            $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
+            if($addresses->count()){
             ?>
-            <button type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
             </button>
             <div class="dropdown-menu dropdown-menu-left">
                 <?php
-                    foreach ($addresses as $address) {
-                        if (!$first) {
-                            $first = $address->id;
-                        }
-                        if (!trim($address->location)) {
-                            $address->location = "Address: " . $address->id;
-                        }
-                        echo '  <a class="dropdown-item" href="#" id="addy' . $address->id . '" onclick="setaddress(' . "'" . addslashes($address->address) . "'" . ');">';
-                        echo $address->location . ' [' . $address->address . ']</a>';
+                foreach ($addresses as $address) {
+                    if (!$first) {
+                        $first = $address->id;
                     }
+                    if (!trim($address->location)) {
+                        $address->location = "Address: " . $address->id;
+                    }
+                    echo '  <a class="dropdown-item" href="#" id="addy' . $address->id . '" onclick="setaddress(' . "'" . addslashes($address->address) . "'" . ');">';
+                    echo $address->location . ' [' . $address->address . ']</a>';
+                }
                 ?>
             </div>
             <?php } ?>
         </div>
     @endif
-
-    <STYLE>
-        .searchtable{
-            color: #fff!important;
-            width: 100%
-        }
-        .searchtable td {
-            text-align: center;
-        }
-    </STYLE>
     <FORM ID="addressbar" onsubmit="return false;">
-        <div class="input-group" style="margin-bottom:0 !important; width: 100%">
-            <TABLE class="searchtable" width="100%">
-                    <TD width="15%"> At </TD>
-                    <TD width="20%">
-                        <INPUT TYPE="TEXT" CLASS="form-control time col-xs-4" name="delivery-time" id="delivery-time" placeholder="ASAP">
-                    </TD>
-                    <TD width="20%"> Bring </TD>
-                    <TD width="25%">
-                        <select name="cuisine" id="cuisine" class="form-control" onchange="createCookieValue('cuisine', this.value)">
-                            <option value="">All Cuisine</option>
-                            @foreach($cuisine as $value)
-                                <option>{{ $value }}</option>
-                            @endforeach
-                        </select>
-                    </TD>
-                    <TD width="20%"> To </TD>
-            </TABLE>
-        </div>
+      Bring
 
-        <div class="input-group">
-            <?php
-                $Type =  'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
-                $alts = array(
-                        "search" => "Search for this address"
-                );
-            ?>
-            <input type="text" name="formatted_address" id="formatted_address2"
-                   class="form-control formatted_address" placeholder="Enter your address"
-                   onchange="change_address_event();"
-                   @if(isset($_GET["search"]))
-                    value="{{ $_GET["search"] }}"
-                   @endif
-                   onpaste="this.onchange();">
+        <select name="cuisine" id="cuisine" class="" onchange="createCookieValue('cuisine', this.value)">
+            <option value="">All Cuisine</option>
+            @foreach($cuisine as $value)
+                <option>{{ $value }}</option>
+            @endforeach
+        </select>
+        To
+        <?php
+        $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
+        $alts = array(
+                "search" => "Search for this address"
+        );
+        ?>
 
-            <script>
-                (window.navigator.userAgent.indexOf("MSIE") != -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) ? document.getElementById('formatted_address2').style.height = '53px' : '';
-            </script>
+        <input STYLE="width: 300px;" type="text" name="formatted_address" id="formatted_address2"
+               class=" formatted_address" placeholder="Enter your address"
+               onchange="change_address_event();"
+               @if(isset($_GET["search"]))
+               value="{{ $_GET["search"] }}"
+               @endif
+               onpaste="this.onchange();">
 
-            <input type="{{ $Type }}" name="latitude" id="latitude" style="color: black;" placeholder="latitude">
-            <input type="{{ $Type }}" name="longitude" id="longitude" style="color: black;" placeholder="longitude">
-            <input type="{{ $Type }}" name="city" id="city" style="color: black;" placeholder="city">
-            <input type="{{ $Type }}" name="province" id="province" style="color: black;" placeholder="province">
-            <input type="{{ $Type }}" name="postal_code" id="postal_code" style="color: black;" placeholder="postal_code">
-            <input type="{{ $Type }}" name="country" id="country" style="color: black;" placeholder="country">
 
-            @if(debugmode())
-                <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe"
-                                                                             style="color:blue;"></i></A>
-            @endif
-            <span class="input-group-btn" style="vertical-align: top;">
-                <button style="border: 1px solid #5cb85c !important;" class="btn  btn-success dueBtn"
-                        oldstyle="display: none;" id="header-search-button"
-                        onclick="$('#search-form-submit').trigger('click');" title="{{ $alts["search"] }}">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
-        </div>
+        At <INPUT TYPE="TEXT" CLASS=" time " name="delivery-time" id="delivery-time" placeholder="ASAP">
+
+
+        <!--script>
+            (window.navigator.userAgent.indexOf("MSIE") != -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) ? document.getElementById('formatted_address2').style.height = '53px' : '';
+        </script-->
+
+        <input type="{{ $Type }}" name="latitude" id="latitude" style="color: black;" placeholder="latitude">
+        <input type="{{ $Type }}" name="longitude" id="longitude" style="color: black;" placeholder="longitude">
+        <input type="{{ $Type }}" name="city" id="city" style="color: black;" placeholder="city">
+        <input type="{{ $Type }}" name="province" id="province" style="color: black;" placeholder="province">
+        <input type="{{ $Type }}" name="postal_code" id="postal_code" style="color: black;" placeholder="postal_code">
+        <input type="{{ $Type }}" name="country" id="country" style="color: black;" placeholder="country">
+
+        @if(debugmode())
+            <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe"
+                                                                         style="color:blue;"></i></A>
+        @endif
+        <button style="" class="btn btn-success dueBtn"
+                oldstyle="display: none;" id="header-search-button"
+                onclick="$('#search-form-submit').trigger('click');" title="{{ $alts["search"] }}">
+            <i class="fa fa-search"></i>
+        </button>
     </FORM>
     <!-- Or view all restaurants from <A class="stroke-black-1px" onclick="setaddress('Hamilton, ON, Canada');">Hamilton</A> or <A class="stroke-black-1px" onclick="cities();">a list of cities</A> -->
-
 
     <script>
         var formatted_address2, formatted_address3;
@@ -152,11 +133,11 @@
     </script>
 
     <?php
-        printfile("views/common/search_bar.blade.php");
-        includeJS(url("assets/global/scripts/provinces.js"));
-        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
-            echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-        }
+    printfile("views/common/search_bar.blade.php");
+    includeJS(url("assets/global/scripts/provinces.js"));
+    if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
+        echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+    }
     ?>
     <script>
         <?php if ($first) {

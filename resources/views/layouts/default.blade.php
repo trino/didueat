@@ -49,14 +49,15 @@
     <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
     <!-- CSS -->
 
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+    <!--link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'-->
 
     <!-- Safari doesn't trust the certificate from here:
      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <link href="{{ asset('assets/global/css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
-    <!--link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" integrity="" crossorigin="anonymous" this is too slow!!! -->
+    <!--link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet"-->
+
+    <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" integrity="" crossorigin="anonymous">
 
     <!--link href="{{ asset('assets/global/css/bootstrap.css') }}" rel="stylesheet"-->
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
@@ -111,8 +112,6 @@
             form {
                 border: 3px solid black;
             }
-
-
         </style>
     @endif
 
@@ -128,7 +127,6 @@
                 alert(message);
             }
         }
-
         var token = "{{ csrf_token() }}";
         var path = window.location.pathname;
         var base_url;
@@ -141,17 +139,12 @@
             }
             base_url = base_url + 'didueat.ca/';
         }
-
         var shownat = Date.now();
     </SCRIPT>
 
 </head>
 
-<body style="margin-top:50px;">
-
-
-
-
+<body>
 
 @include("popups.alert")
 
@@ -159,7 +152,7 @@
     <div class="loader"></div>
 </div>
 
-<div class="container-fluid" id="the-header">
+<div id="the-header">
     @include('layouts.includes.header')
 </div>
 

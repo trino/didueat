@@ -8,7 +8,7 @@
             "checkout" => "Check out"
     );
 ?>
-<nav class="navbar navbar-fixed-top navbar-dark  bg-success header-nav" style="">
+<nav class="navbar navbar-dark  bg-success header-nav" style="">
     <div class="container-fluid" style="margin-top:0px !important;">
         <ul class="nav navbar-nav pull-left " style="">
             <li class="nav-item hidden-sm-down ">

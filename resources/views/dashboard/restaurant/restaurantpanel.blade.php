@@ -1,213 +1,227 @@
 <?php
-    $alts = array(
-            "restaurants/menu" => "View Restaurant",
-            "View Menu" => "View this restaurant's menu",
-            "Order Online" => "Order from this restaurant's menu",
-            "moredetails" => "View more information about this restaurant",
-            "logo" => "This restaurant's logo"
-    );
+$alts = array(
+        "restaurants/menu" => "View Restaurant",
+        "View Menu" => "View this restaurant's menu",
+        "Order Online" => "Order from this restaurant's menu",
+        "moredetails" => "View more information about this restaurant",
+        "logo" => "This restaurant's logo"
+);
 
-    if (!function_exists("toseconds")) {
-        printfile("dashboard/restaurant/restaurantpanel.blade.php");
-        //convert a 24hr time into seconds
-        function toseconds($Time) {
-            if (strpos($Time, ":") !== false) {
-                $Time = explode(":", $Time);
-                return $Time[0] * 3600 + $Time[1] * 60 + $Time[2];
-            }
-            return $Time;
+if (!function_exists("toseconds")) {
+    printfile("dashboard/restaurant/restaurantpanel.blade.php");
+    //convert a 24hr time into seconds
+    function toseconds($Time)
+    {
+        if (strpos($Time, ":") !== false) {
+            $Time = explode(":", $Time);
+            return $Time[0] * 3600 + $Time[1] * 60 + $Time[2];
         }
+        return $Time;
+    }
 
-        //get a rough estimate of the difference between 2 times
-        function timediff($Start, $End = false) {//end is the bigger time
-            $Start = toseconds($Start);
-            if (!$End) {
-                $End = time();
-            }
-            $End = toseconds($End);
-            $Diff = abs($End - $Start);
-            return durationtotext($Diff, false, ", ");
+    //get a rough estimate of the difference between 2 times
+    function timediff($Start, $End = false)
+    {//end is the bigger time
+        $Start = toseconds($Start);
+        if (!$End) {
+            $End = time();
         }
-
-        function link_it($text) {
-            $text = preg_replace("/(^|[\n ])([\w]*?)([\w]*?:\/\/[\w]+[^ \,\"\n\r\t<]*)/is", "$1$2<a href=\"$3\" >$3</a>", $text);
-            $text = preg_replace("/(^|[\n ])([\w]*?)((www)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"http://$3\" >$3</a>", $text);
-            $text = preg_replace("/(^|[\n ])([\w]*?)((ftp)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"ftp://$3\" >$3</a>", $text);
-            $text = preg_replace("/(^|[\n ])([a-z0-9&\-_\.]+?)@([\w\-]+\.([\w\-\.]+)+)/i", "$1<a href=\"mailto:$2@$3\">$2@$3</a>", $text);
-            return ($text);
-        }
+        $End = toseconds($End);
+        $Diff = abs($End - $Start);
+        return durationtotext($Diff, false, ", ");
     }
 
-    if (is_object($Restaurant)) {
-        if(isset($isgood)){
-            $Restaurant = object_to_array($Restaurant);
-        } else {
-            $Restaurant = getProtectedValue($Restaurant, "attributes");
-        }
+    function link_it($text)
+    {
+        $text = preg_replace("/(^|[\n ])([\w]*?)([\w]*?:\/\/[\w]+[^ \,\"\n\r\t<]*)/is", "$1$2<a href=\"$3\" >$3</a>", $text);
+        $text = preg_replace("/(^|[\n ])([\w]*?)((www)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"http://$3\" >$3</a>", $text);
+        $text = preg_replace("/(^|[\n ])([\w]*?)((ftp)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"ftp://$3\" >$3</a>", $text);
+        $text = preg_replace("/(^|[\n ])([a-z0-9&\-_\.]+?)@([\w\-]+\.([\w\-\.]+)+)/i", "$1<a href=\"mailto:$2@$3\">$2@$3</a>", $text);
+        return ($text);
     }
+}
 
-    $logo = defaultlogo($Restaurant);
-    $Restaurant['tags'] = str_replace(",", ", ", $Restaurant['tags']);
-    if ($Restaurant['is_delivery']) {
-        $Delivery_enable = "Delivery";
-    }
-    if ($Restaurant['is_pickup']) {
-        $Pickup_enable = "Pickup";
-    }
-    if (!isset($delivery_type)) {
-        $delivery_type = "is_pickup";
-    }
-    if(!isset($IncludeMenu)){$IncludeMenu=false;}
-    $key = iif($delivery_type == "is_delivery", "_del"); //check if store is open
-    $is_open = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
-
-    $MoreTime = "";
-    $grayout = "";
-    $Message = "Order Online";
-    if (!$Restaurant['open']) {
-        $Message = "View Menu";
-    }
-
-    $user_time = date('H:i:s');
-
-    $Day = current_day_of_week();
-    if ($is_open) {
-        if (isset($showtoday) || debugmode()) {
-            $open = converttime($Restaurant[$is_open . "_open" . $key]);
-            $close = converttime($Restaurant[$is_open . "_close" . $key]);
-            $MoreTime = "Open " . $open . " to " . $close;
-        }
+if (is_object($Restaurant)) {
+    if (isset($isgood)) {
+        $Restaurant = object_to_array($Restaurant);
     } else {
-        $MoreTime = "Currently closed";
-        $grayout = " grayout";
-        if ($Restaurant['open']) {
-            for ($day = 0; $day < 7; $day++) {
-                $Day = current_day_of_week($day);
-                $open = $Restaurant[$Day . "_open" . $key];
-                $close = $Restaurant[$Day . "_close" . $key];
-                if ($open && $close && $open != $close) {
-                    $allowbreak = true;
-                    $Date = strtotime($open, time() + ($day * 86400));
-                    //$MoreTime = "Opens in " . timediff($Date);
-                    $MoreTime = "Opens ";
-                    if ($day == 0) {
-                        $MoreTime .= "today";
-                        if ($close > $open && $close < $user_time) {
-                            $allowbreak = false;
-                        } //closed for today already
-                    } else if ($day == 1) {
-                        $MoreTime .= "tomorrow";
-                    } else {
-                        $MoreTime .= "in " . $day . " days";
-                    }
-                    if ($allowbreak) {
-                        $MoreTime .= " at " . converttime($open);
-                        $MoreTime = '<FONT COLOR="RED">' . $MoreTime . '</FONT>';
-                        break;
-                    }
+        $Restaurant = getProtectedValue($Restaurant, "attributes");
+    }
+}
+
+$logo = defaultlogo($Restaurant);
+$Restaurant['tags'] = str_replace(",", ", ", $Restaurant['tags']);
+if ($Restaurant['is_delivery']) {
+    $Delivery_enable = "Delivery";
+}
+if ($Restaurant['is_pickup']) {
+    $Pickup_enable = "Pickup";
+}
+if (!isset($delivery_type)) {
+    $delivery_type = "is_pickup";
+}
+if (!isset($IncludeMenu)) {
+    $IncludeMenu = false;
+}
+$key = iif($delivery_type == "is_delivery", "_del"); //check if store is open
+$is_open = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
+
+$MoreTime = "";
+$grayout = "";
+$Message = "Order Online";
+if (!$Restaurant['open']) {
+    $Message = "View Menu";
+}
+
+$user_time = date('H:i:s');
+
+$Day = current_day_of_week();
+if ($is_open) {
+    if (isset($showtoday) || debugmode()) {
+        $open = converttime($Restaurant[$is_open . "_open" . $key]);
+        $close = converttime($Restaurant[$is_open . "_close" . $key]);
+        $MoreTime = "Open " . $open . " to " . $close;
+    }
+} else {
+    $MoreTime = "Currently closed";
+    $grayout = " grayout";
+    if ($Restaurant['open']) {
+        for ($day = 0; $day < 7; $day++) {
+            $Day = current_day_of_week($day);
+            $open = $Restaurant[$Day . "_open" . $key];
+            $close = $Restaurant[$Day . "_close" . $key];
+            if ($open && $close && $open != $close) {
+                $allowbreak = true;
+                $Date = strtotime($open, time() + ($day * 86400));
+                //$MoreTime = "Opens in " . timediff($Date);
+                $MoreTime = "Opens ";
+                if ($day == 0) {
+                    $MoreTime .= "today";
+                    if ($close > $open && $close < $user_time) {
+                        $allowbreak = false;
+                    } //closed for today already
+                } else if ($day == 1) {
+                    $MoreTime .= "tomorrow";
+                } else {
+                    $MoreTime .= "in " . $day . " days";
+                }
+                if ($allowbreak) {
+                    $MoreTime .= " at " . converttime($open);
+                    $MoreTime = '<FONT COLOR="RED">' . $MoreTime . '</FONT>';
+                    break;
                 }
             }
-        } else {
-            // $MoreTime = "Not accepting orders";
-        }
-    }
-
-    if($IncludeMenu){
-        if($is_open){
-            $OnClick = 'onclick="loadmenu(' . $Restaurant["id"] . ');" ';
-        } else {
-            $OnClick = 'onclick="alert(' . "'This restaurant is currently closed'" . ');" ';
         }
     } else {
-        $OnClick = 'href="' . url('restaurants/' . $Restaurant['slug'] . '/menu') . '" ';//oldurl="?delivery_type={{ $delivery_type }}"
+        // $MoreTime = "Not accepting orders";
     }
+}
+
+if ($IncludeMenu) {
+    if ($is_open) {
+        $OnClick = 'onclick="loadmenu(' . $Restaurant["id"] . ');" ';
+    } else {
+        $OnClick = 'onclick="alert(' . "'This restaurant is currently closed'" . ');" ';
+    }
+} else {
+    $OnClick = 'href="' . url('restaurants/' . $Restaurant['slug'] . '/menu') . '" ';//oldurl="?delivery_type={{ $delivery_type }}"
+}
 ?>
+<div class="">
+<div class=" col-md-12" id="card-header-{{ $Restaurant["id"] }}" style="background:white;  @if(!isset($order)) @endif ">
 
-<div class="card-header col-md-6" id="card-header-{{ $Restaurant["id"] }}" style="  @if(!isset($order))
-        margin-bottom:1rem !important;  @endif background: white !important;box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;">
-    <div class="col-md-2 col-xs-3 p-a-0" style="z-index: 1;">
-        <div class="p-r-1">
-            @if(isset($details) && $details)
-                <img style="max-width:100%;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
-            @else
-                <a {!! $OnClick !!}
-                   class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
-                    <img style="max-width:100%;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
-                </a>
-            @endif
-        </div>
-    </div>
 
-    <div class="col-md-10 p-a-0 ">
 
-        @if(isset($order))
-            <a class="card-link restaurant-url"
-               {!! $OnClick !!}
-               title="{{ $alts["restaurants/menu"] }}">
-        @endif
-
-        <h3 style="margin-bottom: .2rem !important;">
-            {{ printfile("(ID: " . $Restaurant["id"] . ") ") . $Restaurant['name'] }}
-        </h3>
-
-        @if(isset($order))
+@if(false)
+        @if(isset($details) && $details)
+            <img style="max-width:20px;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
+        @else
+            <a {!! $OnClick !!}
+               class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
+                <img style="max-width:20px;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
             </a>
         @endif
+        @endif
 
-        <span class="text-muted">
 
-            @if($MoreTime)
-                <div class="smallT" style="">{!! $MoreTime !!}</div>
-            @endif
-            {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}
+
+        @if(isset($order))
+
+            <a class="card-link restaurant-url"  {!! $OnClick !!} title="{{ $alts["restaurants/menu"] }}">
+                <div class=" pull-left p-r-1">
+
+                {{ printfile("(ID: " . $Restaurant["id"] . ") ") . $Restaurant['name'] }}
+</div>
             @if($Restaurant["cuisine"])
-                <span class="list-inline-item"> {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
+                <div class="text-muted pull-left p-r-1">
+                {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}
+                </div>
             @endif
+            </a>
 
-            @if(isset($latitude) && $radius && $Restaurant['distance'] && false)
-                <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
-            @endif
 
-            @if(isset($details) && $details)
-                @if(false)
-                    @if($Restaurant["is_delivery"])
-                        @if(!$Restaurant["is_pickup"])
-                            <!--span class="list-inline-item"><strong>Delivery only</strong></span-->
-                        @endif
-                        <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
-                        <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
-                    @elseif($Restaurant["is_pickup"])
-                        <!--span class="list-inline-item"><strong>Pickup only</strong></span-->
+
+
+            <div class="pull-right">
+                {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}
+            </div>
+
+
+        @if($MoreTime)
+            <span class="error"> {!! $MoreTime !!} </span>
+        @endif
+
+
+
+
+    @endif
+
+
+
+
+
+
+
+        @if(isset($latitude) && $radius && $Restaurant['distance'] && false)
+            <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
+        @endif
+
+
+
+        @if(isset($details) && $details)
+            @if(false)
+                @if($Restaurant["is_delivery"])
+                    @if(!$Restaurant["is_pickup"])
                     @endif
-                @endif
-
-
-                <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal"
-                   data-target="#viewMapModel"
-                   title="{{ $alts["moredetails"] }}">More Details</a>
-
-                @if(read("profiletype") == 1)
-                    <A HREF="{{ url("restaurant/info/" . $Restaurant["id"]) }}">Edit</A>
+                    <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
+                    <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
+                @elseif($Restaurant["is_pickup"])
                 @endif
             @endif
 
+            <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal"
+               data-target="#viewMapModel"
+               title="{{ $alts["moredetails"] }}">More Details</a>
 
-
-            </span>
-
-
-    </div>
+            @if(read("profiletype") == 1)
+                <A HREF="{{ url("restaurant/info/" . $Restaurant["id"]) }}">Edit</A>
+            @endif
+        @endif
 
 
     @if(isset($Restaurant["notes"]) && isset($showtoday) && false)
         {!! link_it($Restaurant["notes"]) !!}
     @endif
+
+
     <div class="clearfix"></div>
+</div>
 </div>
 
 
 @if (isset($is_menu) && false)
-    <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}" oldurl="?delivery_type={{ $delivery_type }}" style="text-decoration:none;">
+    <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}" oldurl="?delivery_type={{ $delivery_type }}"
+       style="text-decoration:none;">
         <?php
         $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
         if ($menuitems) {

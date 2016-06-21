@@ -30,7 +30,9 @@
         @endif
 
         {{ $value->menu_item }}
-        <span style="white-space: nowrap">&ndash;
+
+
+        <span style="white-space: nowrap" class="pull-right">
             @if($main_price>0)
                 ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
             @else
@@ -46,11 +48,14 @@
 
 <p class="card-text m-a-0  text-muted">
     <?php
+        echo $value->description;
+        /*
         if (strlen($value->description) > 65) {
             echo substr($value->description, 0, 65) . '...';
         } else {
             echo substr($value->description, 0, 65);
         }
+        */
     ?>
 </p>
 
