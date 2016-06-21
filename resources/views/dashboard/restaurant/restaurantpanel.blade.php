@@ -168,7 +168,7 @@ if ($IncludeMenu) {
 
 
             <div class="pull-right">
-                {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}
+                {!! rating_initialize("static-rating no-rating", "restaurant", $Restaurant['id']) !!}
             </div>
 
 

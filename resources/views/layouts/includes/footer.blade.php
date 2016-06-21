@@ -349,7 +349,8 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                                     $(".hide-on-login").hide();
 
                                     //enable ratings
-                                    $(".static-rating").attr('class', 'rating');
+                                    $(".static-rating:not(.no-rating)").addClass("rating").removeClass("static-rating");
+
                                     $(".rating input[type=radio]").attr("class", "update-rating");
                                     $(".parents").find(".rating").removeClass("rating").addClass("static-rating");
                                     $(".text-muted > div > .rating").removeClass("rating").addClass("static-rating");
