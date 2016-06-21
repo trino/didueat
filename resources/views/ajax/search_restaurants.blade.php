@@ -72,14 +72,12 @@
             if (!isset($restaurants[$value["id"]])) {
                 $restaurants[$value["id"]] = true;
                 $is_open = \App\Http\Models\Restaurants::getbusinessday($value);
-                echo '<div class="" id="card-rest-' . $value["id"] . '">';
+                echo '<div class="card-rest" data-id="' . $value["id"] . '" id="card-rest-' . $value["id"] . '">';
                 echo view("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "IncludeMenu" => $IncludeMenu, "is_menu" => isset($is_menu), "user_time" => $server_time));
                 echo '</div>';
                 if ($is_open) {
-                    //$openStr .= $thisrestaurant;
                     $openCnt++;
                 } else {
-                    //$closedStr .= $thisrestaurant;
                     $closedCnt++;
                 }
                 $totalCnt++;

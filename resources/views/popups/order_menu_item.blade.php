@@ -16,6 +16,7 @@
                 $min_p = get_price($value->id);
                 $has_iconImage = false;
                 $has_bigImage = false;
+                $has_items = false;
             ?>
 
             @if ($has_bigImage)
@@ -102,6 +103,7 @@
 
                                                 <span style="float:left;" class="limit-options no_text_break" style="">
                                                    <?php
+                                                        $has_items=true;
                                                         if ($sub->exact_upto == 0) {
                                                             $upto = "up to ";
                                                         } elseif ($sub->exact_upto == '1') {
@@ -131,6 +133,7 @@
                                                     ?>
                                                     @foreach($mini_menus as $mm)
                                                         <?php
+                                                            $has_items=true;
                                                             $a++;
                                                             if ($mm->price != 0) {
                                                                 $extra_price = '(+$' . $mm->price . ')_';
@@ -219,10 +222,12 @@
                         <div class="col-md-8">
                             <SELECT style="padding:.375rem;width:100%;text-align: left;" ID="csr{{ $value->id }}" TITLE="{{ $alts["csr"] }}" CLASS="btn btn-secondary text-muted">
                                 <?php
-                                    $Actions = array("Go with restaurant suggestion", "Contact me", "Refund this item", "Cancel entire order");
-                                    foreach ($Actions as $Index => $Action) {
-                                        echo '<OPTION VALUE="' . $Index . '">' . $Action . '</OPTION>';
-                                    }
+                                    /*
+                                        $Actions = array("Go with restaurant suggestion", "Contact me", "Refund this item", "Cancel entire order");
+                                        foreach ($Actions as $Index => $Action) {
+                                            echo '<OPTION VALUE="' . $Index . '">' . $Action . '</OPTION>';
+                                        }
+                                    */
                                 ?>
                             </SELECT>
                         </div>
@@ -242,7 +247,7 @@
                     </div>
                     <div class="pull-right" style="margin-left:.5rem;">
                         <a id="profilemenu{{ $value->id }}" title="{{ $alts["add"] }}"
-                           class="btn btn-primary add_menu_profile add_end"
+                           class="btn btn-primary add_menu_profile add_end {{ iif($has_items, "has_items") }}"
                            href="javascript:void(0);">ADD</a>
                     </div>
                     <div class="pull-right text-muted">Qty

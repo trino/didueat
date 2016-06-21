@@ -131,11 +131,14 @@ $alts = array(
                         </div>
                     </div>
 
-                    <div class="col-lg-12 followTo">
+                    <div class="col-lg-12 followTo" style="width:350px;">
                         <?php
                             if ($IncludeMenuBackup && ReceiptVersion) {
                                 printablereceipt(false, false, true, true, $__env, $order, $items);
                                 printscripts(true, $orderID, false, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
+                            }
+                            if(debugmode() || read("profiletype") == 1){
+                                echo '<A ONCLICK="expandcollapseall(true);">Expand All</A><BR><A ONCLICK="expandcollapseall(false);">Collapse All</A>';
                             }
                         ?>
                     </div>
@@ -384,22 +387,60 @@ $alts = array(
             lastdata = submitform(e, start, "body onclick");
         });
 
+        var loading = 0;
+        var expanding = false;
         function loadmenu(RestaurantID) {
             if (!$("#menu-rest-" + RestaurantID).length) {
                 $("#card-header-" + RestaurantID).append('<DIV ID="loading-rest-' + RestaurantID + '">Loading...<i class="fa fa-spin fa-spinner"></DIV>');
+                loading++;
                 $.post("{{ url('ajax') }}", {
                     token: token,
                     type: "loadmenu",
                     RestaurantID: RestaurantID
                 }, function (result) {
-                    result = '<DIV ID="menu-rest-' + RestaurantID + '">' + result + '</DIV>';
+                    result = '<DIV ID="menu-rest-' + RestaurantID + '" class="menu-rest">' + result + '</DIV>';
                     $("#loading-rest-" + RestaurantID).remove();
                     $("#card-header-" + RestaurantID).append(result);
+                    loading--;
+                    if(expanding){
+                        PullRest();
+                    }
                 });
             } else if($('#menu-rest-' + RestaurantID).hasClass("collapse")) {
                 $('#menu-rest-' + RestaurantID).removeClass("collapse");
             } else {
                 $('#menu-rest-' + RestaurantID).addClass("collapse");
+            }
+        }
+
+        var restaurants;
+        function expandcollapseall(expand){
+            if(expand){
+                if(expanding){return false;}
+                log("EXPAND");
+                $('.menu-rest').removeClass("collapse");
+                restaurants = new Array();
+                $(".card-rest").each(function(index) {
+                    var RestID = $(this).attr("data-id");
+                    if (!$("#menu-rest-" + RestID).length) {
+                        restaurants.push(RestID);//must be queued or the server will error out
+                    }
+                });
+                PullRest();
+            } else {
+                $(".collapse").removeClass("collapse").removeClass("in").addClass("collapsing collapsed");
+                $('.menu-rest').addClass("collapse");
+            }
+        }
+
+        function PullRest(){
+            expanding = restaurants.length > 0;
+            if(expanding){
+                loadmenu(restaurants[0]);
+                restaurants.splice(0, 1);
+            } else {
+                $("div[aria-expanded=false]").trigger("click");
+                $("div[data-toggle=collapse]:not([aria-expanded])").trigger("click");
             }
         }
     </script>

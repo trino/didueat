@@ -29,6 +29,8 @@
                  alt="{{ $value->menu_item }}"/>
         @endif
 
+        <i id="menuitem-check_{{ $value->id }}" class="fa fa-check" style="display:none;color:green;"></i>
+
         @if(debugmode())
             (ID: {{ $value->id }})
         @endif

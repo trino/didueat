@@ -482,13 +482,22 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
                 overlay_loader_hide();
                 $( "#popupholder" ).append( result );
                 if(receiptversion) {
-                    $("#product-pop-up_" + ID).modal("show");
+                    showproductpopup(ID);
                 } else {
                     $(temptarget).trigger("click");
                 }
             });
         } else if (receiptversion) {
+            showproductpopup(ID);
+        }
+    }
+
+    function showproductpopup(ID){
+        if($("#profilemenu" + ID).hasClass("has_items")) {
             $("#product-pop-up_" + ID).modal("show");
+        } else {
+            $("#profilemenu" + ID).trigger("click");
+            $("#menuitem-check_" + ID).show();
         }
     }
 
