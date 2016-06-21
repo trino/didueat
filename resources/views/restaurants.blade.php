@@ -396,6 +396,10 @@ $alts = array(
                     $("#loading-rest-" + RestaurantID).remove();
                     $("#card-header-" + RestaurantID).append(result);
                 });
+            } else if($('#menu-rest-' + RestaurantID).hasClass("collapse")) {
+                $('#menu-rest-' + RestaurantID).removeClass("collapse");
+            } else {
+                $('#menu-rest-' + RestaurantID).addClass("collapse");
             }
         }
     </script>
