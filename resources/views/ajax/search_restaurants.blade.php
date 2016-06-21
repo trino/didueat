@@ -86,7 +86,7 @@
             }
         }
     }
-        
+
     $alts = array(
             "loadmore" => "Load more restaurants",
             "loading" => "Loading..."
