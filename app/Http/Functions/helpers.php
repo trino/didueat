@@ -768,12 +768,14 @@ function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "
     if ($query->count() > 0) {
         if ($getcol) {
             if ($getcol == "COUNT()") {
-                return $query->count();
+                debugprint($query->count() . " files");
+                return intval($query->count());
             }
             return $query->first()->$getcol;
         }
         return $query->first();
     }
+    if ($getcol == "COUNT()") {return 0;}
 }
 
 //SELECT * FROM $Table WHERE $conditions

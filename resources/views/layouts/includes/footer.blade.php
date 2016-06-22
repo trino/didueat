@@ -12,7 +12,8 @@
                 "socmed" => "View us on social media",
                 "home/terms" => "Terms of use",
                 "trinoweb" => "More about the webmasters",
-                "driver/signup" => "Sign up as a driver"
+                "driver/signup" => "Sign up as a driver",
+                "driver/orders" => "Show available drivers"
         );
         ?>
         <div class="row text-xs-center">
@@ -48,17 +49,19 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
 
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "restaurant" || debugmode())) {?>
                     <li class="list-inline-item">
-                        <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant
-                            Sign Up</a>
+                        <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant Sign Up</a>
                     </li>
                     <?php }
 
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "driver" || debugmode()) && !islive()) {?>
                     <li class="list-inline-item">
-                        <a href="{{ url("driver/signup") }}" title="{{ $alts["driver/signup"] }}">Driver
-                            Sign Up</a>
+                        <a href="{{ url("driver/signup") }}" title="{{ $alts["driver/signup"] }}">Driver Sign Up</a>
                     </li>
                     <?php } ?>
+
+                    <li class="list-inline-item">
+                        <a href="{{ url("driver/orders") }}" onclick="return appendaddress(event);" title="{{ $alts["driver/orders"] }}">Driver Orders</a>
+                    </li>
 
                     <li class="list-inline-item">
                         <h5>
@@ -94,6 +97,22 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
 
 
 <script type="text/javascript">
+    function appendaddress(e){
+        var URL = $(e.target).attr("href");
+        var n = URL.indexOf('?');
+        if(n > -1) {URL = URL.substring(0, n);}
+        URL = URL + "?address=" + encodeURIComponent($("#formatted_address2").val());
+        URL = URL + "&latitude=" + $("#latitude").val();
+        URL = URL + "&longitude=" + $("#longitude").val();
+        URL = URL + "&city=" + $("#city").val();
+        URL = URL + "&province=" + $("#province").val();
+        URL = URL + "&postal_code=" + encodeURIComponent($("#postal_code").val());
+        URL = URL + "&country=" + $("#country").val();
+        $(e.target).attr("href", URL);
+        log(URL);
+        return true;
+    }
+
     var lastrating, needsrating = false;
     $(document).ready(function () {
         //loads the simple modal

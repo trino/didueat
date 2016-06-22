@@ -35,6 +35,8 @@
         public function listingAjax($type = '', $id = ''){
             \DB::enableQueryLog();
             $per_page = \Input::get('showEntries');
+            $defaults = array("per_page" => 10, "meta" => "order_time", "order" => "DESC", "searchResults" => "");
+            if($per_page == "undefined"){$per_page = $defaults["per_page"];}
             $page = \Input::get('page');
             $cur_page = $page;
             $page -= 1;
@@ -50,6 +52,12 @@
                 'order' => (\Input::get('order')) ? \Input::get('order') : 'DESC',
                 'searchResults' => \Input::get('searchResults')
             );
+            foreach($data as $key => $value){
+                if ($value == "undefined" && isset($defaults[$key])){
+                    $data[$key] = $defaults[$key];
+                }
+            }
+
             if ($id) {
                 $data["id"] = $id;
             }
@@ -62,6 +70,7 @@
                     $Query = \App\Http\Models\Orders::listing($data, "list", $recCount);
                     break;
             }
+
             $no_of_paginations = ceil($recCount / $per_page);
 
             $data['Query'] = $Query;
@@ -195,7 +204,11 @@
                 }
                 try {
                     if (is_numeric($post['id'])) {
-                        $ob = \App\Http\Models\Reservations::find($post['id']);
+                        if(ReceiptVersion){
+                            $ob = \App\Http\Models\Orders::find($post['id']);
+                        } else {
+                            $ob = \App\Http\Models\Reservations::find($post['id']);
+                        }
                     } else {
                         $ob = \App\Http\Models\Reservations::where('guid', $post['id'])->first();
                         $flash = "Order " . $status . " via email";
@@ -547,4 +560,8 @@
                 return $this->failure("That order either doesn't exist or has already been approved or denied", "/");
             }
         }
-    }
+
+        function driverorders(){
+            return view("orders.driverorders", $_GET);
+        }
+}

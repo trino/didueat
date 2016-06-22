@@ -93,6 +93,7 @@ class Orders extends BaseModel {
         $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total', 'csr_action');
         $post = array_filter($post);
         $post["status"] = "pending";
+        $post["order_time"] = now();
         $orderid = $post["order_id"];
         foreach($post as $key => $value){
             if (!in_array($key, $cells)){

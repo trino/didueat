@@ -160,6 +160,10 @@
         function searchtimechange(){
             $("#ordered_on_time").val( $("#delivery-time").val() );
         }
+
+        if(getCookie("cuisine")){
+            $("#cuisine").val(getCookie("cuisine"));
+        }
     </script>
 
     <?php
