@@ -140,6 +140,22 @@
             base_url = base_url + 'didueat.ca/';
         }
         var shownat = Date.now();
+
+        function keypress(e){
+
+            log(keycode);
+        }
+
+        $("body").keydown(function(e) {
+            var keycode = e.keyCode || e.charCode;
+            switch (keycode){
+                case 27://escape, hide all visible modals
+                    $(".modal").filter(":visible").each(function() {
+                        $( this ).modal("hide");
+                    });
+                    break;
+            }
+        });
     </SCRIPT>
 
 </head>
@@ -206,6 +222,6 @@
         $.src="//v2.zopim.com/?3u8GXzcxlOrJMcFj3nt8iVLulwN1RV8y";z.t=+new Date;$.
                 type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 </script-->
-
+    <DIV ID="popupholder"></DIV>
 </body>
 </html>
