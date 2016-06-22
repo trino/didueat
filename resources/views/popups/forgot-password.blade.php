@@ -29,8 +29,8 @@
             <div class="col-md-3">
             </div>
             <div class="col-md-9">
-                <button id="lostPWregButton" class="btn btn-primary btn-block form-control" type="submit"
-                        >Submit
+                <button id="lostPWregButton" class="btn btn-primary btn-block form-control" type="submit">
+                    Submit
                 </button>
             </div>
         </div>
