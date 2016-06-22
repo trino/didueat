@@ -359,13 +359,17 @@ $.fn.hasAttr = function(name) {
     return this.attr(name) !== undefined;
 };
 
+function ismobile(){
+    return $(window).width() < 972;
+}
+
 //usage: $('#yourDiv').followTo(250);
 $.fn.followTo = function (pos) {
     var $this = this, $window = $(window);
 
     $window.scroll(function (e) {
         var top = $window.scrollTop();
-        if (top > pos) {
+        if (top > pos && !ismobile()) {
             $this.css({
                 position: 'fixed',
                 top: pos
