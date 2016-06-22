@@ -1,4 +1,6 @@
-
+.list-inline-item{
+    width: 100%;
+}
 
 html, body {height:100%;background: #fff;}
 .form-group{margin: 0 !important;}

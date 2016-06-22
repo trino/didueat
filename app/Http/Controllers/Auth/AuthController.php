@@ -276,7 +276,9 @@ class AuthController extends Controller {
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'New password request for your ' . DIDUEAT . ' account.';
                     $userArray['new_pass'] = $newpass;
-                    debugprint("Password of " . \Input::get('email') . " set to " . $newpass );
+                    if(!islive() && debugmode()) {//speed up password recovery ON LOCAL ONLY
+                        debugprint("Password of " . \Input::get('email') . " set to " . $newpass);//security risk, cannot be allowed to run on live
+                    }
                     $this->sendEMail("emails.forgot", $userArray);
 
                     $message['title'] = "Forgot Password";

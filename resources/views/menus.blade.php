@@ -868,8 +868,8 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
                                 err = ordererror(err, catid, td_index, td_temp, "Select up to " + extra_no + " Options");
                             }
                         } else if (upto <2) {//if items are not required, and limit is not unlimited
-                            if (multiples == 0 && cnn > 0 && cnn != extra_no) {//multiple items are allowed, selected is above the limit
-                                err = ordererror(err, catid, td_index, td_temp, "Select " + extra_no + " Options");
+                            if (multiples == 0 && cnn > 0 && cnn > extra_no) {//multiple items are allowed, selected is above the limit
+                                err = ordererror(err, catid, td_index, td_temp, "Select " + extra_no + " Options (" + multiples + ", " + cnn + ", " + extra_no + ")");
                             }
                         }
 
