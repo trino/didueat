@@ -31,21 +31,20 @@
                 @endif
                 @if($tip)
                     <TR><TD COLSPAN="3"><HR></TD></TR>
+
+                @endif
+                @if($message !== false)
                     <tr>
-                        <td colspan="2"><strong>Tip</strong></td>
-                        <td class="pull-right"><span>{{ asmoney( $tip ) }}</span></td>
+                        <td colspan="2"><strong>Total {{ $message }}</strong></td>
+                        <td><div class="grandtotal inlineblock pull-right">{{ asmoney($total) }}</div></td>
                     </tr>
                 @endif
-                <tr>
-                    <td colspan="2"><strong>Total {{ $message }}</strong></td>
-                    <td><div class="grandtotal inlineblock pull-right">{{ asmoney($total) }}</div></td>
-                </tr>
             <?php }
-            return $total;
+            return $subtotal;
         }
     }
 
-    printfile("views/common/receipt2.blade.php");
+    printfile("<BR>views/common/receipt2.blade.php");
     $restaurants = array();
     $items = select_field("orderitems", "order_id", $order->id, false );
 
@@ -62,36 +61,46 @@
         $curr_rest = 0;
         $curr_rest_subtotal = 0;
         $total = 0;
+        $total_restaurants = 0;
         $delivery_fee = 5;//per restaurant
         $tax = 13;
 
         foreach($items as $item){
-            if($item->restaurant_id != $curr_rest && !$ordering){
-                if(isset($restaurant) && $curr_rest_subtotal){
-                    $total += totals($curr_rest_subtotal,  0, $tax, $delivery_fee," for " . $restaurant->name);
-                    echo '<TR><TD COLSPAN="3"><HR></TD></TR>';
+            if($item->quantity){
+                if($item->restaurant_id != $curr_rest && !$ordering){
+                    if(isset($restaurant)){// && $curr_rest_subtotal){
+                        $total_restaurants += 1;
+                        $total += totals($curr_rest_subtotal,  0, $tax, $delivery_fee," for " . $restaurant->name);
+                        echo '<TR><TD COLSPAN="3"><HR></TD></TR>';
+                    }
+                    $curr_rest = $item->restaurant_id;
+                    $curr_rest_subtotal = 0;
+                    $restaurant = $restaurants[$curr_rest];
+
+                    echo '<TR><TD COLSPAN="3">' . $restaurant->name . '<BR>';
+                    echo $restaurant->address . ', ' . $restaurant->city . " " . $restaurant->province . '</TD></TR>';
                 }
-                $curr_rest = $item->restaurant_id;
-                $curr_rest_subtotal = 0;
-                $restaurant = $restaurants[$curr_rest];
-                echo '<TR><TD COLSPAN="3">' . $restaurant->name . '<BR>';
-                echo $restaurant->address . ', ' . $restaurant->city . " " . $restaurant->province . '</TD></TR>';
+                if($ordering){
+                    if($item->restaurant_id != $curr_rest){
+                        $total_restaurants += 1;
+                        $curr_rest = $item->restaurant_id;
+                    }
+                    echo view("receipt.menuitem", array("menuitem_id" => $item->id, "title" => $item->title, "price" => $item->price, "quantity" => $item->quantity, "restaurant" => $item->restaurant_id));
+                } else {
+                    echo '<TR><TD>' . $item->quantity . '</TD><TD>' . $item->title;
+                    echo '</TD><TD class="pull-right">' . asmoney($item->price) . '</TD></TR>';
+                }
+                $curr_rest_subtotal += $item->price;
             }
-            if($ordering){
-                echo view("receipt.menuitem", array("menuitem_id" => $item->id, "title" => $item->title, "price" => $item->price, "quantity" => $item->quantity));
-            } else {
-                echo '<TR><TD>' . $item->quantity . '</TD><TD>' . $item->title;
-                echo '</TD><TD class="pull-right">' . asmoney($item->price) . '</TD></TR>';
-            }
-            $curr_rest_subtotal += $item->price;
         }
 
         $total += totals($curr_rest_subtotal, 0, $tax, $delivery_fee, " for " . $restaurant->name, $ordering);
-        $order->subtotal = $curr_rest_subtotal;
-        $order->tax = $tax;
+        $order->subtotal = $total;
+        $order->restaurants = $total_restaurants;
+        $order->tax = $total * 0.13;
         $order->delivery_fee = $delivery_fee;
-        $restaurant->delivery_fee = $delivery_fee;
+        //$order->delivery_fee = $delivery_fee * $total_restaurants;
         $order->g_total = $total;
-        totals($total, $order->tip, 0,0, " for all restaurants");
+        totals($total, $order->tip, 0,0, false);
     }
 ?>

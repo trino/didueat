@@ -10,9 +10,13 @@
                     }
                     echo '>' . $i . '</OPTION>';
                 }
+                $restid="";
+                if(debugmode() && isset($restaurant)){
+                    $restid = ' <FONT COLOR="RED">Rest: ' . $restaurant . '</FONT>';
+                }
             ?>
         </SELECT>
     </TD>
-    <TD class="innerst" width="60%">{!! $title !!}</TD>
+    <TD class="innerst" width="60%">{!! $title . $restid !!}</TD>
     <TD valign="top" id="totalitem_{{ $menuitem_id }}" class="total">{{ asmoney($price * $quantity) }}</TD>
 </TR>

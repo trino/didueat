@@ -159,11 +159,35 @@
                         </tr>
                         <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df">
                             <td colspan="2"><strong>Delivery</strong></td>
+                            <?php
+                                $delivery_fee = 5;
+                                $restaurants = 1;
+                                $subtotal=0;
+                                $tip = 0;
+                                if(isset($order->delivery_fee)){
+                                    $delivery_fee = $order->delivery_fee;
+                                    if(isset($order->restaurants) && $order->restaurants){
+                                        $restaurants=$order->restaurants;
+                                        $delivery_fee = $delivery_fee * $order->restaurants;
+                                    }
+
+                                    $subtotal = $order->subtotal;
+                                    $tip = $order->tip;
+                                }
+                                if($restaurants < 2){
+                                    $restaurants="";
+                                } else {
+                                    $restaurants = "(x" . $restaurants . ") ";
+                                }
+                                $order->g_total = $subtotal * 1.13 + $tip + $delivery_fee;
+
+                                $delivery_fee = number_format($delivery_fee,2);
+                            ?>
                             <td>
                                 <div class="pull-right ">
-                                    <span class="df">${{ (isset($order)) ? number_format($order->delivery_fee,2) :(isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}</span>
+                                    <span class="df">{{ $restaurants . "$" . $delivery_fee }}</span>
                                     <input type="hidden"
-                                           value="{{ (isset($order)) ? number_format($order->delivery_fee,2) : (isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}"
+                                           value="{{ $delivery_fee }}"
                                            class="df" id="delivery_fee" name="delivery_fee"/>
                                     <input type="hidden" value="0" id="delivery_flag" name="order_type"/>
                                 </div>

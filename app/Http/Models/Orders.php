@@ -136,7 +136,7 @@ class Orders extends BaseModel {
         }
 
         if(isset($post["layout"])) {
-            if(debugmode()){$post["POST"] = $post;}
+            if(debugmode()){$post["POST"] = var_export($post, true);}
             $post["HTML"] = "" . view($post["layout"], $post);
         }
 
