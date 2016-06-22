@@ -414,7 +414,7 @@ $alts = array(
         }
 
         function loadall(){
-            if(loading){return false;}
+            //if(loading){return false;}
             $('.menu-rest').removeClass("collapse");
             restaurants = new Array();
             $(".card-rest").each(function(index) {

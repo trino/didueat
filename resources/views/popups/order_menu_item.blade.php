@@ -10,6 +10,7 @@
                         "minus" => "Remove 1 item",
                         "plus" => "Add 1 item",
                         "bigimage" => "This item's picture",
+                        "clear" => "Erase the form and start over",
                         "csr" => "What to do if something is wrong with the order"
                 );
                 $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
@@ -274,6 +275,12 @@
                             <i class="fa fa-plus"></i>
                         </a>
                         @if($usedropdown) </SPAN> @endif
+                    </div>
+
+                    <div class="pull-left" style="margin-left:.5rem;">
+                        <a id="clearmenu{{ $value->id }}" title="{{ $alts["clear"] }}"
+                           class="btn btn-danger"
+                           onclick="confirmclearForm('#product-pop-up_{{ (isset($value->id))?$value->id:'' }}');">CLEAR</a>
                     </div>
                 </div>
                 <div class="clearfix"></div>

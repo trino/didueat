@@ -491,8 +491,17 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
         }
     }
 
+    function confirmclearForm(Parent){
+        confirm2('Are you sure you want to erase your data?', function(tthis, data){clearForm(data.Parent);},{Parent: Parent});
+    }
+    function clearForm(Parent) {
+        $(Parent).find('input:visible').not(':button, :submit, :reset, :hidden, :checkbox, :radio :hidden').val('');
+        $(Parent).find(':checkbox, :radio').filter(':visible').prop('checked', false);
+    }
+
     function showproductpopup(ID){
         if($("#profilemenu" + ID).hasClass("has_items")) {
+            clearForm("#profilemenu" + ID);
             $("#product-pop-up_" + ID).modal("show");
         } else {
             $("#profilemenu" + ID).trigger("click");
