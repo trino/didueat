@@ -173,13 +173,13 @@
 
                                     $subtotal = $order->subtotal;
                                     $tip = $order->tip;
+                                    $order->g_total = $subtotal * 1.13 + $tip + $delivery_fee;
                                 }
                                 if($restaurants < 2){
                                     $restaurants="";
                                 } else {
                                     $restaurants = "(x" . $restaurants . ") ";
                                 }
-                                $order->g_total = $subtotal * 1.13 + $tip + $delivery_fee;
 
                                 $delivery_fee = number_format($delivery_fee,2);
                             ?>
