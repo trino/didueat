@@ -365,6 +365,7 @@ $alts = array(
                 }, function (result) {
                     $('#parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);
+                    loadall();
                 });
             } else {
                 $('.loadingbar').show();
@@ -376,6 +377,7 @@ $alts = array(
                 }, function (result) {
                     $('#restuarant_bar').append(result);
                     $('#loadMoreBtnContainer').remove();
+                    loadall();
                 });
             }
 
@@ -386,13 +388,12 @@ $alts = array(
             var start = $(this).attr('data-id');
             lastdata = submitform(e, start, "body onclick");
         });
-
-        var loading = 0;
-        var expanding = false;
+        
+        var loading = false;
+        var expandatend = false;
         function loadmenu(RestaurantID) {
             if (!$("#menu-rest-" + RestaurantID).length) {
                 $("#card-header-" + RestaurantID).append('<DIV ID="loading-rest-' + RestaurantID + '">Loading...<i class="fa fa-spin fa-spinner"></DIV>');
-                loading++;
                 $.post("{{ url('ajax') }}", {
                     token: token,
                     type: "loadmenu",
@@ -401,8 +402,7 @@ $alts = array(
                     result = '<DIV ID="menu-rest-' + RestaurantID + '" class="menu-rest">' + result + '</DIV>';
                     $("#loading-rest-" + RestaurantID).remove();
                     $("#card-header-" + RestaurantID).append(result);
-                    loading--;
-                    if(expanding){
+                    if(loading){
                         PullRest();
                     }
                 });
@@ -413,20 +413,24 @@ $alts = array(
             }
         }
 
+        function loadall(){
+            if(loading){return false;}
+            $('.menu-rest').removeClass("collapse");
+            restaurants = new Array();
+            $(".card-rest").each(function(index) {
+                var RestID = $(this).attr("data-id");
+                if (!$("#menu-rest-" + RestID).length) {
+                    restaurants.push(RestID);//must be queued or the server will error out
+                }
+            });
+            PullRest();
+        }
+
         var restaurants;
         function expandcollapseall(expand){
             if(expand){
-                if(expanding){return false;}
-                log("EXPAND");
-                $('.menu-rest').removeClass("collapse");
-                restaurants = new Array();
-                $(".card-rest").each(function(index) {
-                    var RestID = $(this).attr("data-id");
-                    if (!$("#menu-rest-" + RestID).length) {
-                        restaurants.push(RestID);//must be queued or the server will error out
-                    }
-                });
-                PullRest();
+                expandatend = true;
+                loadall();
             } else {
                 $(".collapse").removeClass("collapse").removeClass("in").addClass("collapsing collapsed");
                 $('.menu-rest').addClass("collapse");
@@ -434,13 +438,14 @@ $alts = array(
         }
 
         function PullRest(){
-            expanding = restaurants.length > 0;
-            if(expanding){
+            loading = restaurants.length > 0;
+            if(loading){
                 loadmenu(restaurants[0]);
                 restaurants.splice(0, 1);
-            } else {
+            } else if(expandatend) {
                 $("div[aria-expanded=false]").trigger("click");
                 $("div[data-toggle=collapse]:not([aria-expanded])").trigger("click");
+                expandatend = false;
             }
         }
     </script>
