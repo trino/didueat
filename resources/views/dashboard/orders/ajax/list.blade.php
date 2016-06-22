@@ -118,7 +118,7 @@
                                 $value->guid = $value->id;
                                 if($value->status == "incomplete"){//get the slug of the first restaurant from the order
                                     $restaurant_id = select_field("orderitems", "order_id", $value->id, "restaurant_id");
-                                    $ResumeURL = url("restaurants/" . getslug($restaurant_id)  . "/menu") . "?orderid=" . $value->id;
+                                    $ResumeURL = url("/") . "?orderid=" . $value->id;
                                 }
                             }
                         ?>
