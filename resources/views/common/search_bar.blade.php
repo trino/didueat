@@ -50,7 +50,7 @@
         ?>
 
         <input type="text" name="formatted_address" id="formatted_address2"
-               class="formatted_address" placeholder="Enter your address"
+               class="formatted_address formatted_address_black" placeholder="Enter your address"
                onchange="change_address_event();"
                @if(isset($_GET["search"]))
                value="{{ $_GET["search"] }}"

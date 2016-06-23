@@ -311,7 +311,7 @@ class UsersController extends Controller
                 $res["remarks"] = $post["remarks"];
                 $res["tip"] = $post["tip"];
                 $res['ordered_by'] = $post['ordered_by'];
-                $post["email"] = read("email");
+                if(read("email")) {$post["email"] = read("email");}
 
                 if($res['order_type'] == 0) {
                     $res["status"] = "approved";
