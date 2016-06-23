@@ -139,24 +139,7 @@
                 ?>
 
                 <SPAN @if(!$addresses->count()) id="show-addaddress" style="display:none;" @endif >
-                    <select class="form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange('editaddress');">
-                        <option value="" selected="selected">Select Address</option>
-                        <?php //address selection dropdown, could use common.addressbar
-                            $sec = false;
-                            foreach ($addresses as $address) {
-                                if (!$sec) {
-                                    $sec = $address->id;
-                                }
-                                echo '<option class="dropdown-item" REQUIRED';
-                                echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
-                                echo ' COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" LATITUDE="' . $address->latitude . '" LONGITUDE="' . $address->longitude . '"';
-                                echo ' ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
-                                echo $address->address . '</option>';
-                            }
-                        ?>
-
-                    </select>
-
+                    @include("dashboard.usercontrols.addresses")
                 </SPAN>
 <div class=" form-group pull-right">
                 <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class="addNew" title="{{ $alts["add"] }}" data-id='0' value="add_address">New Address</a>
