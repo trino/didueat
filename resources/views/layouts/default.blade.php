@@ -178,6 +178,7 @@
 
 <div class="container-fluid" id="the-content">
     @yield('content')
+    <DIV ID="popupholder"></DIV>
 </div>
 
 <div class="container-fluid" id="the-footer">
@@ -222,6 +223,5 @@
         $.src="//v2.zopim.com/?3u8GXzcxlOrJMcFj3nt8iVLulwN1RV8y";z.t=+new Date;$.
                 type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 </script-->
-    <DIV ID="popupholder"></DIV>
 </body>
 </html>
