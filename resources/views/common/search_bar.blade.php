@@ -44,11 +44,12 @@
         <?php
             $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
             $alts = array(
-                    "search" => "Search for this address"
+                    "search" => "Search for restaurants",
+                    "reset" => "Reset the search"
             );
         ?>
 
-        <input STYLE="width: 300px;" type="text" name="formatted_address" id="formatted_address2"
+        <input type="text" name="formatted_address" id="formatted_address2"
                class="formatted_address" placeholder="Enter your address"
                onchange="change_address_event();"
                @if(isset($_GET["search"]))
@@ -56,7 +57,6 @@
                @endif
                onpaste="this.onchange();">
 
-<BR>
         At
         <select style="width:120px;" name="delivery-time" id="delivery-time" onchange="searchtimechange();">
             <option value="">Order ASAP</option>
@@ -78,13 +78,15 @@
         @if(debugmode())
             <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe" style="color:blue;"></i></A>
         @endif
-        <button style="" class="btn btn-success dueBtn"
-                oldstyle="display: none;" id="header-search-button"
+        <button class="btn btn-success dueBtn"
                 onclick="$('#search-form-submit').trigger('click');" title="{{ $alts["search"] }}">
             <i class="fa fa-search"></i>
         </button>
 
-
+        <button style="float: right;" class="btn btn-warning"
+                onclick="resetsearch();" title="{{ $alts["reset"] }}">
+            <i class="fa fa-times"></i>
+        </button>
         <!--div class="input-group" style="margin-bottom:0 !important; width: 100%">
             <TABLE class="searchtable" width="100%">
                     <TD width="15%"> At </TD>
@@ -110,6 +112,13 @@
 
     <script>
         var formatted_address2, formatted_address3;
+
+        function resetsearch(){
+            $("#cuisine").val('');
+            $("#delivery-time").val('');
+
+            $('#search-form-submit').trigger('click');
+        }
 
         function googlemap(element) {
             $(element).attr("href", 'http://maps.google.com/?q=' + $("#latitude").val() + ',' + $("#longitude").val());

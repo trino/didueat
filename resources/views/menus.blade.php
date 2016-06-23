@@ -753,6 +753,12 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
 
         });
 
+        function iif(value, iftrue, iffalse){
+            if(value){return iftrue;}
+            if(isundefined(iffalse)){return "";}
+            return iffalse;
+        }
+
         function ordererror(err, catid, td_index, td_temp, text){
             err++;
             td_index = $('#td_' + catid).index();
@@ -836,7 +842,7 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
                             extra_no = 1;
                         }
                         var multiples = $('#multiple_' + catid).val();
-                        var upto = $('#upto_' + catid).val();
+                        var upto = Number($('#upto_' + catid).val());
                         var ary_qty = "";
                         var ary_price = "";
                         $('.extra-' + catid).each(function () {
@@ -857,17 +863,34 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
                         //extra_no: quantity limit
                         //upto: 0 if up to extra_no, 1 if exactly extra_no, 2 if unlimited
                         //multiples: 1 if can only select a single item, 0 if multiple items are allowed
-                        //alert("is_required " + is_required + " upto " + upto + " multiples " + multiples + " cnn " + cnn + " extra_no " + extra_no);
+                        //log("is_required " + is_required + " upto " + upto + " multiples " + multiples + " cnn " + cnn + " extra_no " + extra_no);
+                        if(debugmode){
+                            log("Checking " + catid + " (" + $("#title_" + catid).text().trim + ")");
+                            log("cnn (how many are selected): " + cnn);
+                            log("is_required (0=no, 1=yes):   " + is_required + " (" + (cnn>0) + ")");
+                            log("multiples (1=no, 0=yes):     " + multiples + " (" + iif(multiples==0, true, cnn==1) + ")");
+                            log("extra_no (quantity limit):   " + extra_no + " (" + (cnn<=extra_no) + ")");
+                            log("upto:                        " + upto);
+                            switch(upto){
+                                case 0: log(cnn + " can be between 0 and " + extra_no + " (" + (cnn<=extra_no) + ")"); break;
+                                case 1: log(cnn + " must be exactly " + extra_no + " (" + (cnn==extra_no) + ")"); break;
+                                case 2: log(cnn + " can unlimited (" + true + ")"); break;
+                            }
+                        }
 
                         $('.error_' + catid).html("");
                         if (is_required == '1') {//if items are required
                             if (cnn == 0) {//no items are selected
                                 err = ordererror(err, catid, td_index, td_temp, "Options are required");
+                            } else if (upto == 1 && cnn != extra_no) {//exact number required but not given
+                                err = ordererror(err, catid, td_index, td_temp, "Select up to " + extra_no + " Options");
                             } else if (multiples == 0 && cnn > extra_no && upto <2) {//multiple items are allowed, selected is above the limit, limit is not unlimited
                                 err = ordererror(err, catid, td_index, td_temp, "Select up to " + extra_no + " Options");
                             }
                         } else if (upto <2) {//if items are not required, and limit is not unlimited
-                            if (multiples == 0 && cnn > 0 && cnn > extra_no) {//multiple items are allowed, selected is above the limit
+                            if (upto == 1 && cnn != extra_no && cnn > 0) {//exact number required but not given
+                                err = ordererror(err, catid, td_index, td_temp, "Select up to " + extra_no + " Options");
+                            } else if (multiples == 0 && cnn > 0 && cnn > extra_no) {//multiple items are allowed, selected is above the limit
                                 err = ordererror(err, catid, td_index, td_temp, "Select " + extra_no + " Options (" + multiples + ", " + cnn + ", " + extra_no + ")");
                             }
                         }

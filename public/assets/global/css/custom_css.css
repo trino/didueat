@@ -2,6 +2,12 @@
     width: 100%;
 }
 
+.formatted_address{
+    height: 22px !important;
+    width: 300px;
+    border: 1px solid grey !important;
+}
+
 html, body {height:100%;background: #fff;}
 .form-group{margin: 0 !important;}
 input{
