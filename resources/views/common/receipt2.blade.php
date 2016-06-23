@@ -67,7 +67,7 @@
 
         foreach($items as $item){
             if($item->quantity){
-                if($item->restaurant_id != $curr_rest && !$ordering){
+                if($item->restaurant_id != $curr_rest && !$ordering && $curr_rest){
                     if(isset($restaurant)){// && $curr_rest_subtotal){
                         $total_restaurants += 1;
                         $total += totals($curr_rest_subtotal,  0, $tax, $delivery_fee," for " . $restaurant->name);
