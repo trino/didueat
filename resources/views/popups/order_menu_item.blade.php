@@ -100,7 +100,7 @@
                                                            style="display: none;" checked="checked"
                                                            class="chk">
                                                 </div>
-                                                <strong style="float:left;">{{ ucfirst($sub->menu_item) }} &nbsp;</strong>
+                                                <strong style="float:left;" id="title_{{ $sub->id }}">{{ ucfirst($sub->menu_item) }} &nbsp;</strong>
 
                                                 <span style="float:left;" class="limit-options no_text_break" style="">
                                                    <?php
