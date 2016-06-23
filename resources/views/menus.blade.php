@@ -505,7 +505,6 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
             $("#product-pop-up_" + ID).modal("show");
         } else {
             $("#profilemenu" + ID).trigger("click");
-            $("#menuitem-check_" + ID).show();
         }
     }
 

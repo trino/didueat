@@ -40,6 +40,7 @@ function additemtoreceipt(menu_id, ids, quantity, price, csr_action, app_title, 
         dbtitle: dbtitle
     }, function (result) {
         result = calculatetotal(result);
+        $("#menuitem-check_" + menu_id).show();
         if(!isundefined(result.HTML)) {
             result.HTML = decode(result.HTML);
             $(".orders").prepend(result.HTML);

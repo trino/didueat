@@ -280,39 +280,6 @@ function simpleStringify (object){
     return JSON.stringify(simpleObject); // returns cleaned up JSON
 }
 
-//make a cookie value that expires in exdays
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 86400000));//24 * 60 * 60 * 1000
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
-}
-
-//gets a cookie value
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-    }
-    return "";
-}
-
-//deletes a cookie valie
-function removeCookie(cname) {
-    $.removeCookie(cname);
-    $('#search-form #name').val('');
-    $('#search-form #' + cname).val('');
-    //createCookie(cname, "", -1);
-}
-
-//creates a cookie value that expires in 1 year
-function createCookieValue(cname, cvalue) {
-    setCookie(cname, cvalue, 365);
-}
-
 //calculates the distance between 2 GPS coordinates in KM
 function calcdistance(lat1, lon1, lat2, lon2) {
     var R = 6371; // km

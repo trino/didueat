@@ -365,7 +365,7 @@ $alts = array(
                 }, function (result) {
                     $('#parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);
-                    loadall();
+                    //loadall();
                 });
             } else {
                 $('.loadingbar').show();
@@ -377,7 +377,7 @@ $alts = array(
                 }, function (result) {
                     $('#restuarant_bar').append(result);
                     $('#loadMoreBtnContainer').remove();
-                    loadall();
+                    //loadall();
                 });
             }
 
