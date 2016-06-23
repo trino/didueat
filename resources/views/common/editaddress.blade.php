@@ -57,15 +57,15 @@
 <div class="">
 
 <input type="hidden" id="street_num" value="{{ $street_num }}"/>
-<input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
-<input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
+<input type="hidden" name="latitude" id="order_latitude" class="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
+<input type="hidden" name="longitude" id="order_longitude" class="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
 
 
 
 
 
-<div class="<?php if (!isset($type)) echo "";?> addressdropdown ">
+<div class="<?php if (!isset($type)) echo "";?> addressdropdown">
 
     @if(isset($GLOBALS['thisIdentity']))
         <div class="form-group">

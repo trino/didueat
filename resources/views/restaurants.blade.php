@@ -300,8 +300,9 @@ $alts = array(
             }
 
             var formatted_address = $(elementname).val();
-            var latitude = $('#latitude').val().trim();
-            var longitude = $('#longitude').val().trim();
+            var latitude = $('#order_latitude').val().trim();
+            var longitude = $('#order_longitude').val().trim();
+            var longitude = $('#order_longitude').val().trim();
             var address_alias = $('#formatted_address2').val();
 
             var city = $('#city').val();

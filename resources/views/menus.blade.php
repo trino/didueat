@@ -536,58 +536,64 @@ function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr,
 
     function addresschange(where) {
         //code for adding addresses to the drop down is in views/common/receipt.blade.php
-        if ($("#delivery1").is(":checked")) {
-            var found = false;
-            var element = false;
-            var address = "your address";
-            if ($("#delivery1").is(":checked")) {
-                if ($("#reservation_address").length) {
-                    var value = $("#reservation_address").val();
-                    address = "Address ID: " + value;
-                    var element = $("#reservation_address option").filter(":selected");
-                    if (element) {
-                        var address_latitude = element.attr("latitude");
-                        var address_longitude = element.attr("longitude");
-                        found = !isundefined(element.attr("latitude"));
-                        address = element.text();
-                    }
-                } else {
-                    address = $("#formatted_address").val();
-                    var address_latitude = Number( $("#latitude").val());
-                    var address_longitude = Number($("#longitude").val());
-                    found = address && address_latitude && address_longitude;
+        var forcedelivery = true;
+
+        var found = false;
+        var element = false;
+        var address = "your address";
+
+        if(where == "editaddress") {
+            addresschanged($("#reservation_address option:selected").get(0));
+        }
+
+        if ($("#delivery1").is(":checked") || forcedelivery) {
+            if ($("#reservation_address").length) {
+                var value = $("#reservation_address").val();
+                address = "Address ID: " + value;
+                var element = $("#reservation_address option").filter(":selected");
+                if (element) {
+                    var address_latitude = element.attr("latitude");
+                    var address_longitude = element.attr("longitude");
+                    found = !isundefined(element.attr("latitude"));
+                    address = element.text();
                 }
             } else {
-                var address_latitude = $("#latitude").val();
-                var address_longitude = $("#longitude").val();
-                found = address_latitude && address_longitude && !$("#ordered_email-error").is(":visible");
+                address = $("#formatted_address").val();
+                var address_latitude = Number( $("#order_latitude").val());
+                var address_longitude = Number($("#order_longitude").val());
+                found = address && address_latitude && address_longitude;
             }
-
-            if (found) {
-                @if(!ReceiptVersion)
-                    var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
-                    if (distance > {{ $restaurant->max_delivery_distance }}) {
-                        var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km<BR>" + address + " is " + distance.toFixed(2) + " km away.";
-                        @if(debugmode())
-                            if (where == "addresscheck") {
-                            return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
-                        }
-                        @endif
-                        alert(message);
-                        return false;
-                    } else if (debugmode) {
-                        alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
-                    }
-                    if(element) {
-                        element.trigger("click");
-                    }
-                @endif
-                return true;
-            } else if (where == "addresscheck") {
-                alert("No Address Specified");
-                return false;
-            }
+        } else {
+            var address_latitude = $("#order_latitude").val();
+            var address_longitude = $("#order_longitude").val();
+            found = address_latitude && address_longitude && !$("#ordered_email-error").is(":visible");
         }
+
+        if (found) {
+            @if(!ReceiptVersion)
+                var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
+                if (distance > {{ $restaurant->max_delivery_distance }}) {
+                    var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km<BR>" + address + " is " + distance.toFixed(2) + " km away.";
+                    @if(debugmode())
+                        if (where == "addresscheck") {
+                        return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
+                    }
+                    @endif
+                    alert(message);
+                    return false;
+                } else if (debugmode) {
+                    alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
+                }
+                if(element) {
+                    element.trigger("click");
+                }
+            @endif
+            return true;
+        } else if (where == "addresscheck") {
+            alert("No Address Specified");
+            return false;
+        }
+
         return true;
     }
 

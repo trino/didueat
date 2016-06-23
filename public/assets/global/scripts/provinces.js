@@ -82,7 +82,10 @@ function fillInAddress1() {
     if(!isundefined(formatted_address)){
         $('#formatted_addressForDB').val(place.formatted_address); // formatted_address is google maps variable, and not part of address_components
     }
-    
+
+    $('.latitude').val(lat);
+    $('.longitude').val(lng);
+
     $('#latitude').val(lat);
     $('#longitude').val(lng);
     var componentForm = {
@@ -180,6 +183,8 @@ function fillInAddress() {
     createCookieValue('longitude', lng);
     createCookieValue('latitude', lat);
 
+    $('.latitude').val(lat);
+    $('.longitude').val(lng);
     $('#latitude').val(lat);
     $('#longitude').val(lng);
     $('#latitude3').val(lat);

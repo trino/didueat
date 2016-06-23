@@ -123,13 +123,15 @@
                 <th>ID #</th>
                 <th>Placed at</th>
                 <TH>Items</TH>
+                <TH>Distance</TH>
             </tr>
             </thead>
             <tbody>
                 <?php
                     foreach($orders as $order){
                         $order->items = select_field('orderitems', "order_id", $order->id, "COUNT()");
-                        echo '<TR><TD>' . $order->id . '</TD><TD>' . $order->order_time . '</TD><TD>' . $order->items . '</TD></TR>';
+                        echo '<TR ID="order' . $order->id . '"><TD>' . $order->id . '</TD><TD>' . $order->order_time . '</TD><TD>' . $order->items . '</TD></TR>';
+                        var_dump($order);
                     }
                 ?>
             </tbody>

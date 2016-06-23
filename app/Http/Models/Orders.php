@@ -63,7 +63,7 @@ class Orders extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total', 'guid', 'csr_action');
+        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total', 'guid', 'csr_action', 'latitude', 'longitude');
         $this->copycells($cells, $data);
     }
 
@@ -90,7 +90,7 @@ class Orders extends BaseModel {
     }
 
     public static function finalizeorder($post){
-        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total', 'csr_action');
+        $cells = array('status', 'user_id', 'driver_id', 'order_time', 'time', 'ordered_by', 'order_type', 'paid', 'remarks', 'order_till', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'note', 'tip', 'subtotal', 'tax', 'delivery_fee', 'g_total', 'csr_action', 'latitude', 'longitude');
         $post = array_filter($post);
         $post["status"] = "pending";
         $post["order_time"] = now();

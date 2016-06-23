@@ -313,7 +313,9 @@
         $(".province").val(thiss.getAttribute("PROVINCE"));
         $(".apartment").val(thiss.getAttribute("APARTMENT"));
         $(".postal_code").val(thiss.getAttribute("POSTAL"));
-        //$("#ordered_notes").val(thiss.getAttribute("NOTES"));
+
+        $("#order_latitude").val(thiss.getAttribute("latitude"));
+        $("#order_longitude").val(thiss.getAttribute("longitude"));
     }
 
     var ignoreone = false;
