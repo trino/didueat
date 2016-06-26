@@ -67,7 +67,7 @@
 
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">{{ $value->description }}</div>
+                    <div class="col-md-12" >{{ $value->description }}</div>
 
 
                     <div class="col-md-12 subitems_{{ $value->id }} optionals">
@@ -127,7 +127,7 @@
                                                 <div class="clearfix"></div>
                                                 <span class="error_{{ $sub->id }} errormsg"></span>
 
-                                                <div class="list clearfix row m-t-1" style="">
+                                                <div class="list clearfix row" style="">
                                                     <?php
                                                         $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get();
                                                         $a = 0;

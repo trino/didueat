@@ -45,7 +45,7 @@
 
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <input type="text" placeholder="Full Name"
+                                    <input type="text" placeholder="Name"
                                            class="form-control" name="ordered_by"
                                            id="fullname" value="{{ (isset($profile))? $profile->name : '' }}"
                                            required="" @if (isset($profile)) readonly @endif
@@ -61,7 +61,7 @@
                                 <div class="form-group">
                                     <input type="text"
                                            name="phone"
-                                           placeholder="Cell Phone"
+                                           placeholder="Cell"
                                            class="form-control" name="contact"
                                            id="ordered_contact" required=""
                                            value="{{ (isset($profile))? $profile->phone : '' }}" <?php if ((isset($profile))) echo "hidden";?> />

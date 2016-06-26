@@ -71,11 +71,13 @@ $alts = array(
 @extends('layouts.default')
 @section('content')
 
-    <div class=" main-bg-image row ">
-        <div class=" col-md-12  text-xs-center p-a-2">
-
-
+    <div class="row ">
+        <div class=" col-md-12  text-xs-center ">
+            <div class="card">
         @include('common.search_bar')
+</div>
+
+
 
 
         <!--div class=" col-md-offset-2 text-xs-center col-md-8" style="">

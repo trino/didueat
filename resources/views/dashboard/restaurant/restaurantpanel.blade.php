@@ -137,47 +137,45 @@ if ($IncludeMenu) {
 ?>
 
 
-
-    <div class="m-b-1 p-a-1" id="card-header-{{ $Restaurant["id"] }}"
-         style="border:1px solid #eee; background:white;         background: white !important;box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
- @if(!isset($order)) @endif ">
+<ul class="m-b-1 p-a-1 list-group" id="card-header-{{ $Restaurant["id"] }}"
+    style="border:1px solid #eee; background:white; @if(!isset($order)) @endif ">
 
 
+    @if(isset($order))
 
-        @if(isset($order))
-
-            <a class="card-link restaurant-url" {!! $OnClick !!} title="{{ $alts["restaurants/menu"] }}">
+        <a class="card-link restaurant-url" {!! $OnClick !!} title="{{ $alts["restaurants/menu"] }}">
 
 
-<h4>
+            <h4 class="m-b-0">
                 {{ printfile("(ID: " . $Restaurant["id"] . ") ") . $Restaurant['name'] }}
-</h4>
-
-
-            </a>
-
+            </h4>
             @if($Restaurant["cuisine"])
-                {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
+                <span class="text-muted">
+
+        {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
             @endif
 
-              <span class="pull-right"> {!! rating_initialize("static-rating no-rating", "restaurant", $Restaurant['id']) !!} </span>
-        @if($MoreTime)
-                <span class="error"> {!! $MoreTime !!} </span>
-            @endif
-        @endif
 
-        @if(isset($latitude) && $radius && $Restaurant['distance'] && false)
-            <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
-        @endif
+        </a>
+
+    <span class="pull-right"> {!! rating_initialize("static-rating no-rating", "restaurant", $Restaurant['id']) !!} </span>
+    @if($MoreTime)
+        <span class="error"> {!! $MoreTime !!} </span>
+    @endif
+    @endif
+
+    @if(isset($latitude) && $radius && $Restaurant['distance'] && false)
+        <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
+    @endif
 
 
-        @if(isset($Restaurant["notes"]) && isset($showtoday) && false)
-            {!! link_it($Restaurant["notes"]) !!}
-        @endif
+    @if(isset($Restaurant["notes"]) && isset($showtoday) && false)
+        {!! link_it($Restaurant["notes"]) !!}
+    @endif
 
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-    </div>
+</ul>
 
 
 

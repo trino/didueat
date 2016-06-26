@@ -1,4 +1,4 @@
-<li class="list-group-item">
+<li class="list-group-item" style="border-bottom: 0;">
     <div onclick="checkmenuitem(event, {{ $value->id }}, '{{ $value->price }}', '{{ '' }}');">
         <i id="menuitem-check_{{ $value->id }}" class="fa fa-check" style="display:none;color:#5cb85c;"></i>
 

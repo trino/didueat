@@ -1305,9 +1305,9 @@ function get_time_interval($Restaurant = false, $isDelivery = false) {
                 echo "<option value='" . $start_format . "'>" . datename($date) . date(' - g:i A', $date);
                 $hour = date('g:i A', $date);
                 if ($hour == "12:00 AM") {
-                    echo ' (midnight)';
+                    echo '';
                 } else if ($hour == "12:00 PM") {
-                    echo ' (noon)';
+                    echo '';
                 }
                 echo "</option>";
             }

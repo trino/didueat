@@ -59,7 +59,7 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
     // $catCnt set in restaurants-menus.blade
 
     if (!isset($_GET['page'])) {
-        echo '<div class="" id="loadmenus_' . $catid . '">';
+        echo '<div class="m-t-1" id="loadmenus_' . $catid . '">';
     }
     $menus_listA = [];
     $menus_sortA = [];
@@ -210,13 +210,13 @@ if (!$canedit) {
 }
 ?>
 
-<DIV class="m-b-1 {{ iif(!$firstcat, "collapsed") }} " id="c{{ $thisCatCnt }}"><!-- start of this category -->
+<DIV class=" {{ iif(!$firstcat, "collapsed") }} " id="c{{ $thisCatCnt }}"><!-- start of this category -->
     <div class="parents ">
         <!-- start of category heading -->
 
-        <li class="list-group-item" style="background: #f2f2f2;">
-            <div style="" class="panel-heading" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
-                <a class="" href="#" name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
+        <li class="list-group-item" style="background: #f3f3f3;border-bottom:0px !important;">
+            <div style="" class="" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
+                <a style="color:#373a3c;"  name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
             </div>
             <div class="" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
                         name="saveOrderChng" type="button" value="Save All Category Order Changes"

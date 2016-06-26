@@ -99,7 +99,7 @@
 
             <div class="receipt_main">
                 @if(!isset($order))
-                    <table style="display:none;<?php if(!isset($em)){?>width:100%;<?php }else{?>width:100%;padding:0px;<?php }?>">
+                    <table class="" style="display:none;<?php if(!isset($em)){?><?php }else{?><?php }?>">
                     <tr style="">
                         <td colspan="2">
                             @if(isset($restaurant->is_delivery) && $restaurant->is_delivery == 1)
