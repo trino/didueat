@@ -30,7 +30,7 @@
                     <span aria-hidden="true" style="  @if ($has_bigImage) text-shadow: 1px 1px 9px rgba(0, 0, 0, 2);color:white !important; opacity: .8 !important; @endif">&times;</span>
                 </button>
 
-                <h4 class="modal-title " style="" id="viewDetailModel">
+                <h5 class="modal-title " style="" id="viewDetailModel">
     <span class="">
         {{ $value->menu_item }} &ndash; @if($value->price>0)
         @if($dis)
@@ -59,7 +59,7 @@
                     <input type="hidden" id="originalprice<?php echo $value->id; ?>" value="{{$value->price}}"/>
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                     <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
-                </h4>
+                </h5>
 
                 <div class="clearfix"></div>
             </div>
@@ -100,7 +100,7 @@
                                                            style="display: none;" checked="checked"
                                                            class="chk">
                                                 </div>
-                                                <strong style="float:left;" id="title_{{ $sub->id }}">{{ ucfirst($sub->menu_item) }} &nbsp;</strong>
+                                                <p style="float:left;" id="title_{{ $sub->id }}">{{ ucfirst($sub->menu_item) }} &nbsp;</p>
 
                                                 <span style="float:left;" class="limit-options no_text_break" style="">
                                                    <?php
@@ -277,9 +277,9 @@
                         @if($usedropdown) </SPAN> @endif
                     </div>
 
-                    <div class="pull-left" style="margin-left:.5rem;">
+                    <div class="pull-left">
                         <a id="clearmenu{{ $value->id }}" title="{{ $alts["clear"] }}"
-                           class="btn btn-danger"
+                           class="btn btn-secondary-outline"
                            onclick="confirmclearForm('#product-pop-up_{{ (isset($value->id))?$value->id:'' }}');">CLEAR</a>
                     </div>
                 </div>

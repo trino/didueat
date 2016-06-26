@@ -2,29 +2,29 @@
 <html lang="en">
 <head>
     <?php
-        //$start_loading_time = microtime(true);
-        if (Session::has('menuTS')) {
-            $GLOBALS['menuTS'] = Session('menuTS');
-        }
-        $preUpRe = "false";
-        if (isset($_COOKIE['pvrbck'])) {
-            $preUpRe = "true";
-        }
-        echo '<script>preUpRe=' . $preUpRe . ';</script>';
+    //$start_loading_time = microtime(true);
+    if (Session::has('menuTS')) {
+        $GLOBALS['menuTS'] = Session('menuTS');
+    }
+    $preUpRe = "false";
+    if (isset($_COOKIE['pvrbck'])) {
+        $preUpRe = "true";
+    }
+    echo '<script>preUpRe=' . $preUpRe . ';</script>';
 
-        if (!isset($userAddress)) {
-            $userAddress = "";
-        }
-        if (!isset($radiusSelect)) {
-            $radiusSelect = "";
-        }
-        $nextPath = "";
-        if (Request::path() !== null && Request::path() != "/") {
-            $nextPath = "/" . Request::path();
-        }
+    if (!isset($userAddress)) {
+        $userAddress = "";
+    }
+    if (!isset($radiusSelect)) {
+        $radiusSelect = "";
+    }
+    $nextPath = "";
+    if (Request::path() !== null && Request::path() != "/") {
+        $nextPath = "/" . Request::path();
+    }
 
-        $first = false;
-        $type = "hidden";
+    $first = false;
+    $type = "hidden";
     ?>
 
     <title>{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT  }}</title>
@@ -39,10 +39,12 @@
     <meta content="Didueat" name="author">
     <meta name="content-language" content="en-CA"/>
     <meta http-equiv="content-language" content="en-CA"/>
-    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}" name="description">
+    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}"
+          name="description">
     <meta property="og:site_name" content="DiduEat">
     <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT }}">
-    <meta property="og:description" content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}">
+    <meta property="og:description"
+          content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
@@ -55,11 +57,12 @@
     <!-- Safari doesn't trust the certificate from here:
      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <link href="{{ asset('assets/global/css/font-awesome.min.css') }}" rel="stylesheet">
-    <!--link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet"-->
+<!--link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet"-->
 
-    <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" integrity="" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" integrity=""
+          crossorigin="anonymous">
 
-    <!--link href="{{ asset('assets/global/css/bootstrap.css') }}" rel="stylesheet"-->
+<!--link href="{{ asset('assets/global/css/bootstrap.css') }}" rel="stylesheet"-->
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
 
     <!-- JS these two must go first -->
@@ -73,7 +76,7 @@
     <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}"></script>
 
-    <!--script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}"></script-->
+<!--script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}"></script-->
 
     <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
@@ -89,7 +92,7 @@
                 border: 1px solid green;
             }
 
-            div[class^="col-"], div[class*=" col-"], div[class^="card-"], div[class*=" card-"]  {
+            div[class^="col-"], div[class*=" col-"], div[class^="card-"], div[class*=" card-"] {
                 border: 1px solid red !important;
             }
 
@@ -141,17 +144,17 @@
         }
         var shownat = Date.now();
 
-        function keypress(e){
+        function keypress(e) {
 
             log(keycode);
         }
 
-        $("body").keydown(function(e) {
+        $("body").keydown(function (e) {
             var keycode = e.keyCode || e.charCode;
-            switch (keycode){
+            switch (keycode) {
                 case 27://escape, hide all visible modals
-                    $(".modal").filter(":visible").each(function() {
-                        $( this ).modal("hide");
+                    $(".modal").filter(":visible").each(function () {
+                        $(this).modal("hide");
                     });
                     break;
             }
@@ -176,12 +179,12 @@
     @include('common.alert_messages')
 </div>
 
-<div class="container-fluid" id="the-content">
+<div class="container" id="the-content">
     @yield('content')
     <DIV ID="popupholder"></DIV>
 </div>
 
-<div class="container-fluid" id="the-footer">
+<div class="container" id="the-footer">
     @include('layouts.includes.footer')
 </div>
 
@@ -198,7 +201,7 @@
 
 <script>
     $(window).load(function () {
-      overlay_loader_hide();
+        overlay_loader_hide();
     });
 
     (function (i, s, o, g, r, a, m) {

@@ -71,9 +71,8 @@ $alts = array(
 @extends('layouts.default')
 @section('content')
 
-    <div class=" main-bg-image " style="">
-        <div class="" style="margin-top: 0 !important;">
-            <div class=" text-xs-center" style="">
+    <div class=" main-bg-image row ">
+        <div class=" col-md-12  text-xs-center p-a-2>
 
 
             @include('common.search_bar')
@@ -98,7 +97,6 @@ $alts = array(
                 </div>
 
                 <div class="clearfix"></div-->
-            </div>
         </div>
         <div class="clearfix"></div>
 
@@ -111,18 +109,18 @@ $alts = array(
     @include("popups.rating")
     <div class="container hidden-md-down">
     </div>
-    <div class="" style="">
+    <div class="container" style="">
 
         <?php printfile("views/restaurants.blade.php"); ?>
 
         <div class="row m-t-2">
 
             <div class="" id="results_show" style="display: none;">
-                <div class="col-lg-9 m-b-2">
+                <div class="col-lg-8 m-b-2">
                     <?php popup(true, "message:nostores", false, false, ''); $IncludeMenu = false; ?>
                     @include('ajax.search_restaurants')
                 </div>
-                <div class="col-lg-3" ID="filter-results" style="height: 100%;">
+                <div class="col-lg-4" ID="filter-results" style="height: 100%;">
                     <div class="" style="">
                         <div class="card-footer text-xs-right" style="display: none">
                             <input type="button" name="search" class="btn btn-primary" value="Filter"
@@ -131,7 +129,7 @@ $alts = array(
                         </div>
                     </div>
 
-                    <div class="col-lg-12 followTo" style="width:350px;">
+                    <div class=" followTo">
                         <?php
                             if ($IncludeMenuBackup && ReceiptVersion) {
                                 printablereceipt(false, false, true, true, $__env, $order, $items);
@@ -352,7 +350,7 @@ $alts = array(
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
                 oldpadding = $(".main-bg-image").css("padding");
-                $(".main-bg-image").css("padding", ".5rem");
+                $(".main-bg-image").css("padding", "0rem");
 
                 $('#restuarant_bar').html('');
                 $('#parentLoadingbar').show();

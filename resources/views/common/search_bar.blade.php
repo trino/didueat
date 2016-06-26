@@ -83,7 +83,7 @@
             <i class="fa fa-search"></i>
         </button>
 
-        <button style="float: right;" class="btn btn-warning"
+        <button style="" class="btn btn-warning"
                 onclick="resetsearch();" title="{{ $alts["reset"] }}">
             <i class="fa fa-times"></i>
         </button>

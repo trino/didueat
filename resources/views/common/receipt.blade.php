@@ -95,7 +95,7 @@
 
 
         <div class="card-block">
-            <h4 class="card-title p-b-1">Your Order</h4>
+            <!--h4 class="card-title p-b-1">Your Order</h4-->
 
             <div class="receipt_main">
                 @if(!isset($order))
@@ -134,7 +134,7 @@
                     </table>
                 @endif
 
-                <div class="totals form-group" style=" width:100%;">
+                <div class="totals form-group p-t-1">
                         @include('common.items')
                         <tr>
                             <td colspan="2" width=" @if(isset($order)) 75% @else 50% @endif "><strong>Subtotal</strong></td>

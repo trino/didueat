@@ -41,7 +41,7 @@
             @include('common.table_controls')
         </div>
     </div>
-    
+
     <div class="card-block p-a-0">
         <table class="table table-responsive m-b-0">
             <?php
@@ -74,8 +74,8 @@
                                     @endif
                                 </div>
                             </td>
-                            
-                            
+
+
                             <td>{{ $value->id }}</td>
                             <td><img class="img-rounded" src="{{ $logo }}" width="90" alt="{{ $alts["logo"] }}"/></td>
                             <td>
@@ -154,12 +154,12 @@
                                         }
                                     }
                                 ?>
-                                </div>                                
+                                </div>
                             </td>
 
 
-                    
-                            
+
+
                         </tr>
                     @endforeach
                 @else
