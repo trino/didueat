@@ -185,17 +185,17 @@
 
                                                                 <a id="addspan_{{ $mm->id }}"
                                                                    title="{{ $alts["addspan"] }}"
-                                                                   class="addspan btn  mobile-p-r-0 pull-right"
+                                                                   class="addspan btn btn-sm  mobile-p-r-0 pull-right"
                                                                    href="javascript:;"><i
                                                                             class="fa fa-plus"></i></a>
 
                                                                 <a id="sprice_{{$mm->price}}"
-                                                                   style="margin-top:6px;"
+                                                                   style="margin-top:-6px;"
                                                                    class=" btn pull-right p-a-0 span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</a>
 
                                                                 <a id="remspan_{{ $mm->id }}"
                                                                    title="{{ $alts["remspan"] }}"
-                                                                   class="remspan btn pull-right  p-l-0 "
+                                                                   class="remspan btn pull-right btn-sm  p-l-0 "
                                                                    href="javascript:;"><i style="color: #dadada"
                                                                                           class="fa fa-minus"></i></a>
                                                             </div>

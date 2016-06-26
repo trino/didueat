@@ -139,7 +139,8 @@ if ($IncludeMenu) {
 
 
     <div class="m-b-1 p-a-1" id="card-header-{{ $Restaurant["id"] }}"
-         style="border:1px solid #eee; background:white;    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); @if(!isset($order)) @endif ">
+         style="border:1px solid #eee; background:white;         background: white !important;box-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
+ @if(!isset($order)) @endif ">
 
 
 

@@ -1,5 +1,15 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    background: #fafafa;
+}
 .list-inline-item{
     width: 100%;
+}
+.list-group{
+
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1) !important;
+
+
 }
 .list-group-item{
     border-radius: 0 !important;
@@ -10,7 +20,7 @@
     border: 1px solid grey !important;
 }
 
-html, body {height:100%;background: #fff;}
+
 .form-group{margin: 0 !important;}
 input{
 padding:0 !important;

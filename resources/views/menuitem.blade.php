@@ -1,23 +1,20 @@
-<?php
-$main_price = $value->price;
-$dis = '';
-?>
-<li class="list-group-item" style="">
+<li class="list-group-item">
+    <div onclick="checkmenuitem(event, {{ $value->id }}, '{{ $value->price }}', '{{ '' }}');">
+        <i id="menuitem-check_{{ $value->id }}" class="fa fa-check" style="display:none;color:#5cb85c;"></i>
 
-<div style="min-height:100%;height:100%;" onclick="checkmenuitem(event, {{ $value->id }}, '{{ $main_price }}', '{{ $dis }}');">
 
     @if(debugmode())
-        (ID: {{ $value->id }})
-    @endif
-    {{ $value->menu_item }} -
-    @if($main_price>0)
-        ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
-    @else
-        ${{number_format($min_p,2)}}+
-    @endif<br>
-    <span class="card-text text-muted">{{ $value->description}}</span>
-    <i id="menuitem-check_{{ $value->id }}" class="fa fa-check" style="display:none;color:#5cb85c;"></i>
-</div>
+            (ID: {{ $value->id }})
+        @endif
+        {{ $value->menu_item }} -
+        @if($value->price>0)
+            ${{number_format(($value->price>0)?$value->price:$min_p,2)}}
+        @else
+            ${{number_format($min_p,2)}}+
+        @endif
+            <br>
+        <span class="card-text text-muted">{{ $value->description}}</span>
+    </div>
 </li>
 
 
@@ -32,7 +29,7 @@ $dis = '';
 
 
 
-
+<!--- delete from here ---->
 
 
 
@@ -45,7 +42,7 @@ $dis = '';
 @endif
 
 
-@if($dis)
+@if(false)
     <strike class="text-muted btn btn-sm btn-link"
             style="float: right">${{number_format($value->price,2)}}</strike>
 @endif
