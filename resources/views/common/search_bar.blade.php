@@ -170,6 +170,7 @@
 
         })(jQuery, window);
 
+
         $.fn.textWidth = function(_text, _font){//get width of text with font.  usage: $("div").textWidth();
             var fakeEl = $('<span>').hide().appendTo(document.body).text(_text || this.val() || this.text()).css('font', _font || this.css('font')),
                     width = fakeEl.width();
@@ -192,7 +193,8 @@
             $('.autosize').trigger('input');
         });
 
-        $(".autosize").autoresize({padding:20,minWidth:50,maxWidth:500});
+        $(".autosize").autoresize({padding:20,minWidth:200,maxWidth:500});
+
     </script>
 
     <?php
