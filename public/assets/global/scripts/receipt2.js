@@ -116,6 +116,8 @@ function updatequantity(menuitem_id){
     }, function (result) {
         if(quantity == 0){
             $("#menuitem_" + menuitem_id).fadeOut(500);
+            var ID = $("#menuitem_" + menuitem_id).attr("menuid");
+            $("#menuitem-check_" + ID).fadeOut(500);
         }
         result = calculatetotal(result);
         $("#totalitem_" + result.menuitem_id).text(result.itemmoney);
