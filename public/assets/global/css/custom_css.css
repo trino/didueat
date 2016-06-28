@@ -1,20 +1,45 @@
-.list-inline-item{
-    width: 100%;
+a{cursor: pointer;
+
+text-decoration: none !important;
+}.form-group {
+     margin-bottom: .25rem !important;
+ }
+.navbar{padding: 0 !important;}
+* {
+ /*   box-shadow: 0 1px 1px rgba(0, 0, 0, .1) !important; */
 }
 
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #fafafa;
+}
+
+.list-group, .card {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1) !important;
+    border:0 !important;
+}
+
+.list-group-item {
+    border:0 !important;
+    border-radius: 0 !important;
+    padding: .35rem 1.25rem;
+}
+
+/*
 .formatted_address_black{
     height: 22px !important;
     width: 300px;
     border: 1px solid grey !important;
 }
+*/
 
-html, body {height:100%;background: #fff;}
-.form-group{margin: 0 !important;}
-input{
-
-    border:0 !important;
-    border-bottom: 1px solid #efefef !important;
+input,textarea, select {
+    padding: 0 !important;
+    border: 0 !important;
+    border-bottom: 1px solid #e5e5e5 !important;
 }
+
+/*
 .search_style{
     font-weight: bold;
     background: transparent;color:white;
@@ -23,7 +48,7 @@ input{
 .card-link+.card-link {
     margin-left: 0rem !important;
 }
-
+*/
 .loader {
     height: 4px;
     width: 100%;
@@ -32,7 +57,7 @@ input{
     background-color: #5cb85c;
 }
 
-.loader:before{
+.loader:before {
     display: block;
     position: absolute;
     content: "";
@@ -45,43 +70,66 @@ input{
 }
 
 @-webkit-keyframes loading {
-    from {left: -200px; width: 30%;}
-    50% {width: 30%;}
-    70% {width: 70%;}
-    80% { left: 50%;}
-    95% {left: 120%;}
-    to {left: 100%;}
+    from {
+        left: -200px;
+        width: 30%;
+    }
+    50% {
+        width: 30%;
+    }
+    70% {
+        width: 70%;
+    }
+    80% {
+        left: 50%;
+    }
+    95% {
+        left: 120%;
+    }
+    to {
+        left: 100%;
+    }
 }
 
 @keyframes loading {
-    from {left: -200px; width: 30%;}
-    50% {width: 30%;}
-    70% {width: 70%;}
-    80% { left: 50%;}
-    95% {left: 120%;}
-    to {left: 100%;}
+    from {
+        left: -200px;
+        width: 30%;
+    }
+    50% {
+        width: 30%;
+    }
+    70% {
+        width: 70%;
+    }
+    80% {
+        left: 50%;
+    }
+    95% {
+        left: 120%;
+    }
+    to {
+        left: 100%;
+    }
 }
 
-.disabled{
+.disabled {
     cursor: not-allowed !important;
 }
 
-
 a.btn.disabled, fieldset[disabled] a.btn {
-     pointer-events: all;
-}
-.redborder{
-    border: 1px solid red !important;
+    pointer-events: all;
 }
 
-a {
-    cursor: pointer;
+.redborder {
+    border: 1px solid red !important;
 }
 
 .btn-lg, .btn-group-lg > .btn {
     font-size: 1rem !important;
 }
 
+/*
 .btn-secondary, .btn-secondary-outline {
     border: 1px solid #e8e8e8 !important;
 }
@@ -90,7 +138,7 @@ a {
     padding: .20rem 1rem;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .1) !important;
 }
-
+*/
 h1 {
     font-family: 'Roboto Slab', serif !important;
 }
@@ -101,6 +149,7 @@ hr {
     border-bottom: 1px solid #e8e8e8 !important;
 
 }
+
 .modal {
     overflow-y: auto;
     -webkit-overflow-scrolling: auto !important; /* modal with radio doesnt work without this */
@@ -109,8 +158,9 @@ hr {
 body.modal-open {
     overflow: hidden;
 }
+
 .main-bg-image {
-   /* background-image: url('../../../assets/images/restro-background.jpg') !important; */
+    background-image: url('../../../assets/images/restro-background.jpg') !important;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -118,7 +168,6 @@ body.modal-open {
 }
 
 .signup-bg-image {
-
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -128,6 +177,7 @@ body.modal-open {
     list-style-type: none;
     padding-left: 0px;
 }
+
 .loadmoreajaxloader {
     top: 50%;
     left: 50%;
@@ -147,7 +197,6 @@ body.modal-open {
     width: 100%;
     z-index: 99999;
 }
-
 
 #ajaxloader {
     background: rgba(0, 0, 0, 0) url("../../images/loader.gif") no-repeat scroll 0 0;
@@ -239,13 +288,9 @@ body.modal-open {
     color: #f0ad4e !important
 }
 
-
 .error {
     color: rgb(255, 0, 0);
 }
-
-
-
 
 /*
 center {
@@ -390,9 +435,7 @@ a.anchor {
 
 }
 
-.form-group {
-    margin-bottom: .5rem !important;
-}
+
 
 label {
     margin-bottom: 0px !important;
@@ -437,7 +480,6 @@ td {
     display: none;
 }
 */
-
 
 /*
 .overlay {

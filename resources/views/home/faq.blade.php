@@ -62,12 +62,7 @@
         list-style-type: circle;
         margin-bottom: 0px;
     }
-    li{
-        line-height:1.5em;
-        border-bottom:1px solid #ccc;
-        float:left;
-        display:inline;
-    }
+
     .twocols li { width:50%;}
 </STYLE>
 

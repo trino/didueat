@@ -10,7 +10,8 @@ $alts = array(
 if (!function_exists("toseconds")) {
     printfile("dashboard/restaurant/restaurantpanel.blade.php");
     //convert a 24hr time into seconds
-    function toseconds($Time) {
+    function toseconds($Time)
+    {
         if (strpos($Time, ":") !== false) {
             $Time = explode(":", $Time);
             return $Time[0] * 3600 + $Time[1] * 60 + $Time[2];
@@ -19,7 +20,8 @@ if (!function_exists("toseconds")) {
     }
 
     //get a rough estimate of the difference between 2 times
-    function timediff($Start, $End = false) {//end is the bigger time
+    function timediff($Start, $End = false)
+    {//end is the bigger time
         $Start = toseconds($Start);
         if (!$End) {
             $End = time();
@@ -29,7 +31,8 @@ if (!function_exists("toseconds")) {
         return durationtotext($Diff, false, ", ");
     }
 
-    function link_it($text) {
+    function link_it($text)
+    {
         $text = preg_replace("/(^|[\n ])([\w]*?)([\w]*?:\/\/[\w]+[^ \,\"\n\r\t<]*)/is", "$1$2<a href=\"$3\" >$3</a>", $text);
         $text = preg_replace("/(^|[\n ])([\w]*?)((www)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"http://$3\" >$3</a>", $text);
         $text = preg_replace("/(^|[\n ])([\w]*?)((ftp)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"ftp://$3\" >$3</a>", $text);
@@ -61,7 +64,7 @@ if (!isset($IncludeMenu)) {
     $IncludeMenu = false;
 }
 
-if(isset($user_time) && $user_time){
+if (isset($user_time) && $user_time) {
     $user_time = strtotime($user_time);
     $Day = current_day_of_week($user_time);
     $is_open = \App\Http\Models\Restaurants::getbusinessday($Restaurant, $user_time);
@@ -132,96 +135,86 @@ if ($IncludeMenu) {
     $OnClick = 'href="' . url('restaurants/' . $Restaurant['slug'] . '/menu') . '" ';//oldurl="?delivery_type={{ $delivery_type }}"
 }
 ?>
-<div class="">
-<div class=" col-md-12" id="card-header-{{ $Restaurant["id"] }}" style="background:white;  @if(!isset($order)) @endif ">
 
 
-
-@if(false)
-        @if(isset($details) && $details)
-            <img style="max-width:20px;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
-        @else
-            <a {!! $OnClick !!}
-               class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
-                <img style="max-width:20px;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
-            </a>
-        @endif
-        @endif
+<ul class="m-b-1 p-a-1 list-group" id="card-header-{{ $Restaurant["id"] }}"
+    style="border:1px solid #eee; background:white; @if(!isset($order)) @endif ">
 
 
+    @if(isset($order))
 
-        @if(isset($order))
+        <a class="card-link restaurant-url" {!! $OnClick !!} title="{{ $alts["restaurants/menu"] }}">
 
-            <a class="card-link restaurant-url"  {!! $OnClick !!} title="{{ $alts["restaurants/menu"] }}">
-                <div class=" pull-left p-r-1">
 
+            <h4 class="m-b-0">
                 {{ printfile("(ID: " . $Restaurant["id"] . ") ") . $Restaurant['name'] }}
-</div>
+            </h4>
             @if($Restaurant["cuisine"])
-                <div class="text-muted pull-left p-r-1">
-                {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}
-                </div>
+                <span class="text-muted">
+
+        {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
             @endif
-            </a>
 
 
+        </a>
 
-
-            <div class="pull-right">
-                {!! rating_initialize("static-rating no-rating", "restaurant", $Restaurant['id']) !!}
-            </div>
-
-
-        @if($MoreTime)
-            <span class="error"> {!! $MoreTime !!} </span>
-        @endif
-
-
-
-
+    <span class="pull-right"> {!! rating_initialize("static-rating no-rating", "restaurant", $Restaurant['id']) !!} </span>
+    @if($MoreTime)
+        <span class="error"> {!! $MoreTime !!} </span>
+    @endif
     @endif
 
-
-
-
-
-
-
-        @if(isset($latitude) && $radius && $Restaurant['distance'] && false)
-            <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
-        @endif
-
-
-
-        @if(isset($details) && $details)
-            @if(false)
-                @if($Restaurant["is_delivery"])
-                    @if(!$Restaurant["is_pickup"])
-                    @endif
-                    <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
-                    <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
-                @elseif($Restaurant["is_pickup"])
-                @endif
-            @endif
-
-            <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal"
-               data-target="#viewMapModel"
-               title="{{ $alts["moredetails"] }}">More Details</a>
-
-            @if(read("profiletype") == 1)
-                <A HREF="{{ url("restaurant/info/" . $Restaurant["id"]) }}">Edit</A>
-            @endif
-        @endif
+    @if(isset($latitude) && $radius && $Restaurant['distance'] && false)
+        <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
+    @endif
 
 
     @if(isset($Restaurant["notes"]) && isset($showtoday) && false)
         {!! link_it($Restaurant["notes"]) !!}
     @endif
 
-
     <div class="clearfix"></div>
-</div>
-</div>
+
+</ul>
+
+
+
+
+
+
+@if(isset($details) && $details && false)
+    @if(false)
+        @if($Restaurant["is_delivery"])
+            @if(!$Restaurant["is_pickup"])
+            @endif
+            <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
+            <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
+        @elseif($Restaurant["is_pickup"])
+        @endif
+    @endif
+
+    <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal"
+       data-target="#viewMapModel"
+       title="{{ $alts["moredetails"] }}">More Details</a>
+
+    @if(read("profiletype") == 1)
+        <A HREF="{{ url("restaurant/info/" . $Restaurant["id"]) }}">Edit</A>
+    @endif
+@endif
+
+
+
+@if(false)
+    @if(isset($details) && $details)
+        <img style="max-width:20px;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
+    @else
+        <a {!! $OnClick !!}
+           class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
+            <img style="max-width:20px;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
+        </a>
+    @endif
+@endif
+
 
 
 @if (isset($is_menu) && false)

@@ -30,7 +30,7 @@
                     <span aria-hidden="true" style="  @if ($has_bigImage) text-shadow: 1px 1px 9px rgba(0, 0, 0, 2);color:white !important; opacity: .8 !important; @endif">&times;</span>
                 </button>
 
-                <h4 class="modal-title " style="" id="viewDetailModel">
+                <h5 class="modal-title " style="" id="viewDetailModel">
     <span class="">
         {{ $value->menu_item }} &ndash; @if($value->price>0)
         @if($dis)
@@ -59,7 +59,7 @@
                     <input type="hidden" id="originalprice<?php echo $value->id; ?>" value="{{$value->price}}"/>
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                     <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
-                </h4>
+                </h5>
 
                 <div class="clearfix"></div>
             </div>
@@ -67,7 +67,7 @@
 
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">{{ $value->description }}</div>
+                    <div class="col-md-12" >{{ $value->description }}</div>
 
 
                     <div class="col-md-12 subitems_{{ $value->id }} optionals">
@@ -100,7 +100,7 @@
                                                            style="display: none;" checked="checked"
                                                            class="chk">
                                                 </div>
-                                                <strong style="float:left;" id="title_{{ $sub->id }}">{{ ucfirst($sub->menu_item) }} &nbsp;</strong>
+                                                <p style="float:left;" id="title_{{ $sub->id }}">{{ ucfirst($sub->menu_item) }} &nbsp;</p>
 
                                                 <span style="float:left;" class="limit-options no_text_break" style="">
                                                    <?php
@@ -127,7 +127,7 @@
                                                 <div class="clearfix"></div>
                                                 <span class="error_{{ $sub->id }} errormsg"></span>
 
-                                                <div class="list clearfix row m-t-1" style="">
+                                                <div class="list clearfix row" style="">
                                                     <?php
                                                         $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get();
                                                         $a = 0;
@@ -185,17 +185,17 @@
 
                                                                 <a id="addspan_{{ $mm->id }}"
                                                                    title="{{ $alts["addspan"] }}"
-                                                                   class="addspan btn  mobile-p-r-0 pull-right"
+                                                                   class="addspan btn btn-sm  mobile-p-r-0 pull-right"
                                                                    href="javascript:;"><i
                                                                             class="fa fa-plus"></i></a>
 
                                                                 <a id="sprice_{{$mm->price}}"
-                                                                   style="margin-top:6px;"
+                                                                   style="margin-top:-6px;"
                                                                    class=" btn pull-right p-a-0 span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</a>
 
                                                                 <a id="remspan_{{ $mm->id }}"
                                                                    title="{{ $alts["remspan"] }}"
-                                                                   class="remspan btn pull-right  p-l-0 "
+                                                                   class="remspan btn pull-right btn-sm  p-l-0 "
                                                                    href="javascript:;"><i style="color: #dadada"
                                                                                           class="fa fa-minus"></i></a>
                                                             </div>
@@ -277,9 +277,9 @@
                         @if($usedropdown) </SPAN> @endif
                     </div>
 
-                    <div class="pull-left" style="margin-left:.5rem;">
+                    <div class="pull-left">
                         <a id="clearmenu{{ $value->id }}" title="{{ $alts["clear"] }}"
-                           class="btn btn-danger"
+                           class="btn btn-secondary-outline"
                            onclick="confirmclearForm('#product-pop-up_{{ (isset($value->id))?$value->id:'' }}');">CLEAR</a>
                     </div>
                 </div>

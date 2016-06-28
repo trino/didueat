@@ -95,11 +95,11 @@
 
 
         <div class="card-block">
-            <h4 class="card-title p-b-1">Your Order</h4>
+            <!--h4 class="card-title p-b-1">Your Order</h4-->
 
             <div class="receipt_main">
                 @if(!isset($order))
-                    <table style="display:none;<?php if(!isset($em)){?>width:100%;<?php }else{?>width:100%;padding:0px;<?php }?>">
+                    <table class="" style="display:none;<?php if(!isset($em)){?><?php }else{?><?php }?>">
                     <tr style="">
                         <td colspan="2">
                             @if(isset($restaurant->is_delivery) && $restaurant->is_delivery == 1)
@@ -134,7 +134,7 @@
                     </table>
                 @endif
 
-                <div class="totals form-group" style=" width:100%;">
+                <div class="totals form-group p-t-1">
                         @include('common.items')
                         <tr>
                             <td colspan="2" width=" @if(isset($order)) 75% @else 50% @endif "><strong>Subtotal</strong></td>

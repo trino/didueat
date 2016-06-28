@@ -1305,9 +1305,9 @@ function get_time_interval($Restaurant = false, $isDelivery = false) {
                 echo "<option value='" . $start_format . "'>" . datename($date) . date(' - g:i A', $date);
                 $hour = date('g:i A', $date);
                 if ($hour == "12:00 AM") {
-                    echo ' (midnight)';
+                    echo '';
                 } else if ($hour == "12:00 PM") {
-                    echo ' (noon)';
+                    echo '';
                 }
                 echo "</option>";
             }
@@ -1642,7 +1642,7 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $T
             }
             $html .= '" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" onclick="return false;" data-reviews-detail="Total Reviews: ';
             $html .= $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount';
-            $html .= $target_id . '">Reviews (' . $count_rating . ')</a></SPAN>';
+            $html .= $target_id . '">' . $count_rating . ' Reviews</a></SPAN>';
         }
     }
     $html .= '</div>';

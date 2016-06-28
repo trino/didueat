@@ -71,23 +71,23 @@ $alts = array(
 @extends('layouts.default')
 @section('content')
 
-    <div class=" main-bg-image " style="">
-        <div class="" style="margin-top: 0 !important;">
-            <div class=" text-xs-center" style="">
+    <div class="row ">
+        <div class=" col-md-12  text-xs-center ">
+            <div class="card">
+        @include('common.search_bar')
+</div>
 
 
-            @include('common.search_bar')
 
 
+        <!--div class=" col-md-offset-2 text-xs-center col-md-8" style="">
+        <h1 class="banner-text-shadow m-y-1"><span style="font-size: 125%;font-weight: 500;">Hamilton Restaurants<br>& Delivery</span>
+        </h1>
+        <div class="clearfix"></div>
+        </div-->
 
-            <!--div class="col-md-offset-2 text-xs-center col-md-8" style="">
-                    <h1 class="banner-text-shadow m-y-1"><span style="font-size: 125%;font-weight: 500;">Hamilton Restaurants<br>& Delivery</span>
-                    </h1>
-                    <div class="clearfix"></div>
-                </div-->
 
-
-                <!--div class="col-md-offset-2 text-xs-center col-md-8" style="">
+        <!--div class="col-md-offset-2 text-xs-center col-md-8" style="">
 
                     <a class="btn btn-lg btn-link btn-responsive "
                        href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}" style="color: white;"><h5
@@ -98,7 +98,6 @@ $alts = array(
                 </div>
 
                 <div class="clearfix"></div-->
-            </div>
         </div>
         <div class="clearfix"></div>
 
@@ -108,21 +107,19 @@ $alts = array(
     </div>
     </div>
 
-    @include("popups.rating")
-    <div class="container hidden-md-down">
-    </div>
-    <div class="" style="">
+
+    <div class="container" style="">
 
         <?php printfile("views/restaurants.blade.php"); ?>
 
-        <div class="row m-t-2">
+        <div class="row">
 
             <div class="" id="results_show" style="display: none;">
-                <div class="col-lg-9 m-b-2">
+                <div class="col-lg-8 m-b-2">
                     <?php popup(true, "message:nostores", false, false, ''); $IncludeMenu = false; ?>
                     @include('ajax.search_restaurants')
                 </div>
-                <div class="col-lg-3" ID="filter-results" style="height: 100%;">
+                <div class="col-lg-4" ID="filter-results" style="height: 100%;">
                     <div class="" style="">
                         <div class="card-footer text-xs-right" style="display: none">
                             <input type="button" name="search" class="btn btn-primary" value="Filter"
@@ -131,39 +128,30 @@ $alts = array(
                         </div>
                     </div>
 
-                    <div class="col-lg-12 followTo" style="width:350px;">
+                    <div class="followTo">
                         <?php
-                            if ($IncludeMenuBackup && ReceiptVersion) {
-                                printablereceipt(false, false, true, true, $__env, $order, $items);
-                                printscripts(true, $orderID, false, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
-                            }
-                            if(debugmode() || read("profiletype") == 1){
-                                echo '<A ONCLICK="expandcollapseall(true);">Expand All</A><BR><A ONCLICK="expandcollapseall(false);">Collapse All</A>';
-                            }
+                        if ($IncludeMenuBackup && ReceiptVersion) {
+                            printablereceipt(false, false, true, true, $__env, $order, $items);
+                            printscripts(true, $orderID, false, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
+                        }
+                        if (debugmode() || read("profiletype") == 1) {
+                            echo '<A ONCLICK="expandcollapseall(true);">Expand All</A><BR><A ONCLICK="expandcollapseall(false);">Collapse All</A>';
+                        }
                         ?>
                     </div>
 
                 </div>
             </div>
 
-            @if(!Session::has('is_logged_in') && false)
-                <div class="col-lg-12 text-xs-center p-t-0">
-                    <hr>
-                    <div class="text-xs-center m-b-0 p-a-1 text-muted" style="width: 100%">
-                        <h2>ADVERTISE FOR FREE. GO ONLINE ANYTIME.</h2>
-                        <!--a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a-->
-                        <a class="btn btn-lg btn-success-outline btn-responsive"
-                           href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}">Restaurant Sign
-                            Up</a>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-
-            @endif
 
         </div>
         <div id="element"></div>
     </div>
+
+
+    @include("popups.rating")
+
+
 
 
     <script type="text/javascript">
@@ -354,7 +342,7 @@ $alts = array(
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
                 oldpadding = $(".main-bg-image").css("padding");
-                $(".main-bg-image").css("padding", ".5rem");
+                $(".main-bg-image").css("padding", "0rem");
 
                 $('#restuarant_bar').html('');
                 $('#parentLoadingbar').show();
@@ -391,7 +379,7 @@ $alts = array(
             var start = $(this).attr('data-id');
             lastdata = submitform(e, start, "body onclick");
         });
-        
+
         var loading = false;
         var expandatend = false;
         function loadmenu(RestaurantID) {
@@ -405,22 +393,22 @@ $alts = array(
                     result = '<DIV ID="menu-rest-' + RestaurantID + '" class="menu-rest">' + result + '</DIV>';
                     $("#loading-rest-" + RestaurantID).remove();
                     $("#card-header-" + RestaurantID).append(result);
-                    if(loading){
+                    if (loading) {
                         PullRest();
                     }
                 });
-            } else if($('#menu-rest-' + RestaurantID).hasClass("collapse")) {
+            } else if ($('#menu-rest-' + RestaurantID).hasClass("collapse")) {
                 $('#menu-rest-' + RestaurantID).removeClass("collapse");
             } else {
                 $('#menu-rest-' + RestaurantID).addClass("collapse");
             }
         }
 
-        function loadall(){
+        function loadall() {
             //if(loading){return false;}
             $('.menu-rest').removeClass("collapse");
             restaurants = new Array();
-            $(".card-rest").each(function(index) {
+            $(".card-rest").each(function (index) {
                 var RestID = $(this).attr("data-id");
                 if (!$("#menu-rest-" + RestID).length) {
                     restaurants.push(RestID);//must be queued or the server will error out
@@ -430,8 +418,8 @@ $alts = array(
         }
 
         var restaurants;
-        function expandcollapseall(expand){
-            if(expand){
+        function expandcollapseall(expand) {
+            if (expand) {
                 expandatend = true;
                 loadall();
             } else {
@@ -440,12 +428,12 @@ $alts = array(
             }
         }
 
-        function PullRest(){
+        function PullRest() {
             loading = restaurants.length > 0;
-            if(loading){
+            if (loading) {
                 loadmenu(restaurants[0]);
                 restaurants.splice(0, 1);
-            } else if(expandatend) {
+            } else if (expandatend) {
                 $("div[aria-expanded=false]").trigger("click");
                 $("div[data-toggle=collapse]:not([aria-expanded])").trigger("click");
                 expandatend = false;
@@ -453,3 +441,23 @@ $alts = array(
         }
     </script>
 @stop
+
+
+<!--- delete from here -->
+
+
+
+@if(!Session::has('is_logged_in') && false)
+    <div class="col-lg-12 text-xs-center p-t-0">
+        <hr>
+        <div class="text-xs-center m-b-0 p-a-1 text-muted" style="width: 100%">
+            <h2>ADVERTISE FOR FREE. GO ONLINE ANYTIME.</h2>
+            <!--a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a-->
+            <a class="btn btn-lg btn-success-outline btn-responsive"
+               href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}">Restaurant Sign
+                Up</a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+@endif

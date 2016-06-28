@@ -1,6 +1,61 @@
+<li class="list-group-item" style="border-bottom: 0;">
+    <div onclick="checkmenuitem(event, {{ $value->id }}, '{{ $value->price }}', '{{ '' }}');">
+        <i id="menuitem-check_{{ $value->id }}" class="fa fa-check" style="display:none;color:#5cb85c;"></i>
+
+
+    @if(debugmode())
+            (ID: {{ $value->id }})
+        @endif
+        {{ $value->menu_item }} -
+        @if($value->price>0)
+            ${{number_format(($value->price>0)?$value->price:$min_p,2)}}
+        @else
+            ${{number_format($min_p,2)}}+
+        @endif
+            <br>
+        <span class="card-text text-muted">{{ $value->description}}</span>
+    </div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--- delete from here ---->
+
+
+
+
+@if($has_iconImage)
+    <img src="{{ $item_iconImg }}"
+         class="img-circle"
+         style="height:24px;width:24px;float:left;margin-right:.5rem;"
+         alt="{{ $value->menu_item }}"/>
+@endif
+
+
+@if(false)
+    <strike class="text-muted btn btn-sm btn-link"
+            style="float: right">${{number_format($value->price,2)}}</strike>
+@endif
+
+
+
+
 <?php
-    $main_price = $value->price;
-    $dis = '';
+
+
+
+
+if (false) {
     $everyday = '';
     $days = explode(',', $value->days_discount);
     $today = date('D');
@@ -18,85 +73,49 @@
         $main_price = $main_price - $d;
         $dis = "" . $discount . "% off " . $everyday . "";
     }
+}
+
+
+/*
+if (strlen($value->description) > 65) {
+echo substr($value->description, 0, 65) . '...';
+} else {
+echo substr($value->description, 0, 65);
+}
+*/
 ?>
-
-<span>
-    <div style="width: 100%;float:left;vertical-align: middle;" onclick="checkmenuitem(event, {{ $value->id }}, '{{ $main_price }}', '{{ $dis }}');">
-        @if($has_iconImage)
-            <img src="{{ $item_iconImg }}"
-                 class="img-circle"
-                 style="height:24px;width:24px;float:left;margin-right:.5rem;"
-                 alt="{{ $value->menu_item }}"/>
-        @endif
-
-        <i id="menuitem-check_{{ $value->id }}" class="fa fa-check" style="display:none;color:green;"></i>
-
-        @if(debugmode())
-            (ID: {{ $value->id }})
-        @endif
-
-        {{ $value->menu_item }}
-
-
-        <span style="white-space: nowrap" class="pull-right">
-            @if($main_price>0)
-                ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
-            @else
-                ${{number_format($min_p,2)}}+
-            @endif
-
-            @if($dis)
-                <strike class="text-muted btn btn-sm btn-link" style="float: right">${{number_format($value->price,2)}}</strike>
-            @endif
-        </span>
-    </div>
-</span>
-
-<p class="card-text m-a-0  text-muted">
-    <?php
-        echo $value->description;
-        /*
-        if (strlen($value->description) > 65) {
-            echo substr($value->description, 0, 65) . '...';
-        } else {
-            echo substr($value->description, 0, 65);
-        }
-        */
-    ?>
-</p>
-
 @if(false) <!-- no tags yet -->
-    @if(isset($restaurant->tags) && $restaurant->tags != "")
-        <?php
-            $tags = $restaurant->tags;
-            $tags = explode(',', $tags);
-            for ($i = 0; $i < 5; $i++) {
-                if (isset($tags[$i])) {
-                    echo "<span class='tags'>" . $tags[$i] . "</span>";
-                }
-            }
-        ?>
-    @endif
+@if(isset($restaurant->tags) && $restaurant->tags != "")
+    <?php
+    $tags = $restaurant->tags;
+    $tags = explode(',', $tags);
+    for ($i = 0; $i < 5; $i++) {
+        if (isset($tags[$i])) {
+            echo "<span class='tags'>" . $tags[$i] . "</span>";
+        }
+    }
+    ?>
+@endif
 
-    <!--div class="clearfix">
+<!--div class="clearfix">
         rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id)
         <p class="card-text m-a-0">
             {{$dis}}
         </p>
     </div-->
 
-    <p class="card-text m-a-0 text-muted"> Category:
-        <?php
-            echo $value->cat_name;
+<p class="card-text m-a-0 text-muted"> Category:
+    <?php
+    echo $value->cat_name;
 
-            if($value->uploaded_on){
-                echo 'Submitted: ' . $value->uploaded_on;
-            }
+    if ($value->uploaded_on) {
+        echo 'Submitted: ' . $value->uploaded_on;
+    }
 
-            if ($value->uploaded_by) {
-                $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
-                echo "by: " . $uploaded_by->name . "";
-            }
-        ?>
-    </p>
+    if ($value->uploaded_by) {
+        $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+        echo "by: " . $uploaded_by->name . "";
+    }
+    ?>
+</p>
 @endif

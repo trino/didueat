@@ -1,12 +1,12 @@
 <?php printfile("views/common/items.blade.php"); ?>
-<table class="orders @if(!isset($order)) order-style @endif" style=" width:100% !important; ">
-    <thead class="itmQty" <?php if (isset($order) && isset($arr_menu) && count($arr_menu)) echo ''; else echo 'style="display:none;"';?>>
+<table class="orders @if(!isset($order)) order-style   @endif" style=" width:100% !important; ">
+    <!--thead class="itmQty" <?php if (isset($order) && isset($arr_menu) && count($arr_menu)) echo ''; else echo 'style="display:none;"';?>>
         <TH style="width:50px !important;<?php if($em){?>text-align:left;<?php }?>">Qty</TH>
         <TH width="60%;" <?php if($em){?>style="text-align:left;"<?php }?>>Item</TH>
         <TH <?php if($em){?>style="text-align:left;"<?php }?>>
             <div class="pull-right">Price</div>
         </TH>
-    </thead>
+    </thead-->
     <TBODY>
         <?php
             if(!isset($ordering)){$ordering = false;}
