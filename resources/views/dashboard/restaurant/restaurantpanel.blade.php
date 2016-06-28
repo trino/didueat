@@ -125,7 +125,7 @@ if ($is_open) {
                 }
             }
         }
-    } else {
+    } else if (debugmode()) {
          $MoreTime = "Not accepting orders";
     }
 }
