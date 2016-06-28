@@ -95,6 +95,7 @@
 
 <SCRIPT>
     function addresschange(where){
+        log("driverorders.blade");
         where = $("#reservation_address option:selected").get(0);
         var latitude = where.getAttribute("latitude");
         var longitude = where.getAttribute("longitude");

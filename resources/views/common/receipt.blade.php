@@ -307,6 +307,7 @@
 
     //handles changes of addresses
     function addresschanged(thiss) {
+        log("receipt.blade");
         $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
         $("#formatted_address").val(thiss.getAttribute("ADDRESS"));
         $(".city").val(thiss.getAttribute("CITY"));

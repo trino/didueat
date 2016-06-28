@@ -115,7 +115,7 @@ function updatequantity(menuitem_id){
         quantity: quantity,
     }, function (result) {
         if(quantity == 0){
-            $("#menuitem_" + menuitem_id).fadeOut(500);
+            $("#menuitem_" + menuitem_id).fadeOut(500, function() { $(this).remove(); });
             var ID = $("#menuitem_" + menuitem_id).attr("menuid");
             $("#menuitem-check_" + ID).fadeOut(500);
         }
