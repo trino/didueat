@@ -48,7 +48,8 @@ class Restaurants extends BaseModel {
         }
 
         $this->is_complete = $this->restaurant_opens($this);
-        if(!$this->is_complete){$this->open = false;}
+        $this->open = $this->is_complete;
+        //if(!$this->is_complete){$this->open = false;}
     }
 
     //checks if the restaurant is now open, and sends an email to the restaurant if it wasn't open before

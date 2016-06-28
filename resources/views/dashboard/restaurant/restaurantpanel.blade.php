@@ -121,7 +121,7 @@ if ($is_open) {
             }
         }
     } else {
-        // $MoreTime = "Not accepting orders";
+         $MoreTime = "Not accepting orders";
     }
 }
 
