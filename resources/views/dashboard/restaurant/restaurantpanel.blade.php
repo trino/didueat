@@ -115,6 +115,11 @@ if ($is_open) {
                 }
                 if ($allowbreak) {
                     $MoreTime .= " at " . converttime($open);
+                    if($open == "12:00:00"){
+                        $MoreTime .= " (noon)";
+                    } else if($open == "00:00:00"){
+                        $MoreTime .= " (midnight)";
+                    }
                     $MoreTime = '<FONT COLOR="RED">' . $MoreTime . '</FONT>';
                     break;
                 }
@@ -129,7 +134,7 @@ if ($IncludeMenu) {
     if ($is_open) {
         $OnClick = 'onclick="loadmenu(' . $Restaurant["id"] . ');" ';
     } else {
-        $OnClick = 'onclick="alert(' . "'This restaurant is currently closed'" . ');" ';
+        $OnClick = 'onclick="alert(' . "'" . strip_tags($MoreTime) . "'" . ');" ';
     }
 } else {
     $OnClick = 'href="' . url('restaurants/' . $Restaurant['slug'] . '/menu') . '" ';//oldurl="?delivery_type={{ $delivery_type }}"
