@@ -1,10 +1,23 @@
-a{cursor: pointer;
+.menucheck{
+    display:none;
+    color:#5cb85c;
+}
+.menudelete{
+    display:none;
+    color:red;
+}
 
-text-decoration: none !important;
-}.form-group {
+a{
+    cursor: pointer;
+    text-decoration: none !important;
+}
+
+.form-group {
      margin-bottom: .25rem !important;
- }
+}
+
 .navbar{padding: 0 !important;}
+
 * {
  /*   box-shadow: 0 1px 1px rgba(0, 0, 0, .1) !important; */
 }

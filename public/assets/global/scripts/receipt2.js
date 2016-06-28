@@ -41,6 +41,7 @@ function additemtoreceipt(menu_id, ids, quantity, price, csr_action, app_title, 
     }, function (result) {
         result = calculatetotal(result);
         $("#menuitem-check_" + menu_id).show();
+        $("#deleteitem-check_" + menu_id).show();
         if(!isundefined(result.HTML)) {
             result.HTML = decode(result.HTML);
             $(".orders").prepend(result.HTML);
@@ -103,6 +104,8 @@ String.prototype.replaceAll = function(search, replacement) {
     return target.replace(new RegExp(search, 'g'), replacement);
 };
 
+var removetheseitems = new Array();
+
 function updatequantity(menuitem_id){
     var quantity = $("#selectitem_" + menuitem_id).val();
     $.post(baseurl + "/ajax", {
@@ -118,13 +121,35 @@ function updatequantity(menuitem_id){
             $("#menuitem_" + menuitem_id).fadeOut(500, function() { $(this).remove(); });
             var ID = $("#menuitem_" + menuitem_id).attr("menuid");
             $("#menuitem-check_" + ID).fadeOut(500);
+            $("#deleteitem-check_" + ID).fadeOut(500);
         }
         result = calculatetotal(result);
         $("#totalitem_" + result.menuitem_id).text(result.itemmoney);
+        PullRemoveItem();
     });
 }
 
+function PullRemoveItem(){
+    if (removetheseitems){
+        var menuitem_id = removetheseitems[0];
+        if($("#selectitem_" + menuitem_id).length) {
+            $("#selectitem_" + menuitem_id).val('0');
+            updatequantity(menuitem_id);
+        }
+        removetheseitems.splice(0, 1);
+    }
+}
 
+function deleteitems(ID, Name){
+    Name = decodeURIComponent(Name.replace(/\+/g, '%20'));
+    confirm2("Are you sure you want to delete every '<B>" + Name + "</B>' from the receipt?", function(tthis, data){
+        $( ".receipt_item_" + ID ).each(function() {
+            var menuitem_id = $( this ).attr("itemid");
+            removetheseitems.push(menuitem_id);
+        });
+        PullRemoveItem();
+    },{ID: ID});
+}
 
 
 
