@@ -9,7 +9,7 @@
     <FORM ID="addressbar" class="m-a-0 p-a-1" onsubmit="return false;">
         <div>
             Cuisine:
-            <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine" onchange="createCookieValue('cuisine', this.value)">
+            <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine" class="resizeselect" onchange="createCookieValue('cuisine', this.value)">
                 <option value="">All Cuisine</option>
                 @foreach($cuisine as $value)
                     <option>{{ $value }}</option>
@@ -27,7 +27,7 @@
             ?>
 
             <input style="border: 0 !important;background: transparent !important;" type="text" name="formatted_address" id="formatted_address2"
-                   class="formatted_address" placeholder="Enter your address"
+                   class="formatted_address autosize" placeholder="Enter your address"
                    onchange="change_address_event();"
                    @if(isset($_GET["search"]))
                    value="{{ $_GET["search"] }}"
@@ -35,7 +35,7 @@
                    onpaste="this.onchange();">
             Time:
 
-            <select style="border: 0 !important;background: transparent !important;" name="delivery-time" id="delivery-time" onchange="searchtimechange();">
+            <select style="border: 0 !important;background: transparent !important;" name="delivery-time" class="resizeselect" id="delivery-time" onchange="searchtimechange();">
                 <option value="">Order ASAP</option>
                 {{ get_time_interval() }}
             </select>
@@ -45,7 +45,7 @@
                 <i class="fa fa-search"></i>
             </button>
 
-            <button style="" class="btn btn-warning"
+            <button style="float: right;" class="btn btn-warning"
                     onclick="resetsearch();" title="{{ $alts["reset"] }}">
                 <i class="fa fa-times"></i>
             </button>
@@ -137,6 +137,62 @@
         if (getCookie("cuisine")) {
             $("#cuisine").val(getCookie("cuisine"));
         }
+
+        (function($, window){
+            var arrowWidth = 30;
+
+            $.fn.resizeselect = function(settings) {
+                return this.each(function() {
+
+                    $(this).change(function(){
+                        var $this = $(this);
+
+                        // create test element
+                        var text = $this.find("option:selected").text();
+                        var $test = $("<span>").html(text);
+
+                        // add to body, get width, and get out
+                        $test.appendTo('body');
+                        var width = $test.width();
+                        $test.remove();
+
+                        // set select width
+                        $this.width(width + arrowWidth);
+
+                        // run on start
+                    }).change();
+
+                });
+            };
+
+            // run by default
+            $("select.resizeselect").resizeselect();
+
+        })(jQuery, window);
+
+        $.fn.textWidth = function(_text, _font){//get width of text with font.  usage: $("div").textWidth();
+            var fakeEl = $('<span>').hide().appendTo(document.body).text(_text || this.val() || this.text()).css('font', _font || this.css('font')),
+                    width = fakeEl.width();
+            fakeEl.remove();
+            return width;
+        };
+
+        $.fn.autoresize = function(options){//resizes elements based on content size.  usage: $('input').autoresize({padding:10,minWidth:0,maxWidth:100});
+            options = $.extend({padding:10,minWidth:0,maxWidth:10000}, options||{});
+            $(this).on('input', function() {
+                $(this).css('width', Math.min(options.maxWidth,Math.max(options.minWidth,$(this).textWidth() + options.padding)));
+            }).trigger('input');
+            return this;
+        }
+
+        $('.autosize').on('change',function(e){
+            $(this).trigger('input');
+        });
+        $( document ).ready(function() {
+            $('.autosize').trigger('input');
+        });
+
+        $(".autosize").autoresize({padding:20,minWidth:50,maxWidth:500});
     </script>
 
     <?php

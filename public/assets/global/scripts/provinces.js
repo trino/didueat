@@ -155,6 +155,8 @@ function fillInAddress1() {
 }
 
 function fillInAddress() {
+    $('.autosize').trigger("change");
+
     console.log("fillInAddress");
     if($('#formatted_address').is(':visible')){
         // meaning edit page is showing, as the top search field uses formatted_address2
