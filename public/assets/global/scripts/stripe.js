@@ -22,6 +22,7 @@
 
       if (response.error) {
         // Show the errors on the form
+        log("ERROR: " + response.error.message);
         $form.find('.payment-errors').text(response.error.message);
         $form.find('button').prop('disabled', false);
       } else {

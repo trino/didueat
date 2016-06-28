@@ -546,11 +546,20 @@ if (!$canedit) {
                             echo "Stripe.setPublishableKey('pk_vnR0dLVmyF34VAqSegbpBvhfhaLNi'); //live";
                         }?>
 
+                        function orderdata(){
+                            var token = $('#profiles input[name=_token]').val();
+                            var datas = $('#profiles input, select, textarea').serialize();
+                            var order_data = $('.receipt_main input').serialize();
+                            //checkingout = true;
+                            return datas + '&' + order_data + '&_token=' + token + '&order_id=' + order_id;
+                        }
+
                 var stripeResponseHandler = function (status, response) {
                             //var $form = $('#payment-form');
                             var $form = $('#profiles');
                             if (response.error) {
                                 // Show the errors on the form
+                                log("Stripe error: " + response.error.message);
                                 $form.find('.payment-errors').text(response.error.message);
                                 $form.find('button').prop('disabled', false);
                                 overlay_loader_hide();
@@ -561,16 +570,11 @@ if (!$canedit) {
                                 // Insert the token into the form so it gets submitted to the server
                                 $('.stripeToken').val(token);
 
-                                // and re-submit
-
-                                var token = $('#profiles input[name=_token]').val();
-                                var datas = $('#profiles input, select, textarea').serialize();
-                                var order_data = $('.receipt_main input').serialize();
                                 //alert(order_data);
                                 $.ajax({
                                     type: 'post',
                                     url: '<?php echo url(); ?>/user/ajax_register',
-                                    data: datas + '&' + order_data + '&_token=' + token,
+                                    data: orderdata(),
                                     success: function (msg) {
 
                                         msg = msg.trim();
@@ -658,16 +662,10 @@ if (!$canedit) {
                             Stripe.card.createToken($('#profiles'), stripeResponseHandler);
                         } else {
                             //why are there 2 huge identical blocks of code?
-                            var token = $('#profiles input[name=_token]').val();
-                            var datas = $('#profiles input, select, textarea').serialize();
-                            var order_data = $('.receipt_main input').serialize();
-
-                            var totaldata = datas + '&' + order_data + '&_token=' + token + '&order_id=' + order_id;
-
                             $.ajax({
                                 type: 'post',
                                 url: '<?php echo url(); ?>/user/ajax_register',
-                                data: totaldata,
+                                data: orderdata(),
                                 success: function (msg) {
                                     msg = msg.trim();
                                     $('#chkOut').removeAttr('disabled');
@@ -817,6 +815,7 @@ if (!$canedit) {
                                     //upto: 0 if up to extra_no, 1 if exactly extra_no, 2 if unlimited
                                     //multiples: 1 if can only select a single item, 0 if multiple items are allowed
                                     //log("is_required " + is_required + " upto " + upto + " multiples " + multiples + " cnn " + cnn + " extra_no " + extra_no);
+                                    /*
                                     if (debugmode) {
                                         log("Checking " + catid + " (" + $("#title_" + catid).text().trim + ")");
                                         log("cnn (how many are selected): " + cnn);
@@ -836,6 +835,7 @@ if (!$canedit) {
                                                 break;
                                         }
                                     }
+                                    */
 
                                     $('.error_' + catid).html("");
                                     if (is_required == '1') {//if items are required
