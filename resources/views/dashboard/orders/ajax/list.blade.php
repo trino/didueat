@@ -115,9 +115,9 @@
                             if(ReceiptVersion == ""){
                                 $resto = DB::table('restaurants')->select('name', 'slug')->where('id', '=', $value->restaurant_id)->get();
                             } else {
+                                $restaurants = \App\Http\Models\OrderItems::distinct()->select('restaurant_id')->where('order_id', $value->id)->get();
                                 $value->guid = $value->id;
                                 if($value->status == "incomplete"){//get the slug of the first restaurant from the order
-                                    $restaurant_id = select_field("orderitems", "order_id", $value->id, "restaurant_id");
                                     $ResumeURL = url("/") . "?orderid=" . $value->id;
                                 }
                             }
@@ -134,7 +134,10 @@
                                         if(isset($resto)){
                                             echo '<a HREF="' . url('restaurants/'. $resto[0]->slug .'/menu') . '" title="' . $alts["restaurants/menu"] . '">' . $resto[0]->name . '</a>';
                                         } else {
-                                            echo 'Multi';
+                                            foreach($restaurants as $restaurant){
+                                                $restaurant = select_field("restaurants", "id", $restaurant->restaurant_id, "name");
+                                                echo $restaurant . '<BR>';
+                                            }
                                         }
                                     } else {
                                         echo $value->ordered_by;

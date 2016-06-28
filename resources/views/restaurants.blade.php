@@ -339,6 +339,7 @@ $alts = array(
                 var data = $('#search-form').serialize() + "&formatted_address=" + address_alias + "&city=" + element.attr("city") + "&province=" + element.attr("province") + "&country=" + element.attr("country");
             } else {
                 if (!address_alias) {
+                    log("No address given");
                     return false;
                 }
                 var data = $('#search-form').serialize() + "&" + $('#addressbar').serialize(); // "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias + "&city";
@@ -346,6 +347,7 @@ $alts = array(
 
             var tempdata = data + "&start=" + start;
             if (tempdata == lastdata) {
+                log("Skipped as it's the same");
                 return tempdata;
             }
 

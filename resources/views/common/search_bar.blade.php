@@ -114,9 +114,9 @@
         var formatted_address2, formatted_address3;
 
         function resetsearch(){
-            $("#cuisine").val('');
-            $("#delivery-time").val('');
-
+            //$("#cuisine").val('');
+            //$("#delivery-time").val('');
+            $("#addressbar").trigger("reset");
             $('#search-form-submit').trigger('click');
         }
 
