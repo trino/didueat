@@ -7,27 +7,19 @@
 
 
     <FORM ID="addressbar" class="m-a-0 p-a-1" onsubmit="return false;">
-<<<<<<< HEAD
-        <div>
-            Cuisine:
-            <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine" class="resizeselect" onchange="createCookieValue('cuisine', this.value)">
-                <option value="">Select Cuisine</option>
-=======
         <div style="font-size: 115%;">
             <?php
-            $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
-            $alts = array(
-                    "search" => "Search for restaurants",
-                    "reset" => "Reset the search"
-            );
+                $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
+                $alts = array(
+                        "search" => "Search for restaurants",
+                        "reset" => "Reset the search"
+                );
             ?>
-
-
+            
             <i class="fa fa-cutlery"></i>
             <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine"
                     class="resizeselect" onchange="createCookieValue('cuisine', this.value)">
                 <option value="">All Cuisine</option>
->>>>>>> origin/master
                 @foreach($cuisine as $value)
                     <option>{{ $value }}</option>
                 @endforeach
@@ -90,10 +82,11 @@
 
     <script>
         var formatted_address2, formatted_address3;
-        
+
         function resetsearch(){
             $("#cuisine").val('').trigger('change');
             $("#addressbar").trigger("reset");
+            $('#addressbar input').val('').trigger('change');
             $('#search-form-submit').trigger('click');
         }
 
