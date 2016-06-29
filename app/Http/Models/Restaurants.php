@@ -230,14 +230,16 @@ class Restaurants extends BaseModel {
         $hours = " (today_close > today_open AND today_open < now AND today_close > now) OR (today_close < today_open AND today_open < now)";
         $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close < yesterday_open)";
         $openedRestCondn = str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
-        $asopenedRest = "IF(".$openedRestCondn.",1,0) as openedRest, IF(franchise = 0, id, franchise) as franchiseid";
+        $asopenedRest = "IF(".$openedRestCondn.",1,0) as openedRest, IF(franchise < 1, id, franchise) as franchiseid";
 
         (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;//why? Because the default will be in kilometers
+
+        //SELECT *, ( 6371 * acos( cos( radians('43.2364529') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('-79.80020509999997') ) + sin( radians('43.2364529') ) * sin( radians( latitude ) ) ) ) AS distance, IF(franchise = 0, id, franchise) as franchiseid FROM restaurants GROUP BY franchiseid HAVING min(distance)
 
         //handles distance
         $data['radius']=iif(debugmode(), 30, "max_delivery_distance");
         if (!$IsHardcoded && isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
-            $SQL = "SELECT *, ( " . $earthRad . " * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance, $asopenedRest FROM restaurants $where HAVING distance <= " . $data['radius'];
+            $SQL = "SELECT *, ( " . $earthRad . " * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance, $asopenedRest FROM restaurants $where GROUP BY franchiseid HAVING min(distance) AND distance <= " . $data['radius'];
         } else {
             $SQL = "SELECT *, 0 AS distance, $asopenedRest FROM restaurants " . $where;
         }

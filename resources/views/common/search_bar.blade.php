@@ -61,8 +61,8 @@
                 (window.navigator.userAgent.indexOf("MSIE") != -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) ? document.getElementById('formatted_address2').style.height = '53px' : '';
             </script-->
 
-            <input type="{{ $Type }}" name="latitude" id="latitude" style="color: black;" placeholder="latitude">
-            <input type="{{ $Type }}" name="longitude" id="longitude" style="color: black;" placeholder="longitude">
+            <input type="{{ $Type }}" name="latitude" id="latitude" class="latitude" style="color: black;" placeholder="latitude">
+            <input type="{{ $Type }}" name="longitude" id="longitude" class="longitude" style="color: black;" placeholder="longitude">
             <input type="{{ $Type }}" name="city" id="city" style="color: black;" placeholder="city">
             <input type="{{ $Type }}" name="province" id="province" style="color: black;" placeholder="province">
             <input type="{{ $Type }}" name="postal_code" id="postal_code" style="color: black;"

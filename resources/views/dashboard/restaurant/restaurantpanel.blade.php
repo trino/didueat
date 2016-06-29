@@ -138,7 +138,7 @@ if ($IncludeMenu) {
 }
 
     if(isset($Restaurant["franchiseid"])){
-        $Restaurant["franchiseid"] = " - FID: " . $Restaurant["franchiseid"];
+        $Restaurant["franchiseid"] = " - FID: " . $Restaurant["franchiseid"] . " Distance: " . round($Restaurant["distance"], 2) . " km";
     }else {
         $Restaurant["franchiseid"] = "";
     }

@@ -1642,7 +1642,7 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $T
             }
             $html .= '" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" onclick="return false;" data-reviews-detail="Total Reviews: ';
             $html .= $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount';
-            $html .= $target_id . '">' . $count_rating . ' Reviews</a></SPAN>';
+            $html .= $target_id . '">' . $count_rating . ' Review' . iif($count_rating != 1, "s") . '</a></SPAN>';
         }
     }
     $html .= '</div>';

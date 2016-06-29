@@ -199,15 +199,19 @@ $alts = array(
         }
 
         function onloadpage() {
+            log("loading page");
+
             if (getCookie('cname')) {
                 $('#search-form #name').val(getCookie('cname'));
             }
 
             if (getCookie('latitude')) {
                 $('#latitude').val(getCookie('latitude'));
+                $('.latitude').val(getCookie('latitude'));
             }
             if (getCookie('longitude')) {
                 $('#longitude').val(getCookie('longitude'));
+                $('.longitude').val(getCookie('longitude'));
             }
             if (getCookie('city')) {
                 $('#city').val(getCookie('city'));
