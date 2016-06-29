@@ -159,7 +159,7 @@ class Restaurants extends BaseModel {
     public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false, &$count = 0) {
         $order = " ORDER BY openedRest desc, views desc";//" ORDER BY openedRest desc, distance";
         $limit = " LIMIT $start, $per_page";
-        $where = "WHERE is_complete = '1'";// AND status = '1'";
+        $where = " WHERE is_complete = '1'";// AND status = '1'";
         if (isset($data['minimum']) && $data['minimum'] != "") {
             $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
         }
@@ -230,7 +230,7 @@ class Restaurants extends BaseModel {
         $hours = " (today_close > today_open AND today_open < now AND today_close > now) OR (today_close < today_open AND today_open < now)";
         $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close < yesterday_open)";
         $openedRestCondn = str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
-        $asopenedRest = "IF(".$openedRestCondn.",1,0) as openedRest";
+        $asopenedRest = "IF(".$openedRestCondn.",1,0) as openedRest, IF(franchise = 0, id, franchise) as franchiseid";
 
         (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;//why? Because the default will be in kilometers
 

@@ -10,8 +10,7 @@ $alts = array(
 if (!function_exists("toseconds")) {
     printfile("dashboard/restaurant/restaurantpanel.blade.php");
     //convert a 24hr time into seconds
-    function toseconds($Time)
-    {
+    function toseconds($Time) {
         if (strpos($Time, ":") !== false) {
             $Time = explode(":", $Time);
             return $Time[0] * 3600 + $Time[1] * 60 + $Time[2];
@@ -20,8 +19,7 @@ if (!function_exists("toseconds")) {
     }
 
     //get a rough estimate of the difference between 2 times
-    function timediff($Start, $End = false)
-    {//end is the bigger time
+    function timediff($Start, $End = false) {//end is the bigger time
         $Start = toseconds($Start);
         if (!$End) {
             $End = time();
@@ -31,8 +29,7 @@ if (!function_exists("toseconds")) {
         return durationtotext($Diff, false, ", ");
     }
 
-    function link_it($text)
-    {
+    function link_it($text) {
         $text = preg_replace("/(^|[\n ])([\w]*?)([\w]*?:\/\/[\w]+[^ \,\"\n\r\t<]*)/is", "$1$2<a href=\"$3\" >$3</a>", $text);
         $text = preg_replace("/(^|[\n ])([\w]*?)((www)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"http://$3\" >$3</a>", $text);
         $text = preg_replace("/(^|[\n ])([\w]*?)((ftp)\.[^ \,\"\t\n\r<]*)/is", "$1$2<a href=\"ftp://$3\" >$3</a>", $text);
@@ -139,40 +136,40 @@ if ($IncludeMenu) {
 } else {
     $OnClick = 'href="' . url('restaurants/' . $Restaurant['slug'] . '/menu') . '" ';//oldurl="?delivery_type={{ $delivery_type }}"
 }
+
+    if(isset($Restaurant["franchiseid"])){
+        $Restaurant["franchiseid"] = " - FID: " . $Restaurant["franchiseid"];
+    }else {
+        $Restaurant["franchiseid"] = "";
+    }
 ?>
 
 
-<ul class="m-b-1 p-a-1 list-group" id="card-header-{{ $Restaurant["id"] }}"
-    style="border:1px solid #eee; background:white; @if(!isset($order)) @endif ">
-
+<ul class="m-b-1 p-a-1 list-group" id="card-header-{{ $Restaurant["id"] }}" style="border:1px solid #eee; background:white; @if(!isset($order)) @endif ">
 
     @if(isset($order))
 
         <a class="card-link restaurant-url" {!! $OnClick !!} title="{{ $alts["restaurants/menu"] }}">
-
-
             <h4 class="m-b-0">
-                {{ printfile("(ID: " . $Restaurant["id"] . ") ") . $Restaurant['name'] }}
+                {{ printfile("(ID: " . $Restaurant["id"] . $Restaurant["franchiseid"] . ") ") . $Restaurant['name'] }}
             </h4>
             @if($Restaurant["cuisine"])
                 <span class="text-muted">
-
-        {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
+                    {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}
+                </span>
             @endif
-
-
         </a>
 
-    <span class="pull-right"> {!! rating_initialize("static-rating no-rating", "restaurant", $Restaurant['id']) !!} </span>
-    @if($MoreTime)
-        <span class="error"> {!! $MoreTime !!} </span>
-    @endif
+        <span class="pull-right"> {!! rating_initialize("static-rating no-rating", "restaurant", $Restaurant['id']) !!} </span>
+
+        @if($MoreTime)
+            <span class="error"> {!! $MoreTime !!} </span>
+        @endif
     @endif
 
     @if(isset($latitude) && $radius && $Restaurant['distance'] && false)
         <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
     @endif
-
 
     @if(isset($Restaurant["notes"]) && isset($showtoday) && false)
         {!! link_it($Restaurant["notes"]) !!}

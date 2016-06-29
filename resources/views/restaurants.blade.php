@@ -346,8 +346,12 @@ $alts = array(
             }
 
             if(!$("#cuisine").val()){
-                skipped("No cuisine specifed", "#cuisine");
-                return tempdata;
+                if(debugmode){
+                    skipped("No cuisine specifed, but skipping for debug mode", "#cuisine");
+                } else {
+                    skipped("No cuisine specifed", "#cuisine");
+                    return tempdata;
+                }
             }
 
             if (start == 0) {
