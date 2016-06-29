@@ -4,9 +4,8 @@
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu"))
 
 
-
-
     <FORM ID="addressbar" class="m-a-0 p-a-1" onsubmit="return false;">
+        <DIV style="color:red;" ID="skippedreason"></DIV>
         <div style="font-size: 115%;">
             <?php
                 $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
@@ -15,10 +14,10 @@
                         "reset" => "Reset the search"
                 );
             ?>
-            
+
             <i class="fa fa-cutlery"></i>
             <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine"
-                    class="resizeselect" onchange="createCookieValue('cuisine', this.value)">
+                    class="resizeselect" onchange="createCookieValue('cuisine', this.value); $(this).removeClass('redborder');">
                 <option value="">All Cuisine</option>
                 @foreach($cuisine as $value)
                     <option>{{ $value }}</option>
@@ -48,7 +47,7 @@
                 
 
             <button class="btn btn-success"
-                    onclick="$('#search-form-submit').trigger('click');" title="{{ $alts["search"] }}">
+                    onclick="runsearch('search button');" title="{{ $alts["search"] }}">
                 <i class="fa fa-search"></i>
             </button>
 
@@ -83,11 +82,21 @@
     <script>
         var formatted_address2, formatted_address3;
 
+        function skipped(reason, selector){
+            $("#skippedreason").text(reason);
+            if(!reason){
+                $(".redborder").removeClass("redborder")
+            }
+            if(selector){
+                $(selector).addClass("redborder");
+            }
+        }
+
         function resetsearch(){
             $("#cuisine").val('').trigger('change');
             $("#addressbar").trigger("reset");
             $('#addressbar input').val('').trigger('change');
-            $('#search-form-submit').trigger('click');
+            runsearch("resetsearch");
         }
 
         function googlemap(element) {
@@ -112,15 +121,22 @@
         }
 
         function change_address_event() {
+            $("#formatted_address2").removeClass('redborder');
             setTimeout(function () {
                 if ($("#search-form").length) {
                     $("#header-search-button").show();
                 }
 
                 if ($("#formatted_address2").val()) {
-                    $('#search-form-submit').trigger('click');
+                    //runsearch("change_address_event");
                 }
             }, 100);
+        }
+
+        function runsearch(where){
+            log("Runsearch: " + where);
+            $('#search-form-submit').trigger('click');
+            //submitform(event, 0, "Runsearch: " + where);
         }
 
         function cities() {

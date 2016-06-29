@@ -244,7 +244,7 @@ $alts = array(
             if (getCookie('address')) {
                 $('#formatted_address2').val(getCookie('address'));
                 $("#header-search-button").show();
-                $('#search-form-submit').trigger('click');
+                runsearch("loadpage");
             }
         }
 
@@ -287,6 +287,8 @@ $alts = array(
                 return false;
             }
 
+            skipped("", "");//reset skipped field
+
             var formatted_address = $(elementname).val();
             var latitude = $('#order_latitude').val().trim();
             var longitude = $('#order_longitude').val().trim();
@@ -327,7 +329,7 @@ $alts = array(
                 var data = $('#search-form').serialize() + "&formatted_address=" + address_alias + "&city=" + element.attr("city") + "&province=" + element.attr("province") + "&country=" + element.attr("country");
             } else {
                 if (!address_alias) {
-                    log("No address given");
+                    skipped("No address given", "#formatted_address2");
                     return false;
                 }
                 var data = $('#search-form').serialize() + "&" + $('#addressbar').serialize(); // "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias + "&city";
@@ -335,7 +337,12 @@ $alts = array(
 
             var tempdata = data + "&start=" + start;
             if (tempdata == lastdata) {
-                log("Skipped as it's the same");
+                skipped("Duplicate search parameters", "");
+                return tempdata;
+            }
+
+            if(!$("#cuisine").val()){
+                skipped("No cuisine specifed", "#cuisine");
                 return tempdata;
             }
 
