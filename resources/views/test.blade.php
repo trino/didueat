@@ -8,6 +8,11 @@
         return substr($string, $ini, $len);
     }
 
+    if(isset($_GET["import"])){
+        ?> @include("import") <?php
+        die();
+    }
+
     if(isset($_POST["action"])){$_GET=$_POST;}
     if(isset($_GET["action"])){
         switch($_GET["action"]){
