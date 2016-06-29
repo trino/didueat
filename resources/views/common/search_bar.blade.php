@@ -10,7 +10,7 @@
         <div>
             Cuisine:
             <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine" class="resizeselect" onchange="createCookieValue('cuisine', this.value)">
-                <option value="">All Cuisine</option>
+                <option value="">Select Cuisine</option>
                 @foreach($cuisine as $value)
                     <option>{{ $value }}</option>
                 @endforeach
@@ -78,8 +78,7 @@
         var formatted_address2, formatted_address3;
 
         function resetsearch(){
-            //$("#cuisine").val('');
-            //$("#delivery-time").val('');
+            $("#cuisine").val('').trigger('change');
             $("#addressbar").trigger("reset");
             $('#search-form-submit').trigger('click');
         }
@@ -131,11 +130,16 @@
         }
 
         function searchtimechange() {
-            $("#ordered_on_time").val($("#delivery-time").val());
+            var time = $("#delivery-time").val();
+            $("#ordered_on_time").val(time);
+            createCookieValue('delivery-time', time);
         }
 
         if (getCookie("cuisine")) {
             $("#cuisine").val(getCookie("cuisine"));
+        }
+        if(getCookie("delivery-time")){
+            $("#delivery-time").val(getCookie("delivery-time"));
         }
 
         (function($, window){

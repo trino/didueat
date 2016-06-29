@@ -599,6 +599,15 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
             return element.getAttribute(atttribute);
         }
     }
+
+    @if(debugmode())
+        var cookies = get_cookies_array();
+        document.write('<TABLE><THEAD><TR><TD COLSPAN="2">Cookies: (DEBUG MODE)</TD></TR><TR><TH>Key</TH><TH>Value</TH></TR></THEAD>');
+        for(var name in cookies) {
+            document.write('<TR><TD>' + name + "</TD><TD>" + cookies[name] + "</TD></TR>");
+        }
+        document.write('</TABLE>');
+    @endif
 </script>
 
 
