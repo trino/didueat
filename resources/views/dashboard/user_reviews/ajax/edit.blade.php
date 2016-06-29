@@ -3,7 +3,7 @@
 <?php
 
 echo newrow(false, "Rating", "", true); ?>
-        <input type="number" min="0" max="5" class="form-control" id="rating" value="{{ (isset($user_review_detail->rating))?$user_review_detail->rating:'' }}">
+        <input type="number" min="0" max="5" class="form-control" id="rating" name="rating" value="{{ (isset($user_review_detail->rating))?$user_review_detail->rating:'' }}">
     </div>
 </div>
 
