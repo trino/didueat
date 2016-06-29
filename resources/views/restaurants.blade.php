@@ -281,6 +281,17 @@ $alts = array(
         var lastdata = "";
         var oldpadding = "";
 
+        function saveaddresscookie(formatted_address,longitude,latitude,address_alias,city,province,country,postal_code){
+            createCookieValue("formatted_address", formatted_address);
+            createCookieValue('longitude', longitude);
+            createCookieValue('latitude', latitude);
+            createCookieValue('address', address_alias);
+            createCookieValue('city', city);
+            createCookieValue('province', province);
+            createCookieValue('country', country);
+            createCookieValue('postal_code', postal_code);
+        }
+
         function submitform(e, start, eventname) {
             if (IgnoreOne) {
                 IgnoreOne = false;
@@ -306,14 +317,7 @@ $alts = array(
               echo "var earthRad = ".$earthRad.";";
             ?>
 
-            createCookieValue("formatted_address", formatted_address);
-            createCookieValue('longitude', longitude);
-            createCookieValue('latitude', latitude);
-            createCookieValue('address', address_alias);
-            createCookieValue('city', city);
-            createCookieValue('province', province);
-            createCookieValue('country', country);
-            createCookieValue('postal_code', postal_code);
+            saveaddresscookie(formatted_address,longitude,latitude,address_alias,city,province,country,postal_code);
             createCookieValue('is_menu', is_menu);
 
             createCookieValue('userC', earthRad); // other delimited items can be added in stage 2

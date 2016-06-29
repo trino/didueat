@@ -93,10 +93,10 @@
         }
 
         function resetsearch(){
-            $("#cuisine").val('').trigger('change');
-            $("#addressbar").trigger("reset");
-            $('#addressbar input').val('').trigger('change');
-            runsearch("resetsearch");
+            $('#addressbar input, #addressbar select').val('').trigger('change');
+            saveaddresscookie("","","","","","","","");
+            //runsearch("resetsearch");
+            location.reload();
         }
 
         function googlemap(element) {
