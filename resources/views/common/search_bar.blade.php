@@ -7,40 +7,48 @@
 
 
     <FORM ID="addressbar" class="m-a-0 p-a-1" onsubmit="return false;">
-        <div>
-            Cuisine:
-            <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine" class="resizeselect" onchange="createCookieValue('cuisine', this.value)">
+        <div style="font-size: 115%;">
+            <?php
+            $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
+            $alts = array(
+                    "search" => "Search for restaurants",
+                    "reset" => "Reset the search"
+            );
+            ?>
+
+
+            <i class="fa fa-cutlery"></i>
+            <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine"
+                    class="resizeselect" onchange="createCookieValue('cuisine', this.value)">
                 <option value="">All Cuisine</option>
                 @foreach($cuisine as $value)
                     <option>{{ $value }}</option>
                 @endforeach
             </select>
 
-            Address:
 
-            <?php
-                $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
-                $alts = array(
-                        "search" => "Search for restaurants",
-                        "reset" => "Reset the search"
-                );
-            ?>
+            <i class="fa fa-clock-o"></i>
 
-            <input style="border: 0 !important;background: transparent !important;" type="text" name="formatted_address" id="formatted_address2"
-                   class="formatted_address autosize" placeholder="Enter your address"
+            <select style="border: 0 !important;background: transparent !important;" name="delivery-time"
+                    class="resizeselect" id="delivery-time" onchange="searchtimechange();">
+                <option value="">Order ASAP</option>
+                {{ get_time_interval() }}
+            </select>
+
+
+            <i class="fa fa-map-marker"></i>
+
+            <input style="border: 0 !important;background: transparent !important;" type="text" name="formatted_address"
+                   id="formatted_address2"
+                   class="formatted_address autosize" placeholder="Delivery Address"
                    onchange="change_address_event();"
                    @if(isset($_GET["search"]))
                    value="{{ $_GET["search"] }}"
                    @endif
                    onpaste="this.onchange();">
-            Time:
+                
 
-            <select style="border: 0 !important;background: transparent !important;" name="delivery-time" class="resizeselect" id="delivery-time" onchange="searchtimechange();">
-                <option value="">Order ASAP</option>
-                {{ get_time_interval() }}
-            </select>
-
-            <button class="btn btn-success dueBtn"
+            <button class="btn btn-success"
                     onclick="$('#search-form-submit').trigger('click');" title="{{ $alts["search"] }}">
                 <i class="fa fa-search"></i>
             </button>
@@ -51,25 +59,24 @@
             </button>
 
 
+            <!--script>
+                (window.navigator.userAgent.indexOf("MSIE") != -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) ? document.getElementById('formatted_address2').style.height = '53px' : '';
+            </script-->
+
+            <input type="{{ $Type }}" name="latitude" id="latitude" style="color: black;" placeholder="latitude">
+            <input type="{{ $Type }}" name="longitude" id="longitude" style="color: black;" placeholder="longitude">
+            <input type="{{ $Type }}" name="city" id="city" style="color: black;" placeholder="city">
+            <input type="{{ $Type }}" name="province" id="province" style="color: black;" placeholder="province">
+            <input type="{{ $Type }}" name="postal_code" id="postal_code" style="color: black;"
+                   placeholder="postal_code">
+            <input type="{{ $Type }}" name="country" id="country" style="color: black;" placeholder="country">
+
+            @if(debugmode())
+                <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe"
+                                                                             style="color:blue;"></i></A>
+            @endif
+
         </div>
-
-        <!--script>
-            (window.navigator.userAgent.indexOf("MSIE") != -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) ? document.getElementById('formatted_address2').style.height = '53px' : '';
-        </script-->
-
-        <input type="{{ $Type }}" name="latitude" id="latitude" style="color: black;" placeholder="latitude">
-        <input type="{{ $Type }}" name="longitude" id="longitude" style="color: black;" placeholder="longitude">
-        <input type="{{ $Type }}" name="city" id="city" style="color: black;" placeholder="city">
-        <input type="{{ $Type }}" name="province" id="province" style="color: black;" placeholder="province">
-        <input type="{{ $Type }}" name="postal_code" id="postal_code" style="color: black;" placeholder="postal_code">
-        <input type="{{ $Type }}" name="country" id="country" style="color: black;" placeholder="country">
-
-        @if(debugmode())
-            <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe"
-                                                                         style="color:blue;"></i></A>
-    @endif
-
-
 
     </FORM>
     <!-- Or view all restaurants from <A class="stroke-black-1px" onclick="setaddress('Hamilton, ON, Canada');">Hamilton</A> or <A class="stroke-black-1px" onclick="cities();">a list of cities</A> -->
@@ -77,7 +84,7 @@
     <script>
         var formatted_address2, formatted_address3;
 
-        function resetsearch(){
+        function resetsearch() {
             //$("#cuisine").val('');
             //$("#delivery-time").val('');
             $("#addressbar").trigger("reset");
@@ -138,13 +145,13 @@
             $("#cuisine").val(getCookie("cuisine"));
         }
 
-        (function($, window){
-            var arrowWidth = 30;
+        (function ($, window) {
+            var arrowWidth = 40;
 
-            $.fn.resizeselect = function(settings) {
-                return this.each(function() {
+            $.fn.resizeselect = function (settings) {
+                return this.each(function () {
 
-                    $(this).change(function(){
+                    $(this).change(function () {
                         var $this = $(this);
 
                         // create test element
@@ -171,29 +178,29 @@
         })(jQuery, window);
 
 
-        $.fn.textWidth = function(_text, _font){//get width of text with font.  usage: $("div").textWidth();
+        $.fn.textWidth = function (_text, _font) {//get width of text with font.  usage: $("div").textWidth();
             var fakeEl = $('<span>').hide().appendTo(document.body).text(_text || this.val() || this.text()).css('font', _font || this.css('font')),
                     width = fakeEl.width();
             fakeEl.remove();
             return width;
         };
 
-        $.fn.autoresize = function(options){//resizes elements based on content size.  usage: $('input').autoresize({padding:10,minWidth:0,maxWidth:100});
-            options = $.extend({padding:10,minWidth:0,maxWidth:10000}, options||{});
-            $(this).on('input', function() {
-                $(this).css('width', Math.min(options.maxWidth,Math.max(options.minWidth,$(this).textWidth() + options.padding)));
+        $.fn.autoresize = function (options) {//resizes elements based on content size.  usage: $('input').autoresize({padding:10,minWidth:0,maxWidth:100});
+            options = $.extend({padding: 10, minWidth: 0, maxWidth: 10000}, options || {});
+            $(this).on('input', function () {
+                $(this).css('width', Math.min(options.maxWidth, Math.max(options.minWidth, $(this).textWidth() + options.padding)));
             }).trigger('input');
             return this;
         }
 
-        $('.autosize').on('change',function(e){
+        $('.autosize').on('change', function (e) {
             $(this).trigger('input');
         });
-        $( document ).ready(function() {
+        $(document).ready(function () {
             $('.autosize').trigger('input');
         });
 
-        $(".autosize").autoresize({padding:20,minWidth:200,maxWidth:500});
+        $(".autosize").autoresize({padding: 20, minWidth: 200, maxWidth: 500});
 
     </script>
 

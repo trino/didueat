@@ -126,7 +126,7 @@
         <div>
             <div class="text-xs-center">
                 <button style="" id="loadingbutton" data-id="{{ $start }}" align="center"
-                        class="loadMoreRestaurants btn btn-success-outline m-t-2 btn-lg"
+                        class="loadMoreRestaurants btn btn-success m-t-2 btn-lg"
                         title="{{ $alts["loadmore"] }}">Load More
                 </button>
                 <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" alt="{{ $alts["loading"] }}"/>

@@ -4,24 +4,30 @@
             "delete" => "Remove this item from your receipt"
     );
 ?>
-<li class="list-group-item" style="border-bottom: 0;">
-    <DIV>
+<li class="list-group-item" style="border-top: 1px solid #fafafa !important;">
         <i id="menuitem-check_{{ $value->id }}" class="fa fa-check menucheck" title="{{ $alts["check"] }}"></i>
         <i id="deleteitem-check_{{ $value->id }}" class="fa fa-times menudelete" title="{{ $alts["delete"] }}" onclick="deleteitems({{ $value->id }}, '{{ urlencode($value->menu_item) }}');"></i>
         <SPAN onclick="checkmenuitem(event, {{ $value->id }}, '{{ $value->price }}', '{{ '' }}');">
             @if(debugmode())
                 (ID: {{ $value->id }})
             @endif
-            {{ $value->menu_item }} -
+
+
+
+            {{ $value->menu_item }}
+
+
+                <span class="pull-right">
             @if($value->price>0)
                 ${{number_format(($value->price>0)?$value->price:$min_p,2)}}
             @else
                 ${{number_format($min_p,2)}}+
             @endif
+                            </SPAN>
+
                 <br>
             <span class="card-text text-muted">{{ $value->description}}</span>
         </SPAN>
-    </DIV>
 </li>
 
 
