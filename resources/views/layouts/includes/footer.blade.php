@@ -601,6 +601,19 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
     }
 
     @if(debugmode())
+        function get_cookies_array() {
+            var cookies = new Array;
+            if (document.cookie && document.cookie != '') {
+                var split = document.cookie.split(';');
+                for (var i = 0; i < split.length; i++) {
+                    var name_value = split[i].split("=");
+                    name_value[0] = name_value[0].replace(/^ /, '');
+                    cookies[decodeURIComponent(name_value[0])] = decodeURIComponent(name_value[1]);
+                }
+            }
+            return cookies;
+        }
+
         var cookies = get_cookies_array();
         document.write('<TABLE><THEAD><TR><TD COLSPAN="2">Cookies: (DEBUG MODE)</TD></TR><TR><TH>Key</TH><TH>Value</TH></TR></THEAD>');
         for(var name in cookies) {

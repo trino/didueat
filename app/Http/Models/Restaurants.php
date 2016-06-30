@@ -25,7 +25,7 @@ class Restaurants extends BaseModel {
         }
         
         $weekdays = getweekdays();
-        $Fields = array("_open","_close", "_open_del", "_close_del");
+        $Fields = array("_open","_close");//}, "_open_del", "_close_del");
         foreach($weekdays as $day){
             foreach($Fields as $field){
                 $cells[$day . $field] = "24hr";
@@ -34,7 +34,7 @@ class Restaurants extends BaseModel {
 
         $this->copycells($cells, $data);
 
-        //This sets delivery times to pickup times
+        /* This sets delivery times to pickup times
         if(!$use_delivery_hours) {
             foreach ($weekdays as $day) {
                 foreach (array("_open", "_close") as $fieldname) {
@@ -46,6 +46,7 @@ class Restaurants extends BaseModel {
                 }
             }
         }
+        */
 
         $this->is_complete = $this->restaurant_opens($this);
         $this->open = $this->is_complete;
@@ -132,7 +133,7 @@ class Restaurants extends BaseModel {
         if(!is_object($restaurant)) {
             $restaurant = get_entry("restaurants", $restaurant);
         }
-        if($delivery){$delivery = "_del";}
+        //if($delivery){$delivery = "_del";}
         $Today_Open = getfield($restaurant, $Today . "_open" . $delivery);
         $Today_Close = getfield($restaurant, $Today . "_close" . $delivery);
         $Yesterday_Open = getfield($restaurant, $Yesterday . "_open" . $delivery);
@@ -225,8 +226,8 @@ class Restaurants extends BaseModel {
 
         $Yesterday = current_day_of_week($date - 86400);
         $DeliveryHours = isset($data['delivery_type']) && $data['delivery_type'] == "is_delivery";
-        $open = "open" . iif($DeliveryHours, "_del");
-        $close = "close" . iif($DeliveryHours, "_del");
+        $open = "open";// . iif($DeliveryHours, "_del");
+        $close = "close";// . iif($DeliveryHours, "_del");
         $hours = " (today_close > today_open AND today_open < now AND today_close > now) OR (today_close < today_open AND today_open < now)";
         $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close < yesterday_open)";
         $openedRestCondn = str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
