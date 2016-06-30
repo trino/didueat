@@ -257,6 +257,7 @@ function updatecart(where){
 //id: id of the item
 //opr: direction. "plus" is up, "minus" is down
 function changeqty(id, opr) {
+    log("changeqty: " + id + " " + opr);
     var num = Number($('.number' + id).text());
     if (isNaN(opr)) {
         if (opr == 'plus') {
@@ -348,6 +349,7 @@ $(function(){
     }
 
     function handlespan(tthis, dir){
+        log("handlespan: " + dir);
         var td = $(tthis).parent().parent().closest('td');
         var td_id =td.attr('id');
         td_id = td_id.replace('td_','');
@@ -540,7 +542,6 @@ $(function(){
         var price = 0;
 
         $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
-
             if ($(this).hasClass('checked')||($(this).is(':checked') && $(this).attr('title') != "" && $(this).attr('title')!='___')) {
                 var tit = $(this).attr('title');
                 var title = tit.split("_");
@@ -553,7 +554,9 @@ $(function(){
             }
         });
 
-        $('.modalprice'+menu_id).html('$'+price.toFixed(2));
+        var quantity = $("#select" + menu_id).val();
+
+        $('.modalprice'+menu_id).html('$'+ (price*quantity).toFixed(2));
         $('.Mprice'+menu_id).val(price);
         if($('.strikedprice'+menu_id).text()!="") {
             var sP = $('.mainPrice'+menu_id).val();

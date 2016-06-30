@@ -171,18 +171,23 @@ class Orders extends BaseModel {
         $per_page = $array['per_page'];
         $start = $array['start'];
 
+        $AND = '1=1';
         switch($query_type){
             case 'user':
-                $AND = 'user_id = ' . read('id');
+                $AND = 'WHERE user_id = ' . read('id');
                 break;
             case 'restaurant':
-                $AND = 'restaurant_id = ' . read('restaurant_id');
+                $AND = 'WHERE restaurant_id = ' . read('restaurant_id');
                 break;
             case 'driver':
-                $AND = 'driver_id = ' . read('id');
+                $AND = 'WHERE driver_id = ' . read('id');
                 break;
         }
         $SQL = "SELECT *, (SELECT count(*) FROM orderitems WHERE order_id = orders.id) as itemcount FROM `orders` WHERE $AND HAVING itemcount > 0 ORDER BY id DESC";
+
+        debugprint($SQL);
+
+
         $query = select_query($SQL);
         $reccount = $query->rowCount();
 
