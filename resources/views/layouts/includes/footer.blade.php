@@ -48,26 +48,31 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                     }
 
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "restaurant" || debugmode())) {?>
-                    <li class="list-inline-item">
-                        <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant Sign Up</a>
-                    </li>
+                    <!--li class="list-inline-item">
+                        <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant
+                            Sign Up</a>
+                    </li-->
                     <?php }
 
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "driver" || debugmode()) && !islive()) {?>
-                    <li class="list-inline-item">
+                    <!--li class="list-inline-item">
                         <a href="{{ url("driver/signup") }}" title="{{ $alts["driver/signup"] }}">Driver Sign Up</a>
-                    </li>
+                    </li-->
                     <?php } ?>
 
                     <li class="list-inline-item">
-                        <a href="{{ url("driver/orders") }}" onclick="return appendaddress(event);" title="{{ $alts["driver/orders"] }}">Driver Orders</a>
+                        <a href="{{ url("driver/orders") }}" onclick="return appendaddress(event);"
+                           title="{{ $alts["driver/orders"] }}">Driver Orders</a>
                     </li>
 
                     <li class="list-inline-item">
                         <h5>
-                            <A href="https://www.facebook.com/didueathamilton/" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-facebook"></i></A>&nbsp;
-                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-twitter"></i></A>&nbsp;
-                            <A href="https://www.instagram.com/didueat/" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-instagram"></i></A>
+                            <A href="https://www.facebook.com/didueathamilton/" target="_blank"
+                               title="{{ $alts["socmed"] }}"><i class="fa fa-facebook"></i></A>&nbsp;
+                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank"
+                               title="{{ $alts["socmed"] }}"><i class="fa fa-twitter"></i></A>&nbsp;
+                            <A href="https://www.instagram.com/didueat/" target="_blank"
+                               title="{{ $alts["socmed"] }}"><i class="fa fa-instagram"></i></A>
                         </h5>
                     </li>
                 </ul>
@@ -87,7 +92,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                         echo getUserBrowser();
                         ?>
                     @endif
-                    <a href="{{ url("home/terms") }}" title="{{ $alts["home/terms"] }}">Terms of Use</a>
+                    <a href="{{ url("home/terms") }}" title="{{ $alts["home/terms"] }}">Terms</a>
                 </p>
             </div>
         </div>
@@ -97,10 +102,12 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
 
 
 <script type="text/javascript">
-    function appendaddress(e){
+    function appendaddress(e) {
         var URL = $(e.target).attr("href");
         var n = URL.indexOf('?');
-        if(n > -1) {URL = URL.substring(0, n);}
+        if (n > -1) {
+            URL = URL.substring(0, n);
+        }
         URL = URL + "?address=" + encodeURIComponent($("#formatted_address2").val());
         URL = URL + "&latitude=" + $("#latitude").val();
         URL = URL + "&longitude=" + $("#longitude").val();
@@ -430,12 +437,12 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
         //handles submission of the register form (should be moved to where it's used)
         $('body').on('submit', '#register-form', function (e) {
             var token = $("#register-form input[name=_token]").val();
-                <?php
+                    <?php
                     $fields = array("name", "email", "password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "gmt");//, "confirm_password"
                     foreach ($fields as $field) {
                         echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
                     }
-                ?>
+                    ?>
             var subscribed = 0;
             if ($("#register-form input[name=subscribed]").is(':checked')) {
                 subscribed = $("#register-form input[name=subscribed]").val();
@@ -600,13 +607,13 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
         }
     }
 
-    @if(debugmode())
-        var cookies = get_cookies_array();
-        document.write('<TABLE><THEAD><TR><TD COLSPAN="2">Cookies: (DEBUG MODE)</TD></TR><TR><TH>Key</TH><TH>Value</TH></TR></THEAD>');
-        for(var name in cookies) {
-            document.write('<TR><TD>' + name + "</TD><TD>" + cookies[name] + "</TD></TR>");
-        }
-        document.write('</TABLE>');
+            @if(debugmode())
+    var cookies = get_cookies_array();
+    document.write('<TABLE><THEAD><TR><TD COLSPAN="2">Cookies: (DEBUG MODE)</TD></TR><TR><TH>Key</TH><TH>Value</TH></TR></THEAD>');
+    for (var name in cookies) {
+        document.write('<TR><TD>' + name + "</TD><TD>" + cookies[name] + "</TD></TR>");
+    }
+    document.write('</TABLE>');
     @endif
 </script>
 

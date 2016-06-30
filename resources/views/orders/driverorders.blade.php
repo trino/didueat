@@ -1,6 +1,10 @@
 @extends('layouts.default')
 @section('content')
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+<div class="container">
+
+
+
 <?php
     printfile("views/orders/driverorders.blade.php");
     $drivers = select_field("profiles", "profile_type", 5, false);
@@ -202,6 +206,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 
 @stop

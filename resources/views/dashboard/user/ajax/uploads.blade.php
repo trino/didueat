@@ -60,7 +60,11 @@
                         echo '<TD>' . asmoney($MenuItem->price, true) . '</TD>';
                         echo '<TD>' . $count . '</TD>';
                         if($Restaurant){
-                            echo '<TD><a style="float:right;" ID="deleteitembtn' . $MenuItem->menu_item . '" class="btn btn-danger-outline btn-sm" title="' . $alts["deleteitem"] . '" onclick="deleteitem(' . $MenuItem->id . ", '" . addslashes($MenuItem->menu_item) . "', '" . $Restaurant->slug . "'" . ');">X</a></TD></TR>';
+
+
+
+                            echo '<TD><a style="float:right;" ID="deleteitembtn' . $MenuItem->menu_item . '" class="" title="' . $alts["deleteitem"] . '" onclick="deleteitem(' . $MenuItem->id . ", '" .
+                                    addslashes($MenuItem->menu_item) . "', '" . $Restaurant->slug . "'" . ');"><i id="delete93" class="fa fa-times"></i></a></TD></TR>';
                         }
                     }
                     ?>
