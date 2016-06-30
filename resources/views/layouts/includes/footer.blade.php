@@ -48,15 +48,15 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                     }
 
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "restaurant" || debugmode())) {?>
-                    <li class="list-inline-item">
+                    <!--li class="list-inline-item">
                         <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant Sign Up</a>
-                    </li>
+                    </li-->
                     <?php }
 
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "driver" || debugmode()) && !islive()) {?>
-                    <li class="list-inline-item">
+                    <!--li class="list-inline-item">
                         <a href="{{ url("driver/signup") }}" title="{{ $alts["driver/signup"] }}">Driver Sign Up</a>
-                    </li>
+                    </li-->
                     <?php } ?>
 
                     <li class="list-inline-item">

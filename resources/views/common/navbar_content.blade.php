@@ -49,7 +49,7 @@
                         'restaurant/list' => "Restaurants",
                         'user/reviews' => "Reviews",
                         'eventlogs/list' => "Event Log",
-                        'home/debug' => "Debug Menu"
+                        'home/debug' => "Debug"
                 ), "Admin");
             }
 
