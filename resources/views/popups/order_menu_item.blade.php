@@ -287,7 +287,7 @@
                     <div class="pull-left">
                         <a id="clearmenu{{ $value->id }}" title="{{ $alts["clear"] }}"
                            class="btn btn-link text-muted "
-                           onclick="confirmclearForm('#product-pop-up_{{ (isset($value->id))?$value->id:'' }}');">Clear</a>
+                           onclick="confirmclearForm('{{ (isset($value->id))?$value->id:'' }}');">Clear</a>
                     </div>
                 </div>
                 <div class="clearfix"></div>

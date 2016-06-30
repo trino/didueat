@@ -160,8 +160,6 @@ function deleteitems(ID, Name){
 
 
 
-
-
 //legacy code required to run
 
 //show the checkout form, if the cart has met the minimum requirements
