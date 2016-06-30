@@ -48,31 +48,26 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                     }
 
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "restaurant" || debugmode())) {?>
-                    <!--li class="list-inline-item">
-                        <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant
-                            Sign Up</a>
-                    </li-->
+                    <li class="list-inline-item">
+                        <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant Sign Up</a>
+                    </li>
                     <?php }
 
                     if (!$IsOnSignup && (!Session::get('session_type_user') == "driver" || debugmode()) && !islive()) {?>
-                    <!--li class="list-inline-item">
+                    <li class="list-inline-item">
                         <a href="{{ url("driver/signup") }}" title="{{ $alts["driver/signup"] }}">Driver Sign Up</a>
-                    </li-->
+                    </li>
                     <?php } ?>
 
                     <li class="list-inline-item">
-                        <a href="{{ url("driver/orders") }}" onclick="return appendaddress(event);"
-                           title="{{ $alts["driver/orders"] }}">Driver Orders</a>
+                        <a href="{{ url("driver/orders") }}" onclick="return appendaddress(event);" title="{{ $alts["driver/orders"] }}">Driver Orders</a>
                     </li>
 
                     <li class="list-inline-item">
                         <h5>
-                            <A href="https://www.facebook.com/didueathamilton/" target="_blank"
-                               title="{{ $alts["socmed"] }}"><i class="fa fa-facebook"></i></A>&nbsp;
-                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank"
-                               title="{{ $alts["socmed"] }}"><i class="fa fa-twitter"></i></A>&nbsp;
-                            <A href="https://www.instagram.com/didueat/" target="_blank"
-                               title="{{ $alts["socmed"] }}"><i class="fa fa-instagram"></i></A>
+                            <A href="https://www.facebook.com/didueathamilton/" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-facebook"></i></A>&nbsp;
+                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-twitter"></i></A>&nbsp;
+                            <A href="https://www.instagram.com/didueat/" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-instagram"></i></A>
                         </h5>
                     </li>
                 </ul>
@@ -92,7 +87,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
                         echo getUserBrowser();
                         ?>
                     @endif
-                    <a href="{{ url("home/terms") }}" title="{{ $alts["home/terms"] }}">Terms</a>
+                    <a href="{{ url("home/terms") }}" title="{{ $alts["home/terms"] }}">Terms of Use</a>
                 </p>
             </div>
         </div>
@@ -102,12 +97,10 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
 
 
 <script type="text/javascript">
-    function appendaddress(e) {
+    function appendaddress(e){
         var URL = $(e.target).attr("href");
         var n = URL.indexOf('?');
-        if (n > -1) {
-            URL = URL.substring(0, n);
-        }
+        if(n > -1) {URL = URL.substring(0, n);}
         URL = URL + "?address=" + encodeURIComponent($("#formatted_address2").val());
         URL = URL + "&latitude=" + $("#latitude").val();
         URL = URL + "&longitude=" + $("#longitude").val();
@@ -607,15 +600,25 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
         }
     }
 
-            @if(debugmode())
+    @if(debugmode())
+    function get_cookies_array() {
+        var cookies = new Array;
+        if (document.cookie && document.cookie != '') {
+            var split = document.cookie.split(';');
+            for (var i = 0; i < split.length; i++) {
+                var name_value = split[i].split("=");
+                name_value[0] = name_value[0].replace(/^ /, '');
+                cookies[decodeURIComponent(name_value[0])] = decodeURIComponent(name_value[1]);
+            }
+        }
+        return cookies;
+    }
+
     var cookies = get_cookies_array();
     document.write('<TABLE><THEAD><TR><TD COLSPAN="2">Cookies: (DEBUG MODE)</TD></TR><TR><TH>Key</TH><TH>Value</TH></TR></THEAD>');
-    for (var name in cookies) {
+    for(var name in cookies) {
         document.write('<TR><TD>' + name + "</TD><TD>" + cookies[name] + "</TD></TR>");
     }
     document.write('</TABLE>');
     @endif
 </script>
-
-
-
