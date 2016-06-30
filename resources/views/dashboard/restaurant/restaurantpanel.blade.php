@@ -75,7 +75,7 @@ if (isset($user_time) && $user_time) {
     $is_open = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
 }
 
-$key = iif($delivery_type == "is_delivery", "_del"); //check if store is open
+$key = "";//iif($delivery_type == "is_delivery", "_del"); //check if store is open
 
 $MoreTime = "";
 $grayout = "";

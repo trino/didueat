@@ -141,17 +141,17 @@ class RestaurantController extends Controller {
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {//populate data array from the post
                 $post["uploaded_by"] = read("id");
+                /*
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate(array(),false);
                 $ob->save();
-                $this->restaurantInfo($ob->id, read("id"), false, $post);
+                */
+                $this->restaurantInfo(0, read("id"), false, $post);
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
                 return $this->failure("RestaurantController/addRestaurants:" . handleexception($e), '/restaurant/add/new');
             }
         } else {
-            die("REREREE");
-
             $data['title'] = "Add New Restaurants";
             $data['cuisine_list'] = cuisinelist();
             return view('dashboard.restaurant.addrestaurant', $data);
@@ -172,12 +172,10 @@ class RestaurantController extends Controller {
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
-
             try {
                 $update=$post;
                 $addlogo='';
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
-
                 // logo update will not work until after a restaurant is signed up
                 if (isset($post['restLogoTemp']) && $post['restLogoTemp'] != '') {
                     $im = explode('.', urldecode($post['logo']));
@@ -200,7 +198,6 @@ class RestaurantController extends Controller {
                             rename($destinationPath."/".$ob->logo, $destinationPath."/".$oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                         }
                     }
-
 
                     $filename = $destinationPath . "/" . $newName;
                     // use for copying and saving (can't use move_uploaded_file() because jQuery uploads it before php is called)
@@ -272,6 +269,7 @@ class RestaurantController extends Controller {
                         }
                     }
                 }
+
                 if($DoProfile){
                     $update=$post;
                     $restaurant_id = $post['id'];
@@ -281,16 +279,15 @@ class RestaurantController extends Controller {
 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
                 if($ReturnData){return $ob;}
-                if(isset($_FILES['import_csv']) && $_FILES['import_csv']['name'])
-                    $this->import_csv($id,$_FILES['import_csv']);
+                if(isset($_FILES['import_csv']) && $_FILES['import_csv']['name']) {
+                    $this->import_csv($id, $_FILES['import_csv']);
+                }
                 return $this->success(iif($isnowopen, "Your restaurant is now open", "Restaurant Profile Has Been Updated"), 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
-                //die("TEST FAIL: " . $e->getMessage());
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
             }
 
         } else {
-// not from submit, so load data
             $data['title'] = "Resturant Manage";
             $data['cuisine_list'] = cuisinelist();
             $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurant_id'));

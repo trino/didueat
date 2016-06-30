@@ -404,7 +404,7 @@ $alts = array(
         var expandatend = false;
         function loadmenu(RestaurantID) {
             if (!$("#menu-rest-" + RestaurantID).length) {
-                $("#card-header-" + RestaurantID).append('<DIV class="col-md-12" ID="loading-rest-' + RestaurantID + '">Loading...<i class="fa fa-spin fa-spinner"></DIV><div class="clearfix"></div>');
+                $("#card-header-" + RestaurantID).append('<DIV class="col-md-12 p-b-1" ID="loading-rest-' + RestaurantID + '">Loading...<i class="fa fa-spin fa-spinner"></DIV><div class="clearfix"></div>');
                 $.post("{{ url('ajax') }}", {
                     token: token,
                     type: "loadmenu",
