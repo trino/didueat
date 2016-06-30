@@ -1,12 +1,10 @@
 <?php
-function printablereceipt($restaurant, $is_my_restro, $business_day, $checkout_modal, $__env, $order, $items){
-?>
-@include('common.receipt', array("restaurant" => $restaurant, "is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal, "ordering" => true, "__env" => $__env, "order" => $order, "items" => $items))
-<?php
-}
+    function printablereceipt($restaurant, $is_my_restro, $business_day, $checkout_modal, $__env, $order, $items){ ?>
+        @include('common.receipt', array("restaurant" => $restaurant, "is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal, "ordering" => true, "__env" => $__env, "order" => $order, "items" => $items))
+        <?php
+    }
 
-function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS_Str, &$catNameStrJS, $firstcat = true)
-{
+function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS_Str, &$catNameStrJS, $firstcat = true){
     $alts = array(
             "product-pop-up" => "Product info",
             "up_cat" => "Move Category up",
@@ -134,8 +132,7 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
     }
 }
 
-function consolelog($text)
-{
+function consolelog($text){
     if (isset($GLOBALS["debug"])) {
         $GLOBALS["debug"] .= "  -  " . $text;
     } else {
@@ -144,8 +141,7 @@ function consolelog($text)
 }
 
 function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt,
-                        $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $isBeingIncluded)
-{
+                        $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $isBeingIncluded){
     $halfway = ceil(count($category) * 0.5);
     foreach ($category as $index => $value) {
         $isfirst = $index == 0;
@@ -155,19 +151,14 @@ function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $c
     }
 }
 
-function iseven($number)
-{
+function iseven($number){
     return $number % 2 == 0;
 }
-?>
 
+echo '<!---- START PRINT MENU ITEMS ------>';
 
-
-<!---- START PRINT MENU ITEMS ------>
-<?php
 function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id,
-                       $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $halfway, $isBeingIncluded)
-{
+                       $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $halfway, $isBeingIncluded){
 $noUpCatSort = false;
 $canedit = read("profiletype") == 1 || read("restaurant_id") == $restaurant->id;
 if ($isBeingIncluded) {
@@ -218,7 +209,7 @@ if (!$canedit) {
         <!-- start of category heading -->
 
         <li class="list-group-item" style="background: #f3f3f3;border-bottom:0px !important;">
-            <div style="" class="" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
+            <div class="restcat_{{ $value->restaurant_id }}" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
                 <a style="color:#373a3c;"  name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
             </div>
             <div class="" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
