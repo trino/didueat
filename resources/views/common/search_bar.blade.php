@@ -6,7 +6,7 @@
 
     <FORM ID="addressbar" class="m-a-0 p-a-1" onsubmit="return false;">
         <DIV style="color:red;" ID="skippedreason"></DIV>
-        <div style="font-size: 115%;">
+        <div style="font-size: 110%;">
             <?php
                 $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
                 $alts = array(
@@ -17,8 +17,8 @@
 
             <i class="fa fa-cutlery"></i>
             <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine"
-                    class="resizeselect" onchange="createCookieValue('cuisine', this.value); $(this).removeClass('redborder');">
-                <option value="">All Cuisine</option>
+                    class="resizeselect m-r-2" onchange="createCookieValue('cuisine', this.value); $(this).removeClass('redborder');">
+                <option value="">Select Cuisine</option>
                 @foreach($cuisine as $value)
                     <option>{{ $value }}</option>
                 @endforeach
@@ -28,7 +28,7 @@
             <i class="fa fa-clock-o"></i>
 
             <select style="border: 0 !important;background: transparent !important;" name="delivery-time"
-                    class="resizeselect" id="delivery-time" onchange="searchtimechange();">
+                    class="resizeselect m-r-2" id="delivery-time" onchange="searchtimechange();">
                 <option value="">Order ASAP</option>
                 {{ get_time_interval() }}
             </select>
@@ -48,7 +48,7 @@
 
             <button class="btn btn-success"
                     onclick="runsearch('search button');" title="{{ $alts["search"] }}">
-                <i class="fa fa-search"></i>
+                <!--i class="fa fa-search"></i--> Bring Me Food
             </button>
 
             <button style="float: right;" class="btn btn-warning"

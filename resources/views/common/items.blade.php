@@ -40,12 +40,10 @@
                         $image = (isset($m->image) && !empty($m->image)) ? $m->image : 'default.png';
                         ?>
                             <tr id="list{{ $order->listid }}" class="infolist">
-                                <td valign="top" class="receipt_image" style='@if(isset($order)) width:20%; @else width:50px !important; @endif'>
+                                <td>
                                     @if(isset($order)) <span class="count">{{ $arr_qty[$k] }}</span> @endif
                                     @if($showCSR) <BR><i id="spin{{ $order->id }}" class="fa fa-spinner fa-spin pull-bottom" style="display:none;"></i> @endif
-                                </td>
 
-                                <td @if(isset($order)) style='width:55%;' @endif>
                                     <input type="hidden" class="count" name="qtys[]" value="{{ $arr_qty[$k] }}"/>
                                     <span class='menu_bold'>{{ $tt }}</span>
                                     <?php
@@ -57,9 +55,7 @@
                                             echo "<br/><i class='text-muted'>".$Actions[$csr_actions[$k]].'</i>';
                                         }
                                     ?>
-                                </td>
-
-                                <td valign="top" class="total text-xs-right" @if(isset($order)) style='width:25%;' @endif>${{number_format($arr_prs[$k],2)}}</td>
+                               ${{number_format($arr_prs[$k],2)}}</td>
 
                                 <input type="hidden" class="amount" value="{{number_format($arr_prs[$k], 2)}}">
                                 <input type="hidden" class="menu_ids" name="menu_ids[]" value="1"/>

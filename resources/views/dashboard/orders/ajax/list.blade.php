@@ -57,9 +57,10 @@
                         Restaurant
                     @endif
                     Orders
-
+@if(false)
                     @if (Session::get('session_type_user') == "super" || $type=='restaurant')
                         <a class="btn btn-secondary btn-sm pull-right" title="{{ $alts["print"] }}" href="{{ url('orders/report') }}">Print Report</a>
+                    @endif
                     @endif
 
                     @if($type == "admin" && false)

@@ -28,7 +28,7 @@
                         if (isset($_GET['flash'])) {
                             echo '';
                             if ($_GET['flash'] == '1') {
-                                echo "Your food will be arriving soon! We will contact you if there are any issues.";
+                                echo "Thank you for your order. Your food will be arriving soon.";
                             } elseif ($_GET['flash'] == '2') {
                                 echo "Your food will be arriving soon and your account has been created.";
                             } else {

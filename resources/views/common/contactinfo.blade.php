@@ -38,14 +38,14 @@
         $is_new = 'New ';
     }
 
-echo newrow($new, "Your Name", $size, true); ?>
+echo newrow($new, "Name", $size, true); ?>
 <div class="input-icon">
     <input type="text" name="name" class="form-control" id="full_name" placeholder="" value="{{ $name  }}" {{ isdisabled($disabled, "name") }} required />
     <input type="hidden" name="gmt" id="gmt" class="gmt">
 </div>
 <?php echo newrow();
 
-echo newrow($new, "Cell Phone", $size, true); ?>
+echo newrow($new, "Cell", $size, true); ?>
 <div class="input-icon">
     <input type="text" name="{{ $phonetype }}" class="form-control" id="{{ $phonetype }}" placeholder="" value="{{ $$phonetype }}" {{ isdisabled($disabled, $phonetype) }} required />
 </div>
@@ -66,7 +66,7 @@ echo newrow($new, "Email", $size, true); ?>
     <?php echo newrow(); ?>
 @endif
 
-<?= newrow($new, $is_new . "Create Password", $size, $PasswordRequired); ?>
+<?= newrow($new, $is_new . "Password", $size, $PasswordRequired); ?>
 <div class="input-icon">
     <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="new-password" value="" {{ $PasswordRequired }} />
 </div>

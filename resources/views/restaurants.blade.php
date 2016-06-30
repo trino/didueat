@@ -64,13 +64,12 @@ $alts = array(
         "signup" => "Sign up as a restaurant owner"
 );
 ?>
-@if($IncludeMenu)
-    @include('menus')
-@endif
+
 
 @extends('layouts.default')
 @section('content')
 
+    <div class="container ">
     <div class="row ">
         <div class=" col-md-12  text-xs-center ">
             <div class="card">
@@ -105,8 +104,10 @@ $alts = array(
 
     </div>
     </div>
-    </div>
 
+    @if($IncludeMenu)
+        @include('menus')
+    @endif
 
     <div class="container" style="">
 
@@ -128,7 +129,7 @@ $alts = array(
                         </div>
                     </div>
 
-                    <div class="followTo">
+                    <div class="followTo22">
                         <?php
                         if ($IncludeMenuBackup && ReceiptVersion) {
                             printablereceipt(false, false, true, true, $__env, $order, $items);

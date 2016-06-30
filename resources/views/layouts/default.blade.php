@@ -179,7 +179,7 @@
     @include('common.alert_messages')
 </div>
 
-<div class="container" id="the-content">
+<div class="p-t-1 main-bg-image" id="the-content">
     @yield('content')
     <DIV ID="popupholder"></DIV>
 </div>

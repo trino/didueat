@@ -1,7 +1,12 @@
+.container-fluid{padding: 0 !important;}
+.table td, .table th {border: 0 !important;padding:1rem !important;}
 .card-header,  .card-footer {
     padding: 1rem;
     background: white !important;
     border:0 !important;
+}
+.card-title {
+    margin-bottom: 0rem !important;
 }
 
 .redborder{
@@ -26,7 +31,7 @@ a{
      margin-bottom: .25rem !important;
 }
 
-.navbar{padding: 0 !important;}
+.navbar{padding: 0 !important;border-radius: 0 !important;}
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -172,10 +177,6 @@ hr {
 .modal {
     overflow-y: auto;
     -webkit-overflow-scrolling: auto !important; /* modal with radio doesnt work without this */
-}
-
-body.modal-open {
-    overflow: hidden;
 }
 
 .main-bg-image {
@@ -341,10 +342,6 @@ center {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .1) !important;
 }
 
-.card-title {
-    margin-top: 0.1rem !important;
-    margin-bottom: 0.1rem !important;
-}
 
 
 

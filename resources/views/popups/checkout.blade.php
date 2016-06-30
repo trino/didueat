@@ -163,7 +163,7 @@
 
                             <div class="col-xs-12">
                                 <!--a href="javascript:history.go(0)" class="btn  btn-secondary clearitems">Cancel</a-->
-                                <button type="submit" class="btn btn-primary btn-block " onclick="return addresscheck();"
+                                <button type="submit" class="btn btn-success btn-block " onclick="return addresscheck();"
                                         id="chkOut" title="{{ $alts["checkout"] }}">Place Order
                                 </button>
                                 <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>

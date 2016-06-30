@@ -1,5 +1,4 @@
 <?php
-printfile("views/menus.blade.php");
 function printablereceipt($restaurant, $is_my_restro, $business_day, $checkout_modal, $__env, $order, $items){
 ?>
 @include('common.receipt', array("restaurant" => $restaurant, "is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal, "ordering" => true, "__env" => $__env, "order" => $order, "items" => $items))
@@ -59,7 +58,7 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
     // $catCnt set in restaurants-menus.blade
 
     if (!isset($_GET['page'])) {
-        echo '<div class="m-t-1" id="loadmenus_' . $catid . '">';
+        echo '<div" id="loadmenus_' . $catid . '">';
     }
     $menus_listA = [];
     $menus_sortA = [];
@@ -211,6 +210,10 @@ if (!$canedit) {
 ?>
 
 <DIV class=" {{ iif(!$firstcat, "collapsed") }} " id="c{{ $thisCatCnt }}"><!-- start of this category -->
+
+    {{printfile("views/menus.blade.php")}}
+
+
     <div class="parents ">
         <!-- start of category heading -->
 
@@ -244,33 +247,24 @@ if (!$canedit) {
 
             ?>
 
-            <a href="#" id="{{ $value->id }}" name="{{ $value->id }}"
-               title="{{ $alts["product-pop-up"] }}"
-               class="card-link" data-toggle="modal"
-               @if(!ReceiptVersion)
-               data-res-id="{{ $value->restaurant_id }}"
-               data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
-                    @endif
-            >
-
                 <div id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
 
-                    <!-- start of menu item -->
-                    <div class="">
-                        <!-- start div 4 -->
-                        <div class="" ID="divfour_{{ $value->cat_id }}">
+                    <a style="hover:bac" href="#" id="{{ $value->id }}" name="{{ $value->id }}"
+                       title="{{ $alts["product-pop-up"] }}"
+                       class="card-link" data-toggle="modal"
+                       @if(!ReceiptVersion)
+                       data-res-id="{{ $value->restaurant_id }}"
+                       data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
+                            @endif
+                    >
+
+                        <div ID="divfour_{{ $value->cat_id }}">
                             @include("menuitem")
                         </div>
-                        <!-- End div 4 -->
+                    </a>
 
-                        <div class=""><!-- start div 5 0000-00-00 00:00:00 -->
-
-                        </div>
-                        <!-- end div 5 -->
-                        </ul>
-                    </div>
                 </div>
-            </a>
+
 
             <?php
             return $catMenuCnt++;

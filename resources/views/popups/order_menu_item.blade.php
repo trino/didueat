@@ -152,7 +152,7 @@
                                                         }
                                                         ?>
 
-                                                        <div class=" pull-left p-r-1" id="buttons_{{ $mm->id }}"
+                                                        <div class=" pull-left p-r-2" id="buttons_{{ $mm->id }}"
                                                              valign="" style=""
                                                              href="javascript:void(0);">
 
