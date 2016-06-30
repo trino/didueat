@@ -9,6 +9,13 @@
     margin-bottom: 0rem !important;
 }
 
+.modal{
+    z-index: 101 !important;
+}
+.modal-backdrop{
+    z-index: 100 !important;
+}
+
 .redborder{
     box-shadow: 0 0 1px red !important;
 }

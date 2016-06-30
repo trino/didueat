@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <?php echo newrow(false, "Email", '', true); ?>
-                <input type="email" name="email" class="form-control" id="email" placeholder="" required/>
+                <input type="email" name="email" class="form-control" id="forgot-email" placeholder="" required/>
             </div>
         </div>
         <div class="form-group row ">
