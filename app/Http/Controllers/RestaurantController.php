@@ -290,7 +290,6 @@ class RestaurantController extends Controller {
             }
 
         } else {
-            die("GDFFDDFB");
 // not from submit, so load data
             $data['title'] = "Resturant Manage";
             $data['cuisine_list'] = cuisinelist();

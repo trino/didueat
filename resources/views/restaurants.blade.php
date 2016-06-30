@@ -413,6 +413,9 @@ $alts = array(
                     result = '<DIV ID="menu-rest-' + RestaurantID + '" class="menu-rest">' + result + '</DIV>';
                     $("#loading-rest-" + RestaurantID).remove();
                     $("#card-header-" + RestaurantID).append(result);
+                    if ($(".restcat_" + RestaurantID).length == 1){
+                        $(".restcat_" + RestaurantID).trigger("click");
+                    }
                     if (loading) {
                         PullRest();
                     }

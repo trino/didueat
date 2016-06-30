@@ -58,6 +58,7 @@
                 }
             }
         }
+
         $curr_rest = 0;
         $curr_rest_subtotal = 0;
         $total = 0;
@@ -67,8 +68,9 @@
 
         foreach($items as $item){
             if($item->quantity){
-                if($item->restaurant_id != $curr_rest && !$ordering && $curr_rest){
-                    if(isset($restaurant)){// && $curr_rest_subtotal){
+                if($item->restaurant_id != $curr_rest && !$ordering){
+                    if($curr_rest){// && $curr_rest_subtotal){
+                        $restaurant = $restaurants[$item->restaurant_id];
                         $total_restaurants += 1;
                         $total += totals($curr_rest_subtotal,  0, $tax, $delivery_fee," for " . $restaurant->name);
                         echo '<TR><TD COLSPAN="3"><HR></TD></TR>';
