@@ -533,7 +533,7 @@ function additemtoreceipt(menu_id, ids, pre_cnt, price, csr, app_title, extratit
         '</div><br><a id="dec' + ids + '" class="clearfix decrease btn btn-sm btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-minus"></i></a></SPAN>' +
 
         '<input class="amount" type="hidden" value="' + price.toFixed(2) + '"/></td>' +
-        '<td class="innerst">' + app_title + '</td>' +
+        '<td>' + app_title + '</td>' +
         '<td valign="top"  class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +

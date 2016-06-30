@@ -94,7 +94,7 @@
     <div class="card">
 
 
-        <div class="card-block">
+        <div class="card-block p-t-0">
             <!--h4 class="card-title p-b-1">Your Order</h4-->
 
             <div class="receipt_main">

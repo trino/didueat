@@ -26,7 +26,7 @@
             @endif
 
             <div style=" width:100%; border:0; @if ($has_bigImage)background:transparent !important; @endif"
-                 class="p-b-0 card-header @if ($has_bigImage) fronttext @else  @endif">
+                 class="p-b-0  card-header @if ($has_bigImage) fronttext @else  @endif">
                 <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" title="Close"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
                     <span aria-hidden="true"
@@ -152,14 +152,13 @@
                                                         }
                                                         ?>
 
-                                                        <div class=" pull-left p-r-2" id="buttons_{{ $mm->id }}"
-                                                             valign="" style=""
+                                                        <div class="pull-left" id="buttons_{{ $mm->id }}"
+                                                             valign="" style="margin: 0 .25rem .25rem  0 !important; border:1px solid #f4f4f4; padding:2px 5px;text-wrap: none; white-space: nowrap; "
                                                              href="javascript:void(0);">
 
 
 
-                                                                <LABEL style=""
-                                                                       class="changemodalP c-input @if($sub->sing_mul =='1') c-radio @else p-l-0 @endif ">
+                                                                <LABEL class="changemodalP c-input @if($sub->sing_mul =='1') c-radio @else p-l-0 @endif ">
 
                                                                     <input
                                                                             type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
@@ -173,37 +172,34 @@
 
                                                                     @if($sub->sing_mul =='1')
                                                                         <span class="c-indicator"></span>
-
                                                                         <span class="ver">{{ $mm->menu_item }}
-                                                                            <?php if ($mm->price) echo "<span>+$" . number_format(str_replace('$', '', $mm->price), 2) . '</span>'; ?>
+                                                                            <?php if ($mm->price) echo "<span>$" . number_format(str_replace('$', '', $mm->price), 2) . '</span>'; ?>
                                                                         </span>
                                                                     @endif
 
                                                                 </LABEL>
 
                                                                 @if($sub->sing_mul =='0')
-                                                                    <span class=" ver">{{ $mm->menu_item }}
-                                                                        <span><?php if ($mm->price) echo "+$" . number_format(str_replace('$', '', $mm->price), 2); ?></span>
+                                                                    <span class="ver">{{ $mm->menu_item }}
+                                                                        <span><?php if ($mm->price) echo "$" . number_format(str_replace('$', '', $mm->price), 2); ?></span>
                                                                     </span>
                                                                 @endif
 
-                                                                <div style=" @if ($sub->sing_mul == '1')display:none; @endif">
+                                                                <span style=" @if ($sub->sing_mul == '1')display:none; @endif">
                                                                     <a id="addspan_{{ $mm->id }}"
                                                                        title="{{ $alts["addspan"] }}"
-                                                                       class="addspan btn btn-sm  mobile-p-r-0 pull-right"
-                                                                       href="javascript:;"><i
-                                                                                class="fa fa-plus"></i></a>
+                                                                       class="addspan pull-right"
+                                                                       href="javascript:;">&nbsp;+ </a>
 
                                                                     <a id="sprice_{{$mm->price}}"
-                                                                       style=""
-                                                                       class=" btn pull-right p-a-0 span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</a>
+
+                                                                       class="pull-right span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</a>
 
                                                                     <a id="remspan_{{ $mm->id }}"
                                                                        title="{{ $alts["remspan"] }}"
-                                                                       class="remspan btn pull-right btn-sm  p-l-0 "
-                                                                       href="javascript:;"><i style="color: #dadada"
-                                                                                              class="fa fa-minus"></i></a>
-                                                                </div>
+                                                                       class="remspan pull-right "
+                                                                       href="javascript:;">&nbsp;-&nbsp;</a>
+                                                                </span>
 
                                                         </div>
 
@@ -243,7 +239,7 @@
             <div class="card-footer" style="border-radius: 0 !important;">
                 <div class="">
                     <div class=" pull-left">
-                        <button type="button" class="btn btn-link text-muted hidden-md-up p-x-0 m-x-" title="Close"
+                        <button type="button" class="btn btn-link text-muted hidden-md-up p-x-0 p-r-1 m-x-" title="Close"
                                 data-dismiss="modal">
                             Close
                         </button>
@@ -251,12 +247,12 @@
                             Reset
                         </button-->
                     </div>
-                    <div class="pull-right" style="margin-left:.5rem;">
+                    <div class="pull-right" style="">
                         <a id="profilemenu{{ $value->id }}" title="{{ $alts["add"] }}"
                            class="btn btn-primary add_menu_profile add_end {{ iif($has_items, "has_items") }}"
                            href="javascript:void(0);">ADD</a>
                     </div>
-                    <div class="pull-right text-muted">Qty
+                    <div class="pull-right btn p-r-0 text-muted">Qty
                         <?php $usedropdown = true; ?>
                         <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());"
                                 class="btn btn-secondary p-x-0 text-muted"
@@ -286,7 +282,7 @@
 
                     <div class="pull-left">
                         <a id="clearmenu{{ $value->id }}" title="{{ $alts["clear"] }}"
-                           class="btn btn-link text-muted "
+                           class="btn btn-link text-muted p-l-0 "
                            onclick="confirmclearForm('#product-pop-up_{{ (isset($value->id))?$value->id:'' }}');">Clear</a>
                     </div>
                 </div>

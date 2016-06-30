@@ -100,7 +100,6 @@
                                         ?>
                                         </tbody>
                                     </table>
-                                    <hr >
                                     @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "paid_for"=> $paid_for))
                                     @if( (!$CanApprove && $order->order_type == 0) || ($order->order_type > 0 && $CanApprove) && false)
                                         @include("common.gmaps", array("address" => $restaurant->formatted_address))

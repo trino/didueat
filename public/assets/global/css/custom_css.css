@@ -168,9 +168,8 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 hr {
-    /*
-        border-top: 1px solid #ddd !important; */
-    border-bottom: 1px solid #e8e8e8 !important;
+
+    border-top: 1px solid #ddd !important;
 
 }
 
@@ -311,6 +310,15 @@ hr {
 .error {
     color: rgb(255, 0, 0);
 }
+.list-inline-item {
+    padding-right: .75rem;
+}
+
+select{
+
+border: 1px solid #e5e5e5  !important;}
+
+
 
 /*
 center {
@@ -345,9 +353,7 @@ center {
 
 
 
-.list-inline-item {
-    padding-right: .75rem;
-}
+
 
 * {
     border: 0 !important;

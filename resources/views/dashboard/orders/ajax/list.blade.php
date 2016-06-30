@@ -225,7 +225,7 @@
                                        ONCLICK="notifystore(event, {{ $value->id}});">Notify</a-->
                                 @endif
                                 @if($value->status == "incomplete")
-                                    <a class="btn btn-secondary-outline btn-sm pull-right" title="{{ $alts["resume"] }}" HREF="{{ $ResumeURL }}">Resume</a>
+                                    <a class=" pull-right" title="{{ $alts["resume"] }}" HREF="{{ $ResumeURL }}">Resume</a>
                                 @endif
                             </td>
                         </tr>

@@ -208,7 +208,7 @@ if (!$canedit) {
     <div class="parents ">
         <!-- start of category heading -->
 
-        <li class="list-group-item" style="background: #f3f3f3;border-bottom:0px !important;">
+        <li class="list-group-item" style="background: #f3f3f3;border-bottom:0px !important;cursor: pointer;">
             <div class="restcat_{{ $value->restaurant_id }}" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
                 <a style="color:#373a3c;"  name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
             </div>

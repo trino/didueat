@@ -12,26 +12,26 @@ if ($CanSaveCard) {
     //$CreditCards = select_field_where("credit_cards", array("user_id" => read("id"), "user_type" => "user"), false);
 }
 
-if(read('id')) {
-    $cc = \App\Http\Models\CreditCard::where('user_id',read('id'))->get();
-    if($cc->count()>0) {
+if (read('id')) {
+    $cc = \App\Http\Models\CreditCard::where('user_id', read('id'))->get();
+    if ($cc->count() > 0) {
         echo '<div class="col-xs-12"><div class=" form-group "> ';
-        foreach($cc as $c) {
+        foreach ($cc as $c) {
             $CardNumber = (\Crypt::decrypt($c->card_number));
             $Month = \Crypt::decrypt($c->expiry_month);
             $Year = \Crypt::decrypt($c->expiry_year);
             $cvc = \Crypt::decrypt($c->ccv);
-            echo '<input type="hidden" id="CC'.$c->id.'" value="'.$CardNumber.'_'.$Month.'_'.$Year.'_'.$cvc.'" />';
+            echo '<input type="hidden" id="CC' . $c->id . '" value="' . $CardNumber . '_' . $Month . '_' . $Year . '_' . $cvc . '" />';
         }
         echo "<select class='changeCC form-control'>";
         echo "<option value='0'>Add Card</option>";
-        foreach($cc as $c) {
+        foreach ($cc as $c) {
             $CardNumber = obfuscate(\Crypt::decrypt($c->card_number));
             $Month = \Crypt::decrypt($c->expiry_month);
             $Year = \Crypt::decrypt($c->expiry_year);
             $cvc = \Crypt::decrypt($c->ccv);
             if ($Year > date("y") || ($Year == date("y") && $Month >= date("n"))) {
-                echo '<option value="' . $c->id . '">' . $CardNumber . '('.$c->first_name.' '.substr($c->last_name,0,1).'.)</option>';
+                echo '<option value="' . $c->id . '">' . $CardNumber . '(' . $c->first_name . ' ' . substr($c->last_name, 0, 1) . '.)</option>';
             }
         }
         echo "</select> </div> </div>";
@@ -53,94 +53,65 @@ if(!isset($loaded_from)){ ?>
     <input type="hidden" name="stripeToken" value="" class="stripeToken"/>
 
 
-
     <div class="row editcard">
-
-        <div class="col-xs-12 ">
-        <div class="form-group ">
-            <!--label aria-required="true" class="col-xs-3 text-xs-right required" id="card_number">Card #@if(debugmode())<i class="fa fa-credit-card" onclick="$('#cardnumber').val('4242424242424242');" TITLE="Click to use DEBUG MODE card"></i>@endif</label-->
-
-            <div class="input-group" style="width:100% !important;">
+        <div class="form-group">
+            <div class="col-xs-8 ">
                 <!--span class="input-group-addon" id="credit-card-addon"><i class="fa fa-fw fa-credit-card" onclick="$('#cardnumber').val('4242424242424242');" TITLE="Click to use DEBUG MODE card"></i></span-->
                 <input aria-required="true" autocomplete="off" name="cardnumber" placeholder="Card Number"
-                       id="cardnumber" class="form-control cc-input" type="text" size="20" data-stripe="number" required
-                       aria-describedby="credit-card-addon" style="width:75%;"/>
-                <input aria-required="true" autocomplete="off" placeholder="CVC" name="cardcvc" class="form-control cc-input"
+                       id="cardnumber" class="form-control cc-input" type="text" size="20" data-stripe="number"
+                       required
+                       aria-describedby="credit-card-addon"/>
+
+            </div>
+            <div class="col-xs-4">
+
+                <input aria-required="true" autocomplete="off" placeholder="CVC" name="cardcvc"
+                       class="form-control cc-input"
                        type="text" size="4" data-stripe="cvc" required aria-describedby="cvc-addon"
-                       style="border-left:0 !important;width:25%;" id="cvc"/>
+                       id="cvc"/>
                 <SPAN ID="cardcvc"></SPAN>
             </div>
+            <div class="clearfix"></div>
         </div>
-        </div>
+        <div class="form-group">
 
-
-        <div class=" col-xs-12  ">
-        <div class=" form-group ">
-            <!--label aria-required="true" class="col-xs-3 text-xs-right required" id="cvc">CVC</label-->
-            <!--label aria-required="true" class="col-xs-3 text-xs-right required" id="expiry">Expiry</label-->
-
-            <div class="input-group double-input">
-
-                <span class="input-group-addon">Expires</span>
-
-                <SELECT aria-required="true" name="cardmonth" class="form-control" data-stripe="exp-month" id="exp-month">
-                    <?php
-                        $Months = array("(Jan)", "(Feb)", "(Mar)", "(Apr)", "(May)", "(Jun)", "(Jul)", "(Aug)", "(Sep)", "(Oct)", "(Nov)", "(Dec)");
-                        foreach ($Months as $Number => $Month) {
-                            $Number++;
-                            if ($Number < 10) {
-                                $Number = "0" . $Number;
-                            }
-                            echo '<OPTION value="' . $Number . '">' .$Number .'</OPTION>';
-                        }
-                    ?>
-                </SELECT>
-
-                <SELECT aria-required="true" name="cardyear" class="form-control" data-stripe="exp-year" style="border-left:0 !important;" id="exp-year">
-                    <?php
-                        $current_year = date("Y");//2 digits
-                        for ($now = $current_year; $now < $current_year + 10; $now++) {
-                            echo '<OPTION VALUE="' . $now . '">' . $now . '</OPTION>';
-                        }
-                    ?>
-                </SELECT>
-
+            <div class="col-xs-4">
+                <span>Expires</span>
             </div>
-        </div>
-        </div>
-    </div>
 
-
-
-    <?php /* if($CreditCards){ ?>
-    <div class="form-group row editcard">
-        <label class="col-xs-4 text-xs-right">
-            Saved Card
-        </label>
-
-        <div class="col-xs-8">
-            <div class="input-icon">
-                <SELECT name="cardid" ID="cardid" class="form-control" onchange="changecard();">
-                    <OPTION VALUE="">New Card</OPTION>
+            <div class="col-xs-4">
+                <SELECT aria-required="true" name="cardmonth" class="form-control" data-stripe="exp-month"
+                        id="exp-month">
                     <?php
-                        foreach ($CreditCards as $CreditCard) {
-                            $CardNumber = obfuscate(\Crypt::decrypt($CreditCard->card_number));
-                            $Month = \Crypt::decrypt($CreditCard->expiry_month);
-                            $Year = \Crypt::decrypt($CreditCard->expiry_year);
-                            if ($Year > date("y") || ($Year == date("y") && $Month >= date("n"))) {
-                                echo '<OPTION VALUE="' . $CreditCard->id . '">' . $CardNumber . '</OPTION>';
-                            }
+                    $Months = array("(Jan)", "(Feb)", "(Mar)", "(Apr)", "(May)", "(Jun)", "(Jul)", "(Aug)", "(Sep)", "(Oct)", "(Nov)", "(Dec)");
+                    foreach ($Months as $Number => $Month) {
+                        $Number++;
+                        if ($Number < 10) {
+                            $Number = "0" . $Number;
                         }
+                        echo '<OPTION value="' . $Number . '">' . $Number . '</OPTION>';
+                    }
                     ?>
                 </SELECT>
             </div>
+
+            <div class="col-xs-4">
+                <SELECT aria-required="true" name="cardyear" class="form-control" data-stripe="exp-year"
+                        style="border-left:0 !important;" id="exp-year">
+                    <?php
+                    $current_year = date("Y");//2 digits
+                    for ($now = $current_year; $now < $current_year + 10; $now++) {
+                        echo '<OPTION VALUE="' . $now . '">' . $now . '</OPTION>';
+                    }
+                    ?>
+                </SELECT>
+            </div>
+            <div class="clearfix"></div>
+
         </div>
     </div>
-    <? }*/ ?>
 
-
-
-@if($CanSaveCard)
+    @if($CanSaveCard)
         <div class="form-group row editcard">
 
             <div class="col-xs-12">
@@ -152,7 +123,9 @@ if(!isset($loaded_from)){ ?>
                     </label>
 
                     @if(debugmode())
-                        <button type="button" class="btn btn-primary btn-sm pull-right" onclick="testcard();">Use Test Card</button>
+                        <button type="button" class="btn btn-primary btn-sm pull-right" onclick="testcard();">Use Test
+                            Card
+                        </button>
                     @endif
                 </div>
             </div>
@@ -169,7 +142,6 @@ if(!isset($loaded_from)){ ?>
     </div>
 
 
-
     {!! Form::close() !!}
     <SCRIPT>
         validateform("payment-form", {cardnumber: "creditcard"});
@@ -177,24 +149,24 @@ if(!isset($loaded_from)){ ?>
     <?php }?>
 </div>
 <script>
-    $(function(){
-        $('.changeCC').live('change',function(){
+    $(function () {
+        $('.changeCC').live('change', function () {
             var cc_id = $(this).val();
-            if(cc_id =='0'){
+            if (cc_id == '0') {
                 $('.editcard').show();
-                $('.cc-input').each(function(){
+                $('.cc-input').each(function () {
                     $(this).val('');
                 })
             } else {
                 $('#saveCC').attr('checked', false);
                 $('.editcard').hide();
-                var cc = $('#CC'+cc_id).val().split('_');
+                var cc = $('#CC' + cc_id).val().split('_');
                 $('#cardnumber').val(cc[0]);
                 $('#exp-month').val(cc[1]);
                 $('#exp-year').val(cc[2]);
                 $('#cvc').val(cc[3]);
             }
-            
+
         })
     });
 
@@ -206,13 +178,15 @@ if(!isset($loaded_from)){ ?>
         }
     }
 
-    function testcard(){
+    function testcard() {
         $("#cardnumber").val("4242424242424242");
         $("#cvc").val("555");
 
         var date = new Date();
-        var month = date.getMonth()+1;
-        if(month<10){month = "0" + month;}
+        var month = date.getMonth() + 1;
+        if (month < 10) {
+            month = "0" + month;
+        }
         $("#exp-month").val(month);
     }
 </script>

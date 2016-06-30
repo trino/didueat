@@ -91,7 +91,7 @@
 
                             <div class="profile_delivery_detail" style="display: none;">
                                 <div class="col-xs-12">
-                                    <div class=" ">
+                                    <div class="form-group">
                                         @if(!isset($type) || $type != "report")
                                             @include('common.editaddress', array('type'=>'reservation', "mini" => true, "checkCookie" => true, "slim" => true))
                                         @endif
@@ -117,7 +117,7 @@
 
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <SELECT style="padding:.375rem;width:100%;text-align: left;" name="csr_action" TITLE="{{ $alts["csr"] }}" CLASS="btn btn-secondary text-muted">
+                                    <SELECT class="form-control" name="csr_action" TITLE="{{ $alts["csr"] }}">
                                         <?php
                                             $Actions = array("Go with restaurant suggestion", "Contact me", "Refund this item", "Cancel entire order");
                                             foreach ($Actions as $Index => $Action) {
