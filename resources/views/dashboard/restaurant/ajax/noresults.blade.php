@@ -34,7 +34,7 @@ if(!$is_subscribed){
         </div>
     </div>
 </div>
-<?php } ?>
+<?php }else{ echo "No Results";} ?>
 
 <SCRIPT>
     //subscribe to the newsletter

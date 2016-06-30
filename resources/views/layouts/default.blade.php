@@ -218,7 +218,21 @@
     ga('create', 'UA-74638591-1', 'auto');
     ga('send', 'pageview');
 </script>
+@if (debugmode())
 
+<script>
+
+    $("*").not("body, html").hover(function(e) {
+        $(this).css("border", "1px solid #000");
+        e.stopPropagation();
+    }, function(e) {
+        $(this).css("border", "0px");
+        e.stopPropagation();
+    });
+
+</script>
+
+@endif
 <!--script type="text/javascript">
     window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
             d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.

@@ -38,7 +38,7 @@
 
             <input style="border: 0 !important;background: transparent !important;" type="text" name="formatted_address"
                    id="formatted_address2"
-                   class="formatted_address autosize" placeholder="Delivery Address"
+                   class="formatted_address autosize address_placeholder" placeholder="Delivery Address"
                    onchange="change_address_event();"
                    @if(isset($_GET["search"]))
                    value="{{ $_GET["search"] }}"
