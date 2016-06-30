@@ -61,6 +61,7 @@
             $Store["cuisines"] = $TheStore->cuisine;
             $Store['minimum'] = 0;
             $Store["is_complete"] = 1;
+            $Store["noemail"] = 1;
 
             $Exists = select_field("restaurants", "description", $Store["description"]);
             echo $StoreName . " at " . $StoreShortAddress;
@@ -133,7 +134,7 @@
         }
     }
 
-    var_dump($Franchises);
+    //var_dump($Franchises);
 
     function startingtext($Text){
         return strstr($Text, "	", true);

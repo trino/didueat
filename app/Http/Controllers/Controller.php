@@ -124,15 +124,16 @@ abstract class Controller extends BaseController {
             \App\Http\Models\NotificationAddresses::makenew(array("user_id" => $user->id, "address" => "9055315331", "type" => "Phone", "enabled" => 1, "is_call" => 1));
         }
 
-        if($user->id && $login){login($user->id);}
+        if($user->id && $login && !read("id")){login($user->id);}
 
         $userArray = $user->toArray();
         $userArray['mail_subject'] = 'Thank you for your registration at ' . DIDUEAT;
         $userArray['idd'] = '4';//why?
-        if($profile_type!=5)
-        $this->sendEMail("emails.registration_welcome", array_merge($profile, $userArray));
-        else
-        $this->sendEMail("emails.drivers_welcome", array_merge($profile, $userArray));
+        $userArray = array_merge($profile, $userArray);
+
+        if(!isset($post["noemail"])) {
+            $this->sendEMail(iif($profile_type == 5, "emails.drivers_welcome", "emails.registration_welcome"), $userArray);
+        }
         \DB::commit();
 
         return $user;

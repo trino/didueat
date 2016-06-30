@@ -29,7 +29,7 @@
         $someHoursNotOK = false; // to encourage restaurant to finish setting up hours
         foreach ($weekdays as $weekday) {
             if(getfield($Restaurant, $weekday . "_open") != getfield($Restaurant, $weekday . "_close")) {
-                foreach (array("_open", "_open_del", "_close", "_close_del") as $field) {
+                foreach (array("_open", "_close") as $field) {//"_open_del", "_close_del"
                     $field = $weekday . $field;
                     if ($Restaurant->$field != "00:00:00") {
                         $doesopen = true;

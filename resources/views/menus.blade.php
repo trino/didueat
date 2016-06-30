@@ -386,14 +386,17 @@ if (!$canedit) {
                     }
                 }
 
-                function confirmclearForm(Parent) {
+                function confirmclearForm(ID) {
                     confirm2('Are you sure you want to erase your data?', function (tthis, data) {
-                        clearForm(data.Parent);
-                    }, {Parent: Parent});
+                        clearForm(data.ID);
+                    }, {ID: ID});
                 }
-                function clearForm(Parent) {
+                function clearForm(ID) {
+                    var Parent = "#product-pop-up_" + ID;
                     $(Parent).find('input:visible').not(':button, :submit, :reset, :hidden, :checkbox, :radio :hidden').val('');
                     $(Parent).find(':checkbox, :radio').filter(':visible').prop('checked', false);
+                    $(".modalprice" + ID).text("$" + Number($("#originalprice" + ID).val()).toFixed(2) )
+                    $("#select" + ID).val(1);
                 }
 
                 function showproductpopup(ID) {
@@ -916,6 +919,8 @@ if (!$canedit) {
                         total_items = "(" + (parseInt(Number(total_items)) + parseInt(Number(n))) + ")";
 
                         updatecart("add_menu_profile click");
+
+                        clearForm(menu_id);
                     });
 
                     function inArray(needle, haystack) {

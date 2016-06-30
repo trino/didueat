@@ -244,7 +244,7 @@ function handleexception($e, $isSQL = false, $showfile = true) {
         $Message = $e->getMessage();
         if (debugmode()) {
             $Message .= "<BR>";
-            if($showfile){$Message .= "File " . $e->getFile() . " ";}
+            $Message .= "File " . $e->getFile() . " ";
             $Message .= "Line " . $e->getLine();
             debugprint($Message . "\r\n Trace " . $e->getTraceAsString());
         }
@@ -1293,8 +1293,8 @@ function get_time_interval($Restaurant = false, $isDelivery = false) {
         if ($business_day) {
             $hour = date("G:H:s", $date);
             if($Restaurant) {
-                $open = getfield($Restaurant, $business_day . "_open" . iif($isDelivery, "_del"));
-                $close = getfield($Restaurant, $business_day . "_close" . iif($isDelivery, "_del"));
+                $open = getfield($Restaurant, $business_day . "_open");// . iif($isDelivery, "_del"));
+                $close = getfield($Restaurant, $business_day . "_close");// . iif($isDelivery, "_del"));
                 $isopen = $hour >= $open && $hour <= $close;
             } else {
                 $isopen = true;

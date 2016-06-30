@@ -430,12 +430,12 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
         //handles submission of the register form (should be moved to where it's used)
         $('body').on('submit', '#register-form', function (e) {
             var token = $("#register-form input[name=_token]").val();
-                    <?php
+                <?php
                     $fields = array("name", "email", "password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "gmt");//, "confirm_password"
                     foreach ($fields as $field) {
                         echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
                     }
-                    ?>
+                ?>
             var subscribed = 0;
             if ($("#register-form input[name=subscribed]").is(':checked')) {
                 subscribed = $("#register-form input[name=subscribed]").val();
@@ -601,24 +601,27 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
     }
 
     @if(debugmode())
-    function get_cookies_array() {
-        var cookies = new Array;
-        if (document.cookie && document.cookie != '') {
-            var split = document.cookie.split(';');
-            for (var i = 0; i < split.length; i++) {
-                var name_value = split[i].split("=");
-                name_value[0] = name_value[0].replace(/^ /, '');
-                cookies[decodeURIComponent(name_value[0])] = decodeURIComponent(name_value[1]);
+        function get_cookies_array() {
+            var cookies = new Array;
+            if (document.cookie && document.cookie != '') {
+                var split = document.cookie.split(';');
+                for (var i = 0; i < split.length; i++) {
+                    var name_value = split[i].split("=");
+                    name_value[0] = name_value[0].replace(/^ /, '');
+                    cookies[decodeURIComponent(name_value[0])] = decodeURIComponent(name_value[1]);
+                }
             }
+            return cookies;
         }
-        return cookies;
-    }
 
-    var cookies = get_cookies_array();
-    document.write('<TABLE><THEAD><TR><TD COLSPAN="2">Cookies: (DEBUG MODE)</TD></TR><TR><TH>Key</TH><TH>Value</TH></TR></THEAD>');
-    for(var name in cookies) {
-        document.write('<TR><TD>' + name + "</TD><TD>" + cookies[name] + "</TD></TR>");
-    }
-    document.write('</TABLE>');
+        var cookies = get_cookies_array();
+        document.write('<TABLE><THEAD><TR><TD COLSPAN="2">Cookies: (DEBUG MODE)</TD></TR><TR><TH>Key</TH><TH>Value</TH></TR></THEAD>');
+        for(var name in cookies) {
+            document.write('<TR><TD>' + name + "</TD><TD>" + cookies[name] + "</TD></TR>");
+        }
+        document.write('</TABLE>');
     @endif
 </script>
+
+
+
