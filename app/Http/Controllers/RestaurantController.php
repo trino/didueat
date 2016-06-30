@@ -144,13 +144,14 @@ class RestaurantController extends Controller {
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate(array(),false);
                 $ob->save();
-
-                $this->restaurantInfo($ob->id, read("id"));
+                $this->restaurantInfo($ob->id, read("id"), false, $post);
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
                 return $this->failure("RestaurantController/addRestaurants:" . handleexception($e), '/restaurant/add/new');
             }
         } else {
+            die("REREREE");
+
             $data['title'] = "Add New Restaurants";
             $data['cuisine_list'] = cuisinelist();
             return view('dashboard.restaurant.addrestaurant', $data);
@@ -162,8 +163,9 @@ class RestaurantController extends Controller {
      * @param null
      * @return view
      */
-    public function restaurantInfo($id = 0, $DoProfile = false, $ReturnData = false) {
-        $post = \Input::all();
+    public function restaurantInfo($id = 0, $DoProfile = false, $ReturnData = false, $post = false) {
+        if(!$post) {$post = \Input::all();}//check for missing data
+
         if($ReturnData){$this->statusmode=true;}
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if(!isset($post['id'])){$post['id']=$id;}
@@ -213,10 +215,9 @@ class RestaurantController extends Controller {
                     $addlogo=true;
                 }
 
-
                 $update['name'] = $post['restname'];
-                if (!$post['id']){
-                    $update['slug'] = $this->createslug($post['restname']);
+                if (!$post['id'] || !isset($ob->slug) || !$ob->slug){
+                    $update['slug'] = $this->createslug($update['name']);
                 }
 
                 //copy fields from post to array being sent to the database
@@ -227,6 +228,8 @@ class RestaurantController extends Controller {
                     }
                     if(isset($post[$value])) {$update[$key] = $post[$value];}
                 }
+
+                if(!isset($post['minimum'])){$post['minimum'] = 0;}
                 if(!isset($post["payment_methods"])){$post["payment_methods"] = 0;}
                 $update['payment_methods'] = $post["payment_methods"];
                 $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
@@ -248,7 +251,6 @@ class RestaurantController extends Controller {
                 if(!$post['id']){
                     $post['id'] = $ob->id;
                 }
-
 
                 // first delete all existing cuisines for this restaurant in cuisines table, then add new ones
                 $restCuisine_ids = \App\Http\Models\Cuisines::where('restID', $post['id'])->get();
@@ -283,10 +285,12 @@ class RestaurantController extends Controller {
                     $this->import_csv($id,$_FILES['import_csv']);
                 return $this->success(iif($isnowopen, "Your restaurant is now open", "Restaurant Profile Has Been Updated"), 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
+                //die("TEST FAIL: " . $e->getMessage());
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
             }
 
         } else {
+            die("GDFFDDFB");
 // not from submit, so load data
             $data['title'] = "Resturant Manage";
             $data['cuisine_list'] = cuisinelist();
