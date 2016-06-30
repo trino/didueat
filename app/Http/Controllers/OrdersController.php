@@ -250,7 +250,11 @@
                 return $this->failure("[Order Id] is missing!", 'orders/list/' . $type);
             }
             try {
-                $ob = \App\Http\Models\Reservations::find($id);
+                if(ReceiptVersion){
+                    $ob = \App\Http\Models\Orders::find($id);
+                } else {
+                    $ob = \App\Http\Models\Reservations::find($id);
+                }
                 $ob->delete();
                 @unlink(public_path('assets/logs' . ReceiptVersion. '/' . $id . '.txt'));
                 return $this->listingAjax($type);
