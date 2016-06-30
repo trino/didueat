@@ -470,6 +470,7 @@ class HomeController extends Controller {
     function loadmenus($catid, $resid) {
 // this might not be needed now, as the menus are loaded from blade call            
         $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
+        $data['resid'] = $resid;
         $data['restaurant'] = $res_slug;
         if(read('restaurant_id') == $resid || read("profiletype") != 2) {//is yours, doesn't need to be active
             $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('cat_id', $catid)->orderBy('display_order', 'ASC')->get();//->paginate(5);
