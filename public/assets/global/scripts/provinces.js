@@ -20,22 +20,19 @@ function initAutocompleteWithID(ID){
         var formatted_address = new google.maps.places.Autocomplete(
             (element), {
 		      types: ['geocode'],
-		      componentRestrictions: {country: "ca"},
-              ElementID: ID
+		      componentRestrictions: {country: "ca"}
       });
         formatted_address.addListener('place_changed', fillInAddress);
         element.setAttribute("hasgeocode", true);
-
-        /*
+        
         var input= document.getElementById('formatted_address2');
         google.maps.event.addDomListener(input, 'keydown', function(e) { 
-            if (e.keyCode == 13 && $('.pac-container:visible').length) {
-                setTimeout(function(){
-                    submitform(e, 0, "provinces.js");
-                }, 200);
-            }
-        });
-         */
+        if (e.keyCode == 13 && $('.pac-container:visible').length) {
+            setTimeout(function(){
+                submitform(e, 0, "provinces.js");
+            }, 200);
+        }
+}); 
         
         return formatted_address;
     }
@@ -131,7 +128,6 @@ function fillInAddress1() {
             }
             if(addressType == "street_number"){
                 $('#street_num').val(val);
-                $('.street_num').val(val);
             }
 
             if(addressType == "locality"){
@@ -158,18 +154,17 @@ function fillInAddress1() {
     }
 }
 
-var currentaddress = "";
-
 function fillInAddress() {
-    log("fillInAddress " + currentaddress);
+    console.log("fillInAddress");
     if($('#formatted_address').is(':visible')){
         // meaning edit page is showing, as the top search field uses formatted_address2
-        //document.getElementById('verifyAddress').style.display="block";
+        document.getElementById('verifyAddress').style.display="block";
     }
+
     // Get the place details from the formatted_address object.
     if(isundefined(formatted_address)) {
         var place = formatted_address2.getPlace();
-        if(isundefined(place) && !isundefined(formatted_address3)) {
+        if(isundefined(place)) {
             var place = formatted_address3.getPlace();
         }else {
             var place = formatted_address2.getPlace();
@@ -177,7 +172,7 @@ function fillInAddress() {
     } else {
         var place = formatted_address.getPlace();
     }
-
+    
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
     
@@ -209,6 +204,7 @@ function fillInAddress() {
     $("#province").val('');
     var streetformat = "[street_number] [route], [locality]";
     //provinces('{{ addslashes(url("ajax")) }}', '');
+
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
         if (componentForm[addressType]) {
@@ -264,7 +260,6 @@ function fillInAddress() {
     log("streetformat = " + streetformat);
     $('#formatted_address2').val(streetformat);
     $('.autosize').trigger("change");
-
     return place;
 }
 
@@ -369,10 +364,5 @@ $(document).ready(function() {
         }
         $(this).attr("oldY", $(this).position().top );
         $(this).followTo(Y);
-    });
-
-    $( ".formatted_address" ).click(function() {
-        currentaddress = $(this).attr("id");
-        log("currentaddress: " + currentaddress );
     });
 });
