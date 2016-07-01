@@ -142,7 +142,7 @@ function PullRemoveItem(){
 
 function deleteitems(ID, Name){
     Name = decodeURIComponent(Name.replace(/\+/g, '%20'));
-    confirm2("Are you sure you want to delete every '<B>" + Name + "</B>' from the receipt?", function(tthis, data){
+    confirm2("Are you sure you want to remove '<B>" + Name + "</B>'?", function(tthis, data){
         $( ".receipt_item_" + ID ).each(function() {
             var menuitem_id = $( this ).attr("itemid");
             removetheseitems.push(menuitem_id);

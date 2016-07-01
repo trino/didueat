@@ -153,9 +153,10 @@ if (isset($Restaurant["franchiseid"])) {
 
     <div class="p-a-1 " style="">
 
+
     <a class="card-link restaurant-url" {!! $OnClick !!} title="{{ $alts["restaurants/menu"] }}">
         <h4 class="m-b-0">
-            {{ printfile("(ID: " . $Restaurant["id"] . $Restaurant["franchiseid"] . ") ") . $Restaurant['name'] }}
+            {{ printfile("(ID: " . $Restaurant["id"] . $Restaurant["franchiseid"] . ") ") . $Restaurant['name'] }}  {{  $Restaurant['id']}}
         </h4>
         @if($Restaurant["cuisine"])
             <span class="text-muted">
@@ -177,7 +178,13 @@ if (isset($Restaurant["franchiseid"])) {
 
 
 
-
+<!-- delete from here -->
+<!-- delete from here -->
+<!-- delete from here -->
+<!-- delete from here -->
+<!-- delete from here -->
+<!-- delete from here -->
+<!-- delete from here -->
 
 
 @if(isset($details) && $details && false)
