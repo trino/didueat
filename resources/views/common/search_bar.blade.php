@@ -4,27 +4,34 @@
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu"))
 
 
+
     <FORM ID="addressbar" class="m-a-0 p-a-1" onsubmit="return false;">
         <DIV style="color:red;" ID="skippedreason"></DIV>
         <div style="font-size: 110%;">
             <?php
-                $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
-                $alts = array(
-                        "search" => "Search for restaurants",
-                        "reset" => "Reset the search"
-                );
+            $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
+            $alts = array(
+                    "search" => "Search for restaurants",
+                    "reset" => "Reset the search"
+            );
             ?>
 
-            <i class="fa fa-cutlery"></i>
-            <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine"
-                    class="resizeselect m-r-2" onchange="createCookieValue('cuisine', this.value); $(this).removeClass('redborder');">
-                <option value="">Select Cuisine</option>
-                @foreach($cuisine as $value)
-                    <option>{{ $value }}</option>
-                @endforeach
-            </select>
+            <span style="text-wrap: none; white-space: nowrap; ">
 
+            <i class="fa fa-map-marker"></i>
 
+            <input style="margin-left:3px;border: 0 !important;background: transparent !important;" type="text"
+                   name="formatted_address"
+                   id="formatted_address2"
+                   class="formatted_address autosize" placeholder="Enter Delivery Address"
+                   onchange="change_address_event();"
+                   @if(isset($_GET["search"]))
+                   value="{{ $_GET["search"] }}"
+                   @endif
+                   onpaste="this.onchange();">
+
+</span>
+<span style="text-wrap: none; white-space: nowrap; ">
             <i class="fa fa-clock-o"></i>
 
             <select style="border: 0 !important;background: transparent !important;" name="delivery-time"
@@ -33,18 +40,20 @@
                 {{ get_time_interval() }}
             </select>
 
+</span>
 
-            <i class="fa fa-map-marker"></i>
+                <span style="text-wrap: none; white-space: nowrap; ">
 
-            <input style="margin-left:3px;border: 0 !important;background: transparent !important;" type="text" name="formatted_address"
-                   id="formatted_address2"
-                   class="formatted_address autosize" placeholder="Delivery Address"
-                   onchange="change_address_event();"
-                   @if(isset($_GET["search"]))
-                   value="{{ $_GET["search"] }}"
-                   @endif
-                   onpaste="this.onchange();">
-                
+            <i class="fa fa-cutlery"></i>
+            <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine"
+                    class="resizeselect m-r-2"
+                    onchange="createCookieValue('cuisine', this.value); $(this).removeClass('redborder');">
+                <option value="">Select Cuisine</option>
+                @foreach($cuisine as $value)
+                    <option>{{ $value }}</option>
+                @endforeach
+            </select>
+</span>
 
             <button class="btn btn-success"
                     onclick="runsearch('search button');" title="{{ $alts["search"] }}">
@@ -61,8 +70,10 @@
                 (window.navigator.userAgent.indexOf("MSIE") != -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) ? document.getElementById('formatted_address2').style.height = '53px' : '';
             </script-->
 
-            <input type="{{ $Type }}" name="latitude" id="latitude" class="latitude" style="color: black;" placeholder="latitude">
-            <input type="{{ $Type }}" name="longitude" id="longitude" class="longitude" style="color: black;" placeholder="longitude">
+            <input type="{{ $Type }}" name="latitude" id="latitude" class="latitude" style="color: black;"
+                   placeholder="latitude">
+            <input type="{{ $Type }}" name="longitude" id="longitude" class="longitude" style="color: black;"
+                   placeholder="longitude">
             <input type="{{ $Type }}" name="city" id="city" style="color: black;" placeholder="city">
             <input type="{{ $Type }}" name="province" id="province" style="color: black;" placeholder="province">
             <input type="{{ $Type }}" name="postal_code" id="postal_code" style="color: black;"
@@ -82,19 +93,19 @@
     <script>
         var formatted_address2, formatted_address3;
 
-        function skipped(reason, selector){
+        function skipped(reason, selector) {
             $("#skippedreason").text(reason);
-            if(!reason){
+            if (!reason) {
                 $(".redborder").removeClass("redborder")
             }
-            if(selector){
+            if (selector) {
                 $(selector).addClass("redborder");
             }
         }
 
-        function resetsearch(){
+        function resetsearch() {
             $('#addressbar input, #addressbar select').val('').trigger('change');
-            saveaddresscookie("","","","","","","","");
+            saveaddresscookie("", "", "", "", "", "", "", "");
             //runsearch("resetsearch");
             location.reload();
         }
@@ -133,7 +144,7 @@
             }, 100);
         }
 
-        function runsearch(where){
+        function runsearch(where) {
             log("Runsearch: " + where);
             $('#search-form-submit').trigger('click');
             //submitform(event, 0, "Runsearch: " + where);
@@ -161,7 +172,7 @@
         if (getCookie("cuisine")) {
             $("#cuisine").val(getCookie("cuisine"));
         }
-        if(getCookie("delivery-time")){
+        if (getCookie("delivery-time")) {
             $("#delivery-time").val(getCookie("delivery-time"));
         }
 

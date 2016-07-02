@@ -97,7 +97,7 @@ if(!isset($loaded_from)){ ?>
 
             <div class="col-xs-4">
                 <SELECT aria-required="true" name="cardyear" class="form-control" data-stripe="exp-year"
-                        style="border-left:0 !important;" id="exp-year">
+                       id="exp-year">
                     <?php
                     $current_year = date("Y");//2 digits
                     for ($now = $current_year; $now < $current_year + 10; $now++) {

@@ -181,7 +181,7 @@
         box += '<div id="confirm-modal-body" class="modal-body"> </div>';
         box += '<div id="confirm-modal-footer" class="modal-footer">';
         box += '<button id="confirm-modal-btn-default" type="button" class="btn btn-default" data-dismiss="modal">No</button>';
-        box += '<button id="confirm-modal-btn-primary" type="button" class="btn btn-primary">Ok</button>';
+        box += '<button id="confirm-modal-btn-primary" type="button" class="btn btn-primary">Yes</button>';
         box += '</div></div></div></div>';
         $("body").append(box);
 

@@ -22,10 +22,7 @@
     }
 
     if (isset($data)) {
-        if (debugmode()) {
-            echo "Debugging here: ";
-            var_dump($data);
-        }
+
         foreach ($data as $key => $value) {
             $$key = $value;
             $_POST[$key] = $value;
@@ -42,10 +39,7 @@
     }
 
     $user_time = $server_time;
-    if (!isset($sql)) {
-        $sql = "MISSING SQL";
-    }
-    printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
+
     if (is_object($count)) {
         echo "Count should not be an object!!!";
         return;
@@ -136,3 +130,18 @@
     <input type="hidden" id="countTotalResult" value="{{ $count }}"/>
 </div>
 <img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;" alt="{{ $alts["loading"] }}"/>
+
+
+
+<?
+
+if (!isset($sql)) {
+    $sql = "MISSING SQL";
+}
+printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
+
+if (isset($data)) {
+if (debugmode()) {
+echo "Debugging here: ";
+var_dump($data);
+}}?>

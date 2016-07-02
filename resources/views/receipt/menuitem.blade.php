@@ -4,17 +4,20 @@ $restaurant = select_field("restaurants", "id", $restaurant_id);
 ?>
 <tr>
     <td colspan="3">
-        <div ID="menuitem_{{ $menuitem_id }}" itemid="{{ $menuitem_id }}" menuid="{{ $parent_id }}"
-             restaurant="{{ $restaurant_id }}" latitude="{{ $restaurant->latitude }}"
+        <div ID="menuitem_{{ $menuitem_id }}"
+             itemid="{{ $menuitem_id }}"
+             menuid="{{ $parent_id }}"
+             restaurant="{{ $restaurant_id }}"
+             latitude="{{ $restaurant->latitude }}"
              longitude="{{ $restaurant->longitude }}"
-             name="{{ $restaurant->name }}" maxdistance="{{ $restaurant->max_delivery_distance }}"
-             class="receipt_item receipt_item_{{ $parent_id }}">
+             name="{{ $restaurant->name }}"
+             maxdistance="{{ $restaurant->max_delivery_distance }}"
+             class="receipt_item receipt_item_{{ $parent_id }}"
+        style="display: inline;"
+        >
 
-
-
-
-            <SELECT id="selectitem_{{ $menuitem_id }}" onchange="updatequantity({{ $menuitem_id }});"
-                    class="btn btn-secondary pull-left">
+            <SELECT style="border:0 !important;" id="selectitem_{{ $menuitem_id }}" onchange="updatequantity({{ $menuitem_id }});"
+                    class="pull-left">
                 <?php
                 for ($i = 0; $i <= 9; $i++) {
                     echo '<OPTION';
@@ -29,9 +32,10 @@ $restaurant = select_field("restaurants", "id", $restaurant_id);
                 }
                 ?>
             </SELECT>
-            <div id="totalitem_{{ $menuitem_id }}" class="total pull-right">{{ asmoney($price * $quantity) }}</div>
 
-            <div class="pull-left">{!! $title . $restid !!}</div>
+            <div id="totalitem_{{ $menuitem_id }}" class="total pull-right">{{ asmoney($price * $quantity) }}</div>
+            <div class="" style="">{!! $title . $restid !!}</div>
+
         </div>
 
     </td>

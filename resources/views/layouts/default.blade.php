@@ -163,7 +163,7 @@
 
 </head>
 
-<body style="margin-top:45px;">
+<body style="margin-top:45px;" >
 
 @include("popups.alert")
 

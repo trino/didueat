@@ -58,6 +58,7 @@ body {
 */
 
 input,textarea, select {
+    border-radius: 0 !important;
     padding: 0 !important;
     border: 0 !important;
     border-bottom: 1px solid #e5e5e5 !important;
