@@ -16,11 +16,11 @@
             );
             ?>
 
-            <span style="text-wrap: none; white-space: nowrap; ">
+            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both; ">
 
             <i class="fa fa-map-marker"></i>
 
-            <input style="margin-left:3px;border: 0 !important;background: transparent !important;" type="text"
+            <input style="margin-left:7px;border: 0 !important;background: transparent !important;" type="text"
                    name="formatted_address"
                    id="formatted_address2"
                    class="formatted_address autosize" placeholder="Enter Delivery Address"
@@ -30,8 +30,8 @@
                    @endif
                    onpaste="this.onchange();">
 
-</span>
-<span style="text-wrap: none; white-space: nowrap; ">
+</span><br>
+            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both; ">
             <i class="fa fa-clock-o"></i>
 
             <select style="border: 0 !important;background: transparent !important;" name="delivery-time"
@@ -41,8 +41,8 @@
             </select>
 
 </span>
-
-                <span style="text-wrap: none; white-space: nowrap; ">
+                <br>
+            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both; ">
 
             <i class="fa fa-cutlery"></i>
             <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine"
@@ -54,6 +54,7 @@
                 @endforeach
             </select>
 </span>
+            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both; ">
 
             <button class="btn btn-success"
                     onclick="runsearch('search button');" title="{{ $alts["search"] }}">
@@ -64,7 +65,7 @@
                     onclick="resetsearch();" title="{{ $alts["reset"] }}">
                 <i class="fa fa-times"></i>
             </button>
-
+</span>
 
             <!--script>
                 (window.navigator.userAgent.indexOf("MSIE") != -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) ? document.getElementById('formatted_address2').style.height = '53px' : '';
@@ -84,7 +85,7 @@
                 <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe"
                                                                              style="color:blue;"></i></A>
             @endif
-
+<div  class="clearfix"></div>
         </div>
 
     </FORM>

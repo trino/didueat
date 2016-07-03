@@ -1,3 +1,4 @@
+.container{width:500px;}
 .container-fluid{padding: 0 !important;}
 .table td, .table th {border: 0 !important;padding:1rem !important;}
 .card-header,  .card-footer {

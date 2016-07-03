@@ -109,18 +109,18 @@ $alts = array(
         @include('menus')
     @endif
 
-    <div class="container" style="">
+    <div class="container" style="clear:both;">
 
         <?php printfile("views/restaurants.blade.php"); ?>
 
         <div class="row">
 
-            <div class="" id="results_show" style="display: none;">
-                <div class="col-lg-8 m-b-2">
+            <div class="col-lg-12" id="results_show" style="display: none;">
+                <div class=" m-b-2">
                     <?php popup(true, "message:nostores", false, false, ''); $IncludeMenu = false; ?>
                     @include('ajax.search_restaurants')
                 </div>
-                <div class="col-lg-4" ID="filter-results" style="height: 100%;">
+                <div  ID="filter-results" style="height: 100%;">
                     <div class="" style="">
                         <div class="card-footer text-xs-right" style="display: none">
                             <input type="button" name="search" class="btn btn-primary" value="Filter"

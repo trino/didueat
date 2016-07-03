@@ -1,6 +1,7 @@
 @include('popups.simplemodal')
-<div class="container m-t-1 footer">
-    <footer class="text-muted p-a-1">
+<div class="container m-t-1 footer ">
+<div class="row ">
+    <footer class=" col-md-12text-muted p-a-1">
         <?php
         printfile("views/dashboard/layouts/includes/footer.blade.php");
         $alts = array(
@@ -93,6 +94,7 @@ Thank you." title="{{ $alts["contactus"] }}">Email Support</a></li>
         </div>
     </footer>
 
+</div>
 </div>
 
 
