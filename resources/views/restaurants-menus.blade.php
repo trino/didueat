@@ -8,14 +8,13 @@
         $orderID = 0;
         $items=false;
         $order=false;
-        if(ReceiptVersion){
-            if(isset($_GET["orderid"])){
-                $orderID = $_GET["orderid"];
-                $order = select_field("orders", "id", $orderID);
-                $items = enum_all("orderitems", "order_id=" . $orderID);
-            } else {
-                $orderID = \App\Http\Models\Orders::newid();
-            }
+
+        if(isset($_GET["orderid"])){
+            $orderID = $_GET["orderid"];
+            $order = select_field("orders", "id", $orderID);
+            $items = enum_all("orderitems", "order_id=" . $orderID);
+        } else {
+            $orderID = \App\Http\Models\Orders::newid();
         }
 
         $checkout_modal = false;

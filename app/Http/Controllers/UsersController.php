@@ -275,7 +275,6 @@ class UsersController extends Controller
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             \DB::beginTransaction();
             try {
-
                 $msg = "";
                 if (!isset($post['listid']) && !ReceiptVersion) {
                     die("There are no items in your cart");
@@ -293,18 +292,8 @@ class UsersController extends Controller
                 $res['g_total'] = $post['g_total'];
                 $res['tax'] = $post['tax'];
                 $res['order_id'] = $post['order_id'];
+                $res['csr_action'] = $post['csr_action'];
 
-                if(!ReceiptVersion) {
-                    $res['listid'] = implode(',', $post['listid']);
-                    $res['prs'] = implode(',', $post['prs']);
-                    $res['qtys'] = implode(',', $post['qtys']);
-                    $res['extras'] = implode(',', $post['extras']);
-                    $res['menu_ids'] = implode(',', $post['menu_ids']);
-                    $res['csr'] = implode(',', $post['csr']);
-                    $res['restaurant_id'] = $post['res_id'];
-                } else {
-                    $res['csr_action'] = $post['csr_action'];
-                }
                 if(!isset($post["tip"])){$post["tip"] = "0.00";}
 
                 $res['order_till'] = $post['order_till'];
@@ -360,18 +349,9 @@ class UsersController extends Controller
                     }
                 }
 
-                if(!ReceiptVersion) {
-                    $ob2 = new \App\Http\Models\Reservations();
-                    $ob2->populate($res, "guid");
-                    $ob2->save();
-                    $oid = $ob2->id;
-                    $guid = $ob2->guid;
-                } else {
-                    $res['restaurant_id'] = 0;
-                    $oid = \App\Http\Models\Orders::finalizeorder($res);
-                    $guid = $oid;
-                }
-
+                $res['restaurant_id'] = 0;
+                $oid = \App\Http\Models\Orders::finalizeorder($res);
+                $guid = $oid;
                 debugprint("Order placed", $oid, !ReceiptVersion);
 
                 event(new \App\Events\AppEvents($res, "Order Created"));
@@ -386,9 +366,6 @@ class UsersController extends Controller
 
                 $userArray3["profile_type"] = "restaurant";
                 $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to ' . DIDUEAT . ' for more details. Thank you.';
-                if(ReceiptVersion == '2'){
-                    $res['restaurant_id'] = 0;
-                }
                 app('App\Http\Controllers\OrdersController')->notifystore($res['restaurant_id'], $userArray3['mail_subject'], $userArray3, "emails.receipt");
 
                 //CC

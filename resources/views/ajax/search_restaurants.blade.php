@@ -1,6 +1,6 @@
 <?php
     if (!isset($IncludeMenu)) {
-        $IncludeMenu = ReceiptVersion;
+        $IncludeMenu = true;
     }
     if($IncludeMenu){
     ?> @include('menus') <?php

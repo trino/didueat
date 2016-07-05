@@ -113,14 +113,11 @@
                         <?php
                             $URL = url('orders/order_detail/' . $value->id . '/' . $type);
                             $ResumeURL="";
-                            if(ReceiptVersion == ""){
-                                $resto = DB::table('restaurants')->select('name', 'slug')->where('id', '=', $value->restaurant_id)->get();
-                            } else {
-                                $restaurants = \App\Http\Models\OrderItems::distinct()->select('restaurant_id')->where('order_id', $value->id)->get();
-                                $value->guid = $value->id;
-                                if($value->status == "incomplete"){//get the slug of the first restaurant from the order
-                                    $ResumeURL = url("/") . "?orderid=" . $value->id;
-                                }
+
+                            $restaurants = \App\Http\Models\OrderItems::distinct()->select('restaurant_id')->where('order_id', $value->id)->get();
+                            $value->guid = $value->id;
+                            if($value->status == "incomplete"){//get the slug of the first restaurant from the order
+                                $ResumeURL = url("/") . "?orderid=" . $value->id;
                             }
                         ?>
                         <tr id="order{{ $value->id }}">

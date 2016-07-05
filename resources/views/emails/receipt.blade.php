@@ -4,15 +4,11 @@
         <?php
             if(!isset($email)){$email = false;}
             printfile($profile_type . " views/emails/receipt.blade.php<BR>Email: " . $email);
-            if(ReceiptVersion == '2'){
-                $order = select_field("orders", "id", $orderid);
-                $guid = $orderid;
-                $restaurant = firstrest($orderid);
-            } else {
-                $order = select_field("reservations", "id", $orderid);
-                $guid = $order->guid;
-                $restaurant = select_field("restaurants", "id", $order->restaurant_id);
-            }
+
+            $order = select_field("orders", "id", $orderid);
+            $guid = $orderid;
+            $restaurant = firstrest($orderid);
+
             $user_detail = select_field("profiles", "id", $order->user_id);
             $receipt = view('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail));
             $view = view('common.receipt', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "email" => true, "hash" => true));

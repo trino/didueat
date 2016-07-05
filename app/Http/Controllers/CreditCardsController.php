@@ -224,17 +224,14 @@ class CreditCardsController extends Controller {
                 // $stripeConf['status'] = 'approved';
                 $stripeConf['user_id'] = \Session::get('session_id');
 
-                $Tablename = iif(ReceiptVersion, "orders", "reservations");
-                edit_database($Tablename, "id", $OrderID, array("paid" => 1, "stripeToken" => $StripeToken));
+                edit_database("orders", "id", $OrderID, array("paid" => 1, "stripeToken" => $StripeToken));
 
                 $stripeOb = \App\Http\Models\StripeConfirm::findOrNew($stripeConf['orderID']);
                 $stripeOb->populate($stripeConf);
                 $stripeOb->save();
-                $Order = select_field($Tablename, "id", $OrderID);
-                if(ReceiptVersion){
-                    $Order->restaurant_id = false;
-                    $Order->guid = $Order->id;
-                }
+                $Order = select_field("orders", "id", $OrderID);
+                $Order->restaurant_id = false;
+                $Order->guid = $Order->id;
                 app('App\Http\Controllers\OrdersController')->notifystore($Order->restaurant_id, "Payment of $" . $Order->g_total . " recieved for order: " . $Order->id . " (" . $Order->guid . ")");
                 return true;
             }

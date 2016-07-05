@@ -62,14 +62,7 @@
                 $data["id"] = $id;
             }
 
-            switch(ReceiptVersion){
-                case "":
-                    $Query = \App\Http\Models\Reservations::listing($data, "list", $recCount)->get();
-                    break;
-                case 2:
-                    $Query = \App\Http\Models\Orders::listing($data, "list", $recCount);
-                    break;
-            }
+            $Query = \App\Http\Models\Orders::listing($data, "list", $recCount);
 
             $no_of_paginations = ceil($recCount / $per_page);
 
@@ -106,35 +99,28 @@
          * @return view
          */
         public function order_detail($ID, $type){
-            if(!ReceiptVersion) {
-                $data['order'] = \App\Http\Models\Reservations::select('reservations.*')->where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first();
-            } else {
-                $data['order'] = select_field("orders", "id", $ID);
-                $data['order']->guid = $ID;
-                //$data['items'] = enum_all("orderitems", array("order_id" => $ID));
-                $data['items'] = select_field("orderitems", "order_id", $ID, false, "restaurant_id", "ASC");
-            }
-            if (!ReceiptVersion && is_null($data['order']['restaurant_id'])) {//check for a valid restaurant $ID
-                return back()->with('status', 'Restaurant Not Found!');
-            } else {
-                $post = \Input::all();
-                if (isset($post) && count($post) > 0 && !is_null($post)) {
-                    if(isset($post["stripeToken"]) && $post["stripeToken"]){
-                        if (app('App\Http\Controllers\CreditCardsController')->stripepayment($ID, $post["stripeToken"], $data['order']->guid, $data['order']->g_total)) {
-                            $this->success("Your order has been paid for");
-                            $data['order']->paid = 1;
-                        }else {
-                            $this->failure("There was an issue with your credit card payment. Please email us at info@didueat.ca");
-                        }
+            $data['order'] = select_field("orders", "id", $ID);
+            $data['order']->guid = $ID;
+            //$data['items'] = enum_all("orderitems", array("order_id" => $ID));
+            $data['items'] = select_field("orderitems", "order_id", $ID, false, "restaurant_id", "ASC");
+
+            $post = \Input::all();
+            if (isset($post) && count($post) > 0 && !is_null($post)) {
+                if(isset($post["stripeToken"]) && $post["stripeToken"]){
+                    if (app('App\Http\Controllers\CreditCardsController')->stripepayment($ID, $post["stripeToken"], $data['order']->guid, $data['order']->g_total)) {
+                        $this->success("Your order has been paid for");
+                        $data['order']->paid = 1;
+                    }else {
+                        $this->failure("There was an issue with your credit card payment. Please email us at info@didueat.ca");
                     }
                 }
-                $data['ID'] = $ID;
-                $data['title'] = 'Orders Detail';
-                $data['type'] = $type;
-                if(!ReceiptVersion) { $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id); }//load the restaurant the order was placed for
-                $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);//load user that placed the order
-                return view('dashboard.orders.orders_detail', $data);
             }
+            $data['ID'] = $ID;
+            $data['title'] = 'Orders Detail';
+            $data['type'] = $type;
+            $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);//load user that placed the order
+            return view('dashboard.orders.orders_detail', $data);
+
         }
 
         //gets all orders for this restaurant
@@ -204,15 +190,9 @@
                 }
                 try {
                     if (is_numeric($post['id'])) {
-                        if(ReceiptVersion){
-                            $ob = \App\Http\Models\Orders::find($post['id']);
-                        } else {
-                            $ob = \App\Http\Models\Reservations::find($post['id']);
-                        }
+                        $ob = \App\Http\Models\Orders::find($post['id']);
                     } else {
-                        $ob = \App\Http\Models\Reservations::where('guid', $post['id'])->first();
-                        $flash = "Order " . $status . " via email";
-                        $post['note'] = $flash;
+                        return $this->failure($post['id'] . " is not a valid order ID", "/");
                     }
 
                     $ob->populate(array('status' => $status, 'note' => $post['note'], 'time' => now()));
@@ -250,11 +230,7 @@
                 return $this->failure("[Order Id] is missing!", 'orders/list/' . $type);
             }
             try {
-                if(ReceiptVersion){
-                    $ob = \App\Http\Models\Orders::find($id);
-                } else {
-                    $ob = \App\Http\Models\Reservations::find($id);
-                }
+                $ob = \App\Http\Models\Orders::find($id);
                 $ob->delete();
                 @unlink(public_path('assets/logs' . ReceiptVersion. '/' . $id . '.txt'));
                 return $this->listingAjax($type);

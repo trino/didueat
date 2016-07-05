@@ -241,10 +241,6 @@ if (!$canedit) {
                     <a style="hover:bac" href="#" id="{{ $value->id }}" name="{{ $value->id }}"
                        title="{{ $alts["product-pop-up"] }}"
                        class="card-link" data-toggle="modal"
-                       @if(!ReceiptVersion)
-                       data-res-id="{{ $value->restaurant_id }}"
-                       data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
-                            @endif
                     >
 
                         <div ID="divfour_{{ $value->cat_id }}">
@@ -475,43 +471,29 @@ if (!$canedit) {
                     }
 
                     if (found) {
-                        @if(!ReceiptVersion)
-                        var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
-                        if (distance > {{ $restaurant->max_delivery_distance }}) {
-                            var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km<BR>" + address + " is " + distance.toFixed(2) + " km away.";
+
+                        var message = "";
+                        var storedistances = "The address: " + address_latitude + " - " + address_longitude + "<BR>";
+                        $( ".receipt_item" ).each(function() {
+                            var distance = calcdistance($(this).attr("latitude"), $(this).attr("longitude"), address_latitude, address_longitude);
+                            storedistances = storedistances + unescapetext($(this).attr("name")) + " is at " + $(this).attr("latitude") + ", " + $(this).attr("longitude") + " and is " + distance + " km";
+                            if (distance > $(this).attr("maxdistance") ) {
+                                message = message + unescapetext($(this).attr("name")) + " will only deliver within " + $(this).attr("maxdistance") + " km<BR>" + address + " is " + distance.toFixed(2) + " km away.<BR>";
+                            }
+                        });
+                        if(message){
                             @if(debugmode())
-                                if (where == "addresscheck") {
-                                    return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
-                                }
+                               if (where == "addresscheck") {
+                                    message = message.replaceAll("<BR>", "\n", message);
+                                    return confirm(message + "Would you like to bypass this restriction? (DEBUG MODE)");
+                               }
                             @endif
                             alert(message);
                             return false;
-                        } else if (debugmode) {
-                            alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
+                        } else if (debugmode){
+                            alert(storedistances);
                         }
-                        @else
-                            var message = "";
-                            var storedistances = "The address: " + address_latitude + " - " + address_longitude + "<BR>";
-                            $( ".receipt_item" ).each(function() {
-                                var distance = calcdistance($(this).attr("latitude"), $(this).attr("longitude"), address_latitude, address_longitude);
-                                storedistances = storedistances + unescapetext($(this).attr("name")) + " is at " + $(this).attr("latitude") + ", " + $(this).attr("longitude") + " and is " + distance + " km";
-                                if (distance > $(this).attr("maxdistance") ) {
-                                    message = message + unescapetext($(this).attr("name")) + " will only deliver within " + $(this).attr("maxdistance") + " km<BR>" + address + " is " + distance.toFixed(2) + " km away.<BR>";
-                                }
-                            });
-                            if(message){
-                                @if(debugmode())
-                                   if (where == "addresscheck") {
-                                        message = message.replaceAll("<BR>", "\n", message);
-                                        return confirm(message + "Would you like to bypass this restriction? (DEBUG MODE)");
-                                   }
-                                @endif
-                                alert(message);
-                                return false;
-                            } else if (debugmode){
-                                alert(storedistances);
-                            }
-                        @endif
+
                         if (element) {
                             element.trigger("click");
                         }

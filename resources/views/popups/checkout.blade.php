@@ -99,21 +99,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            @if(ReceiptVersion)
                                 <INPUT TYPE="hidden" name="order_till" id="ordered_on_time">
-                            @else
-                                <div class="col-xs-12">
-                                    <div class="form-group">
-                                        <select class="form-control not-required" name="order_till" id="ordered_on_time">
-                                            <option value="">Order ASAP</option>
-                                            {{ get_time_interval($restaurant) }}
-                                        </select>
-
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            @endif
 
                             <div class="col-xs-12">
                                 <div class="form-group">

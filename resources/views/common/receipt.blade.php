@@ -1,6 +1,6 @@
 <?php
     printfile("views/common/receipt.blade.php");
-    if(ReceiptVersion) {$checkout_modal = false;}
+    $checkout_modal = false;
     //the receipt that goes in an order
     $ordertype = false;
     $em=0;
@@ -38,38 +38,16 @@
     $checkout = "Checkout";
     $is_my_restro = false;
     $title = "";
-    if(!ReceiptVersion) {
-        $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
 
-        if(read("restaurant_id")){
-            $is_my_restro = $restaurant->id == read("restaurant_id");
-            if(!$is_my_restro && !debugmode() && Session::get('session_type_user') != "super"){
-                $business_day = false;
-            }
-        }
-
-        if(!$business_day || !$restaurant->open){
-            $reason = "";
-            if(Session::get('session_type_user') == "super"){
-                $reason = "SUPER";
-            } else if(debugmode()){
-                $reason = "DEBUG MODE";
-            } else if ($is_my_restro) {
-                $reason = "OWNER";
-            }
-            $title = "Closed, but bypassing because: " . $reason;
-            $checkout .= " (" . $reason . ")";
-        }
-    } else {
-        if(isset($restaurant) && $restaurant === false){ unset($restaurant);}
-        if(!isset($restaurant)){
-            $restaurant = firstrest($items); //get first restaurant in the order
-            $business_day=true;
-            if(debugmode()){
-                $checkout .= " (v2)";
-            }
+    if(isset($restaurant) && $restaurant === false){ unset($restaurant);}
+    if(!isset($restaurant)){
+        $restaurant = firstrest($items); //get first restaurant in the order
+        $business_day=true;
+        if(debugmode()){
+            $checkout .= " (v2)";
         }
     }
+
     $alts = array(
             "cart-items" => "Number of items in your cart",
             "cart-total" => "Total cost of your cart",
