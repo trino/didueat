@@ -390,17 +390,19 @@ if (!$canedit) {
                     }, {ID: ID});
                 }
                 function clearForm(ID) {
+                    log("Clearing: " + ID);
                     var Parent = "#product-pop-up_" + ID;
                     $(Parent).find('input:visible').not(':button, :submit, :reset, :hidden, :checkbox, :radio :hidden').val('');
                     $(Parent).find(':checkbox, :radio').filter(':visible').prop('checked', false);
-                    $(".modalprice" + ID).text("$" + Number($("#originalprice" + ID).val()).toFixed(2) )
                     $("#select" + ID).val(1);
+                    changeqty(ID, 1);
+                    $(".modalprice" + ID).text("$" + Number($("#originalprice" + ID).val()).toFixed(2) );
                 }
 
                 function showproductpopup(ID) {
                     if ($("#profilemenu" + ID).hasClass("has_items")) {
-                        clearForm("#profilemenu" + ID);
                         $("#product-pop-up_" + ID).modal("show");
+                        clearForm(ID);
                     } else {
                         $("#profilemenu" + ID).trigger("click");
                     }
