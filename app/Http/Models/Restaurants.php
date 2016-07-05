@@ -176,7 +176,8 @@ class Restaurants extends BaseModel {
 
         foreach(array("tags", "cuisine") as $field) {//LIKE
             if (isset($data[$field]) && $data[$field]) {
-                $where .= " AND " . $field . " LIKE '%" . $data[$field] . "%'";
+                //DISABLE CUSINE SEARTCH
+           //   $where .= " AND " . $field . " LIKE '%" . $data[$field] . "%'";
             }
         }
 

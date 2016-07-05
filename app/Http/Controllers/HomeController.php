@@ -130,6 +130,7 @@ class HomeController extends Controller {
      * @return view
      */
     public function searchRestaurantsAjax() {
+     //   DD(\Input::all());
         $post = \Input::all();
         $start = (isset($post['start']))?$post['start']:0;
         $data = array();
@@ -195,7 +196,7 @@ class HomeController extends Controller {
      * @param $start
      * @return view
      */
-    public function searchRestaurants($searchTerm = '') {
+    public function searchRestaurants_DELETE($searchTerm = '') {
         $data['title'] = 'All Restaurants Page';
         $data['cuisine'] = cuisinelist();//search active cousines
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//search active tags

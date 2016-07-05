@@ -16,7 +16,7 @@ $alts = array(
                 (ID: {{ $value->id }})
             @endif
 
-            {{ $value->menu_item }}
+          ~~  {{ $value->menu_item }}
 
             <span class="pull-right">
             @if($value->price>0)
@@ -27,7 +27,7 @@ $alts = array(
             </SPAN>
 
                 <br>
-            <span class="card-text text-muted">{{ $value->description}}</span>
+            <span class="card-text text-muted">~~{{ $value->description}}</span>
         </div>
 </li>
 

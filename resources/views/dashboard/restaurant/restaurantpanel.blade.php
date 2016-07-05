@@ -151,7 +151,7 @@ if (isset($Restaurant["franchiseid"])) {
 <ul class="m-b-1  list-group" id="card-header-{{ $Restaurant["id"] }}"
     style="border-radius: .25rem !important;border:1px solid #eee; background:white; @if(!isset($order)) @endif ">
 
-    <div class="p-a-1 " style="">
+    <div class="p-a-1 bg-inverse" style="">
 
 
     <a class="card-link restaurant-url" {!! $OnClick !!} title="{{ $alts["restaurants/menu"] }}">

@@ -20,7 +20,7 @@
 
             <i class="fa fa-map-marker"></i>
 
-            <input style="margin-left:7px;border: 0 !important;background: transparent !important;" type="text"
+            <input style="margin-left:3px;border: 0 !important;background: transparent !important;" type="text"
                    name="formatted_address"
                    id="formatted_address2"
                    class="formatted_address autosize" placeholder="Enter Delivery Address"
@@ -85,7 +85,7 @@
                 <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe"
                                                                              style="color:blue;"></i></A>
             @endif
-<div  class="clearfix"></div>
+<div  class="clearfix"
         </div>
 
     </FORM>

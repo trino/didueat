@@ -40,12 +40,12 @@ class RestaurantController extends Controller {
         $cur_page = $page;
         $page -= 1;
         $start = $page * $per_page;
-
+/*
         if(isset($_GET["fixmenus"])){
             $this->fixcategories();
             echo '<FONT COLOR="RED">FIXING ALL CATEGORIES</FONT><BR>';
         }
-
+*/
         $data = array(
             'page' => $page,
             'cur_page' => $cur_page,
