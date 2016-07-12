@@ -981,7 +981,7 @@ if (!$canedit) {
                 //Google Api Codes.
                 $('body').on('change', '#formatted_address', function () {
                     if ($(this).val()) {
-                        window.location = "{{ url('restaurants') }}/" + $(this).val();
+                        //window.location = "{{ url('restaurants') }}/" + $(this).val();
                     }
                 });
 
