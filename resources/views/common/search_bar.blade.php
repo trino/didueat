@@ -56,7 +56,7 @@
             </span>
 
             <span style="text-wrap: none; white-space: nowrap;float:left;clear:both;">
-                <input type="search" id="textsearch" name="search" size=60 value="<?= $_GET["ordersearch"]; ?>">
+                <input type="search" id="textsearch" name="search" size=60 value="<?= $_GET["ordersearch"]; ?>" spellcheck="true">
                 <button class="btn btn-success" id="startspeech" style="display:none;" value="Click to Speak" onclick="startButton(event);">
                     <i class="fa fa-microphone"></i>
                 </button>
