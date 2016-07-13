@@ -12,7 +12,9 @@
                     "plus" => "Add 1 item",
                     "bigimage" => "This item's picture",
                     "clear" => "Erase the form and start over",
-                    "csr" => "What to do if something is wrong with the order"
+                    "csr" => "What to do if something is wrong with the order",
+                    "close" => "Close this window",
+                    "assimilate" => "Attempt to copy you order from the search box"
             );
             $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
             $min_p = get_price($value->id);
@@ -249,7 +251,7 @@
                 <div class="">
                     <div class=" pull-left">
                         <button type="button" class="btn btn-link text-muted hidden-md-up p-x-0 p-r-1 m-x-"
-                                title="Close"
+                                title="{{ $alts["close"] }}"
                                 data-dismiss="modal">
                             Close
                         </button>
@@ -295,6 +297,10 @@
 
                            class="btn btn-link text-muted p-l-0 "
                            onclick="confirmclearForm('{{ (isset($value->id))?$value->id:'' }}');">Clear</a>
+
+                        <a id="assimilate{{ $value->id }}" title="{{ $alts["assimilate"] }}"
+                           class="btn btn-link text-muted p-l-0 "
+                           onclick="assimilate('{{ (isset($value->id))?$value->id:'' }}');">Assimilate</a>
                     </div>
                 </div>
                 <div class="clearfix"></div>

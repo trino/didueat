@@ -55,11 +55,9 @@ if (isset($addresse_detail)) {
 
 <div class="">
 
-    <input type="hidden" id="street_num" value="{{ $street_num }}"/>
-    <input type="hidden" name="latitude" id="order_latitude" class="latitude"
-           value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
-    <input type="hidden" name="longitude" id="order_longitude" class="longitude"
-           value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
+    <input type="hidden" id="street_num" class="street_num" value="{{ $street_num }}"/>
+    <input type="hidden" name="latitude" id="order_latitude" class="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
+    <input type="hidden" name="longitude" id="order_longitude" class="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
     <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
 
 
@@ -188,6 +186,12 @@ if (isset($addresse_detail)) {
                            echo $addresse_detail->address;
                        }
                        ?>"/>
+                <SCRIPT>
+                    var formatted_address;
+                    $( document ).ready(function() {
+                        formatted_address = initAutocompleteWithID('formatted_address');
+                    });
+                </SCRIPT>
             </div>
         @endif
 
@@ -288,7 +292,7 @@ if (isset($addresse_detail)) {
 
 <div id="verifyAddress" style="display:none">
     <?= newrow($new, "Important", "", true, 10, true); ?>
-    <div class="instruct">Please Ensure Address was Correctly Filled Out</div>
+    <div class="instruct" style="padding-left:15px;">Please Ensure Address was Correctly Filled Out</div>
 </div>
 
 
@@ -301,9 +305,9 @@ echo newrow();
 //if($isUser){
 ?>
 <div class="col-xs-12">
-        <input type="text" name="notes" class="form-control" {{ $is_disabled }} notrequired="true"
-               placeholder="Notes, Unit, Buzz code, Side door"
-               value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+    <input type="text" name="notes" class="form-control" {{ $is_disabled }} notrequired="true"
+           placeholder="Notes, Unit, Buzz code, Side door"
+           value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
 </div>
 <?php
 
@@ -366,8 +370,8 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
         $(".commas").hide();//hide the commas if there is no data yet
     @endif
 
-            @if(isset($checkCookie) && $checkCookie)
-    if (getCookie("address")) {
+    @if(isset($checkCookie) && $checkCookie)
+        if (getCookie("address")) {
         $("#formatted_addressForDB").val(getCookie("address"));
         $("#formatted_address").val(getCookie("address"));
         $("#city").val(getCookie("city"));
@@ -379,3 +383,5 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
     }
     @endif
 </SCRIPT>
+
+

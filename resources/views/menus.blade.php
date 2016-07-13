@@ -397,7 +397,10 @@ if (!$canedit) {
 
                 function showproductpopup(ID) {
                     if ($("#profilemenu" + ID).hasClass("has_items")) {
-                        $("#product-pop-up_" + ID).modal("show");
+                        $("#product-pop-up_" + ID).modal({
+                            backdrop: 'static',   // This disable for click outside event
+                            keyboard: true        // This for keyboard event
+                        });
                         clearForm(ID);
                     } else {
                         $("#profilemenu" + ID).trigger("click");
@@ -981,7 +984,7 @@ if (!$canedit) {
                 //Google Api Codes.
                 $('body').on('change', '#formatted_address', function () {
                     if ($(this).val()) {
-                        window.location = "{{ url('restaurants') }}/" + $(this).val();
+                        //window.location = "{{ url('restaurants') }}/" + $(this).val();
                     }
                 });
 
