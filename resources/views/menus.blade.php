@@ -208,7 +208,7 @@ if (!$canedit) {
 
         <li class="list-group-item" style="background: #f3f3f3;border-bottom:0px !important;cursor: pointer;">
             <div class="restcat_{{ $value->restaurant_id }}" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
-              ~  <a style="color:#373a3c;"  name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
+              ~{{ $catindex }}  ~ <a style="color:#373a3c;"  name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
             </div>
             <div class="" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
                         name="saveOrderChng" type="button" value="Save All Category Order Changes"
