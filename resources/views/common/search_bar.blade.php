@@ -9,83 +9,84 @@
         <DIV style="color:red;" ID="skippedreason"></DIV>
         <div style="font-size: 110%;">
             <?php
-            $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
-            $alts = array(
-                    "search" => "Search for restaurants",
-                    "reset" => "Reset the search"
-            );
+                $Type = 'HIDDEN';// iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); //address search bar
+                $alts = array(
+                        "search" => "Search for restaurants",
+                        "reset" => "Reset the search"
+                );
+                if (!isset($_GET["ordersearch"]) || !trim($_GET["ordersearch"])) {
+                    $_GET["ordersearch"] = "";
+                }
             ?>
 
-            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both; ">
+            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both;">
+                <i class="fa fa-map-marker"></i>
 
-            <i class="fa fa-map-marker"></i>
+                <input style="margin-left:3px;border: 0 !important;background: transparent !important;" type="text"
+                       name="formatted_address"
+                       id="formatted_address2"
+                       class="formatted_address autosize" placeholder="Enter Delivery Address"
+                       onchange="change_address_event();"
+                       @if(isset($_GET["search"]))
+                            value="{{ $_GET["search"] }}"
+                       @endif
+                       onpaste="this.onchange();">
+            </span><br>
 
-            <input style="margin-left:3px;border: 0 !important;background: transparent !important;" type="text"
-                   name="formatted_address"
-                   id="formatted_address2"
-                   class="formatted_address autosize" placeholder="Enter Delivery Address"
-                   onchange="change_address_event();"
-                   @if(isset($_GET["search"]))
-                   value="{{ $_GET["search"] }}"
-                   @endif
-                   onpaste="this.onchange();">
+            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both;">
+                <i class="fa fa-clock-o"></i>
 
-</span><br>
-            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both; ">
-            <i class="fa fa-clock-o"></i>
+                <select style="border: 0 !important;background: transparent !important;" name="delivery-time" class="resizeselect m-r-2" id="delivery-time" onchange="searchtimechange();">
+                    <option value="">Order ASAP</option>
+                    {{ get_time_interval() }}
+                </select>
 
-            <select style="border: 0 !important;background: transparent !important;" name="delivery-time"
-                    class="resizeselect m-r-2" id="delivery-time" onchange="searchtimechange();">
-                <option value="">Order ASAP</option>
-                {{ get_time_interval() }}
-            </select>
+            </span><br>
 
-</span>
-                <br>
-            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both; ">
+            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both;">
+                <i class="fa fa-cutlery"></i>
+                <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine"
+                        class="resizeselect m-r-2"
+                        onchange="createCookieValue('cuisine', this.value); $(this).removeClass('redborder');">
+                    <option value="">Select Cuisine</option>
+                    @foreach($cuisine as $value)
+                        <option>{{ $value }}</option>
+                    @endforeach
+                </select>
+            </span>
 
-            <i class="fa fa-cutlery"></i>
-            <select style="border: 0 !important;background: transparent !important;" name="cuisine" id="cuisine"
-                    class="resizeselect m-r-2"
-                    onchange="createCookieValue('cuisine', this.value); $(this).removeClass('redborder');">
-                <option value="">Select Cuisine</option>
-                @foreach($cuisine as $value)
-                    <option>{{ $value }}</option>
-                @endforeach
-            </select>
-</span>
-            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both; ">
+            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both;">
+                <input type="search" id="textsearch" name="search" size=60 value="<?= $_GET["ordersearch"]; ?>">
+                <button class="btn btn-success" id="startspeech" style="display:none;" value="Click to Speak" onclick="startButton(event);">
+                    <i class="fa fa-microphone"></i>
+                </button>
+            </SPAN>
 
-            <button class="btn btn-success"
-                    onclick="runsearch('search button');" title="{{ $alts["search"] }}">
-                <!--i class="fa fa-search"></i--> Bring Me Food
-            </button>
+            <span style="text-wrap: none; white-space: nowrap;float:left;clear:both;">
+                <button class="btn btn-success" onclick="runsearch('search button');" title="{{ $alts["search"] }}">
+                    <!--i class="fa fa-search"></i--> Bring Me Food
+                </button>
 
-            <button style="float: right;" class="btn btn-warning"
-                    onclick="resetsearch();" title="{{ $alts["reset"] }}">
-                <i class="fa fa-times"></i>
-            </button>
-</span>
+                <button style="float: right;" class="btn btn-warning" onclick="resetsearch();" title="{{ $alts["reset"] }}">
+                    <i class="fa fa-times"></i>
+                </button>
+            </span>
 
             <!--script>
                 (window.navigator.userAgent.indexOf("MSIE") != -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) ? document.getElementById('formatted_address2').style.height = '53px' : '';
             </script-->
 
-            <input type="{{ $Type }}" name="latitude" id="latitude" class="latitude" style="color: black;"
-                   placeholder="latitude">
-            <input type="{{ $Type }}" name="longitude" id="longitude" class="longitude" style="color: black;"
-                   placeholder="longitude">
+            <input type="{{ $Type }}" name="latitude" id="latitude" class="latitude" style="color: black;" placeholder="latitude">
+            <input type="{{ $Type }}" name="longitude" id="longitude" class="longitude" style="color: black;" placeholder="longitude">
             <input type="{{ $Type }}" name="city" id="city" style="color: black;" placeholder="city">
             <input type="{{ $Type }}" name="province" id="province" style="color: black;" placeholder="province">
-            <input type="{{ $Type }}" name="postal_code" id="postal_code" style="color: black;"
-                   placeholder="postal_code">
+            <input type="{{ $Type }}" name="postal_code" id="postal_code" style="color: black;" placeholder="postal_code">
             <input type="{{ $Type }}" name="country" id="country" style="color: black;" placeholder="country">
 
             @if(debugmode())
-                <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe"
-                                                                             style="color:blue;"></i></A>
+                <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe" style="color:blue;"></i></A>
             @endif
-<div  class="clearfix"
+            <div  class="clearfix"></div>
         </div>
 
     </FORM>
@@ -234,20 +235,41 @@
 
         $(".autosize").autoresize({padding: 20, minWidth: 200, maxWidth: 500});
 
+        function startButton(event) {
+            recognition.start();
+        }
+
+        if ('webkitSpeechRecognition' in window) {
+            document.getElementById("startspeech").style = "display: inline;";
+
+            var recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'en-CA';
+
+            //onstart onresult onerror onend
+            recognition.onresult = function (event) {
+                var transcript = '';
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    transcript += event.results[i][0].transcript;
+                }
+                document.getElementById("textsearch").value = transcript;
+            };
+        }
     </script>
 
+    <script src="{{ asset('assets/global/scripts/nui.js') }}"></script>
+
     <?php
-    printfile("views/common/search_bar.blade.php");
-    includeJS(url("assets/global/scripts/provinces.js"));
-    if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
-        echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-    }
+        printfile("views/common/search_bar.blade.php");
+        includeJS(url("assets/global/scripts/provinces.js"));
+        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
+            echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+        }
+        if ($first) {
+            echo '<script>$("#addy' . $first . '").trigger("click");</script>';
+        }
     ?>
-    <script>
-        <?php if ($first) {
-            echo '$("#addy' . $first . '").trigger("click");';
-        } ?>
-    </script>
 @endif
 
 
