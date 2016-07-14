@@ -27,7 +27,7 @@ $alts = array(
             </SPAN>
 
                 <br>
-            <span class="card-text text-muted">~~{{ $value->description}}</span>
+            <span class="card-text text-muted">~~{{ $value->id}}~~{{ $value->description}}</span>
         </div>
 </li>
 

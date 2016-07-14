@@ -111,7 +111,7 @@
                                                 <li class="list-group-item"
                                                     style="background: #f3f3f3;border-bottom:0px; padding:.35rem .75rem;"
                                                     id="title_{{ $sub->id }}">
-                                                    <span style="float:left;"> {{ ucfirst($sub->menu_item) }} &nbsp;
+                                                    <span style="float:left;">~{{ $sub->id }} ~ {{ ucfirst($sub->menu_item) }} &nbsp;
 
 </span>
 
@@ -181,7 +181,7 @@
 
                                                                     @if($sub->sing_mul =='1')
                                                                         <span class="c-indicator"></span>
-                                                                        <span class="ver">{{ $mm->menu_item }}
+                                                                        <span class="ver">{{ $mm->id }} ~ {{ $mm->menu_item }}
                                                                             <?php if ($mm->price) echo "<span>$" . number_format(str_replace('$', '', $mm->price), 2) . '</span>'; ?>
                                                                         </span>
                                                                     @endif
@@ -189,7 +189,7 @@
                                                                 </LABEL>
 
                                                                 @if($sub->sing_mul =='0')
-                                                                    <span class="ver">{{ $mm->menu_item }}
+                                                                    <span class="ver">{{ $mm->id }} ~ {{ $mm->menu_item }}
                                                                         <span><?php if ($mm->price) echo "$" . number_format(str_replace('$', '', $mm->price), 2); ?></span>
                                                                     </span>
                                                                 @endif

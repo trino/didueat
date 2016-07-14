@@ -84,6 +84,7 @@
 
     @if (debugmode())
         <style>
+            /*
             .container-fluid {
                 border: 1px solid green;
             }
@@ -99,7 +100,7 @@
             .div {
                 border: 1px solid red !important;
             }
-
+*/
             tr {
                 border: 3px solid pink;
             }
