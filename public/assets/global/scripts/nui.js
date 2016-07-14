@@ -1,12 +1,13 @@
 //natural user interface
 
+var wordstoignore = ["the", "with", "and"];
 var synonyms = [//multi-dimensional array of multi-word terms, the first term is the primary terms, followed by the secondary terms
-    ["jalapenos", "jalapeno", "jalapeño", "jalapeños"],
+    ["jalapenos", "jalapeno", "jalapeño", "jalapeños", "jalape?o"],
     ["green peppers"],
     ["red peppers"],
     ["black olives", "kalamata olives"],
+    ["sun dried tomatoes", "sun dried tomatoes", "sundried tomatoes", "sun dried tomatos", "sun dried tomatos", "sundried tomatos"],
     ["tomatoes", "tomatos"],
-    ["sun dried tomatoes", "sun dried tomatoes", "sundried tomatoes"],
     ["pepperoni", "pepperonis"],
     ["red onions"],
     ["extra large", "x-large"],
@@ -21,26 +22,39 @@ function findlabel(element){
     return label;
 }
 
+function replaceAll(Source, Find, ReplaceWith){
+    Find = Find.replaceAll("[?]", "[?]");
+    return Source.replaceAll(Find, ReplaceWith);
+}
+
 function replacesynonyms(searchstring){
     //replace synonyms with the first term to normalize the search
     searchstring = searchstring.trim().toLowerCase().replaceAll("-", " ");
+    var searchstring2 = "";
+    var temp = -1;
     for(var synonymparentindex = 0; synonymparentindex< synonyms.length; synonymparentindex++){
         for(var synonymchildindex = 0; synonymchildindex < synonyms[synonymparentindex].length; synonymchildindex++){
-            searchstring = searchstring.replaceAll(synonyms[synonymparentindex][synonymchildindex], synonyms[synonymparentindex][0].replaceAll(" ", "-"));
+            temp = searchstring.indexOf(synonyms[synonymparentindex][synonymchildindex]);
+            if(temp  > -1){
+                searchstring = replaceAll(searchstring, synonyms[synonymparentindex][synonymchildindex], "");
+                searchstring2 = searchstring2 + " " + synonyms[synonymparentindex][0].replaceAll(" ", "-");
+            }
         }
     }
-    return searchstring;
+    searchstring2 = searchstring2.trim() + " " + searchstring.trim();
+    return searchstring2.trim();
 }
 
 function assimilate(ID){
-    var searchstring = replacesynonyms($("#textsearch").val()).split(" ");
-    log("Starting with: " + searchstring);
+    var startsearchstring = replacesynonyms($("#textsearch").val());
+    var searchstring = startsearchstring.split(" ");
     //quantity
     for(var searchindex = 0; searchindex<searchstring.length; searchindex++){
         log("Checking: " + searchstring[searchindex]);
         if(!isNaN( searchstring[searchindex] )){
             if($("#select" + ID + " option:contains('" + searchstring[searchindex] + "')").length > 0) {//make sure the quantity even exists
                 $("#select" + ID).val(searchstring[searchindex]);
+                searchstring[searchindex] = false;//remove it from the search, no need to check it twice
             }
         }
     }
@@ -66,4 +80,12 @@ function assimilate(ID){
             $(this).prop('checked', true);
         }
     });
+
+    for (var i = searchstring.length-1; i > -1 ; i--) {
+        if(!searchstring[i]) {
+            searchstring.splice(i, 1);
+        }
+    }
+
+    return [startsearchstring, searchstring];
 }
