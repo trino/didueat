@@ -16,7 +16,7 @@ $alts = array(
                 (ID: {{ $value->id }})
             @endif
 
-          ~~  {{ $value->menu_item }}
+          ~~  <SPAN ID="itemtitle{{ $value->id }}">{{ $value->menu_item }}</SPAN>
 
             <span class="pull-right">
             @if($value->price>0)

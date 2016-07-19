@@ -11,7 +11,9 @@ var synonyms = [//multi-dimensional array of multi-word terms, the first term is
     ["pepperoni", "pepperonis"],
     ["red onions"],
     ["extra large", "x-large"],
-    ["anchovies", "anchovy"]
+    ["anchovies", "anchovy"],
+
+    ["2", "two"]
 ];
 
 function findlabel(element){
@@ -48,13 +50,17 @@ function replacesynonyms(searchstring){
 function assimilate(ID){
     var startsearchstring = replacesynonyms($("#textsearch").val());
     var searchstring = startsearchstring.split(" ");
+    var itemname = replacesynonyms($("#itemtitle" + ID).text());
+
     //quantity
     for(var searchindex = 0; searchindex<searchstring.length; searchindex++){
         log("Checking: " + searchstring[searchindex]);
         if(!isNaN( searchstring[searchindex] )){
             if($("#select" + ID + " option:contains('" + searchstring[searchindex] + "')").length > 0) {//make sure the quantity even exists
-                $("#select" + ID).val(searchstring[searchindex]);
-                searchstring[searchindex] = false;//remove it from the search, no need to check it twice
+                if(itemname.indexOf( searchstring[searchindex] ) == -1) {//make sure the number isn't part of the item name
+                    $("#select" + ID).val(searchstring[searchindex]);
+                    searchstring[searchindex] = false;//remove it from the search, no need to check it twice
+                }
             }
         }
     }

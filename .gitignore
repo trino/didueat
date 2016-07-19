@@ -87,3 +87,4 @@ config/app.php
 *.xml
 public/assets/global/scripts/dump.js
 public/assets/logs*/*
+.idea/misc.xml
