@@ -663,7 +663,7 @@ class HomeController extends Controller {
         $res_id = select_field("category", "id", $_POST["id"], "res_id");
         switch( $_POST["action"] ){
             case "rename":
-                update_database("category", "id", $_POST["id"], array("title" => $_POST["destination"]));
+                update_database("category", "id", $_POST["id"], array("title" => $_POST["destination"], "updated_at" => now()));//mark as needing recaching
                 break;
             case "merge":
                 $Display_order = first("SELECT max(display_order) as maximum FROM category WHERE res_id = " . $res_id)["maximum"];
@@ -674,6 +674,7 @@ class HomeController extends Controller {
                     $Display_order++;
                     update_database("menus", "id", $item->id, array("cat_id" =>  $_POST["destination"], "display_order" => $Display_order));
                 }
+                update_database("category", "id", $_POST["destination"], array("updated_at" => now()));//mark as needing recaching
                 break;
         }
         $this->updatemenu($res_id);

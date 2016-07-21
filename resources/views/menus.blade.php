@@ -209,11 +209,11 @@ function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $isla
                 <!-- start of category heading -->
                 <li class="list-group-item" style="background: #f3f3f3;border-bottom:0px !important;cursor: pointer;">
                     <DIV class="restcat_{{ $value->restaurant_id }}" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
-                      ~ {{ $catindex }} ~ <a style="color:#373a3c;"  name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
+                      ~ {{ $catindex }} ~ <a style="color:#373a3c;" name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
                     </DIV>
 
                     @if($allowedtoupload)
-                        <div class="pull-right editcat">
+                        <div class="pull-right editcat" TITLE="Category ID: {{ $value->cat_id }}">
                             <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link"
                                onclick="confirmcopy('{{ url("restaurant/copyitem/category/" . $value->cat_id) }}', 'category', '{{ $value->cat_name }}');">
                                 <i class="fa fa-files-o"></i>

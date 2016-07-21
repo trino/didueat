@@ -7,7 +7,7 @@ class Category extends BaseModel {
 
     protected $table = 'category';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function populate($data) {
         $cells = array('title', 'display_order', 'res_id');
