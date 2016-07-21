@@ -275,7 +275,25 @@ function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $isla
     <div id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
         <a style="hover:bac" href="#" id="{{ $value->id }}" name="{{ $value->id }}" title="{{ $alts["product-pop-up"] }}" class="card-link" data-toggle="modal">
             <div ID="divfour_{{ $value->cat_id }}">
-                @include("menuitem")
+                <?php
+                    $cachedfilename = public_path("assets/images/restaurants/" . $value->restaurant_id . "/menus/" . $value->id . "/cached.php");
+                    $cacheddate = filedate($cachedfilename);
+                    if(!$cacheddate || $cachedfilename < $value->updated_at){
+                        $data = view("menuitem", array(
+                                "alts" => $alts,
+                                "value" => $value,
+                                "allowedtoupload" => $allowedtoupload,
+                                "has_iconImage" => $has_iconImage
+                        ));
+
+                        $data = view("menuitem", get_defined_vars());
+
+                        savedata($cachedfilename, $data);
+                    } else {
+                        $data = iif(debugmode(), "<!--CACHED FILE--!>") . file_get_contents($cachedfilename);
+                    }
+                    echo $data;
+                ?>
             </div>
         </a>
     </div>

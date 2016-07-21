@@ -25,9 +25,7 @@
         </SPAN>
 
         @if($allowedtoupload)
-            <div>Edit Tools:
-
-            </div>
+            <!-- EDIT TOOLS GO HERE --!>
         @endif
     </div>
 

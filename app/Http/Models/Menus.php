@@ -8,7 +8,7 @@ class Menus extends BaseModel {
 
     protected $table = 'menus';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * @param array
@@ -29,6 +29,7 @@ class Menus extends BaseModel {
     //on save, makes sure the store is open if that's all it needed
     public function save(array $options = array()) {
         parent::save($options);
+        touchmenu("menus", $this->id );
         if(isset($this->restaurant_id)) {
             $before = select_field("restaurants", "id", $this->restaurant_id);
             $after = \App\Http\Models\Restaurants::restaurant_opens($this->restaurant_id, true);

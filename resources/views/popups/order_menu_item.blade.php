@@ -1,26 +1,26 @@
-<div class="modal" id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}" tabindex="-1" role="dialog"
-     aria-labelledby="viewDetailModelLabel" aria-hidden="true">
+<div class="modal" id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}" tabindex="-1" role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content p-b-0">
             <?php
-            printfile("resources/views/popups/order_menu_item.blade.php");
-            $alts = array(
-                    "addspan" => "Add this addon",
-                    "remspan" => "Remove this addon",
-                    "add" => "Add these items to your cart",
-                    "minus" => "Remove 1 item",
-                    "plus" => "Add 1 item",
-                    "bigimage" => "This item's picture",
-                    "clear" => "Erase the form and start over",
-                    "csr" => "What to do if something is wrong with the order",
-                    "close" => "Close this window",
-                    "assimilate" => "Attempt to copy you order from the search box"
-            );
-            $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
-            $min_p = get_price($value->id);
-            $has_iconImage = false;
-            $has_bigImage = false;
-            $has_items = false;
+                printfile("resources/views/popups/order_menu_item.blade.php");
+                $alts = array(
+                        "addspan" => "Add this addon",
+                        "remspan" => "Remove this addon",
+                        "add" => "Add these items to your cart",
+                        "minus" => "Remove 1 item",
+                        "plus" => "Add 1 item",
+                        "bigimage" => "This item's picture",
+                        "clear" => "Erase the form and start over",
+                        "csr" => "What to do if something is wrong with the order",
+                        "close" => "Close this window",
+                        "assimilate" => "Attempt to copy you order from the search box"
+                );
+                $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
+                $min_p = get_price($value->id);
+                $has_iconImage = false;
+                $has_bigImage = false;
+                $has_items = false;
+                $usedropdown = true;
             ?>
 
             @if ($has_bigImage)
@@ -90,14 +90,10 @@
                                     <tr>
                                         <td width="100%" id="td_{{ $sub->id }}" class="valign-top">
 
-                                            <input type="hidden" value="{{ $sub->exact_upto_qty }}"
-                                                   id="extra_no_{{ $sub->id }}">
-                                            <input type="hidden" value="{{ $sub->req_opt }}"
-                                                   id="required_{{ $sub->id }}">
-                                            <input type="hidden" value="{{ $sub->sing_mul }}"
-                                                   id="multiple_{{ $sub->id }}">
-                                            <input type="hidden" value="{{ $sub->exact_upto }}"
-                                                   id="upto_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->exact_upto_qty }}" id="extra_no_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->req_opt }}" id="required_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->sing_mul }}" id="multiple_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->exact_upto }}" id="upto_{{ $sub->id }}">
 
                                             <div class="infolist m-t-1">
                                                 <div style="display: none;">
@@ -115,26 +111,25 @@
 
 </span>
 
-                                                <span style="float:left;" class="limit-options no_text_break clearfix"
-                                                      style="">
+                                                <span style="float:left;" class="limit-options no_text_break clearfix" style="">
                                                    <?php
-                                                    $has_items = true;
-                                                    if ($sub->exact_upto == 0) {
-                                                        $upto = "up to ";
-                                                    } elseif ($sub->exact_upto == '1') {
-                                                        $upto = "exactly ";
-                                                    }
-                                                    if ($sub->req_opt == '0') {
-                                                        if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                            echo "Select " . $upto . $sub->exact_upto_qty . " ";
+                                                        $has_items = true;
+                                                        if ($sub->exact_upto == 0) {
+                                                            $upto = "up to ";
+                                                        } elseif ($sub->exact_upto == '1') {
+                                                            $upto = "exactly ";
                                                         }
-                                                        echo "<span style='color:#5cb85c!important;'>Optional</span>";
-                                                    } elseif ($sub->req_opt == '1') {
-                                                        if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                            echo "Select " . $upto . $sub->exact_upto_qty . " ";
+                                                        if ($sub->req_opt == '0') {
+                                                            if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
+                                                                echo "Select " . $upto . $sub->exact_upto_qty . " ";
+                                                            }
+                                                            echo "<span style='color:#5cb85c!important;'>Optional</span>";
+                                                        } elseif ($sub->req_opt == '1') {
+                                                            if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
+                                                                echo "Select " . $upto . $sub->exact_upto_qty . " ";
+                                                            }
+                                                            echo "<span style='color:#5cb85c!important;'>Required</span>";
                                                         }
-                                                        echo "<span style='color:#5cb85c!important;'>Required</span>";
-                                                    }
                                                     ?>
                                                 </span>
                                                     <div class="clearfix"></div>
@@ -147,24 +142,23 @@
                                                 <div class="list clearfix row" style="">
                                                     <div class="col-md-12" style="">
                                                         <?php
-                                                        $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get();
-                                                        $a = 0;
+                                                            $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get();
+                                                            $a = 0;
                                                         ?>
                                                         @foreach($mini_menus as $mm)
                                                             <?php
-                                                            $has_items = true;
-                                                            $a++;
-                                                            if ($mm->price != 0) {
-                                                                $extra_price = '(+$' . $mm->price . ')_';
-                                                            } else {
-                                                                $extra_price = '_';
-                                                            }
+                                                                $has_items = true;
+                                                                $a++;
+                                                                if ($mm->price != 0) {
+                                                                    $extra_price = '(+$' . $mm->price . ')_';
+                                                                } else {
+                                                                    $extra_price = '_';
+                                                                }
                                                             ?>
 
-                                                            <div class="pull-left" id="buttons_{{ $mm->id }}"
+                                                            <div class="pull-left" id="buttons_{{ $mm->id }}" href="javascript:void(0);"
 
-                                                                 style="border:1px solid #f4f4f4; padding:.35rem .75rem;text-wrap: none; white-space: nowrap; "
-                                                                 href="javascript:void(0);">
+                                                                 style="border:1px solid #f4f4f4; padding:.35rem .75rem;text-wrap: none; white-space: nowrap; ">
 
 
                                                                 <LABEL class="changemodalP c-input @if($sub->sing_mul =='1') c-radio @else p-l-0 @endif ">
@@ -265,18 +259,11 @@
                            href="javascript:void(0);">ADD</a>
                     </div>
                     <div class="pull-right btn p-r-0 text-muted">Qty
-                        <?php $usedropdown = true; ?>
-                        <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());"
-                                class="btn btn-secondary p-x-0 text-muted"
-                                style=" background: transparent; border:0 !important; @if(!$usedropdown) display:none; @endif ">
+                        <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());" class="btn btn-secondary p-x-0 text-muted" style=" background: transparent; border:0 !important; @if(!$usedropdown) display:none; @endif ">
                             <?php
-                            for ($i = 1; $i <= 10; $i++) {
-                            echo '<OPTION';
-                            if ($i == 1) {
-                            echo ' SELECTED';
-                            }
-                            echo '>' . $i . '</OPTION>';
-                            }
+                                for ($i = 1; $i <= 10; $i++) {
+                                    echo '<OPTION' . iif($i == 1, ' SELECTED') . '>' . $i . '</OPTION>';
+                                }
                             ?>
                         </SELECT>
                         @if($usedropdown) <SPAN STYLE="display: none;"> @endif
@@ -288,8 +275,7 @@
                         <a class="btn btn-secondary" href="javascript:void(0);" title="{{ $alts["plus"] }}"
                            onclick="changeqty('{{ $value->id }}', 'plus')">
                             <i class="fa fa-plus"></i>
-                        </a>
-                            @if($usedropdown) </SPAN> @endif
+                        </a>@if($usedropdown) </SPAN> @endif
                     </div>
 
                     <div class="pull-left">

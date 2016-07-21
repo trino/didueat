@@ -509,6 +509,12 @@ function guidv4() {
 }
 
 /////////////////////////////////////Date API////////////////////////////////////////
+function filedate($Filename){
+    if (file_exists($Filename)) {
+        return now(false, filemtime($Filename));
+    }
+}
+
 //returns the current date/time
 function now($totime = false, $now = false) {
     if (!$now) {
@@ -1031,6 +1037,12 @@ function getfilename($path, $WithExtension = false) {
     } else {
         return pathinfo($path, PATHINFO_FILENAME); //filename only, no extension
     }
+}
+
+function savedata($filename, $data){
+    $dir = getdirectory($filename);
+    if (!is_dir($dir) && $dir){mkdir($dir, 0777, true);}
+    file_put_contents($filename, $data);
 }
 
 //get the lower-cased extension of a file path
@@ -1974,6 +1986,18 @@ function firstrest($items){
             $menuitem = select_field("menus", "id", $item->parent_id);
             return select_field("restaurants", "id", $menuitem->restaurant_id);
         }
+    }
+}
+
+//mark menu item, it's category, and it's restaurant as needing recaching
+function touchmenu($what, $id, $data = false){
+    if(!$data){$data = array();}
+    $data["updated_at"] = now();
+    update_database($what, "id", $id, $data);
+    $data = select_field($what, "id", $id);
+    switch($what){
+        case "menus":       touch("category",       $data->cat_id);    break;
+        case "category":    touch("restaurants",    $data->res_id);    break;
     }
 }
 ?>
