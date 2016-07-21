@@ -233,6 +233,8 @@ function calctip(Subtotal, Tax, DeliveryFee) {
 function updatecart(where) {
     console.log("update cart: " + where);
     var total = $(".grandtotal").html();
+    if(!total){total= "$0.00";}
+
     $("#cart-header").show();
     $(".cart-header-total").html(total);
     if (!(debugmode || profiletype == 1)) {

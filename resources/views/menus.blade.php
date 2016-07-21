@@ -201,15 +201,53 @@ function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $isla
         $value->cat_name = getIterator($categories, "id", $prevCat)->title;
 
         $catNameStr[$prevCat] = $value->cat_name;
+
         ?>
 
         <DIV class=" {{ iif(!$firstcat, "collapsed") }} " id="c{{ $thisCatCnt }}"><!-- start of this category -->
             <div class="parents ">
                 <!-- start of category heading -->
                 <li class="list-group-item" style="background: #f3f3f3;border-bottom:0px !important;cursor: pointer;">
-                    <div class="restcat_{{ $value->restaurant_id }}" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
-                      ~{{ $catindex }}  ~ <a style="color:#373a3c;"  name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
-                    </div>
+                    <DIV class="restcat_{{ $value->restaurant_id }}" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
+                      ~ {{ $catindex }} ~ <a style="color:#373a3c;"  name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
+                    </DIV>
+
+                    @if($allowedtoupload)
+                        <div class="pull-right editcat">
+                            <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link"
+                               onclick="confirmcopy('{{ url("restaurant/copyitem/category/" . $value->cat_id) }}', 'category', '{{ $value->cat_name }}');">
+                                <i class="fa fa-files-o"></i>
+                            </A>
+
+                            <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
+                               id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
+                               href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
+                                <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href=" <?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
+                                <i class="fa fa-arrow-up"></i>
+                            </a>
+
+                            <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-link"
+                               id="down{{ $thisCatCnt }}"
+                               style="visibility:{{ $thisDownCatSort }} !important"
+                               href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
+                                <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/down");?>"> -->
+                                <i class="fa fa-arrow-down"></i>
+                            </a>
+
+                            <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right"
+                               onclick="deletecategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
+                                <i class="fa fa-times"></i>
+                            </A>
+
+                            <A title="{{ $alts["editcat"] }}" class="btn btn-sm btn-link pull-right"
+                               data-toggle="modal"
+                               data-target="#editCatModel" data-target-id="{{ $value->cat_id }}"
+                               onclick="editcategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
+                                <i class="fa fa-pencil"></i>
+                            </A>
+                        </div>
+                    @endif
+
                     <div class="" id="save{{ $thisCatCnt }}" style="display:none;color:#f00">
                         <input name="saveOrderChng" type="button" value="Save All Category Order Changes" onclick="saveCatOrderChngs({{ $thisCatCnt }})"/>
                         <span id="saveCatOrderMsg{{ $thisCatCnt }}"></span>
@@ -220,6 +258,7 @@ function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $isla
                     </div>
                 </li>
             </div>
+
 
             <DIV ID="cat_{{ $catindex }}" CLASS="{{ iif(!$firstcat, "collapse", "collapse in") }}">
                 <DIV>

@@ -26,39 +26,7 @@
 
         @if($allowedtoupload)
             <div>Edit Tools:
-            <div class="pull-right">
-                <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link"
-                   onclick="confirmcopy('{{ url("restaurant/copyitem/category/" . $value->cat_id) }}', 'category', '{{ $value->cat_name }}');">
-                    <i class="fa fa-files-o"></i>
-                </A>
 
-                <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
-                   id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
-                   href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
-                    <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href=" <?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
-                    <i class="fa fa-arrow-up"></i>
-                </a>
-
-                <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-link"
-                   id="down{{ $thisCatCnt }}"
-                   style="visibility:{{ $thisDownCatSort }} !important"
-                   href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
-                    <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/down");?>"> -->
-                    <i class="fa fa-arrow-down"></i>
-                </a>
-
-                <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right"
-                   onclick="deletecategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
-                    <i class="fa fa-times"></i>
-                </A>
-
-                <A title="{{ $alts["editcat"] }}" class="btn btn-sm btn-link pull-right"
-                   data-toggle="modal"
-                   data-target="#editCatModel" data-target-id="{{ $value->cat_id }}"
-                   onclick="editcategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
-                    <i class="fa fa-pencil"></i>
-                </A>
-            </div>
             </div>
         @endif
     </div>

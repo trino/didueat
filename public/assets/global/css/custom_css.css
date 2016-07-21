@@ -170,12 +170,13 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 hr {
-
     border-top: 1px solid #ddd !important;
-
 }
 
-
+.editcat{
+    position: relative;
+    top: -27px;
+}
 
 .modal {
     overflow-y: auto;
