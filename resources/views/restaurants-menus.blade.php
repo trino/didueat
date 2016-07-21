@@ -38,7 +38,7 @@
             "add_item" => "Add Item"
         );
 
-        $allowedtoupload = $is_my_restro;
+        $allowedtoupload = $is_my_restro && $menu_id == $restaurant->id;
         if (read("profiletype") == 1 || read("profiletype") == 3) {$allowedtoupload = true;}
 
         if(!$restaurant->latitude || !$restaurant->longitude){
@@ -56,7 +56,7 @@
 
                 @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant, "details" => true, "showtoday" => true))
 
-                @if($allowedtoupload && $menu_id == $restaurant->id)
+                @if($allowedtoupload)
                         <a href="#" id="add_item0" type="button"
                            class="btn btn-success btn-lg additem  btn-block m-b-1"
                            data-toggle="modal"
@@ -84,10 +84,10 @@
                             $catIDforJS_Str="";
                             $catNameStrJS="";
                             if(!isset($catid)){$catid=0;}
-                            printmenu($__env, $restaurant, $catid, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS);
+                            printmenu($__env, $restaurant, $catid, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS, true, $allowedtoupload);
                         ?>
 
-                        @if($allowedtoupload && $menu_id == $restaurant->id)
+                        @if($allowedtoupload)
                                 <a href="#" id="add_item0" type="button"
                                    class="btn btn-success btn-lg additem  btn-block m-b-1"
                                    data-toggle="modal"
@@ -102,7 +102,7 @@
                 <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
                 <?php
                     if(!isset($order)){$order = false;}
-                    printablereceipt($restaurant, $is_my_restro, $business_day, $checkout_modal, $__env, $order, $items);
+                    //printablereceipt($restaurant, $is_my_restro, $business_day, $checkout_modal, $__env, $order, $items);
                 ?>
                 </div>
 
@@ -148,6 +148,6 @@
 
 <DIV ID="popupholder"></DIV>
 <SCRIPT>isinreceipt = false;</SCRIPT>
-    @include('popups.more_detail')
-    <?php printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS); ?>
+@include('popups.more_detail')
+<?php printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS); ?>
 @stop

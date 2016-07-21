@@ -6,7 +6,7 @@
         <?php
     }
 
-function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS_Str, &$catNameStrJS, $firstcat = true){
+function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS_Str, &$catNameStrJS, $firstcat = true, $allowedtoupload = false){
     $alts = array(
             "product-pop-up" => "Product info",
             "up_cat" => "Move Category up",
@@ -104,7 +104,7 @@ function printmenu($__env, $restaurant, $catid, &$itemPosnForJSStr, &$catIDforJS
     echo '<div id="accordion" role="tablist" aria-multiselectable="true">';
     foreach ($valueA as $index => $category) {
         $last = count($category) - 1;
-        printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr, $isBeingIncluded);
+        printmenuitems($category, true, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt, $alts, $__env, $last, $firstcat, $trueID, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr, $isBeingIncluded, $allowedtoupload);
         $firstcat = false;
         $thisCatCnt++;
         $catMenuCnt++;
@@ -143,13 +143,14 @@ function consolelog($text){
 }
 
 function printmenuitems($category, $even, $categories, $thisCatCnt, $prevCat, $catCnt, $restaurant, $menu_id, $catMenuCnt,
-                        $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $isBeingIncluded){
+                        $alts, $__env, $last, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $isBeingIncluded, $allowedtoupload){
     $halfway = ceil(count($category) * 0.5);
+    $isfirst=true;
     foreach ($category as $index => $value) {
-        $isfirst = $index == 0;
         $islast = $index == $last;
         $catMenuCnt = printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant,
-                $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr, $halfway, $isBeingIncluded);
+                $menu_id, $catMenuCnt, $alts, $__env, $firstcat, $catindex, $itemPosnForJS, $parentCnt, $lastcategory, $catNameStr, $halfway, $isBeingIncluded, $allowedtoupload);
+        $isfirst=false;
     }
 }
 
@@ -160,101 +161,90 @@ function iseven($number){
 echo '<!---- START PRINT MENU ITEMS ------>';
 
 function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $islast, $catCnt, $restaurant, $menu_id,
-                       $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $halfway, $isBeingIncluded){
-$noUpCatSort = false;
-$canedit = read("profiletype") == 1 || read("restaurant_id") == $restaurant->id;
-if ($isBeingIncluded) {
-    $canedit = false;
-    $thisCatCnt = $value->id;
-    $catindex = $value->id;
-}
-$thisUpMenuVisib = "visible";
-$thisDownMenuVisib = iif($islast, "hidden", "visible");
-$has_iconImage = false;
-$min_p = get_price($value->id);
-$parentCnt[$thisCatCnt] = $value->id; // for js sorting with ajax, not implemented yet
-$itemPosnForJS[$value->cat_id][$value->id] = $value->display_order;
-$catPosn[] = $thisCatCnt;
-if (!$catMenuCnt && $isfirst) {
-    $noUpCatSort = true;
-}
+                       $catMenuCnt, $alts, $__env, $firstcat, $catindex, &$itemPosnForJS, &$parentCnt, $lastcategory, &$catNameStr, $halfway, $isBeingIncluded, $allowedtoupload){
+    $noUpCatSort = false;
+    $canedit = read("profiletype") == 1 || read("restaurant_id") == $restaurant->id;
+    if ($isBeingIncluded) {
+        $canedit = false;
+        $thisCatCnt = $value->id;
+        $catindex = $value->id;
+    }
+    $thisUpMenuVisib = "visible";
+    $thisDownMenuVisib = iif($islast, "hidden", "visible");
+    $has_iconImage = false;
+    $min_p = get_price($value->id);
+    $parentCnt[$thisCatCnt] = $value->id; // for js sorting with ajax, not implemented yet
+    $itemPosnForJS[$value->cat_id][$value->id] = $value->display_order;
+    $catPosn[] = $thisCatCnt;
+    if (!$catMenuCnt && $isfirst) {
+        $noUpCatSort = true;
+    }
 
-if($isfirst){
-$thisUpMenuVisib = "hidden";
-if ($catMenuCnt) {
-    echo '</div></div><!-- end of previous category -->';
-}
-$prevCat = $value->cat_id;
-$value->cat_name = getIterator($categories, "id", $prevCat)->title;
+    $thisUpCatSort = iif($noUpCatSort, "hidden", "visible");
+    $thisDownCatSort = iif($lastcategory == $thisCatCnt, "hidden", "visible");
+    if ($menu_id == $restaurant->id) {
+        $canedit = $allowedtoupload || ($canedit || (read("profiletype") == 3 && $value->uploaded_by == read("id")));
+    }
+    if (!$canedit) {
+        $thisUpCatSort = 'hidden';
+        $thisDownCatSort = 'hidden';
+        $thisDownMenuVisib = 'hidden';
+        $thisUpMenuVisib = 'hidden';
+    }
 
-$catNameStr[$prevCat] = $value->cat_name;
-$thisUpCatSort = iif($noUpCatSort, "hidden", "visible");
-$thisDownCatSort = iif($lastcategory == $thisCatCnt, "hidden", "visible");
+    if($isfirst){
+        $thisUpMenuVisib = "hidden";
+        if ($catMenuCnt) {
+            echo '</div></div><!-- end of previous category -->';
+        }
+        $prevCat = $value->cat_id;
+        $value->cat_name = getIterator($categories, "id", $prevCat)->title;
 
-if ($menu_id == $restaurant->id) {
-    $canedit = $canedit || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
-}
-if (!$canedit) {
-    $thisUpCatSort = 'hidden';
-    $thisDownCatSort = 'hidden';
-    $thisDownMenuVisib = 'hidden';
-    $thisUpMenuVisib = 'hidden';
-}
+        $catNameStr[$prevCat] = $value->cat_name;
+        ?>
+
+        <DIV class=" {{ iif(!$firstcat, "collapsed") }} " id="c{{ $thisCatCnt }}"><!-- start of this category -->
+            <div class="parents ">
+                <!-- start of category heading -->
+                <li class="list-group-item" style="background: #f3f3f3;border-bottom:0px !important;cursor: pointer;">
+                    <div class="restcat_{{ $value->restaurant_id }}" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
+                      ~{{ $catindex }}  ~ <a style="color:#373a3c;"  name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
+                    </div>
+                    <div class="" id="save{{ $thisCatCnt }}" style="display:none;color:#f00">
+                        <input name="saveOrderChng" type="button" value="Save All Category Order Changes" onclick="saveCatOrderChngs({{ $thisCatCnt }})"/>
+                        <span id="saveCatOrderMsg{{ $thisCatCnt }}"></span>
+                    </div>
+                    <div class=" pull-right" id="saveMenus{{ $value->cat_id }}" style="display:none;color:#f00">
+                        <input name="saveOrderChng" type="button" value="Save Category Sorting" onclick="saveMenuOrder({{ $value->cat_id }},false,false)"/>
+                        <span id="saveMenuOrderMsg{{ $value->cat_id }}"></span>
+                    </div>
+                </li>
+            </div>
+
+            <DIV ID="cat_{{ $catindex }}" CLASS="{{ iif(!$firstcat, "collapse", "collapse in") }}">
+                <DIV>
+        <?php
+        $thisCatCnt++;
+        $catMenuCnt++;
+    }
+
+    if ($index == $halfway) {
+        echo '</DIV><DIV CLASS="">';
+    }
 ?>
 
-<DIV class=" {{ iif(!$firstcat, "collapsed") }} " id="c{{ $thisCatCnt }}"><!-- start of this category -->
-    <div class="parents ">
-        <!-- start of category heading -->
-
-        <li class="list-group-item" style="background: #f3f3f3;border-bottom:0px !important;cursor: pointer;">
-            <div class="restcat_{{ $value->restaurant_id }}" data-toggle="collapse" data-target="#cat_{{ $catindex }}">
-              ~{{ $catindex }}  ~ <a style="color:#373a3c;"  name="<?php echo $value->cat_name; ?>"><?=$value->cat_name; ?></a>
+    <div id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
+        <a style="hover:bac" href="#" id="{{ $value->id }}" name="{{ $value->id }}" title="{{ $alts["product-pop-up"] }}" class="card-link" data-toggle="modal">
+            <div ID="divfour_{{ $value->cat_id }}">
+                @include("menuitem")
             </div>
-            <div class="" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input
-                        name="saveOrderChng" type="button" value="Save All Category Order Changes"
-                        onclick="saveCatOrderChngs({{ $thisCatCnt }})"/><span
-                        id="saveCatOrderMsg{{ $thisCatCnt }}"></span></div>
-            <div class=" pull-right" id="saveMenus{{ $value->cat_id }}"
-                 style="display:none;color:#f00"><input name="saveOrderChng" type="button"
-                                                        value="Save Category Sorting"
-                                                        onclick="saveMenuOrder({{ $value->cat_id }},false,false)"/><span
-                        id="saveMenuOrderMsg{{ $value->cat_id }}"></span></div>
-        </li>
-
-
+        </a>
     </div>
-    <DIV ID="cat_{{ $catindex }}" CLASS="{{ iif(!$firstcat, "collapse", "collapse in") }}">
-        <DIV CLASS="">
-            <?php
-            $thisCatCnt++;
-            $catMenuCnt++;
-            }
 
-            if ($index == $halfway) {
-                echo '</DIV><DIV CLASS="">';
-            }
-
-            ?>
-
-                <div id="parent{{ $value->cat_id }}_{{ $value->display_order }}">
-
-                    <a style="hover:bac" href="#" id="{{ $value->id }}" name="{{ $value->id }}"
-                       title="{{ $alts["product-pop-up"] }}"
-                       class="card-link" data-toggle="modal"
-                    >
-
-                        <div ID="divfour_{{ $value->cat_id }}">
-                            @include("menuitem")
-                        </div>
-                    </a>
-
-                </div>
-
-
-            <?php
-            return $catMenuCnt++;
-            }
-            ?>
+<?php
+    return $catMenuCnt++;
+}
+?>
 
 
 
@@ -264,11 +254,11 @@ if (!$canedit) {
             <!---- START PRINT SCRIPTS ------>
 
             <?php
-            function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS){
-            $slug = "";
-            if (isset($restaurant->slug)) {
-                $slug = $restaurant->slug;
-            }
+                function printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS){
+                $slug = "";
+                if (isset($restaurant->slug)) {
+                    $slug = $restaurant->slug;
+                }
             ?>
             <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
             <script src="{{ asset('assets/global/scripts/receipt' . ReceiptVersion . '.js') }}"></script>
@@ -297,7 +287,7 @@ if (!$canedit) {
                 }
             </style>
             <SCRIPT>
-                        <?php echo $itemPosnForJSStr;?>
+                <?php echo $itemPosnForJSStr;?>
 
                 var itemPosnOrig = itemPosn;
                 var menuSortChngs = [];
@@ -1003,45 +993,6 @@ if (!$canedit) {
 
 
             <!---- delete from here ------>
-
-
-            @if(false)
-                <div class="pull-right">
-                    <A TITLE="{{ $alts["duplicate"] }}" class="btn btn-sm btn-link"
-                       onclick="confirmcopy('{{ url("restaurant/copyitem/category/" . $value->cat_id) }}', 'category', '{{ $value->cat_name }}');">
-                        <i class="fa fa-files-o"></i>
-                    </A>
-
-                    <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-link"
-                       id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important"
-                       href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
-                    <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href=" <?= url("restaurant/orderCat2/" . $value->cat_id . "/up");?>"> -->
-                        <i class="fa fa-arrow-up"></i>
-                    </a>
-
-                    <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-link"
-                       id="down{{ $thisCatCnt }}"
-                       style="visibility:{{ $thisDownCatSort }} !important"
-                       href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
-                    <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/" . $value->cat_id . "/down");?>"> -->
-                        <i class="fa fa-arrow-down"></i>
-                    </a>
-
-                    <A title="{{ $alts["deletecat"] }}" class="btn btn-sm btn-link pull-right"
-                       onclick="deletecategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
-                        <i class="fa fa-times"></i>
-                    </A>
-
-                    <A title="{{ $alts["editcat"] }}" class="btn btn-sm btn-link pull-right"
-                       data-toggle="modal"
-                       data-target="#editCatModel" data-target-id="{{ $value->cat_id }}"
-                       onclick="editcategory({{ $value->cat_id . ", '" . addslashes($value->cat_name) . "'"}});">
-                        <i class="fa fa-pencil"></i>
-                    </A>
-                </div>
-            @endif
-
-
 
 
 
