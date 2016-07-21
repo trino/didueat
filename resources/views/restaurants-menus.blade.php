@@ -146,8 +146,8 @@
 </div>
 </div>
 
-
-
+<DIV ID="popupholder"></DIV>
+<SCRIPT>isinreceipt = false;</SCRIPT>
     @include('popups.more_detail')
     <?php printscripts($checkout_modal, $orderID, $restaurant, $itemPosnForJSStr, $catIDforJS_Str, $catNameStrJS); ?>
 @stop

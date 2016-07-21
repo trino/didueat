@@ -469,7 +469,7 @@ class HomeController extends Controller {
 
     //loads menus view, containing menus of restaurant = $resid where category = $catid
     function loadmenus($catid, $resid) {
-// this might not be needed now, as the menus are loaded from blade call            
+        // this might not be needed now, as the menus are loaded from blade call
         $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
         $data['resid'] = $resid;
         $data['restaurant'] = $res_slug;
@@ -483,7 +483,6 @@ class HomeController extends Controller {
         if(count($menus_list)) {
             return view('menus', $data);
         }
-        
     }
 
     //loads contact us view

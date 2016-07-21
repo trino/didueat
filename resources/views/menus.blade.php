@@ -395,14 +395,18 @@ if (!$canedit) {
                     $(".modalprice" + ID).text("$" + Number($("#originalprice" + ID).val()).toFixed(2) );
                 }
 
+                var isinreceipt = true;
                 function showproductpopup(ID) {
-                    if ($("#profilemenu" + ID).hasClass("has_items")) {
+                    log("STEP 0");
+                    if ($("#profilemenu" + ID).hasClass("has_items") || isinreceipt) {
+                        log("STEP 1");
                         $("#product-pop-up_" + ID).modal({
                             backdrop: 'static',   // This disable for click outside event
                             keyboard: true        // This for keyboard event
                         });
                         clearForm(ID);
                     } else {
+                        log("STEP 2");
                         $("#profilemenu" + ID).trigger("click");
                     }
                 }
