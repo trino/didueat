@@ -1,5 +1,7 @@
+@if(!function_exists("printablereceipt"))
+    @include('menus')
+@endif
 <?php
-    //include('menus')
     $itemPosnForJSStr="";
     $catIDforJS_Str="";
     $catNameStrJS="";

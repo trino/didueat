@@ -648,13 +648,11 @@ class HomeController extends Controller {
                 case "loadmenu":
                     $Restaurant = select_field("restaurants", "id", $_POST["RestaurantID"]);
                     $cachedfilename = public_path("assets/images/restaurants/" . $_POST["RestaurantID"] . "/menus/cached.php");
-                    $cacheddate = filedate($cachedfilename);
-                    if(!$cacheddate || $cachedfilename < $Restaurant->updated_at){
+                    $data = loaddata($cachedfilename, $Restaurant->updated_at);
+                    if(!$data){
                         $_POST["Restaurant"] = $Restaurant;
                         $data = view('dashboard.restaurant.ajax.menu', $_POST);
                         savedata($cachedfilename, $data);
-                    } else {
-                        $data = iif(debugmode(), "<!--CACHED FILE--!>") . file_get_contents($cachedfilename);
                     }
                     echo $data;
                     break;

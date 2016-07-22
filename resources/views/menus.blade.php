@@ -277,8 +277,8 @@ function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $isla
             <div ID="divfour_{{ $value->cat_id }}">
                 <?php
                     $cachedfilename = public_path("assets/images/restaurants/" . $value->restaurant_id . "/menus/" . $value->id . "/cached.php");
-                    $cacheddate = filedate($cachedfilename);
-                    if(!$cacheddate || $cachedfilename < $value->updated_at){
+                    $data = loaddata($cachedfilename, $value->updated_at);
+                    if(!$data){
                         $data = view("menuitem", array(
                                 "alts" => $alts,
                                 "value" => $value,
@@ -288,10 +288,7 @@ function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $isla
                         ));
 
                         $data = view("menuitem", get_defined_vars());
-
                         savedata($cachedfilename, $data);
-                    } else {
-                        $data = iif(debugmode(), "<!--CACHED FILE--!>") . file_get_contents($cachedfilename);
                     }
                     echo $data;
                 ?>

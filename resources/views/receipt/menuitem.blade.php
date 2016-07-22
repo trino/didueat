@@ -1,6 +1,6 @@
 <?php //menu_id, parent_id, quantity, price, csr_action, title, extratitle, dbtitle ;
-$restaurant_id = select_field("menus", "id", $parent_id, "restaurant_id");
-$restaurant = select_field("restaurants", "id", $restaurant_id);
+    $restaurant_id = select_field("menus", "id", $parent_id, "restaurant_id");
+    $restaurant = select_field("restaurants", "id", $restaurant_id);
 ?>
 <tr>
     <td colspan="3">

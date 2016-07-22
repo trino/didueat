@@ -1043,6 +1043,15 @@ function savedata($filename, $data){
     $dir = getdirectory($filename);
     if (!is_dir($dir) && $dir){mkdir($dir, 0777, true);}
     file_put_contents($filename, $data);
+    debugprint($filename . " becomes: " . $data);
+}
+function loaddata($cachedfilename, $updated_at){
+    $cacheddate = filedate($cachedfilename);
+    $cachesize = 0;
+    if (file_exists($cachedfilename)) {$cachesize = filesize($cachedfilename);}
+    if(!(!$cacheddate || $cachedfilename < $updated_at || !$cachesize)){
+        return iif(debugmode(), "<!--CACHED FILE AT: " . $cacheddate . "--!>") . file_get_contents($cachedfilename);
+    }
 }
 
 //get the lower-cased extension of a file path
