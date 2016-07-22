@@ -24,7 +24,8 @@
             popup(false, "You can not place orders as a restaurant owner", "Oops");
         }
         if($menu_id != $restaurant->id){
-            popup(false, "Only the parent store can be edited", "Oops");
+            $parentslug = select_field("restaurants", "id", $menu_id, "slug");
+            popup(false, '<A HREF="' . url("restaurants/" . $parentslug . "/menu") .'">Only the parent store can be edited. Click here to go to it</A>', "Oops");
         }
 
         $is_my_restro = false;

@@ -283,7 +283,8 @@ function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $isla
                                 "alts" => $alts,
                                 "value" => $value,
                                 "allowedtoupload" => $allowedtoupload,
-                                "has_iconImage" => $has_iconImage
+                                "has_iconImage" => $has_iconImage,
+                                "min_p" => $min_p
                         ));
 
                         $data = view("menuitem", get_defined_vars());
