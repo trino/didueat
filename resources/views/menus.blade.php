@@ -204,7 +204,7 @@ function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $isla
 
         ?>
 
-        <DIV class=" {{ iif(!$firstcat, "collapsed") }} " id="c{{ $thisCatCnt }}"><!-- start of this category -->
+        <DIV  id="c{{ $thisCatCnt }}"><!-- start of this category -->
             <div class="parents ">
                 <!-- start of category heading -->
                 <li class="list-group-item" style="background: #f3f3f3;border-bottom:0px !important;cursor: pointer;">
@@ -260,7 +260,7 @@ function printmenuitem($categories, $value, $index, $thisCatCnt, $isfirst, $isla
             </div>
 
 
-            <DIV ID="cat_{{ $catindex }}" CLASS="{{ iif(!$firstcat, "collapse", "collapse in") }}">
+            <DIV ID="cat_{{ $catindex }}" >
                 <DIV>
         <?php
         $thisCatCnt++;

@@ -151,7 +151,7 @@ if (isset($Restaurant["franchiseid"])) {
 <ul class="m-b-1  list-group" id="card-header-{{ $Restaurant["id"] }}"
     style="border-radius: .25rem !important;border:1px solid #eee; background:white; @if(!isset($order)) @endif ">
 
-    <div class="p-a-1 bg-inverse" style="">
+    <div class="p-a-1" style="">
 
 
     <a class="card-link restaurant-url" {!! $OnClick !!} title="{{ $alts["restaurants/menu"] }}">
@@ -176,99 +176,3 @@ if (isset($Restaurant["franchiseid"])) {
     </div>
 </ul>
 
-
-
-<!-- delete from here -->
-<!-- delete from here -->
-<!-- delete from here -->
-<!-- delete from here -->
-<!-- delete from here -->
-<!-- delete from here -->
-<!-- delete from here -->
-
-
-@if(isset($details) && $details && false)
-
-
-    @if(isset($latitude) && $radius && $Restaurant['distance'] && false)
-        <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
-    @endif
-
-    @if(isset($Restaurant["notes"]) && isset($showtoday) && false)
-        {!! link_it($Restaurant["notes"]) !!}
-    @endif
-
-
-    @if(false)
-        @if($Restaurant["is_delivery"])
-            @if(!$Restaurant["is_pickup"])
-            @endif
-            <span class="list-inline-item">Delivery: {{ asmoney($Restaurant['delivery_fee'],$free=true) }}</span>
-            <span class="list-inline-item">Minimum: {{ asmoney($Restaurant['minimum'],$free=false) }}</span>
-        @elseif($Restaurant["is_pickup"])
-        @endif
-    @endif
-
-    <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal"
-       data-target="#viewMapModel"
-       title="{{ $alts["moredetails"] }}">More Details</a>
-
-    @if(read("profiletype") == 1)
-        <A HREF="{{ url("restaurant/info/" . $Restaurant["id"]) }}">Edit</A>
-    @endif
-@endif
-
-
-
-@if(false)
-    @if(isset($details) && $details)
-        <img style="max-width:20px;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
-    @else
-        <a {!! $OnClick !!}
-           class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
-            <img style="max-width:20px;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
-        </a>
-    @endif
-@endif
-
-
-
-@if (isset($is_menu) && false)
-    <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}" oldurl="?delivery_type={{ $delivery_type }}"
-       style="text-decoration:none;">
-        <?php
-        $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
-        if ($menuitems) {
-            echo '<div class="list-group-item" style="padding-top: 0rem !important; "></div>';
-            $i = 0;
-            foreach ($menuitems as $menuitem) {
-                echo '<div class="list-group-item" style="padding-top: .25rem !important;padding-bottom: .25rem !important; ">';
-                $filename = file_exists("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg");
-                if (($filename == 1)) {
-                    $filename = asset("assets/images/restaurants/" . $Restaurant["id"] . "/menus/" . $menuitem->id . "/icon-" . $menuitem->id . ".jpg") . ' ';
-                    echo '<IMG style="width: 34px; height: 34px;" class="img-rounded" SRC="' . $filename . '">';
-                }
-                echo ' ' . $menuitem->menu_item . '';
-                echo '<span style="white-space: nowrap;"> &ndash; ';
-
-
-                $min_p = get_price($menuitem->id);
-                if ($menuitem->price > 0) {
-                    echo "$" . number_format(($menuitem->price > 0) ? $menuitem->price : $min_p, 2);
-                } else {
-                    echo "$" . number_format($min_p, 2), "+";
-                }
-
-                echo '</span><div class="clearfix " style="margin-bottom:.1rem;"></div></div>';
-
-                $i++;
-                if ($i == 5) {
-                    break;
-                }
-            }
-        }
-        echo '<div class="list-group-item" style="padding-top: 0rem !important; "></div>';
-        ?>
-    </a>
-    <div class="clearfix"></div>
-@endif

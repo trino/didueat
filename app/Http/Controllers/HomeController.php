@@ -139,8 +139,8 @@ class HomeController extends Controller {
             try {
                 $total = 0;
                 $data['data'] = $post;
-                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, false, $total);//search for restaurants matching the data in the post["data"]
-                $data['sql'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, true);//SQL, does not do db call
+                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 1, $start, false, $total);//search for restaurants matching the data in the post["data"]
+                $data['sql'] = \App\Http\Models\Restaurants::searchRestaurants($data, 1, $start, true);//SQL, does not do db call
                 $data['count'] = $total;//count($data['query']);//count the previous results
                 $data['start'] = $start+10;
                 $data['hasMorePage'] = $total - $data['start']; //count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));//count remaining results

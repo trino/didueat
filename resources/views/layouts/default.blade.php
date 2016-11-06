@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <?php
-    //$start_loading_time = microtime(true);
+    $start_loading_time = microtime(true);
     if (Session::has('menuTS')) {
         $GLOBALS['menuTS'] = Session('menuTS');
     }
